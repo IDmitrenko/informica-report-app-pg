@@ -1,0 +1,2616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://eo.edu.ru/v5" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="push_data_request" type="v5:push_data_requestType" xmlns:v5="http://eo.edu.ru/v5"/>
+  <xs:complexType name="systemType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="name"/>
+        <xs:attribute type="xs:string" name="vendor"/>
+        <xs:attribute type="xs:string" name="version"/>
+        <xs:attribute type="xs:string" name="email"/>
+        <xs:attribute type="xs:string" name="install_type"/>
+        <xs:attribute type="xs:string" name="own_server"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="no_doo_actType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="age_3_7" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="no_doo_defType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="age_3_7" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="medicType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="age_3_7" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="familyType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="age_3_7" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="commonType">
+    <xs:sequence>
+      <xs:element type="v5:no_doo_actType" name="no_doo_act" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:no_doo_defType" name="no_doo_def" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:medicType" name="medic" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:familyType" name="family" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="groupType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="id" use="optional"/>
+        <xs:attribute type="xs:string" name="name" use="optional"/>
+        <xs:attribute type="xs:string" name="age_from" use="optional"/>
+        <xs:attribute type="xs:string" name="age_to" use="optional"/>
+        <xs:attribute type="xs:string" name="orientation" use="optional"/>
+        <xs:attribute type="xs:string" name="worktime_group" use="optional"/>
+        <xs:attribute type="xs:string" name="activity" use="optional"/>
+        <xs:attribute type="xs:string" name="capacity" use="optional"/>
+        <xs:attribute type="xs:string" name="enrolled" use="optional"/>
+        <xs:attribute type="xs:string" name="subgroup" use="optional"/>
+        <xs:attribute type="xs:string" name="ovz_deti" use="optional"/>
+        <xs:attribute type="xs:string" name="free_space" use="optional"/>
+        <xs:attribute type="xs:string" name="add_cont" use="optional"/>
+        <xs:attribute type="xs:string" name="transfer_space" use="optional"/>
+        <xs:attribute type="xs:string" name="partner_group" use="optional"/>
+        <xs:attribute type="xs:string" name="partner" use="optional"/>
+        <xs:attribute type="xs:string" name="days" use="optional"/>
+        <xs:attribute type="xs:string" name="educator" use="optional"/>
+        <xs:attribute type="xs:string" name="invalid" use="optional"/>
+        <xs:attribute type="xs:string" name="size" use="optional"/>
+        <xs:attribute type="xs:string" name="program" use="optional"/>
+        <xs:attribute type="xs:string" name="reduction_other" use="optional"/>
+        <xs:attribute type="xs:string" name="reduction_school" use="optional"/>
+        <xs:attribute type="xs:string" name="add_cont_ovz" use="optional"/>
+        <xs:attribute type="xs:string" name="add_cont_gkp" use="optional"/>
+        <xs:attribute type="xs:string" name="enrolled_gkp" use="optional"/>
+        <xs:attribute type="xs:string" name="capacity_gkp" use="optional"/>
+        <xs:attribute type="xs:string" name="program_ovz" use="optional"/>
+        <xs:attribute type="xs:string" name="ovz_type" use="optional"/>
+        <xs:attribute type="xs:string" name="ovz_type_dop" use="optional"/>
+        <xs:attribute type="xs:string" name="ovz_type_new" use="optional"/>
+        <xs:attribute type="xs:string" name="wellness" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="buildingType" mixed="true">
+    <xs:sequence>
+      <xs:element type="v5:groupType" name="group" maxOccurs="unbounded" minOccurs="0" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="id" use="optional"/>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+    <xs:attribute type="xs:string" name="fias_house_guid" use="optional"/>
+    <xs:attribute type="xs:string" name="plain_address" use="optional"/>
+    <xs:attribute type="xs:string" name="building_type_area" use="optional"/>
+    <xs:attribute type="xs:string" name="type_building" use="optional"/>
+    <xs:attribute type="xs:string" name="filial" use="optional"/>
+    <xs:attribute type="xs:string" name="depreciation" use="optional"/>
+    <xs:attribute type="xs:string" name="pool" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_equipment" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_path" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_communication" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_washroom" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_room" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_way" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_entrance" use="optional"/>
+    <xs:attribute type="xs:string" name="ear_territory" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_equipment" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_path" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_communication" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_washroom" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_room" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_way" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_entrance" use="optional"/>
+    <xs:attribute type="xs:string" name="vision_territory" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_equipment" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_path" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_communication" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_washroom" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_room" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_way" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_entrance" use="optional"/>
+    <xs:attribute type="xs:string" name="oda_territory" use="optional"/>
+    <xs:attribute type="xs:string" name="meeting_room" use="optional"/>
+    <xs:attribute type="xs:string" name="sport_gym" use="optional"/>
+    <xs:attribute type="xs:string" name="cabinet_med" use="optional"/>
+    <xs:attribute type="xs:string" name="cabinet_logopedist" use="optional"/>
+    <xs:attribute type="xs:string" name="cabinet_defectologist" use="optional"/>
+    <xs:attribute type="xs:string" name="cabinet_psychologist" use="optional"/>
+    <xs:attribute type="xs:string" name="status_building" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="buildingsType">
+    <xs:sequence>
+      <xs:element type="v5:buildingType" name="building" maxOccurs="unbounded" minOccurs="0" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ind_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="all" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_1_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_2_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_3_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_4Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_4_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_4_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_5Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_6Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7_4Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7_5Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7_6Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_7_7Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_8Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_8_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_8_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_8_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_9Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_9_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_10Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="all" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_10_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_11Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="all" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_12Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_12_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_13Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_13_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_14Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_15Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_16Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_17Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_17_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_18Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_18_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_18_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_18_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_18_4Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_18_5Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_19Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_19_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_19_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_19_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_4Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_5Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_6Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_7Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_20_8Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_21Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_1_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_1_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_3_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_3_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_4Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_5Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_5_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_5_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_6Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_7Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_8Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_8_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_22_8_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_23Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_24Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_25Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_26Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_27Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_28Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_29Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="all" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_29_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_29_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_29_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_30Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_30_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_30_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_31Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_31_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_31_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_31_3Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_31_4Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="y_0_1" use="optional"/>
+        <xs:attribute type="xs:string" name="y_1_2" use="optional"/>
+        <xs:attribute type="xs:string" name="y_2_3" use="optional"/>
+        <xs:attribute type="xs:string" name="y_3_4" use="optional"/>
+        <xs:attribute type="xs:string" name="y_4_5" use="optional"/>
+        <xs:attribute type="xs:string" name="y_5_6" use="optional"/>
+        <xs:attribute type="xs:string" name="y_6_7" use="optional"/>
+        <xs:attribute type="xs:string" name="y_7_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_32Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="all" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_32_1Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_32_2Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="h_00_05" use="optional"/>
+        <xs:attribute type="xs:string" name="h_05_10" use="optional"/>
+        <xs:attribute type="xs:string" name="h_10_15" use="optional"/>
+        <xs:attribute type="xs:string" name="h_15_20" use="optional"/>
+        <xs:attribute type="xs:string" name="h_20_25" use="optional"/>
+        <xs:attribute type="xs:string" name="h_25_30" use="optional"/>
+        <xs:attribute type="xs:string" name="h_30_35" use="optional"/>
+        <xs:attribute type="xs:string" name="h_35_40" use="optional"/>
+        <xs:attribute type="xs:string" name="h_40_45" use="optional"/>
+        <xs:attribute type="xs:string" name="h_45_50" use="optional"/>
+        <xs:attribute type="xs:string" name="h_50_55" use="optional"/>
+        <xs:attribute type="xs:string" name="h_55_60" use="optional"/>
+        <xs:attribute type="xs:string" name="h_60_65" use="optional"/>
+        <xs:attribute type="xs:string" name="h_65_70" use="optional"/>
+        <xs:attribute type="xs:string" name="h_70_75" use="optional"/>
+        <xs:attribute type="xs:string" name="h_75_e" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ind_33Type">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="all" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="advisory_centrType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="fact" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_not_edu_7_8" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_not_edu_3_7" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_not_edu_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_family_7_8" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_family_3_7" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_family_15_3" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_family_0_15" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_not_edu_7_8" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_not_edu_3_7" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_not_edu_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_family_7_8" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_family_3_7" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_family_15_3" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_family_0_15" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent" use="optional"/>
+        <xs:attribute type="xs:string" name="num_freelancer" use="optional"/>
+        <xs:attribute type="xs:string" name="num_staff_member" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_4" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_3" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_2" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_1" use="optional"/>
+        <xs:attribute type="xs:string" name="num_hits_distant" use="optional"/>
+        <xs:attribute type="xs:string" name="num_hits_personally" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="early_assistantType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="fact" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="num_child_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="num_parent_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_4" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_3" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_2" use="optional"/>
+        <xs:attribute type="xs:string" name="forma_1" use="optional"/>
+        <xs:attribute type="xs:string" name="num_hits_distant" use="optional"/>
+        <xs:attribute type="xs:string" name="num_hits_personally" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="specialistsType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="num_f_audiologist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_audiologist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_ophthalmologist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_ophthalmologist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_neurolog" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_neurolog" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_pediatr" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_pediatr" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_med" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_med" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_social" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_social" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_afk" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_afk" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_lfk" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_lfk" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_tiflo" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_tiflo" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_surdo" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_surdo" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_oligophren" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_oligophren" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_defectologist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_defectologist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_logopedist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_logopedist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_f_psychologist" use="optional"/>
+        <xs:attribute type="xs:string" name="num_s_psychologist" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="organizationType">
+    <xs:sequence>
+      <xs:element type="v5:buildingsType" name="buildings" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_1Type" name="ind_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_1_1Type" name="ind_1_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_2_1Type" name="ind_2_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_3_1Type" name="ind_3_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_4Type" name="ind_4" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_4_1Type" name="ind_4_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_4_2Type" name="ind_4_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_5Type" name="ind_5" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_6Type" name="ind_6" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7Type" name="ind_7" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7_1Type" name="ind_7_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7_2Type" name="ind_7_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7_3Type" name="ind_7_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7_4Type" name="ind_7_4" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7_5Type" name="ind_7_5" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7_6Type" name="ind_7_6" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_7_7Type" name="ind_7_7" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_8Type" name="ind_8" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_8_1Type" name="ind_8_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_8_2Type" name="ind_8_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_8_3Type" name="ind_8_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_9Type" name="ind_9" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_9_1Type" name="ind_9_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_10Type" name="ind_10" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_10_1Type" name="ind_10_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_11Type" name="ind_11" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_12Type" name="ind_12" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_12_1Type" name="ind_12_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_13Type" name="ind_13" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_13_1Type" name="ind_13_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_14Type" name="ind_14" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_15Type" name="ind_15" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_16Type" name="ind_16" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_17Type" name="ind_17" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_17_1Type" name="ind_17_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_18Type" name="ind_18" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_18_1Type" name="ind_18_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_18_2Type" name="ind_18_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_18_3Type" name="ind_18_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_18_4Type" name="ind_18_4" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_18_5Type" name="ind_18_5" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_19Type" name="ind_19" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_19_1Type" name="ind_19_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_19_2Type" name="ind_19_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_19_3Type" name="ind_19_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20Type" name="ind_20" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_1Type" name="ind_20_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_2Type" name="ind_20_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_3Type" name="ind_20_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_4Type" name="ind_20_4" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_5Type" name="ind_20_5" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_6Type" name="ind_20_6" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_7Type" name="ind_20_7" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_20_8Type" name="ind_20_8" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_21Type" name="ind_21" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22Type" name="ind_22" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_1Type" name="ind_22_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_1_1Type" name="ind_22_1_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_1_2Type" name="ind_22_1_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_2Type" name="ind_22_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_3Type" name="ind_22_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_3_1Type" name="ind_22_3_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_3_2Type" name="ind_22_3_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_4Type" name="ind_22_4" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_5Type" name="ind_22_5" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_5_1Type" name="ind_22_5_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_5_2Type" name="ind_22_5_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_6Type" name="ind_22_6" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_7Type" name="ind_22_7" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_8Type" name="ind_22_8" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_8_1Type" name="ind_22_8_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_22_8_2Type" name="ind_22_8_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_23Type" name="ind_23" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_24Type" name="ind_24" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_25Type" name="ind_25" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_26Type" name="ind_26" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_27Type" name="ind_27" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_28Type" name="ind_28" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_29Type" name="ind_29" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_29_1Type" name="ind_29_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_29_2Type" name="ind_29_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_29_3Type" name="ind_29_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_30Type" name="ind_30" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_30_1Type" name="ind_30_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_30_2Type" name="ind_30_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_31Type" name="ind_31" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_31_1Type" name="ind_31_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_31_2Type" name="ind_31_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_31_3Type" name="ind_31_3" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_31_4Type" name="ind_31_4" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_32Type" name="ind_32" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_32_1Type" name="ind_32_1" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_32_2Type" name="ind_32_2" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:ind_33Type" name="ind_33" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:advisory_centrType" name="advisory_centr" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:early_assistantType" name="early_assistant" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:specialistsType" name="specialists" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="code" use="optional"/>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+    <xs:attribute type="xs:string" name="type" use="optional"/>
+    <xs:attribute type="xs:string" name="status" use="optional"/>
+    <xs:attribute type="xs:string" name="structure" use="optional"/>
+    <xs:attribute type="xs:string" name="license" use="optional"/>
+    <xs:attribute type="xs:string" name="type_area" use="optional"/>
+    <xs:attribute type="xs:string" name="director" use="optional"/>
+    <xs:attribute type="xs:string" name="worktime" use="optional"/>
+    <xs:attribute type="xs:string" name="meal_serving_type" use="optional"/>
+    <xs:attribute type="xs:string" name="fias_org_guid" use="optional"/>
+    <xs:attribute type="xs:string" name="org_address" use="optional"/>
+    <xs:attribute type="xs:string" name="website" use="optional"/>
+    <xs:attribute type="xs:string" name="email" use="optional"/>
+    <xs:attribute type="xs:string" name="phone" use="optional"/>
+    <xs:attribute type="xs:string" name="additional_education" use="optional"/>
+    <xs:attribute type="xs:string" name="feature" use="optional"/>
+    <xs:attribute type="xs:string" name="num_filial" use="optional"/>
+    <xs:attribute type="xs:string" name="num_building" use="optional"/>
+    <xs:attribute type="xs:string" name="num_group" use="optional"/>
+    <xs:attribute type="xs:string" name="partner_doo" use="optional"/>
+    <xs:attribute type="xs:string" name="passport" use="optional"/>
+    <xs:attribute type="xs:string" name="lekoteka" use="optional"/>
+    <xs:attribute type="xs:string" name="centre_game" use="optional"/>
+    <xs:attribute type="xs:string" name="commet_status" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="organizationsType">
+    <xs:sequence>
+      <xs:element type="v5:organizationType" name="organization" maxOccurs="unbounded" minOccurs="0" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="municipalityType">
+    <xs:sequence>
+      <xs:element type="v5:commonType" name="common" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:organizationsType" name="organizations" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="regulation" use="optional"/>
+    <xs:attribute type="xs:string" name="oktmo" use="optional"/>
+    <xs:attribute type="xs:string" name="num_early_assistance" use="optional"/>
+    <xs:attribute type="xs:string" name="num_advisory_centr" use="optional"/>
+    <xs:attribute type="xs:string" name="max_doo" use="optional"/>
+    <xs:attribute type="xs:string" name="fix_area" use="optional"/>
+    <xs:attribute type="xs:string" name="time_mouo" use="optional"/>
+    <xs:attribute type="xs:string" name="phones_mouo" use="optional"/>
+    <xs:attribute type="xs:string" name="email_mouo" use="optional"/>
+    <xs:attribute type="xs:string" name="site_mouo" use="optional"/>
+    <xs:attribute type="xs:string" name="address_mouo" use="optional"/>
+    <xs:attribute type="xs:string" name="name_mouo" use="optional"/>
+    <xs:attribute type="xs:string" name="rpgu_link" use="optional"/>
+    <xs:attribute type="xs:string" name="epgu_link" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="founderType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="oktmo" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_5_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_5_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_5_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_mix" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_3_8" use="optional"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_0_3" use="optional"/>
+        <xs:attribute type="xs:string" name="change_pay" use="optional"/>
+        <xs:attribute type="xs:string" name="npa_pay" use="optional"/>
+        <xs:attribute type="xs:string" name="type_pay" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="foundersType">
+    <xs:sequence>
+      <xs:element type="v5:founderType" name="founder" maxOccurs="unbounded" minOccurs="0" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="crit_payType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="crit_npa"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="max_payType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="or_7_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="change_pay"/>
+        <xs:attribute type="xs:string" name="npa_pay"/>
+        <xs:attribute type="xs:string" name="type_pay"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="mid_payType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="or_7_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_7_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_56_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_4_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_3_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_2_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_5_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_4_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_3_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_2_age_0_3"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_mix"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_3_8"/>
+        <xs:attribute type="xs:string" name="or_1_time_1_age_0_3"/>
+        <xs:attribute type="xs:string" name="change_pay"/>
+        <xs:attribute type="xs:string" name="npa_pay"/>
+        <xs:attribute type="xs:string" name="type_pay"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="parent_payType">
+    <xs:sequence>
+      <xs:element type="v5:foundersType" name="founders" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:crit_payType" name="crit_pay" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:max_payType" name="max_pay" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:mid_payType" name="mid_pay" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="reg"/>
+  </xs:complexType>
+  <xs:complexType name="reportsType">
+    <xs:sequence>
+      <xs:element type="v5:municipalityType" name="municipality" maxOccurs="unbounded" minOccurs="0" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:parent_payType" name="parent_pay" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="push_data_requestType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="schema_version"/>
+      <xs:element type="v5:systemType" name="system" xmlns:v5="http://eo.edu.ru/v5"/>
+      <xs:element type="v5:reportsType" name="reports" xmlns:v5="http://eo.edu.ru/v5"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
