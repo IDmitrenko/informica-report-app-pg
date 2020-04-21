@@ -15,7 +15,7 @@ public class SchedulerTest {
 
     private final ReportLauncher launcher;
 
-    @Scheduled(cron = "0 16 22 * * ?")
+    @Scheduled(cron = "${scheduler.start.time}")
     public void reportCurrentTime() {
         launcher.buildReport("Launcher");
     }

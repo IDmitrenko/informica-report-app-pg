@@ -11,7 +11,7 @@
 	<groupId>ru.avers</groupId>
 	<artifactId>informica</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>informica</name>
+	<name>informica-report-app-pg</name>
 	<description>Reports for Informica</description>
 
 	<properties>
