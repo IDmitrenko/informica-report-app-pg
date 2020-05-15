@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<configuration>
+	<profile id="default">
+		<misc exclude-lgot-codes="09" exclude-status-codes="" exclude-doc-chld-codes="" exclude-status-reason-codes="09"  exclude-report-codes="08"  form-inqries-select-uchs-tab-visible="true" inqrystatus-type-queue="TOTAL" inqrystatus-queue-by-age-categ="false" form-uchs-auto-expand-list="false" user-registration-level="SUPERUSER" users-management-level="ADMIN" manual-reg-change="SUPERUSER" form-inqries-mf-tabs-visible="false" contingent-endpoint="http://188.92.243.68:8420/kurgan/region.cgi/doo_service">
+			<defaults timezone="" theme-id="slate" />
+			<inqry-next-educ-year-begin day="1" month="8"/>            
+			<inqry-check-status check-wout-reg="true">
+				<calculate-on-date day="10" month="8" />
+				<!-- возрастные интервалы-->
+				<age-interval>
+					<!-- возрастной интервал, from - начало интервала, month месяц (1..11), year год (0..99), to - конец интервала,
+                         нижняя граница - включительно, верхняя - не включая -->                     
+					<item>
+						<from year="0" />
+						<to year="1" />
+					</item> 
+					<item>
+						<from year="1" />
+						<to year="2" />
+					</item> 
+					<item>
+						<from year="2" />
+						<to year="3" />
+					</item> 
+					<item>
+						<from year="3" />
+						<to year="4" />
+					</item> 
+					<item>
+						<from year="4" />
+						<to year="5" />
+					</item> 
+					<item>
+						<from year="5" />
+						<to year="6" />
+					</item> 
+					<item>
+						<from year="6" />
+						<to year="7" />
+					</item>
+				</age-interval>
+			</inqry-check-status>
+			<queue-allocation queue-dt-rule="ruleApproved" restrict-by-curr-in-uch-year="true" specify-inqry-health-needs="true" >
+				<calculate-age-on-date day="10" month="8" />
+				<!-- настройка только для Частоозёрского района -->
+				<calculate-age-on-date-ter ter-code="20" day="1" month="8"/>
+				<!-- настройка только для Юргамышского района -->
+				<calculate-age-on-date-ter ter-code="26" day="15" month="10"/>
+				<queue-rules>
+					<queue-rule ter-code="20">
+						<item fld="bdt" sort-dir="asc" />
+						<item fld="weight" sort-dir="asc" />
+						<item fld="queue_enter" sort-dir="asc" />                                                                                        
+					</queue-rule>
+					<queue-rule ter-code="21">
+						<item fld="bdt" sort-dir="asc" />
+						<item fld="weight" sort-dir="asc" />
+						<item fld="queue_enter" sort-dir="asc" />                                                                                        
+					</queue-rule>
+				</queue-rules>                                
+			</queue-allocation>
+		</misc>
+		<reports>
+			<informica-report state-name="Курган" level="SUPERUSER" auto-upload-enabled="false" auto-upload-hours="13" auto-upload-minutes="37" debug="true"  get-enrolled-from="PLUS" delay="800"/>
+			<!-- con-timeout="120" req-timeout="120" /> -->
+			<common authority="Тестовая версия приложения «Заявитель»" app-descr="Версия для Кировской области inqry-gwt-inquirer 2017"/>
+		</reports>
+	</profile>
+</configuration>
