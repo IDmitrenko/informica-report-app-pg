@@ -5,4 +5,4 @@ server:
 
 scheduler:
   start:
-    time: 0 42 10 * * ?
+    time: 0 48 19 * * ?
