@@ -13,7 +13,7 @@ import java.util.Collection;
  *
  * @author Dias
  */
-class CMisc implements IDTO {
+public class CMisc implements IDTO {
     private static final Logger s_logger = LoggerFactory.getLogger(CMisc.class);
 
     public static final String s_root_name = "misc";

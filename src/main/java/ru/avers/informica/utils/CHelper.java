@@ -3,8 +3,10 @@ package ru.avers.informica.utils;
 //import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
 //import org.json.simple.parser.ParseException;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.utils.ConfigLoader;
 
@@ -21,6 +23,7 @@ import java.util.TimeZone;
  * @author Dias
  */
 
+@Component
 public class CHelper {
     private static final Logger s_logger = LoggerFactory.getLogger(CHelper.class);
 
@@ -180,7 +183,7 @@ public class CHelper {
         }
     }
 */
-    final private static String s_relative_settings_filename = "/config/settings/config.xml";
+    final private static String s_relative_settings_filename = "/settings/config.xml";
 
     private static String s_app_home_folder;
 
@@ -188,7 +191,7 @@ public class CHelper {
         return s_app_home_folder;
     }
 
-    static void setAppHomeFolder(String p_val) {
+    public static void setAppHomeFolder(String p_val) {
         s_app_home_folder = p_val;
     }
 

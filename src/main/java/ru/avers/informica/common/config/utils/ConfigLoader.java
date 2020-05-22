@@ -2,6 +2,7 @@ package ru.avers.informica.common.config.utils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.Configuration;
 

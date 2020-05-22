@@ -46,7 +46,7 @@ public class ReportInformica implements IDTO {
                     m_request_timeout,
                     m_delay = 60;
     private String m_state_name;
-    private Version m_version;
+    private Version m_version = Version.Five;
     private enum EnrolledSource{CMSN, CNTGN, PLUS}
     private enum Version {
         @XmlEnumValue("5")
