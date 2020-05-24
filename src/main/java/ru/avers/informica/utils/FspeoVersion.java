@@ -1,4 +1,4 @@
-package ru.avers.informica.config;
+package ru.avers.informica.utils;
 
 /**
  *

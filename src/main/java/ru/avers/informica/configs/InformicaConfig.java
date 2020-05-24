@@ -1,4 +1,4 @@
-package ru.avers.informica.config;
+package ru.avers.informica.configs;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.ComponentScan;

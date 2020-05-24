@@ -18,7 +18,7 @@ import org.avers.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.avers.informica.common.config.ReportInformica;
-import ru.avers.informica.config.FspeoVersion;
+import ru.avers.informica.utils.FspeoVersion;
 import ru.avers.informica.v4.CFspeoReport;
 import ru.avers.informica.v4.calc.CDataAdapterVer4;
 

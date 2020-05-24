@@ -1,21 +1,15 @@
 package ru.avers.informica.launcher;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CMisc;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.ReportInformica;
-import ru.avers.informica.config.FspeoVersion;
-import ru.avers.informica.config.InformicaConfig;
+import ru.avers.informica.utils.FspeoVersion;
 import ru.avers.informica.factory.FspeoFactory;
 import ru.avers.informica.utils.CHelper;
 

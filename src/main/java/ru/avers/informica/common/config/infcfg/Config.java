@@ -1,6 +1,5 @@
 package ru.avers.informica.common.config.infcfg;
 
-import org.avers.fspeo.v2.TypeOvz;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +14,7 @@ import java.util.*;
 
 /**
  *
- * @author lavrov
+ * @author Dias
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(name = "config", propOrder={
@@ -29,11 +28,10 @@ import java.util.*;
     "orientationDef"
 })
 public class Config implements Serializable {
-    private static final Logger s_logger = LoggerFactory.getLogger(org.avers.fspeo.config.Config.class);
+    private static final Logger s_logger = LoggerFactory.getLogger(Config.class);
     
     public final static String s_informica_report = "informica";
-    public final static String s_informica_report_for_ver4 = "informica-for-ver4";
-    
+
     final static private String s_root_nm = "config";
     
     private List<ServiceEndpoint> m_informica_service_endpoint;
