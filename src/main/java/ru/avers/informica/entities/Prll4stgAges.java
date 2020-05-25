@@ -1,20 +1,19 @@
 package ru.avers.informica.entities;
 
-import org.hibernate.envers.Audited;
 import ru.avers.informica.entities.abstraction.CItem;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+ TODO нет пока аналога таблицы в новой БД
 /**
  *
- * @author lavrov
+ * @author Dias
  */
 @Entity
 @Table(name="PRLL4STG_AGES")
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_PRLL4STG_AGES_ID")
-@Audited
 public class Prll4stgAges extends CItem {
 
     public Prll4stgAges() { super(); }

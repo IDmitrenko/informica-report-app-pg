@@ -9,6 +9,7 @@ import org.avers.dto.informica.IInformicaCountable;
 import org.avers.dto.inqry.AgeDto;
 import org.avers.fspeo.FspeoException;
 import org.avers.fspeo.TypeAgeRange;
+import ru.avers.informica.entities.Prll4stgAges;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -116,7 +117,7 @@ public class AgeRangeBdt {
         else if (p_countable instanceof IInformicaVacantCountable) {
             return getAgeRanges(((IInformicaVacantCountable)p_countable).getAges());
         }
-        else throw new FspeoException("Неизвестный тип элемента для подсчета: " + p_countable.getClass().getName());
+        else throw new FspeoException("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " + p_countable.getClass().getName());
     }
         
 }

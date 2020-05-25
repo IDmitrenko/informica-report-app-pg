@@ -1,6 +1,7 @@
 package ru.avers.informica.common.config.infcfg;
 
 import ru.avers.informica.dto.CAge;
+import ru.avers.informica.entities.Prll4stgAges;
 
 import javax.xml.bind.annotation.*;
 import java.util.*;

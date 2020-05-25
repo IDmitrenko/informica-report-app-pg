@@ -1,6 +1,8 @@
 package ru.avers.informica.common.config.infcfg;
 
 import javax.xml.bind.annotation.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
