@@ -4,7 +4,7 @@ import ru.avers.informica.entities.abstraction.CItem;
 
 import javax.persistence.*;
 
- TODO нет пока аналога таблицы в новой БД
+// TODO нет пока аналога таблицы в новой БД
 /**
  *
  * @author Dias

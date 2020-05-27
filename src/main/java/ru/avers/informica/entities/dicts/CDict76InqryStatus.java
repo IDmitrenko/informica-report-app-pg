@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
- TODO нет пока аналога таблицы в новой БД
+// TODO нет пока аналога таблицы в новой БД
 /**
  *
  * @author Dias

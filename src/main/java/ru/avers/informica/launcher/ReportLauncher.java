@@ -11,9 +11,11 @@ import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.ReportInformica;
 import ru.avers.informica.utils.FspeoVersion;
 import ru.avers.informica.factory.FspeoFactory;
+import ru.avers.informica.infcfg.Config;
 import ru.avers.informica.utils.CHelper;
 
 import javax.servlet.ServletContext;
+import java.io.ObjectInputFilter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -68,6 +70,10 @@ public class ReportLauncher {
             Config x_config = x_factory.retrieveInformicaConfig(x_version);
             FspeoReport x_fspeo_report = x_factory.createReport(x_version, x_settings.isMt());
 // InformicaDaemon 188
+        } catch(Exception ex) {
+            String x_str = "Ошибка при построении отчета";
+            s_logger.error(x_str, ex);
+            s_email_logger.error(m_marker_email, "{}. 1. Ошибка построения отчета", x_settings.getStateName());
         }
 
         debug = "1";

@@ -6,7 +6,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.*;
 
- TODO нет пока аналога таблицы в новой БД
+// TODO нет пока аналога таблицы в новой БД
 /**
  *
  * @author Dias

@@ -1,4 +1,4 @@
-package ru.avers.informica.common.config.infcfg;
+package ru.avers.informica.infcfg;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -65,7 +65,7 @@ public class ServiceEndpoint {
                 !m_informica_service_endpoint.equals(x_other.m_informica_service_endpoint)) {
             return false;
         }
-        if((m_ver == null) ? (x_other.m_ver != null) : !m_ver.equals(x_other.m_ver)) {
+        if((m_ver == null) ? (x_other.getVer() != null) : !m_ver.equals(x_other.m_ver)) {
             return false;
         }
         return true;

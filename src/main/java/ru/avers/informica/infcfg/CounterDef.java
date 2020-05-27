@@ -1,4 +1,4 @@
-package ru.avers.informica.common.config.infcfg;
+package ru.avers.informica.infcfg;
 
 import ru.avers.informica.dao.filtersort.IFilter;
 

@@ -1,7 +1,8 @@
-package ru.avers.informica.common.config.infcfg;
+package ru.avers.informica.infcfg;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.avers.informica.utils.xml.CUtil;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -50,10 +51,7 @@ public class Config implements Serializable {
         return m_informica_service_endpoint;
     }
     
-    @XmlType(name = "")
-    public static class SystemInfo extends org.avers.fspeo.SystemInfo {}
-    
-    @XmlElement
+    @XmlElement(name = "system")
     public SystemInfo getSystem() { return m_system; }
     public void setSystem(SystemInfo p_system) { m_system = p_system; }
     
@@ -138,9 +136,9 @@ public class Config implements Serializable {
     static {
         JAXBContext x_jaxb_ctx = null;
         try {
-            x_jaxb_ctx = JAXBContext.newInstance(org.avers.fspeo.config.Config.class);
+            x_jaxb_ctx = JAXBContext.newInstance(Config.class);
         } catch(JAXBException p_ex) {
-            s_logger.error("instantiate JAXBContext for " + org.avers.fspeo.config.Config.class.getName(), p_ex);
+            s_logger.error("instantiate JAXBContext for " + Config.class.getName(), p_ex);
         }
         s_jaxb_ctx = x_jaxb_ctx;
     }
@@ -149,22 +147,24 @@ public class Config implements Serializable {
     public String toString() {
         return s_jaxb_ctx == null ? 
                                 null : 
-                                org.avers.util.xml.CUtil.toStringXML(new JAXBElement<Config>(
-                                                                            new QName(s_root_nm),
-                                                                            org.avers.fspeo.config.Config.class,
-                                                                            null, 
-                                                                            this), 
-                                                        s_jaxb_ctx, 
-                                                        true);
+                                CUtil.toStringXML(
+                                        new JAXBElement<Config>(
+                                                                 new QName(s_root_nm),
+                                                                 Config.class,
+                                                            null,
+                                                             this),
+                                        s_jaxb_ctx,
+                            true);
     }    
     
     public boolean toOutputStream(OutputStream p_os) {
-        return s_jaxb_ctx == null ? false : org.avers.util.xml.CUtil.toOutputStream(p_os, 
-            new JAXBElement<Config>(new QName(s_root_nm), org.avers.fspeo.config.Config.class, null, this), s_jaxb_ctx, true);
+        return s_jaxb_ctx == null ? false : CUtil.toOutputStream(p_os,
+            new JAXBElement<Config>(new QName(s_root_nm), Config.class, null, this), s_jaxb_ctx, true);
     }
     
-    static public org.avers.fspeo.config.Config reestablish(String p_val) {
-        return org.avers.util.xml.CUtil.<org.avers.fspeo.config.Config>reestablish(p_val, org.avers.fspeo.config.Config.class, s_jaxb_ctx);
+    static public Config reestablish(String p_val) {
+        return CUtil.<Config> reestablish(p_val, Config.class, s_jaxb_ctx);
     }    
     
 }
+         

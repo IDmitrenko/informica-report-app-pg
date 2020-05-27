@@ -1,6 +1,7 @@
 package ru.avers.informica.dao.entities;
 
 import ru.avers.informica.dao.interaction.CInqrySysInteraction;
+import ru.avers.informica.entities.Inqrychldinuch;
 
 import javax.persistence.*;
 
@@ -13,15 +14,15 @@ import javax.persistence.*;
 @Table(name="INQRY_SYS_INTERACT")  // es - новая таблица (Данные по взаимодействию с внешними системами)
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_INQRY_SYS_INTERACT_ID")
 public class CntrInteract extends CInqrySysInteraction {
-    private Inqry m_inqry;
+    private Inqrychldinuch m_inqry;
     private String m_ext01;
 
     public CntrInteract() { }
     
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="ID_INQRY")
-    public Inqry getInqry() { return m_inqry; }
-    public void setInqry(Inqry p_val) { m_inqry = p_val; }
+    public Inqrychldinuch getInqry() { return m_inqry; }
+    public void setInqry(Inqrychldinuch p_val) { m_inqry = p_val; }
 
     @Basic(fetch= FetchType.LAZY)
     @Column(name="EXTERNAL01")

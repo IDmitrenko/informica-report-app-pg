@@ -1,26 +1,9 @@
 package ru.avers.informica.factory;
 
-import bl.CDBProviders;
-import bl.exception.BaseInquirerDbBLException;
-import bl.exception.CBaseInqryDbBLException;
-import bl.inquirer.interaction.IInteractionProvider;
-import dal.db.interaction.entities.CDict87SysInteraction;
-import org.avers.common.config.IInqryEducYearBegin;
-import org.avers.common.config.IReportInformica;
-import org.avers.dto.informica.UchInf;
-import org.avers.dto.inqry.user.UserIdDto;
-import org.avers.fspeo.config.Config;
-import org.avers.fspeo.metadata.Descriptor;
-import org.avers.fspeo.v3.Municipality;
-import org.avers.fspeo.v3.Organization;
-import org.avers.fspeo.v3.Report;
-import org.avers.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.avers.informica.common.config.ReportInformica;
 import ru.avers.informica.utils.FspeoVersion;
-import ru.avers.informica.v4.CFspeoReport;
-import ru.avers.informica.v4.calc.CDataAdapterVer4;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -31,7 +14,9 @@ import java.util.Date;
  */
 public class FspeoFactory {
     private static final Logger s_logger = LoggerFactory.getLogger(FspeoFactory.class);
-    
+
+// TODO продолжить разбираться
+/*
     private final UserIdDto m_id_user;
     private final IInqryEducYearBegin m_educ_year_begin;
     private final CDBProviders m_cmsn_providers;
@@ -188,7 +173,8 @@ public class FspeoFactory {
             return x_descr.build(x_config);
     }
     
-    
+*/
+
     
     static public FspeoVersion transformVersion(ReportInformica.Version p_val) {
         //  версия 5 по умолчанию

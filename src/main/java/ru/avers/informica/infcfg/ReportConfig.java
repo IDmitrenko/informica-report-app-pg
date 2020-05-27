@@ -1,4 +1,4 @@
-package ru.avers.informica.common.config.infcfg;
+package ru.avers.informica.infcfg;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;

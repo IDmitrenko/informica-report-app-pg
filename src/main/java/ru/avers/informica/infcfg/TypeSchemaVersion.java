@@ -1,4 +1,4 @@
-package ru.avers.informica.common.config.infcfg;
+package ru.avers.informica.infcfg;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlEnumValue;
@@ -20,11 +20,16 @@ public enum TypeSchemaVersion {
     private TypeSchemaVersion(String p_val) {
         m_value = p_val; 
     }
-    public String value() { return m_value; }
+    public String value() {
+        return m_value;
+    }
 
     public static TypeSchemaVersion fromValue(String p_val) {
-        for(TypeSchemaVersion x_item: TypeSchemaVersion.values())
-            if(x_item.m_value.equals(p_val)) return x_item;
+        for (TypeSchemaVersion x_item: TypeSchemaVersion.values()) {
+            if (x_item.m_value.equals(p_val)) {
+                return x_item;
+            }
+        }
         throw new IllegalArgumentException(p_val);
     }
     

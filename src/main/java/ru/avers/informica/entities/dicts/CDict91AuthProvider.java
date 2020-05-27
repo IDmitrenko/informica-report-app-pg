@@ -5,7 +5,7 @@ import ru.avers.informica.dto.user.CExtUserId;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
- TODO нет пока аналога таблицы в новой БД
+// TODO нет пока аналога таблицы в новой БД
 /**
  *
  * @author Dias

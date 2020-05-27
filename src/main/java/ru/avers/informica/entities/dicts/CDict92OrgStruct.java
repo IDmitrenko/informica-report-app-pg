@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "TypeOrgStruct")
 @XmlSeeAlso({CBaseDict.class})
 
- TODO нет пока аналога таблицы в новой БД
+// TODO нет пока аналога таблицы в новой БД
 @Entity
 @Table(name="V_DICT_92_ORG_STRUCT")
 @SequenceGenerator(name="SEQ_GEN")
