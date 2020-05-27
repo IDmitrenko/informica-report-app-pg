@@ -2,6 +2,7 @@ package ru.avers.informica.infcfg;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.avers.informica.dto.IDTO;
 import ru.avers.informica.utils.xml.CUtil;
 
 import javax.xml.bind.JAXBContext;
@@ -28,12 +29,16 @@ import java.util.*;
     "ovzTypeDef",
     "orientationDef"
 })
-public class Config implements Serializable {
-    private static final Logger s_logger = LoggerFactory.getLogger(Config.class);
+public class ConfigInformica implements Serializable {
+    private static final Logger s_logger = LoggerFactory.getLogger(ConfigInformica.class);
     
     public final static String s_informica_report = "informica";
 
     final static private String s_root_nm = "config";
+
+    public ConfigInformica() {
+
+    }
     
     private List<ServiceEndpoint> m_informica_service_endpoint;
     private Integer m_version;
@@ -47,42 +52,58 @@ public class Config implements Serializable {
             
     @XmlElement(name = "informica-service-endpoint")
     public List<ServiceEndpoint> getEndpoints() {
-        if (m_informica_service_endpoint == null) m_informica_service_endpoint = new ArrayList<ServiceEndpoint>();
+        if (m_informica_service_endpoint == null) {
+            m_informica_service_endpoint = new ArrayList<ServiceEndpoint>();
+        }
         return m_informica_service_endpoint;
     }
     
     @XmlElement(name = "system")
     public SystemInfo getSystem() { return m_system; }
-    public void setSystem(SystemInfo p_system) { m_system = p_system; }
+    public void setSystem(SystemInfo p_system) {
+        m_system = p_system;
+    }
     
     @XmlAttribute
-    public Integer getVersion() { return m_version; }
-    public void setVersion(Integer p_version) { m_version = p_version; }
+    public Integer getVersion() {
+        return m_version;
+    }
+    public void setVersion(Integer p_version) {
+        m_version = p_version;
+    }
 
     @XmlElement(name = "report-informica")
     public List<ReportConfig> getReports() {
-        if (m_reports == null) m_reports = new ArrayList<ReportConfig>();
+        if (m_reports == null) {
+            m_reports = new ArrayList<ReportConfig>();
+        }
         return m_reports;
     }
 
     @XmlElementWrapper(name = "counters-def")
     @XmlElement(name = "counter-def")
     public List<CounterDef> getCountersDef() {
-        if (m_counters_def == null) m_counters_def = new ArrayList<CounterDef>();
+        if (m_counters_def == null) {
+            m_counters_def = new ArrayList<CounterDef>();
+        }
         return m_counters_def;
     }
 
     @XmlElementWrapper(name = "age-ranges-def")
     @XmlElement(name = "age-range-def")
     public List<AgeRangeDef> getAgeRangesDef() {
-        if (m_age_ranges_def == null) m_age_ranges_def = new ArrayList<AgeRangeDef>();
+        if (m_age_ranges_def == null) {
+            m_age_ranges_def = new ArrayList<AgeRangeDef>();
+        }
         return m_age_ranges_def;
     }
 
     @XmlElementWrapper(name = "ovz-def")
     @XmlElement(name = "item")
     public List<OvzTypeDef> getOvzTypeDef() {
-        if (m_ovz_type_def == null) m_ovz_type_def = new ArrayList<OvzTypeDef>();
+        if (m_ovz_type_def == null) {
+            m_ovz_type_def = new ArrayList<OvzTypeDef>();
+        }
         return m_ovz_type_def;
     }
 
@@ -97,15 +118,21 @@ public class Config implements Serializable {
     @XmlElementWrapper(name = "orientation-def")
     @XmlElement(name = "item")
     public List<OrientationDef> getOrientationDef() {
-        if (m_orientation_def == null) m_orientation_def = new ArrayList<OrientationDef>();
+        if (m_orientation_def == null) {
+            m_orientation_def = new ArrayList<OrientationDef>();
+        }
         return m_orientation_def;
     }    
     
     private volatile Map<String, OrientationDef> m_map_orientation;
     public Map<String, OrientationDef> getMapOrientation() {
-        if (m_map_orientation != null) return m_map_orientation;
+        if (m_map_orientation != null) {
+            return m_map_orientation;
+        }
         synchronized(this) {
-            if (m_map_orientation != null) return m_map_orientation;            
+            if (m_map_orientation != null) {
+                return m_map_orientation;
+            }
             Map<String, OrientationDef> x_map = new HashMap<String, OrientationDef>();
             for (OrientationDef x_def : getOrientationDef()) {
                 x_map.put(x_def.getKey(), x_def);
@@ -117,15 +144,18 @@ public class Config implements Serializable {
     
     public ReportConfig getReport(String p_id_report) {
         for (ReportConfig x_report : m_reports) {
-            if (p_id_report.equals(x_report.getId()))
+            if (p_id_report.equals(x_report.getId())) {
                 return x_report;
+            }
         }
         return null;
     }
     
     @XmlElement(name="schema-informica")
     public List<SchemaConfig> getSchemas() {
-        if (m_schemas == null) m_schemas = new ArrayList<SchemaConfig>();
+        if (m_schemas == null) {
+            m_schemas = new ArrayList<SchemaConfig>();
+        }
         return m_schemas;
     }
     
@@ -136,9 +166,9 @@ public class Config implements Serializable {
     static {
         JAXBContext x_jaxb_ctx = null;
         try {
-            x_jaxb_ctx = JAXBContext.newInstance(Config.class);
+            x_jaxb_ctx = JAXBContext.newInstance(ConfigInformica.class);
         } catch(JAXBException p_ex) {
-            s_logger.error("instantiate JAXBContext for " + Config.class.getName(), p_ex);
+            s_logger.error("instantiate JAXBContext for " + ConfigInformica.class.getName(), p_ex);
         }
         s_jaxb_ctx = x_jaxb_ctx;
     }
@@ -148,9 +178,9 @@ public class Config implements Serializable {
         return s_jaxb_ctx == null ? 
                                 null : 
                                 CUtil.toStringXML(
-                                        new JAXBElement<Config>(
+                                        new JAXBElement<ConfigInformica>(
                                                                  new QName(s_root_nm),
-                                                                 Config.class,
+                                                                 ConfigInformica.class,
                                                             null,
                                                              this),
                                         s_jaxb_ctx,
@@ -159,12 +189,12 @@ public class Config implements Serializable {
     
     public boolean toOutputStream(OutputStream p_os) {
         return s_jaxb_ctx == null ? false : CUtil.toOutputStream(p_os,
-            new JAXBElement<Config>(new QName(s_root_nm), Config.class, null, this), s_jaxb_ctx, true);
+            new JAXBElement<ConfigInformica>(new QName(s_root_nm),
+                    ConfigInformica.class, null, this), s_jaxb_ctx, true);
     }
     
-    static public Config reestablish(String p_val) {
-        return CUtil.<Config> reestablish(p_val, Config.class, s_jaxb_ctx);
+    static public ConfigInformica reestablish(String p_val) {
+        return CUtil.<ConfigInformica> reestablish(p_val, ConfigInformica.class, s_jaxb_ctx);
     }    
     
 }
-         

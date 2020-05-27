@@ -9,13 +9,9 @@ import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CMisc;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.ReportInformica;
-import ru.avers.informica.utils.FspeoVersion;
-import ru.avers.informica.factory.FspeoFactory;
-import ru.avers.informica.infcfg.Config;
 import ru.avers.informica.utils.CHelper;
 
 import javax.servlet.ServletContext;
-import java.io.ObjectInputFilter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -38,7 +34,6 @@ public class ReportLauncher {
         String absolutePath = context.getClassLoader().getResource("config").getPath();
         cHelper.setAppHomeFolder(absolutePath);
 
-        // Посылка отчета Информики
         Calendar x_curr_time = Calendar.getInstance();
         SimpleDateFormat x_date_format = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm");
         s_email_logger.debug("ReportLauncher: Создание отчета информики, текущее время:"
@@ -56,6 +51,8 @@ public class ReportLauncher {
             m_marker_email = null;
         }
 
+// TODO продолжить ....
+/*
         try {
             FspeoVersion x_version = FspeoFactory.transformVersion(x_cfg_report_informica.getVersion());
             FspeoFactory x_factory = new FspeoFactory(
@@ -67,7 +64,7 @@ public class ReportLauncher {
 
             s_logger.debug("Fspeo Factory: {}", x_factory);
 
-            Config x_config = x_factory.retrieveInformicaConfig(x_version);
+            ConfigInformica x_config = x_factory.retrieveInformicaConfig(x_version);
             FspeoReport x_fspeo_report = x_factory.createReport(x_version, x_settings.isMt());
 // InformicaDaemon 188
         } catch(Exception ex) {
@@ -75,6 +72,7 @@ public class ReportLauncher {
             s_logger.error(x_str, ex);
             s_email_logger.error(m_marker_email, "{}. 1. Ошибка построения отчета", x_settings.getStateName());
         }
+*/
 
         debug = "1";
     }

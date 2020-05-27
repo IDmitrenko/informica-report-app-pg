@@ -19,7 +19,6 @@ public class Defaults implements IDTO {
     public Defaults() {
     }
 
-    // Значение временной зоны по умолчанию
     @XmlAttribute(name = s_attr_timezone)
     public String getTimezone() {
         return m_timezone;
@@ -29,7 +28,6 @@ public class Defaults implements IDTO {
         m_timezone = p_val;
     }
 
-    // Идентификатор темы по умолчанию
     @XmlAttribute(name = s_attr_theme_id)
     public String getThemeId() {
         return m_theme_id;

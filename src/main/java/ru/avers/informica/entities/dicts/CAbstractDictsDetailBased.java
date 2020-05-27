@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO нет пока аналога таблицы в новой БД
+//TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -40,7 +40,7 @@ public abstract class CAbstractDictsDetailBased extends CBaseDict implements ITr
 
     //==========================================================================
     //
-    //  переопределяемые в наследнике методы
+    //  РїРµСЂРµРѕРїСЂРµРґРµР»СЏРµРјС‹Рµ РІ РЅР°СЃР»РµРґРЅРёРєРµ РјРµС‚РѕРґС‹
     //
     abstract public CAbstractDictsDetailBased getParent();
     abstract public List<? extends CAbstractDictsDetailBased> getChilds();
@@ -68,12 +68,12 @@ public abstract class CAbstractDictsDetailBased extends CBaseDict implements ITr
         m_dicts_detail_item.setSpare02(getSpare02());
         m_dicts_detail_item.setSpare03(getSpare03());
 
-        //  актуализация родительского элемента
+        //  Р°РєС‚СѓР°Р»РёР·Р°С†РёСЏ СЂРѕРґРёС‚РµР»СЊСЃРєРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
         CAbstractDictsDetailBased x_parent = getParent();
         m_dicts_detail_item.setParent( (x_parent == null ? null : x_parent.m_dicts_detail_item) );
 
         if(hasChilds()) {
-            //  актуализация списка дочерних
+            //  Р°РєС‚СѓР°Р»РёР·Р°С†РёСЏ СЃРїРёСЃРєР° РґРѕС‡РµСЂРЅРёС…
             List<CDictsDetail> x_lst = new ArrayList<CDictsDetail>();
             for(CAbstractDictsDetailBased x_item: getChilds()) {
                 CDictsDetail x_dd_item = x_item.m_dicts_detail_item;

@@ -62,10 +62,10 @@ public class ReportInformica implements IDTO {
         m_is_email_log = p_val;
     }
 
-    // Минимальный уровень доступа для которого доступна функция "Отчет информики"
-    // (Кнопка на главной форме приложения, пункт "Отчет. Информика" в выпадающем списке формы "Отчеты")
-    // Используется только в приложении "Комиссия". Если данная функция отключена возвращается null (для
-    // отключения в конфиге в качестве параметра указать пустую строку)
+    // РњРёРЅРёРјР°Р»СЊРЅС‹Р№ СѓСЂРѕРІРµРЅСЊ РґРѕСЃС‚СѓРїР° РґР»СЏ РєРѕС‚РѕСЂРѕРіРѕ РґРѕСЃС‚СѓРїРЅР° С„СѓРЅРєС†РёСЏ "РћС‚С‡РµС‚ РёРЅС„РѕСЂРјРёРєРё"
+    // (РљРЅРѕРїРєР° РЅР° РіР»Р°РІРЅРѕР№ С„РѕСЂРјРµ РїСЂРёР»РѕР¶РµРЅРёСЏ, РїСѓРЅРєС‚ "РћС‚С‡РµС‚. РРЅС„РѕСЂРјРёРєР°" РІ РІС‹РїР°РґР°СЋС‰РµРј СЃРїРёСЃРєРµ С„РѕСЂРјС‹ "РћС‚С‡РµС‚С‹")
+    // РСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РІ РїСЂРёР»РѕР¶РµРЅРёРё "РљРѕРјРёСЃСЃРёСЏ". Р•СЃР»Рё РґР°РЅРЅР°СЏ С„СѓРЅРєС†РёСЏ РѕС‚РєР»СЋС‡РµРЅР° РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ null (РґР»СЏ
+    // РѕС‚РєР»СЋС‡РµРЅРёСЏ РІ РєРѕРЅС„РёРіРµ РІ РєР°С‡РµСЃС‚РІРµ РїР°СЂР°РјРµС‚СЂР° СѓРєР°Р·Р°С‚СЊ РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ)
     @XmlAttribute(name = s_attr_report_access_level, required = true)
     public CMisc.AccessLevel getReportAccessLevel() {
         return m_access_level;
@@ -75,7 +75,7 @@ public class ReportInformica implements IDTO {
         m_access_level = p_value;
     }
 
-    // Наименование региона (используется в логах на email)
+    // РќР°РёРјРµРЅРѕРІР°РЅРёРµ СЂРµРіРёРѕРЅР° (РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ Р»РѕРіР°С… РЅР° email)
     @XmlAttribute(name = s_attr_state_name)
     public String getStateName() {
         return m_state_name;
@@ -85,7 +85,7 @@ public class ReportInformica implements IDTO {
         m_state_name = p_val;
     }
 
-    // Откуда брать заявления в показатели со статусом "зачислены"
+    // РћС‚РєСѓРґР° Р±СЂР°С‚СЊ Р·Р°СЏРІР»РµРЅРёСЏ РІ РїРѕРєР°Р·Р°С‚РµР»Рё СЃРѕ СЃС‚Р°С‚СѓСЃРѕРј "Р·Р°С‡РёСЃР»РµРЅС‹"
     @XmlAttribute(name = s_attr_get_enrolled_from)
     public EnrolledSource getEnrolledFrom() {
         return m_enrolled_source;
@@ -95,7 +95,7 @@ public class ReportInformica implements IDTO {
         m_enrolled_source = p_value;
     }
 
-    // Включена ли автоматическая загрузка отчета информики
+    // Р’РєР»СЋС‡РµРЅР° Р»Рё Р°РІС‚РѕРјР°С‚РёС‡РµСЃРєР°СЏ Р·Р°РіСЂСѓР·РєР° РѕС‚С‡РµС‚Р° РёРЅС„РѕСЂРјРёРєРё
     @XmlAttribute(name = s_attr_auto_upload_enabled)
     public Boolean isAutoUploadEnabled() {
         return m_is_auto_upload_enabled;
@@ -105,7 +105,7 @@ public class ReportInformica implements IDTO {
         m_is_auto_upload_enabled = p_val;
     }
 
-    // Часы когда производить авто загрузку отчета
+    // Р§Р°СЃС‹ РєРѕРіРґР° РїСЂРѕРёР·РІРѕРґРёС‚СЊ Р°РІС‚Рѕ Р·Р°РіСЂСѓР·РєСѓ РѕС‚С‡РµС‚Р°
     @XmlAttribute(name = s_attr_auto_upload_hours)
     public Integer getAutoUploadHours() {
         return m_auto_upload_hours; 
@@ -115,7 +115,7 @@ public class ReportInformica implements IDTO {
         m_auto_upload_hours = p_val;
     }
 
-    // Минуты когда производить авто загрузку отчета
+    // РњРёРЅСѓС‚С‹ РєРѕРіРґР° РїСЂРѕРёР·РІРѕРґРёС‚СЊ Р°РІС‚Рѕ Р·Р°РіСЂСѓР·РєСѓ РѕС‚С‡РµС‚Р°
     @XmlAttribute(name = s_attr_auto_upload_minutes)
     public Integer getAutoUploadMinutes() {
         return m_auto_upload_minutes;
@@ -125,7 +125,7 @@ public class ReportInformica implements IDTO {
         m_auto_upload_minutes = p_val;
     }
 
-    // Включить отладку отчета
+    // Р’РєР»СЋС‡РёС‚СЊ РѕС‚Р»Р°РґРєСѓ РѕС‚С‡РµС‚Р°
     @XmlAttribute(name = s_attr_debug_enabled)
     public Boolean isDebugEnabled() {
         return m_is_debug_enabled;
@@ -135,7 +135,7 @@ public class ReportInformica implements IDTO {
         m_is_debug_enabled = p_val;
     }
 
-    // Таймаут на соединение с веб сервисом информики, в минутах
+    // РўР°Р№РјР°СѓС‚ РЅР° СЃРѕРµРґРёРЅРµРЅРёРµ СЃ РІРµР± СЃРµСЂРІРёСЃРѕРј РёРЅС„РѕСЂРјРёРєРё, РІ РјРёРЅСѓС‚Р°С…
     @XmlAttribute(name = s_attr_con_timeout)
     public Integer getConnectionTimeout() {
         return m_connection_timeout;
@@ -145,7 +145,7 @@ public class ReportInformica implements IDTO {
         m_connection_timeout = p_connection_timeout;
     }
 
-    // Таймаут на ожидание ответа от веб сервиса информики, в минутах
+    // РўР°Р№РјР°СѓС‚ РЅР° РѕР¶РёРґР°РЅРёРµ РѕС‚РІРµС‚Р° РѕС‚ РІРµР± СЃРµСЂРІРёСЃР° РёРЅС„РѕСЂРјРёРєРё, РІ РјРёРЅСѓС‚Р°С…
     @XmlAttribute(name = s_attr_req_timeout)
     public Integer getRequestTimeout() {
         return m_request_timeout;
@@ -164,7 +164,7 @@ public class ReportInformica implements IDTO {
         m_is_async_upload_enabled = p_val;
     }
 
-    // Задержка между повторными попытками выгрузки отчета, в минутах
+    // Р—Р°РґРµСЂР¶РєР° РјРµР¶РґСѓ РїРѕРІС‚РѕСЂРЅС‹РјРё РїРѕРїС‹С‚РєР°РјРё РІС‹РіСЂСѓР·РєРё РѕС‚С‡РµС‚Р°, РІ РјРёРЅСѓС‚Р°С…
     @XmlAttribute(name = s_attr_push_data_delay)
     public Integer getPushDataDelay() {
         return m_delay;
@@ -174,7 +174,7 @@ public class ReportInformica implements IDTO {
         m_delay = p_val;
     }
 
-    // Использовать многопоточность при построении отчета
+    // РСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РјРЅРѕРіРѕРїРѕС‚РѕС‡РЅРѕСЃС‚СЊ РїСЂРё РїРѕСЃС‚СЂРѕРµРЅРёРё РѕС‚С‡РµС‚Р°
     @XmlAttribute(name = s_attr_mt)
     public Boolean isMt() {
         return m_is_mt;
@@ -184,7 +184,6 @@ public class ReportInformica implements IDTO {
         m_is_mt = p_val;
     }
 
-    // Версия отчета Информики
     @XmlAttribute(name = s_attr_ver)
     public Version getVersion() {
         return m_version;

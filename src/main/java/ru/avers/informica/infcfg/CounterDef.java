@@ -1,6 +1,7 @@
 package ru.avers.informica.infcfg;
 
 import ru.avers.informica.dao.filtersort.IFilter;
+import ru.avers.informica.filtersinqry.GenericFilter;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CounterDef {
+// TODO продолжить ...
+/*
     private String m_id,
                    m_descr, 
                    m_name;
@@ -57,7 +60,7 @@ public class CounterDef {
         @XmlElement(name = "filter-date", type=FilterDate.class),
         @XmlElement(name = "filter-date-time", type=FilterDateTime.class),
         @XmlElement(name = "filter-year", type=FilterYear.class),
-        @XmlElement(name = "filter", type=GenericFilter.class),
+        @XmlElement(name = "filter", type= GenericFilter.class),
         @XmlElement(name = "filter-codes-list", type=CodesCollectionFilter.class),
             @XmlElement(name = "increment-by-priorities", type=IncrementByPriorities.class),
             @XmlElement(name = "filter-bean", type=BeanFilter.class)
@@ -75,4 +78,5 @@ public class CounterDef {
         m_age_range = p_age_range;
     }
     
+*/
 }

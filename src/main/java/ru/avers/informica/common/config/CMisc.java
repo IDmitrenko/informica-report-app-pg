@@ -43,7 +43,6 @@ public class CMisc implements IDTO {
     public CMisc() { 
     }
 
-    // Ќастройки по умолчанию (временна€ зона, тема)
     @XmlElement(name = Defaults.s_root_name, type = Defaults.class)
     public Defaults getDefaults() {
         if (m_misc_timezone == null) m_misc_timezone = new Defaults();
@@ -54,10 +53,6 @@ public class CMisc implements IDTO {
         m_misc_timezone = p_val;
     }      
     
-    //***************************************************************************
-    // ƒень и мес€ц начала учебного года. »спользуетс€ дл€ расчета диапазона возрастов
-    // на начало учебного года отображаемых при проверке статуса за€влени€. (дл€ мес€ца: €нварь=0)
-    //***************************************************************************
     @XmlElement(name = CInqryEducYearBegin.s_root_name, type = CInqryEducYearBegin.class)
     public CInqryEducYearBegin getInqryEducYearBegin() {
         if (m_inqry_educ_year_begin == null) {
@@ -69,7 +64,6 @@ public class CMisc implements IDTO {
         m_inqry_educ_year_begin = p_val;
     }
 
-    // ƒата и мес€ц до которого можно выбрать текущий год в качестве желаемого года поступлени€.
     @XmlElement(name = InqryNextInuchYear.s_root_name, type = InqryNextInuchYear.class)
     public InqryNextInuchYear getInqryNextInuchYear() {
         if (m_inqry_next_inuch_year == null) m_inqry_next_inuch_year = new InqryNextInuchYear();

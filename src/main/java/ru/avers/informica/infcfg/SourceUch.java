@@ -1,7 +1,7 @@
 package ru.avers.informica.infcfg;
 
-import org.avers.inqry.filter.impl.GenericFilter;
 import ru.avers.informica.dao.filtersort.IFieldFilterParams;
+import ru.avers.informica.filtersinqry.GenericFilter;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;

@@ -8,7 +8,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.xml.bind.annotation.*;
 
-//TODO нет пока аналога таблицы в новой БД
+//TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author alexanderm

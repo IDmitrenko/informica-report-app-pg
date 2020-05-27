@@ -5,7 +5,7 @@ import ru.avers.informica.entities.IWeightedDict;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -20,11 +20,11 @@ import javax.xml.bind.annotation.*;
 @SequenceGenerator(name="SEQ_GEN")
 public class CDict85DouGrpTime extends CBaseDict implements ICodedDict, IHasDescr, IWeightedDict {
     public static final String s_dict_code = "85",
-                               s_full_10d5_12 = "01", // полного дня (10,5-12 часов)
-                               s_short_8_10 = "02", // сокращенного дня (8-10 часов)                               
-                               s_extended_13_14 = "03", // продленного дня  (13-14 часов)
-                               s_brief_3_5 = "04", // кратковременного пребывания (3-5 часов) 
-                               s_const_24 = "05"; // круглосуточного пребывания (24 часа)
+            s_full_10d5_12 = "01", // РїРѕР»РЅРѕРіРѕ РґРЅСЏ (10,5-12 С‡Р°СЃРѕРІ)
+            s_short_8_10 = "02", // СЃРѕРєСЂР°С‰РµРЅРЅРѕРіРѕ РґРЅСЏ (8-10 С‡Р°СЃРѕРІ)
+            s_extended_13_14 = "03", // РїСЂРѕРґР»РµРЅРЅРѕРіРѕ РґРЅСЏ  (13-14 С‡Р°СЃРѕРІ)
+            s_brief_3_5 = "04", // РєСЂР°С‚РєРѕРІСЂРµРјРµРЅРЅРѕРіРѕ РїСЂРµР±С‹РІР°РЅРёСЏ (3-5 С‡Р°СЃРѕРІ)
+            s_const_24 = "05"; // РєСЂСѓРіР»РѕСЃСѓС‚РѕС‡РЅРѕРіРѕ РїСЂРµР±С‹РІР°РЅРёСЏ (24 С‡Р°СЃР°)
     
     public CDict85DouGrpTime() { super(); }
     public CDict85DouGrpTime(Integer p_id) { super(p_id); }

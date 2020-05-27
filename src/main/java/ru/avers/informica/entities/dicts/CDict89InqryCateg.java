@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @SequenceGenerator(name="SEQ_GEN")
 public class CDict89InqryCateg extends CBaseDict implements ICodedDict, IHasDescr, IWeightedDict {
     
-    public final static String s_no_categ = "04"; // Категория: на общих основаниях
+    public final static String s_no_categ = "04"; // РљР°С‚РµРіРѕСЂРёСЏ: РЅР° РѕР±С‰РёС… РѕСЃРЅРѕРІР°РЅРёСЏС…
     
     public CDict89InqryCateg() { super(); }
 

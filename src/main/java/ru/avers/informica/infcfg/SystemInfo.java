@@ -1,12 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ru.avers.informica.infcfg;
-
-import org.avers.fspeo.v2.*;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.namespace.QName;

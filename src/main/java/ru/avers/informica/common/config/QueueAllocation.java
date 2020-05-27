@@ -39,7 +39,7 @@ public class QueueAllocation implements IDTO {
     }
 
     /**
-     * День и месяц на который вычислять возраст
+     * Р”РµРЅСЊ Рё РјРµСЃСЏС† РЅР° РєРѕС‚РѕСЂС‹Р№ РІС‹С‡РёСЃР»СЏС‚СЊ РІРѕР·СЂР°СЃС‚
      * @return
      */
     @XmlElement(name = s_calc_on_date, type = CalcAgeElement.class)

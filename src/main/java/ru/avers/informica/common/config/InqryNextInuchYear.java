@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
 
 /**
- * Дата и месяц до которого можно выбрать текущий год в качестве желаемого года поступления.
+ * Р”Р°С‚Р° Рё РјРµСЃСЏС† РґРѕ РєРѕС‚РѕСЂРѕРіРѕ РјРѕР¶РЅРѕ РІС‹Р±СЂР°С‚СЊ С‚РµРєСѓС‰РёР№ РіРѕРґ РІ РєР°С‡РµСЃС‚РІРµ Р¶РµР»Р°РµРјРѕРіРѕ РіРѕРґР° РїРѕСЃС‚СѓРїР»РµРЅРёСЏ.
  * @author Dias
  */
 public class InqryNextInuchYear extends DateElement implements IDTO {

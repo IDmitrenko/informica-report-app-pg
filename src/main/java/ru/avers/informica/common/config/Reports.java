@@ -20,8 +20,8 @@ public class Reports implements IDTO {
     private ReportsCommon m_report_common;
     private ReportInformica m_report_informica;
 
-    // Общие настройки отчетов. Наименование города, используется при построении
-    // уведомления и путевки.
+    // РћР±С‰РёРµ РЅР°СЃС‚СЂРѕР№РєРё РѕС‚С‡РµС‚РѕРІ. РќР°РёРјРµРЅРѕРІР°РЅРёРµ РіРѕСЂРѕРґР°, РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РїСЂРё РїРѕСЃС‚СЂРѕРµРЅРёРё
+    // СѓРІРµРґРѕРјР»РµРЅРёСЏ Рё РїСѓС‚РµРІРєРё.
     @XmlElement(name = ReportsCommon.s_root_name, type = ReportsCommon.class)
     public ReportsCommon getReportsCommon() {
         if (m_report_common == null) m_report_common = new ReportsCommon();

@@ -11,7 +11,8 @@ import javax.persistence.*;
  */
 @Entity
 @Access(AccessType.PROPERTY)
-@Table(name="INQRY_SYS_INTERACT")  // es - новая таблица (Данные по взаимодействию с внешними системами)
+@Table(name="INQRY_SYS_INTERACT")  // es - РЅРѕРІР°СЏ С‚Р°Р±Р»РёС†Р°
+// (Р”Р°РЅРЅС‹Рµ РїРѕ РІР·Р°РёРјРѕРґРµР№СЃС‚РІРёСЋ СЃ РІРЅРµС€РЅРёРјРё СЃРёСЃС‚РµРјР°РјРё)
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_INQRY_SYS_INTERACT_ID")
 public class CntrInteract extends CInqrySysInteraction {
     private Inqrychldinuch m_inqry;

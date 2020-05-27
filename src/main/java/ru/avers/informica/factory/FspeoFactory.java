@@ -5,9 +5,6 @@ import org.slf4j.LoggerFactory;
 import ru.avers.informica.common.config.ReportInformica;
 import ru.avers.informica.utils.FspeoVersion;
 
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  *
  * @author Dias
@@ -15,7 +12,7 @@ import java.util.Date;
 public class FspeoFactory {
     private static final Logger s_logger = LoggerFactory.getLogger(FspeoFactory.class);
 
-// TODO продолжить разбираться
+// TODO пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 /*
     private final UserIdDto m_id_user;
     private final IInqryEducYearBegin m_educ_year_begin;
@@ -85,11 +82,11 @@ public class FspeoFactory {
             Config x_config = retrieveInformicaConfig(p_version);
             if (x_config == null) 
                 throw new FspeoException(
-                        String.format("Не удалось прочитать настройки для взаимодействия (версия: %s)",
+                        String.format("пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ: %s)",
                                                                                             String.valueOf(p_version)));
             String x_message = createDataAdapter(x_config, p_is_threaded)
                                                 .fill(x_push_data_request, p_data_mode, p_id_uch);
-            //  todo рассмотреть возможность создания только при необходимости
+            //  todo пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             //  create additional report with counters for ver4
             CDataAdapterVer4 x_da_v4 = new CDataAdapterVer4(x_config, m_educ_year_begin, m_cmsn_providers);
             
@@ -128,10 +125,10 @@ public class FspeoFactory {
             return x_rv;
         }
         catch(BaseInquirerDbBLException ex) {
-            throw new FspeoException("Ошибка провайдера Заявитель", ex);
+            throw new FspeoException("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", ex);
         }
         catch(CBaseInqryDbBLException ex) {
-            throw new FspeoException("Ошибка провайдера Комиссия", ex);
+            throw new FspeoException("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ", ex);
         }
     }
     
@@ -177,7 +174,7 @@ public class FspeoFactory {
 
     
     static public FspeoVersion transformVersion(ReportInformica.Version p_val) {
-        //  версия 5 по умолчанию
+        //  пїЅпїЅпїЅпїЅпїЅпїЅ 5 пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         FspeoVersion x_rv = FspeoVersion.Five;
 //        if(ReportInformica.Version.Six.equals(p_val)) x_rv = FspeoVersion.Six;
         return x_rv;

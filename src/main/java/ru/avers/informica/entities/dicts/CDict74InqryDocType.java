@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -15,8 +15,8 @@ import javax.persistence.Table;
 @SequenceGenerator(name="SEQ_GEN")
 public class CDict74InqryDocType extends CBaseDict implements ICodedDict, IHasDescr {
     public static final String s_dict_code = "74",
-                               s_type_trustee_code = "03", // Документ об опекунстве
-                               s_type_lgots_code = "04"; // Документ, подтверждающий льготу
+                               s_type_trustee_code = "03", // Р”РѕРєСѓРјРµРЅС‚ РѕР± РѕРїРµРєСѓРЅСЃС‚РІРµ
+                               s_type_lgots_code = "04"; // Р”РѕРєСѓРјРµРЅС‚, РїРѕРґС‚РІРµСЂР¶РґР°СЋС‰РёР№ Р»СЊРіРѕС‚Сѓ
     
     public CDict74InqryDocType() { super(); }
     public CDict74InqryDocType(Integer p_id) { super(p_id); }

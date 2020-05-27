@@ -1,14 +1,5 @@
 package ru.avers.informica.infcfg;
 
-import org.avers.dto.informica.InqryInf;
-import org.avers.dto.informica.InqryTransfer;
-import org.avers.fspeo.FspeoException;
-import org.avers.inqry.filter.FilterException;
-import org.avers.inqry.filter.IFilter;
-import org.avers.inqry.filter.IsFilterDate;
-import org.avers.inqry.filter.impl.BeanFilter;
-import org.avers.inqry.filter.impl.IncrementByPriorities;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,6 +17,8 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CounterConfig {
+// TODO продолжить...
+/*
     private CounterDef m_counter_def;
 
     @XmlAttribute(name = "def", required = true)
@@ -159,5 +152,6 @@ public class CounterConfig {
             throw new IntrospectionException(p_prop);
         return x_found.getReadMethod().invoke(p_bean, (Object[]) null);
     }
+*/
 
 }

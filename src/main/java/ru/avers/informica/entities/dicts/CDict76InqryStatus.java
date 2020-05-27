@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -18,24 +18,24 @@ import javax.persistence.Table;
 public class CDict76InqryStatus extends CBaseDict implements ICodedDict, IHasDescr {
 
     public final static String s_dict_code = "76";
-    
-    public static final String s_status_code_created = InqryStatusCode.CREATED_01,  // Создано
-                               s_status_code_accepted = InqryStatusCode.ACCEPTED_02, // Принято
-                               s_status_code_need_correction = InqryStatusCode.NEED_CORRECTION_03, // Требуется корректировка заявления
-                               s_status_code_has_arrived = InqryStatusCode.HAS_ARRIVED_04, // Явился            
-                               s_status_code_cancelled = InqryStatusCode.CANCELLED_05, // Отклонено
-                               s_status_code_approved = InqryStatusCode.APPROVED_06, // Принято решение о выдаче путевки
-                               s_status_code_enrolled = InqryStatusCode.ENROLLED_07, // Зачислен   
-                               s_status_code_refusing = InqryStatusCode.REFUSING_08, // Отказ от услуги
-                               s_status_code_archived = InqryStatusCode.ARCHIVED_09, // Архив
-                               s_status_code_queue_leave = InqryStatusCode.QUEUE_LEAVE_10, // Снято с очереди (2014-06 не исп-ся)
-                               s_status_code_waiting_for_docs = InqryStatusCode.WAITING_FOR_DOCS_11, // Ожидает подтверждающих документов (2014-06 не исп-ся)
-                               s_status_code_sent_to_doo = InqryStatusCode.SENT_TO_DOO_12, // Направлен в ДОО
-                               s_status_code_didnt_arrive = InqryStatusCode.DIDNT_ARRIVE_13, // Не явился                        
-                               s_status_code_temp_has_arrived = InqryStatusCode.TEMP_HAS_ARRIVED_104, // Явился для временного зачисления
-                               s_status_code_temp_approved = InqryStatusCode.TEMP_APPROVED_106, // Принято решение о выдаче временной путевки
-                               s_status_code_temp_enrolled = InqryStatusCode.TEMP_ENROLLED_107, // Временно зачислен
-                               s_status_code_temp_sent_to_doo = InqryStatusCode.TEMP_SENT_TO_DOO_112; // Направлен в ДОО для временного зачисления
+
+    public static final String s_status_code_created = InqryStatusCode.CREATED_01,  // РЎРѕР·РґР°РЅРѕ
+            s_status_code_accepted = InqryStatusCode.ACCEPTED_02, // РџСЂРёРЅСЏС‚Рѕ
+            s_status_code_need_correction = InqryStatusCode.NEED_CORRECTION_03, // РўСЂРµР±СѓРµС‚СЃСЏ РєРѕСЂСЂРµРєС‚РёСЂРѕРІРєР° Р·Р°СЏРІР»РµРЅРёСЏ
+            s_status_code_has_arrived = InqryStatusCode.HAS_ARRIVED_04, // РЇРІРёР»СЃСЏ
+            s_status_code_cancelled = InqryStatusCode.CANCELLED_05, // РћС‚РєР»РѕРЅРµРЅРѕ
+            s_status_code_approved = InqryStatusCode.APPROVED_06, // РџСЂРёРЅСЏС‚Рѕ СЂРµС€РµРЅРёРµ Рѕ РІС‹РґР°С‡Рµ РїСѓС‚РµРІРєРё
+            s_status_code_enrolled = InqryStatusCode.ENROLLED_07, // Р—Р°С‡РёСЃР»РµРЅ
+            s_status_code_refusing = InqryStatusCode.REFUSING_08, // РћС‚РєР°Р· РѕС‚ СѓСЃР»СѓРіРё
+            s_status_code_archived = InqryStatusCode.ARCHIVED_09, // РђСЂС…РёРІ
+            s_status_code_queue_leave = InqryStatusCode.QUEUE_LEAVE_10, // РЎРЅСЏС‚Рѕ СЃ РѕС‡РµСЂРµРґРё (2014-06 РЅРµ РёСЃРї-СЃСЏ)
+            s_status_code_waiting_for_docs = InqryStatusCode.WAITING_FOR_DOCS_11, // РћР¶РёРґР°РµС‚ РїРѕРґС‚РІРµСЂР¶РґР°СЋС‰РёС… РґРѕРєСѓРјРµРЅС‚РѕРІ (2014-06 РЅРµ РёСЃРї-СЃСЏ)
+            s_status_code_sent_to_doo = InqryStatusCode.SENT_TO_DOO_12, // РќР°РїСЂР°РІР»РµРЅ РІ Р”РћРћ
+            s_status_code_didnt_arrive = InqryStatusCode.DIDNT_ARRIVE_13, // РќРµ СЏРІРёР»СЃСЏ
+            s_status_code_temp_has_arrived = InqryStatusCode.TEMP_HAS_ARRIVED_104, // РЇРІРёР»СЃСЏ РґР»СЏ РІСЂРµРјРµРЅРЅРѕРіРѕ Р·Р°С‡РёСЃР»РµРЅРёСЏ
+            s_status_code_temp_approved = InqryStatusCode.TEMP_APPROVED_106, // РџСЂРёРЅСЏС‚Рѕ СЂРµС€РµРЅРёРµ Рѕ РІС‹РґР°С‡Рµ РІСЂРµРјРµРЅРЅРѕР№ РїСѓС‚РµРІРєРё
+            s_status_code_temp_enrolled = InqryStatusCode.TEMP_ENROLLED_107, // Р’СЂРµРјРµРЅРЅРѕ Р·Р°С‡РёСЃР»РµРЅ
+            s_status_code_temp_sent_to_doo = InqryStatusCode.TEMP_SENT_TO_DOO_112; // РќР°РїСЂР°РІР»РµРЅ РІ Р”РћРћ РґР»СЏ РІСЂРµРјРµРЅРЅРѕРіРѕ Р·Р°С‡РёСЃР»РµРЅРёСЏ
                             
     public final static String S_ID = "m_id",
                                S_CODE = "m_code";

@@ -6,7 +6,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.*;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -20,8 +20,8 @@ import javax.xml.bind.annotation.*;
 @SequenceGenerator(name="SEQ_GEN")
 public class CDict75InqryType extends CBaseDict implements ICodedDict, IHasDescr {
 
-    public static final String s_code_enroll = "01",  // Зачисление
-                               s_code_transfer = "02", // Перевод
+    public static final String s_code_enroll = "01",  // Р—Р°С‡РёСЃР»РµРЅРёРµ
+                               s_code_transfer = "02", // РџРµСЂРµРІРѕРґ
                                s_dict_code = "75";
     
     public CDict75InqryType() { super(); }

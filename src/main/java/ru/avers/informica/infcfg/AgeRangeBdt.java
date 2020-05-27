@@ -1,6 +1,13 @@
 package ru.avers.informica.infcfg;
 
+import ru.avers.informica.dao.informica.IInformicaVacantCountable;
+import ru.avers.informica.dto.CAge;
+import ru.avers.informica.dto.informica.IInformicaChildCountable;
+import ru.avers.informica.dto.informica.IInformicaCountable;
+import ru.avers.informica.dto.inqry.AgeDto;
+import ru.avers.informica.dto.util.Utils;
 import ru.avers.informica.entities.Prll4stgAges;
+import ru.avers.informica.exception.FspeoException;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -93,8 +100,10 @@ public class AgeRangeBdt {
     public Collection<TypeAgeRange> getAgeRanges(List<Prll4stgAges> p_ages) {
         return m_age_range_def.getAgeRangesForPrllAges(p_ages);
     }
-
-    public Collection<TypeAgeRange> getAgeRanges(Date p_rep_date, IInformicaCountable p_countable) throws FspeoException {
+// TODO продолжить...
+/*
+    public Collection<TypeAgeRange> getAgeRanges(Date p_rep_date, IInformicaCountable p_countable)
+            throws FspeoException {
         if (p_countable instanceof IInformicaChildCountable) {
             if (getDateField() != null && !getDateField().isEmpty()) {
                 Object beanValue = CounterConfig.getBeanValue(getDateField(), p_countable);
@@ -108,7 +117,8 @@ public class AgeRangeBdt {
         else if (p_countable instanceof IInformicaVacantCountable) {
             return getAgeRanges(((IInformicaVacantCountable)p_countable).getAges());
         }
-        else throw new FspeoException("����������� ��� �������� ��� ��������: " + p_countable.getClass().getName());
+        else throw new FspeoException("Неизвестный тип элемента для подсчета: " + p_countable.getClass().getName());
     }
-        
+*/
+
 }

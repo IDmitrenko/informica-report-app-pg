@@ -8,7 +8,7 @@ import ru.avers.informica.dto.IDateElement;
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
- * Настройка. дата по компонентам год, месяц, день
+ * РќР°СЃС‚СЂРѕР№РєР°. РґР°С‚Р° РїРѕ РєРѕРјРїРѕРЅРµРЅС‚Р°Рј РіРѕРґ, РјРµСЃСЏС†, РґРµРЅСЊ
  * @author Dias
  */
 public class DateElement implements IDateElement, IDTO {

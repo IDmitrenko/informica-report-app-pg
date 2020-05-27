@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -18,7 +18,7 @@ public class CDict25Rodstvo extends CAbstractDictsDetailBased implements ICodedD
     public static final String s_dict_code = "25",
                                s_mthr_code = "04",
                                s_fthr_code = "03",
-                               s_trustee_code = "56", // опекун
+                               s_trustee_code = "56", // пїЅпїЅпїЅпїЅпїЅпїЅ
                                s_other_code = "70";
 
     public CDict25Rodstvo(){ super(); }

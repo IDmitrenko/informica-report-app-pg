@@ -37,7 +37,7 @@ public class CItem implements IItem<Integer>, Serializable {
     @Override
     public boolean equals(Object p_obj) {
         if(p_obj == null) return false;
-        // hibernate при lazy-loading создает прокси классы (класс прокси наследует от реального класса), для которых сравнение не проходит
+        // hibernate РїСЂРё lazy-loading СЃРѕР·РґР°РµС‚ РїСЂРѕРєСЃРё РєР»Р°СЃСЃС‹ (РєР»Р°СЃСЃ РїСЂРѕРєСЃРё РЅР°СЃР»РµРґСѓРµС‚ РѕС‚ СЂРµР°Р»СЊРЅРѕРіРѕ РєР»Р°СЃСЃР°), РґР»СЏ РєРѕС‚РѕСЂС‹С… СЃСЂР°РІРЅРµРЅРёРµ РЅРµ РїСЂРѕС…РѕРґРёС‚
         //if(getClass() != p_obj.getClass()) return false;
         if (!getClass().isAssignableFrom(p_obj.getClass()) && !p_obj.getClass().isAssignableFrom(getClass())) return false;            
         final CItem p_other = (CItem)p_obj;

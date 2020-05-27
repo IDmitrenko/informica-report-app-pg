@@ -1,7 +1,7 @@
 package ru.avers.informica.dto;
 
 /**
- * Настройка. дата по компонентам год, месяц, день
+ * РќР°СЃС‚СЂРѕР№РєР°. РґР°С‚Р° РїРѕ РєРѕРјРїРѕРЅРµРЅС‚Р°Рј РіРѕРґ, РјРµСЃСЏС†, РґРµРЅСЊ
  * @author lavrov
  */
 public interface IDateElement {
