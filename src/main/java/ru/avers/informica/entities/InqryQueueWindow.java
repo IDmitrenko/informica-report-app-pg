@@ -10,7 +10,8 @@ import java.util.Date;
  * @author Dias
  */
 @Entity
-@Table(name="INQRY_QUEUE_WINDOW")  // periods - новая таблица (Периоды пребывания заявления в очереди)
+@Table(name="INQRY_QUEUE_WINDOW")  // periods - РЅРѕРІР°СЏ С‚Р°Р±Р»РёС†Р°
+// (РџРµСЂРёРѕРґС‹ РїСЂРµР±С‹РІР°РЅРёСЏ Р·Р°СЏРІР»РµРЅРёСЏ РІ РѕС‡РµСЂРµРґРё)
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_INQRY_QUEUE_WINDOW_ID")
 public class InqryQueueWindow extends CItem {
     

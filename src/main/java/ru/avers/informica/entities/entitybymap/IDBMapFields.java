@@ -4,7 +4,7 @@ package ru.avers.informica.entities.entitybymap;
 import ru.avers.informica.dao.IMapFields;
 
 /**
- * @author alexanderm
+ * @author Dias
  */
 public interface IDBMapFields extends IMapFields {
 
@@ -145,7 +145,7 @@ public interface IDBMapFields extends IMapFields {
 
     public static interface IInqrychldinuch {
         final public static String
-                //  заявление
+                //  Р·Р°СЏРІР»РµРЅРёРµ
                 s_type_inqry = "m_type_inqry",
                 s_num = "m_num",
                 s_n_class = "m_ncls",
@@ -169,8 +169,8 @@ public interface IDBMapFields extends IMapFields {
                 s_pmpk_conclusion = "m_pmpk_conclusion",
                 s_dou_grp_times = "m_dou_grp_times",
                 s_categ = "m_categ",
-        //  заявитель
-        //      мать
+        //  Р·Р°СЏРІРёС‚РµР»СЊ
+        //      РјР°С‚СЊ
                 s_mother_surname = "m_mthrSrnm",
                 s_mother_1st_name = "m_mthrFrstnm",
                 s_mother_2nd_name = "m_mthrScndnm",
@@ -184,7 +184,7 @@ public interface IDBMapFields extends IMapFields {
                 s_mother_phones = "m_mthrPhones",
                 s_mother_emails = "m_mthrEmails",
                 s_doc_kind_mother = "m_doc_kind_mother",
-        //      отец
+        //      РѕС‚РµС†
                 s_father_surname = "m_fthrSrnm",
                 s_father_1st_name = "m_fthrFrstnm",
                 s_father_2nd_name = "m_fthrScndnm",
@@ -198,7 +198,7 @@ public interface IDBMapFields extends IMapFields {
                 s_father_phones = "m_fthrPhones",
                 s_father_emails = "m_fthrEmails",
                 s_doc_kind_father = "m_doc_kind_father",
-        //      законный представитель
+        //      Р·Р°РєРѕРЅРЅС‹Р№ РїСЂРµРґСЃС‚Р°РІРёС‚РµР»СЊ
                 s_other_surname = "m_otherSrnm",
                 s_other_1st_name = "m_otherFrstnm",
                 s_other_2nd_name = "m_otherScndnm",
@@ -215,7 +215,7 @@ public interface IDBMapFields extends IMapFields {
                 s_other_person = "m_other_person",
                 s_other_person_rodstvo = "m_other_person_rodstvo",
                 s_doc_kind_other = "m_doc_kind_other",
-        //      доверенное лицо
+        //      РґРѕРІРµСЂРµРЅРЅРѕРµ Р»РёС†Рѕ
                 s_trusted_person = "m_trusted_person",
                 s_trusted_surname = "m_trustedSrnm",
                 s_trusted_1st_name = "m_trustedFrstnm",
@@ -225,7 +225,7 @@ public interface IDBMapFields extends IMapFields {
                 s_trusted_doc = "m_trustedDoc",
                 s_trusted_descr = "m_trustedDescr",
 
-        //  ребенок
+        //  СЂРµР±РµРЅРѕРє
                 s_child_surname = "m_chldSrnm",
                 s_child_1st_name = "m_chldFrstnm",
                 s_child_2nd_name = "m_chldScndnm",
@@ -397,7 +397,7 @@ public interface IDBMapFields extends IMapFields {
 
     /////////////////////////////////////////////////////////
     //
-    //  словари
+    //  СЃР»РѕРІР°СЂРё
     //
 
     public static interface IBaseDict {

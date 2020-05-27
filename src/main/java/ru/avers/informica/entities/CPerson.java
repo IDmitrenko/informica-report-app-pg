@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-//TODO нет пока аналога таблицы в новой БД
+//TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
@@ -24,7 +24,7 @@ public class CPerson extends CItem {
     public CPerson() { super(); }
     public CPerson(Integer p_id) { super(p_id); }
 
-    //  TODO разобраться каков эффект
+    //  TODO СЂР°Р·РѕР±СЂР°С‚СЊСЃСЏ РєР°РєРѕРІ СЌС„С„РµРєС‚
 //    @Basic(fetch= FetchType.LAZY)
     @Column(name = "NAME1")
     private String m_name;

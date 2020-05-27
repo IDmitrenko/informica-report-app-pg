@@ -8,13 +8,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias
  */
 @Entity
-//  в этом слое такая аннотация нежелательна
+//  РІ СЌС‚РѕРј СЃР»РѕРµ С‚Р°РєР°СЏ Р°РЅРЅРѕС‚Р°С†РёСЏ РЅРµР¶РµР»Р°С‚РµР»СЊРЅР°
 //@org.hibernate.annotations.Entity(dynamicUpdate=true)
 @Table(name="USERS")
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_USERS_ID")
@@ -52,11 +52,11 @@ public class CUsers extends CItem {
     public CDict04MunicipObrazov getTer() { return m_ter; }
     public void setTer(CDict04MunicipObrazov p_ter) { m_ter = p_ter; }
     
-//  это не работает с SaveOrUpdate - надо использовать хибернейтовскую @Cascade
+//  СЌС‚Рѕ РЅРµ СЂР°Р±РѕС‚Р°РµС‚ СЃ SaveOrUpdate - РЅР°РґРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ С…РёР±РµСЂРЅРµР№С‚РѕРІСЃРєСѓСЋ @Cascade
 //    @OneToOne(cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 //    @OneToOne(cascade={CascadeType.PERSIST})
 
-//  это работает с SaveOrUpdate
+//  СЌС‚Рѕ СЂР°Р±РѕС‚Р°РµС‚ СЃ SaveOrUpdate
     @OneToOne //(cascade=CascadeType.ALL)
     @JoinColumn(name="ID_PERSON")
     private CPerson m_person;

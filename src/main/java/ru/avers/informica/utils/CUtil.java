@@ -63,7 +63,7 @@ public class CUtil {
         return x_ids;                
     }
     
-    //  список серверных таймзон отсортированных по id
+    //  СЃРїРёСЃРѕРє СЃРµСЂРІРµСЂРЅС‹С… С‚Р°Р№РјР·РѕРЅ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹С… РїРѕ id
     public static List<TimeZone> getListOfTimeZones() {
         List<TimeZone> x_rv = new ArrayList<TimeZone>();
         
@@ -187,10 +187,10 @@ public class CUtil {
     }
     
     /**
-     * Поиск в списке мапов первого мапа с указанным значением указанного ключа
-     * @param p_list список мапов
-     * @param p_key ключ мапа
-     * @param p_key_value значение ключа мапа
+     * РџРѕРёСЃРє РІ СЃРїРёСЃРєРµ РјР°РїРѕРІ РїРµСЂРІРѕРіРѕ РјР°РїР° СЃ СѓРєР°Р·Р°РЅРЅС‹Рј Р·РЅР°С‡РµРЅРёРµРј СѓРєР°Р·Р°РЅРЅРѕРіРѕ РєР»СЋС‡Р°
+     * @param p_list СЃРїРёСЃРѕРє РјР°РїРѕРІ
+     * @param p_key РєР»СЋС‡ РјР°РїР°
+     * @param p_key_value Р·РЅР°С‡РµРЅРёРµ РєР»СЋС‡Р° РјР°РїР°
      * @return 
      */
     public static Map<String, Object> findMapInList(List<Map<String, Object>> p_list,
@@ -281,7 +281,7 @@ public class CUtil {
     }
     
     /**
-     * Вернуть первый найденный ключ мапа по значению мапа
+     * Р’РµСЂРЅСѓС‚СЊ РїРµСЂРІС‹Р№ РЅР°Р№РґРµРЅРЅС‹Р№ РєР»СЋС‡ РјР°РїР° РїРѕ Р·РЅР°С‡РµРЅРёСЋ РјР°РїР°
      * @param <K>
      * @param <V>
      * @param p_map
@@ -318,7 +318,7 @@ public class CUtil {
         return x_lst.addAll(p_v_collection);
     }
     /**
-     * Равенство двух объектов (null safe)
+     * Р Р°РІРµРЅСЃС‚РІРѕ РґРІСѓС… РѕР±СЉРµРєС‚РѕРІ (null safe)
      */
     public static boolean equals(Object p_left, Object p_right) {
         if (p_left == p_right) {
@@ -408,14 +408,14 @@ public class CUtil {
     
     private static final String s_line_separator = System.getProperty("line.separator");
     // Base64 transfer encoding for MIME (RFC 2045), Maximum encoded line length = 76
-    // 76 используется в sun.misc.BASE64Encoder
+    // 76 РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ РІ sun.misc.BASE64Encoder
     private static final int s_chars_per_line = 76;
     static public byte[] encodeToBase64(byte[] p_in) throws IOException {
         return BaseEncoding.base64().withSeparator(s_line_separator, s_chars_per_line).encode(p_in).getBytes();
     }
     static public byte[] decodeFromBase64(byte[] p_in) throws IOException {
-        // Удалить из p_in все WHITESPACE символы (http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/CharMatcher.html#WHITESPACE)
-        // в том числе переносы строки (\n и \r\n)
+        // РЈРґР°Р»РёС‚СЊ РёР· p_in РІСЃРµ WHITESPACE СЃРёРјРІРѕР»С‹ (http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/CharMatcher.html#WHITESPACE)
+        // РІ С‚РѕРј С‡РёСЃР»Рµ РїРµСЂРµРЅРѕСЃС‹ СЃС‚СЂРѕРєРё (\n Рё \r\n)
         String x_string_to_decode = CharMatcher.WHITESPACE.removeFrom(new String(p_in));
         return BaseEncoding.base64().decode(x_string_to_decode);
     }

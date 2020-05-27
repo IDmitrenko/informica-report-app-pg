@@ -13,7 +13,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CounterDef {
-// TODO продолжить ...
+// TODO РїСЂРѕРґРѕР»Р¶РёС‚СЊ ...
 /*
     private String m_id,
                    m_descr, 

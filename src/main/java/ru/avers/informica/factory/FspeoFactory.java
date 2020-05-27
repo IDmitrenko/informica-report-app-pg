@@ -12,7 +12,7 @@ import ru.avers.informica.utils.FspeoVersion;
 public class FspeoFactory {
     private static final Logger s_logger = LoggerFactory.getLogger(FspeoFactory.class);
 
-// TODO ���������� �����������
+// TODO продолжение ...
 /*
     private final UserIdDto m_id_user;
     private final IInqryEducYearBegin m_educ_year_begin;
@@ -82,11 +82,11 @@ public class FspeoFactory {
             Config x_config = retrieveInformicaConfig(p_version);
             if (x_config == null) 
                 throw new FspeoException(
-                        String.format("�� ������� ��������� ��������� ��� �������������� (������: %s)",
-                                                                                            String.valueOf(p_version)));
+                        String.format("Не удалось прочитать настройки для взаимодействия (версия: %s)",
+                                       String.valueOf(p_version)));
             String x_message = createDataAdapter(x_config, p_is_threaded)
                                                 .fill(x_push_data_request, p_data_mode, p_id_uch);
-            //  todo ����������� ����������� �������� ������ ��� �������������
+            //  todo рассмотреть возможность создания только при необходимости
             //  create additional report with counters for ver4
             CDataAdapterVer4 x_da_v4 = new CDataAdapterVer4(x_config, m_educ_year_begin, m_cmsn_providers);
             
@@ -125,10 +125,10 @@ public class FspeoFactory {
             return x_rv;
         }
         catch(BaseInquirerDbBLException ex) {
-            throw new FspeoException("������ ���������� ���������", ex);
+            throw new FspeoException("Ошибка провайдера Заявитель", ex);
         }
         catch(CBaseInqryDbBLException ex) {
-            throw new FspeoException("������ ���������� ��������", ex);
+            throw new FspeoException("Ошибка провайдера Комиссия", ex);
         }
     }
     
@@ -174,7 +174,7 @@ public class FspeoFactory {
 
     
     static public FspeoVersion transformVersion(ReportInformica.Version p_val) {
-        //  ������ 5 �� ���������
+        //  версия 5 по умолчанию
         FspeoVersion x_rv = FspeoVersion.Five;
 //        if(ReportInformica.Version.Six.equals(p_val)) x_rv = FspeoVersion.Six;
         return x_rv;

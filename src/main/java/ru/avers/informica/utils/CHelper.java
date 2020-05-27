@@ -26,7 +26,7 @@ import java.util.TimeZone;
 @Component
 public class CHelper {
     private static final Logger s_logger = LoggerFactory.getLogger(CHelper.class);
-
+// TODO РїСЂРѕРґРѕР»Р¶РёС‚СЊ ...
 /*1
     private static IMapFactory m_default_map_factory;
     
@@ -53,8 +53,8 @@ public class CHelper {
                     }
                 }
 
-                //  перегоним мапы из JSONParser.parse в "наши" мапы -
-                //  иначе были проблемы с сериализацией GWT RPC
+                //  РїРµСЂРµРіРѕРЅРёРј РјР°РїС‹ РёР· JSONParser.parse РІ "РЅР°С€Рё" РјР°РїС‹ -
+                //  РёРЅР°С‡Рµ Р±С‹Р»Рё РїСЂРѕР±Р»РµРјС‹ СЃ СЃРµСЂРёР°Р»РёР·Р°С†РёРµР№ GWT RPC
                 private Object processObject(Object p_obj) {
                     Object x_rv = p_obj;
                     if(p_obj instanceof Map) {
@@ -93,41 +93,42 @@ public class CHelper {
     public static CMapableTimeZone getTimeZone(CMapableUserSettings p_us) {
         CMapableTimeZone x_rv = null;
         if(p_us != null) x_rv = p_us.getTimeZone();
-        //В некоторых случаях (i.e. ключ реестра DisableAutoDaylightTimeSet) TimeZone.getTimezone()
-        //может возращать Custom timezone которой не будет в списке getAvailableIDs
+        //Р’ РЅРµРєРѕС‚РѕСЂС‹С… СЃР»СѓС‡Р°СЏС… (i.e. РєР»СЋС‡ СЂРµРµСЃС‚СЂР° DisableAutoDaylightTimeSet) TimeZone.getTimezone()
+        //РјРѕР¶РµС‚ РІРѕР·СЂР°С‰Р°С‚СЊ Custom timezone РєРѕС‚РѕСЂРѕР№ РЅРµ Р±СѓРґРµС‚ РІ СЃРїРёСЃРєРµ getAvailableIDs
         //if(x_rv == null) x_rv = getTimeZone2MapableTransformer().to(TimeZone.getTimezone());
         if(x_rv == null) x_rv = getTimeZone2MapableTransformer().to(getDefaultTimeZone());
         return x_rv;
     }
 
     */
-/**
-     * Получить временную зону по умолчанию
-     * @return 
-     * Если временная зона задана в настройках - возвращается она,
-     * иначе возвращается временная зона по умолчанию сервера
-     *//*
+   /**
+    * РџРѕР»СѓС‡РёС‚СЊ РІСЂРµРјРµРЅРЅСѓСЋ Р·РѕРЅСѓ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
+    * @return
+    * Р•СЃР»Рё РІСЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР° Р·Р°РґР°РЅР° РІ РЅР°СЃС‚СЂРѕР№РєР°С… - РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ РѕРЅР°,
+    * РёРЅР°С‡Рµ РІРѕР·РІСЂР°С‰Р°РµС‚СЃСЏ РІСЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ СЃРµСЂРІРµСЂР°
+    */
+/*
 
     public static TimeZone getDefaultTimeZone() {
-        // инициализация timezone по умолчанию    
+        // РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ timezone РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
         TimeZone x_default_timezone = null;
-        s_logger.debug("инициализация временной зоны по умолчанию");
-        // получить значение временной зоны из настроек
+        s_logger.debug("РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РІСЂРµРјРµРЅРЅРѕР№ Р·РѕРЅС‹ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ");
+        // РїРѕР»СѓС‡РёС‚СЊ Р·РЅР°С‡РµРЅРёРµ РІСЂРµРјРµРЅРЅРѕР№ Р·РѕРЅС‹ РёР· РЅР°СЃС‚СЂРѕРµРє
         String x_config_id_timezone = getConfigProfile().getMisc().getDefaults().getTimezone();
         if (!CUtil.isStringNullOrEmpty(x_config_id_timezone)) {
-            s_logger.debug("Временная зона задана в настройках: " + x_config_id_timezone);        
-            // получить идентификаторы доступных временных зон
+            s_logger.debug("Р’СЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР° Р·Р°РґР°РЅР° РІ РЅР°СЃС‚СЂРѕР№РєР°С…: " + x_config_id_timezone);
+            // РїРѕР»СѓС‡РёС‚СЊ РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂС‹ РґРѕСЃС‚СѓРїРЅС‹С… РІСЂРµРјРµРЅРЅС‹С… Р·РѕРЅ
             List<String> x_available_ids = CUtil.getListOfTimeZonesIds();
             if (x_available_ids.contains(x_config_id_timezone)) {
-                // временная зона задана в настройках и содержится в списке доступных
+                // РІСЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР° Р·Р°РґР°РЅР° РІ РЅР°СЃС‚СЂРѕР№РєР°С… Рё СЃРѕРґРµСЂР¶РёС‚СЃСЏ РІ СЃРїРёСЃРєРµ РґРѕСЃС‚СѓРїРЅС‹С…
                 x_default_timezone = TimeZone.getTimeZone(x_config_id_timezone);
-                s_logger.debug("Временная зона из настроек '" + x_config_id_timezone + "' выбрана в качестве зоны по умолчанию");
+                s_logger.debug("Р’СЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР° РёР· РЅР°СЃС‚СЂРѕРµРє '" + x_config_id_timezone + "' РІС‹Р±СЂР°РЅР° РІ РєР°С‡РµСЃС‚РІРµ Р·РѕРЅС‹ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ");
             }
-            else s_logger.debug("Временная зона из настроек недоступна для выбора");
+            else s_logger.debug("Р’СЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР° РёР· РЅР°СЃС‚СЂРѕРµРє РЅРµРґРѕСЃС‚СѓРїРЅР° РґР»СЏ РІС‹Р±РѕСЂР°");
         }
         if (x_default_timezone == null) {
             x_default_timezone = TimeZone.getDefault();
-            s_logger.debug("Временная зона машины '" + x_default_timezone.getID() + "' выбрана в качестве зоны по умолчанию");
+            s_logger.debug("Р’СЂРµРјРµРЅРЅР°СЏ Р·РѕРЅР° РјР°С€РёРЅС‹ '" + x_default_timezone.getID() + "' РІС‹Р±СЂР°РЅР° РІ РєР°С‡РµСЃС‚РІРµ Р·РѕРЅС‹ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ");
             x_default_timezone = TimeZone.getDefault();
         }
         return x_default_timezone;
@@ -200,7 +201,7 @@ public class CHelper {
 
 
     public static CProfile getConfigProfile() {
-        //  TODO здесь уже должен быть определен id профиля        
+        //  TODO Р·РґРµСЃСЊ СѓР¶Рµ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РѕРїСЂРµРґРµР»РµРЅ id РїСЂРѕС„РёР»СЏ
         return ConfigLoader.loadProfile(getSettingsFilename(), "default");
     }
     

@@ -17,7 +17,7 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CounterConfig {
-// TODO продолжить...
+// TODO РїСЂРѕРґРѕР»Р¶РёС‚СЊ ...
 /*
     private CounterDef m_counter_def;
 
@@ -49,7 +49,7 @@ public class CounterConfig {
                 return false;
             }
         }
-        // Для проверки фильтра по условию ИЛИ (нужно прогнать по всем фильтрам)
+        // Р”Р»СЏ РїСЂРѕРІРµСЂРєРё С„РёР»СЊС‚СЂР° РїРѕ СѓСЃР»РѕРІРёСЋ РР›Р (РЅСѓР¶РЅРѕ РїСЂРѕРіРЅР°С‚СЊ РїРѕ РІСЃРµРј С„РёР»СЊС‚СЂР°Рј)
         boolean isAllOrBeanFilter = true;
         if (x_ds_item instanceof InqryTransfer) {
             ((InqryTransfer) x_ds_item).setCount(0);
@@ -124,20 +124,20 @@ public class CounterConfig {
                 return x_nested_bean;
             }
         } catch (IllegalAccessException ex) {
-            throw new FspeoException("Нет доступа к указанному полю", ex);
+            throw new FspeoException("РќРµС‚ РґРѕСЃС‚СѓРїР° Рє СѓРєР°Р·Р°РЅРЅРѕРјСѓ РїРѕР»СЋ", ex);
         } catch (IllegalArgumentException ex) {
-            throw new FspeoException("Недопустимый или несоответствующий параметр", ex);
+            throw new FspeoException("РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ РёР»Рё РЅРµСЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РїР°СЂР°РјРµС‚СЂ", ex);
         } catch (IntrospectionException ex) {
-            throw new FspeoException("Не найден метод для свойства " + p_prop, ex);
+            throw new FspeoException("РќРµ РЅР°Р№РґРµРЅ РјРµС‚РѕРґ РґР»СЏ СЃРІРѕР№СЃС‚РІР° " + p_prop, ex);
         } catch (InvocationTargetException ex) {
-            throw new FspeoException("Ошибка при вызове метода для свойства " + p_prop, ex);
+            throw new FspeoException("РћС€РёР±РєР° РїСЂРё РІС‹Р·РѕРІРµ РјРµС‚РѕРґР° РґР»СЏ СЃРІРѕР№СЃС‚РІР° " + p_prop, ex);
         }
     }
 
     private static <T> Object invokeGetter(String p_prop, T p_bean) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        // Не использовать new PropertyDescriptor(p_prop, p_bean.getClass()), 
-        // java 1.7 не находит getter, унаследованный от базового класса, (валится
-        // с ошибкой, что не находит соответствующий setter)
+        // РќРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ new PropertyDescriptor(p_prop, p_bean.getClass()),
+        // java 1.7 РЅРµ РЅР°С…РѕРґРёС‚ getter, СѓРЅР°СЃР»РµРґРѕРІР°РЅРЅС‹Р№ РѕС‚ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР°, (РІР°Р»РёС‚СЃСЏ
+        // СЃ РѕС€РёР±РєРѕР№, С‡С‚Рѕ РЅРµ РЅР°С…РѕРґРёС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ setter)
         // https://community.oracle.com/thread/1160697?tstart=0
         BeanInfo x_bean_info = Introspector.getBeanInfo(p_bean.getClass());
         PropertyDescriptor[] x_descriptors = x_bean_info.getPropertyDescriptors();

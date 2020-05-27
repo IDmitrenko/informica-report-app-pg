@@ -115,9 +115,9 @@ public class CUtil {
         T x_rv = null;
         try {
             Unmarshaller x_unmarshaller = p_jaxb_ctx.createUnmarshaller();
-            // Выбрасывает исключение при ошибках unmarshal, например когда jaxb не может найти свойство
-            // (по умолчанию jaxb не показывает ошибок и возвращает null для не найденных свойств)
-            // проверить необходимость флага -Djaxb.debug=true
+            // Р’С‹Р±СЂР°СЃС‹РІР°РµС‚ РёСЃРєР»СЋС‡РµРЅРёРµ РїСЂРё РѕС€РёР±РєР°С… unmarshal, РЅР°РїСЂРёРјРµСЂ РєРѕРіРґР° jaxb РЅРµ РјРѕР¶РµС‚ РЅР°Р№С‚Рё СЃРІРѕР№СЃС‚РІРѕ
+            // (РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ jaxb РЅРµ РїРѕРєР°Р·С‹РІР°РµС‚ РѕС€РёР±РѕРє Рё РІРѕР·РІСЂР°С‰Р°РµС‚ null РґР»СЏ РЅРµ РЅР°Р№РґРµРЅРЅС‹С… СЃРІРѕР№СЃС‚РІ)
+            // РїСЂРѕРІРµСЂРёС‚СЊ РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚СЊ С„Р»Р°РіР° -Djaxb.debug=true
             // x_unmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());        
             JAXBElement<T> x_obj = (JAXBElement<T>)x_unmarshaller.unmarshal(new StreamSource(p_is), p_cls);
             x_rv = (x_obj != null ? x_obj.getValue() : null);
@@ -322,7 +322,7 @@ public class CUtil {
         return toStr(p_node, createFormatProps(p_is_omit_xml_decl, p_is_indent, p_enc, p_method));
     }
     
-    //  TODO здесь непонятно действие параметра p_enc ???
+    //  TODO Р·РґРµСЃСЊ РЅРµРїРѕРЅСЏС‚РЅРѕ РґРµР№СЃС‚РІРёРµ РїР°СЂР°РјРµС‚СЂР° p_enc ???
     static public Properties createFormatProps(
                                 boolean p_is_omit_xml_decl, 
                                 boolean p_is_indent, 
@@ -344,7 +344,7 @@ public class CUtil {
         return x_oformat.isEmpty() ? null : x_oformat;
     }
 
-    //  в строку в текущей кодировке 
+    //  РІ СЃС‚СЂРѕРєСѓ РІ С‚РµРєСѓС‰РµР№ РєРѕРґРёСЂРѕРІРєРµ
 //    static public String toStr(org.w3c.dom.Node p_node, Properties p_oformat) 
     static private String toStr(org.w3c.dom.Node p_node, Properties p_oformat)
             throws TransformerConfigurationException, TransformerException {

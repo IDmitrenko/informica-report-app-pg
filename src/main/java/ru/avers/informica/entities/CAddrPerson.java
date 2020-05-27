@@ -5,7 +5,7 @@ import ru.avers.informica.entities.dicts.CDict71PersonAddrType;
 
 import javax.persistence.*;
 
- //TODO нет пока аналога таблицы в новой БД
+ //TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-// TODO нет пока аналога таблицы в новой БД
+// TODO РЅРµС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ РІ РЅРѕРІРѕР№ Р‘Р”
 /**
  *
  * @author Dias

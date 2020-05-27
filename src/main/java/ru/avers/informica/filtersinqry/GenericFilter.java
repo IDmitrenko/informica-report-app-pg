@@ -57,7 +57,7 @@ public class GenericFilter implements IFieldFilterParams, IFilter<Object> {
         if (m_str_value == null) return null;
 
         if (ComparisonType.in.equals(m_comparison) || ComparisonType.notIn.equals(m_comparison)) {
-            // В качестве значения ожидается список
+            // Р’ РєР°С‡РµСЃС‚РІРµ Р·РЅР°С‡РµРЅРёСЏ РѕР¶РёРґР°РµС‚СЃСЏ СЃРїРёСЃРѕРє
             String[] x_str_values = m_str_value.split(" ");
             List<Object> x_list = new ArrayList<Object>();
             for (String x_str_value : x_str_values)
@@ -99,7 +99,7 @@ public class GenericFilter implements IFieldFilterParams, IFilter<Object> {
     @Override
     public boolean isPassed(Object p_field_value) throws FilterException {
         if (m_comparison == null)
-            throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
+            throw new FilterException(String.format("РќРµ Р·Р°РґР°РЅР° РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ РґР»СЏ РїРѕР»СЏ %s", m_field));
         if (p_field_value != null) setFieldType(p_field_value.getClass());
         switch (m_comparison) {
             case isnull:
@@ -114,30 +114,30 @@ public class GenericFilter implements IFieldFilterParams, IFilter<Object> {
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) > 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("РќРµРґРѕРїСѓСЃС‚РёРјР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
             case greaterOrEqual:
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) >= 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("РќРµРґРѕРїСѓСЃС‚РёРјР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
             case less:
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) < 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("РќРµРґРѕРїСѓСЃС‚РёРјР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
             case lessOrEqual:
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) <= 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("РќРµРґРѕРїСѓСЃС‚РёРјР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
             case in:
                 return ((List) getValue()).contains(p_field_value);
             case notIn:
                 return !((List) getValue()).contains(p_field_value);
             case like:
-                throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                throw new FilterException(String.format("РќРµРґРѕРїСѓСЃС‚РёРјР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
         }
-        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+        throw new FilterException(String.format("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
     }
 
     @Override

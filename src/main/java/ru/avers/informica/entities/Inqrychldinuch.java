@@ -17,7 +17,7 @@ import java.util.List;
  * @author Dias
  */
 @Entity
-@Table(name="INQRYCHLDINUCH")  // applications - новая таблица
+@Table(name="INQRYCHLDINUCH")  // applications - РЅРѕРІР°СЏ С‚Р°Р±Р»РёС†Р° (Р—Р°СЏРІР»РµРЅРёСЏ)
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_INQRYCHLDINUCH_ID")
 public class Inqrychldinuch extends CItem {
 
@@ -382,7 +382,7 @@ public class Inqrychldinuch extends CItem {
     @Column(name = "FTHR_EMAILS")
     private String m_fthrEmails;
     
-    //  2014-06 OTHER_* рассматривается как данные заявителя
+    //  2014-06 OTHER_* СЂР°СЃСЃРјР°С‚СЂРёРІР°РµС‚СЃСЏ РєР°Рє РґР°РЅРЅС‹Рµ Р·Р°СЏРІРёС‚РµР»СЏ
     @Size(max=1024)
     @Column(name = "OTHER_SRNM")
     private String m_otherSrnm;
@@ -650,7 +650,7 @@ public class Inqrychldinuch extends CItem {
     
     //  -------------------------------------------------------------------
     //
-    //  2016-02 для пгу2 курган (ранее было заведено для концентратора)
+    //  2016-02 РґР»СЏ РїРіСѓ2 РєСѓСЂРіР°РЅ (СЂР°РЅРµРµ Р±С‹Р»Рѕ Р·Р°РІРµРґРµРЅРѕ РґР»СЏ РєРѕРЅС†РµРЅС‚СЂР°С‚РѕСЂР°)
     //
     @Column(name="ALLOW_OFFER_OTHER_UCHS")
     private Boolean m_allow_offer_other_uchs;
@@ -1396,8 +1396,8 @@ public class Inqrychldinuch extends CItem {
     }
 
     /**
-     * Указал ли заявитель при подаче заявления наличие льготы 
-     * (в зависимости от настроек может не заполняться, тогда указываются сразу конкретные льготы setLgots)
+     * РЈРєР°Р·Р°Р» Р»Рё Р·Р°СЏРІРёС‚РµР»СЊ РїСЂРё РїРѕРґР°С‡Рµ Р·Р°СЏРІР»РµРЅРёСЏ РЅР°Р»РёС‡РёРµ Р»СЊРіРѕС‚С‹
+     * (РІ Р·Р°РІРёСЃРёРјРѕСЃС‚Рё РѕС‚ РЅР°СЃС‚СЂРѕРµРє РјРѕР¶РµС‚ РЅРµ Р·Р°РїРѕР»РЅСЏС‚СЊСЃСЏ, С‚РѕРіРґР° СѓРєР°Р·С‹РІР°СЋС‚СЃСЏ СЃСЂР°Р·Сѓ РєРѕРЅРєСЂРµС‚РЅС‹Рµ Р»СЊРіРѕС‚С‹ setLgots)
      * @return 
      */
     public Boolean getInquirerPrivilege() {

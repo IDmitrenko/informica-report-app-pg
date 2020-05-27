@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="INQRYSTATUS")  // status - новая таблица (Статусы заявлений)
+@Table(name="INQRYSTATUS")  // status - РЅРѕРІР°СЏ С‚Р°Р±Р»РёС†Р° (РЎС‚Р°С‚СѓСЃС‹ Р·Р°СЏРІР»РµРЅРёР№)
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_INQRYSTATUS_ID")
 public class Inqrystatus extends CItem {
 

@@ -29,7 +29,7 @@ import java.util.*;
     "ovzTypeDef",
     "orientationDef"
 })
-public class ConfigInformica implements Serializable {
+public class ConfigInformica implements IDTO {
     private static final Logger s_logger = LoggerFactory.getLogger(ConfigInformica.class);
     
     public final static String s_informica_report = "informica";

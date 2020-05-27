@@ -21,8 +21,8 @@ import java.util.Map;
  *       &lt;attribute name="installType" use="required">
  *         &lt;simpleType>
  *           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
- *             &lt;enumeration value="Ðåãèîíàëüíàÿ"/>
- *             &lt;enumeration value="Ìóíèöèïàëüíàÿ"/>
+ *             &lt;enumeration value="Ð ÐµÐ³Ð¸Ð¾Ð½Ð°Ð»ÑŒÐ½Ð°Ñ"/>
+ *             &lt;enumeration value="ÐœÑƒÐ½Ð¸Ñ†Ð¸Ð¿Ð°Ð»ÑŒÐ½Ð°Ñ"/>
  *           &lt;/restriction>
  *         &lt;/simpleType>
  *       &lt;/attribute>

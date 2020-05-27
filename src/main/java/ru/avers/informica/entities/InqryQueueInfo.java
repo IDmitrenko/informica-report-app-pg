@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Dias
  */
 @Entity
-@Table(name="INQRY_QUEUE_INFO")  // queue_info (Время вхождения заявления в очередь)
+@Table(name="INQRY_QUEUE_INFO")  // queue_info (Р’СЂРµРјСЏ РІС…РѕР¶РґРµРЅРёСЏ Р·Р°СЏРІР»РµРЅРёСЏ РІ РѕС‡РµСЂРµРґСЊ)
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_INQRY_QUEUE_INFO_ID")
 public class InqryQueueInfo extends CItem {
     

@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Dias
  */
 @Entity
-@Table(name="INQRYLGOT")  // benefits - новая таблица (льготы)
+@Table(name="INQRYLGOT")  // benefits - РЅРѕРІР°СЏ С‚Р°Р±Р»РёС†Р° (Р›СЊРіРѕС‚С‹)
 @SequenceGenerator(name="SEQ_GEN", sequenceName="GEN_INQRYLGOT_ID")
 public class Inqrylgot extends CItem {
     
