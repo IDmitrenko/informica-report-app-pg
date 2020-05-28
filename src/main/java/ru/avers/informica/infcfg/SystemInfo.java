@@ -71,8 +71,6 @@ public class SystemInfo {
         this.own_server = own_server;
     }
 
-
-
     @XmlAttribute(name = "vendor", required = true)
     public String getVendor() {
         return vendor;

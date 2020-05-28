@@ -3,21 +3,15 @@ package ru.avers.informica.infcfg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
-import ru.avers.informica.utils.xml.CUtil;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.*;
-import javax.xml.namespace.QName;
-import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.*;
 
 /**
  *
  * @author Dias
  */
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(name = "config", propOrder={
     "endpoints",
@@ -29,41 +23,27 @@ import java.util.*;
     "ovzTypeDef",
     "orientationDef"
 })
-public class ConfigInformica implements IDTO {
-    private static final Logger s_logger = LoggerFactory.getLogger(ConfigInformica.class);
+public class Config implements IDTO {
+    private static final Logger s_logger = LoggerFactory.getLogger(Config.class);
     
     public final static String s_informica_report = "informica";
 
     final static private String s_root_nm = "config";
 
-    public ConfigInformica() {
+    public Config() {
 
     }
     
     private List<ServiceEndpoint> m_informica_service_endpoint;
     private Integer m_version;
-    private SystemInfo m_system;
+    private SystemInfoType m_system;
     private List<ReportConfig> m_reports;
     private List<SchemaConfig> m_schemas;
     private List<CounterDef> m_counters_def;
     private List<AgeRangeDef> m_age_ranges_def;
     private List<OvzTypeDef> m_ovz_type_def;
     private List<OrientationDef> m_orientation_def;
-            
-    @XmlElement(name = "informica-service-endpoint")
-    public List<ServiceEndpoint> getEndpoints() {
-        if (m_informica_service_endpoint == null) {
-            m_informica_service_endpoint = new ArrayList<ServiceEndpoint>();
-        }
-        return m_informica_service_endpoint;
-    }
-    
-    @XmlElement(name = "system")
-    public SystemInfo getSystem() { return m_system; }
-    public void setSystem(SystemInfo p_system) {
-        m_system = p_system;
-    }
-    
+
     @XmlAttribute
     public Integer getVersion() {
         return m_version;
@@ -72,6 +52,22 @@ public class ConfigInformica implements IDTO {
         m_version = p_version;
     }
 
+    @XmlElement(name = "informica-service-endpoint")
+    public List<ServiceEndpoint> getEndpoints() {
+        if (m_informica_service_endpoint == null) {
+            m_informica_service_endpoint = new ArrayList<ServiceEndpoint>();
+        }
+        return m_informica_service_endpoint;
+    }
+    @XmlType(name = "")
+    public static class SystemInfoType extends SystemInfo {}
+
+    @XmlElement(name = "system")
+    public SystemInfoType getSystem() { return m_system; }
+    public void setSystem(SystemInfoType p_system) {
+        m_system = p_system;
+    }
+    
     @XmlElement(name = "report-informica")
     public List<ReportConfig> getReports() {
         if (m_reports == null) {
@@ -98,6 +94,7 @@ public class ConfigInformica implements IDTO {
         return m_age_ranges_def;
     }
 
+// 28.05.2020  убрал, так как такой секции нет в файле
     @XmlElementWrapper(name = "ovz-def")
     @XmlElement(name = "item")
     public List<OvzTypeDef> getOvzTypeDef() {
@@ -158,7 +155,9 @@ public class ConfigInformica implements IDTO {
         }
         return m_schemas;
     }
-    
+
+// TODO вынес в InformicaConfigLoader
+/*
     final private static JAXBContext s_jaxb_ctx;
     public static JAXBContext getJAXBContext() {
         return s_jaxb_ctx;
@@ -179,10 +178,10 @@ public class ConfigInformica implements IDTO {
                                 null : 
                                 CUtil.toStringXML(
                                         new JAXBElement<ConfigInformica>(
-                                                                 new QName(s_root_nm),
-                                                                 ConfigInformica.class,
-                                                            null,
-                                                             this),
+                                                 new QName(s_root_nm),
+                                                 ConfigInformica.class,
+                                            null,
+                                            this),
                                         s_jaxb_ctx,
                             true);
     }    
@@ -196,5 +195,6 @@ public class ConfigInformica implements IDTO {
     static public ConfigInformica reestablish(String p_val) {
         return CUtil.<ConfigInformica> reestablish(p_val, ConfigInformica.class, s_jaxb_ctx);
     }    
-    
+*/
+
 }

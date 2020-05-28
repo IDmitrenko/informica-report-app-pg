@@ -11,11 +11,14 @@ import ru.avers.informica.launcher.ReportLauncher;
 @RequestMapping("/report")
 public class ReportController {
 
+    private static final String launchSite = "RestController";
+    private static final boolean checkingLaunch = false;
+
     private final ReportLauncher launcher;
 
     @GetMapping("/start")
     public String getStart() {
-        launcher.buildReport("RestController");
+        launcher.buildReport(launchSite, checkingLaunch);
         return "Запустили построение отчета!";
     }
 }

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="windows-1251" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <config version="2">
-    
+
     <informica-service-endpoint password="" login="" ver="4.0">http://127.0.0.1:8700/push_data</informica-service-endpoint>
 
     <system name="ИС «Комплектование ДОО»" vendor="Общество с ограниченной ответственностью центр информационных технологий «Аверс»" version="33.00" email="" installType="Муниципальная" own_server="4"/>
@@ -13,7 +13,7 @@
 
 
             <source-transfer>
-                <!-- показатели 5-й версии  [5v] -->    
+                <!-- показатели 5-й версии  [5v] -->
                 <counter def="counter-20.5"/>
                 <counter def="counter-20.6"/>
                 <counter def="counter-20.7"/>
@@ -35,14 +35,14 @@
                 <counter def="counter-21-v4"/>
                 <counter def="counter-25-v4"/>
 
-                <!-- показатели 5-й версии  [5v] -->          
-                <counter def="counter-22.1.1"/> 
+                <!-- показатели 5-й версии  [5v] -->
+                <counter def="counter-22.1.1"/>
                 <counter def="counter-22.1.2"/>
-                <counter def="counter-22.3.1"/> 
-                <counter def="counter-22.3.2"/> 
-                <counter def="counter-22.5.1"/> 
-                <counter def="counter-22.5.2"/> 
-                <counter def="counter-22.8.1"/> 
+                <counter def="counter-22.3.1"/>
+                <counter def="counter-22.3.2"/>
+                <counter def="counter-22.5.1"/>
+                <counter def="counter-22.5.2"/>
+                <counter def="counter-22.8.1"/>
                 <counter def="counter-22.8.2"/>
                 <counter def="counter-29.1"/>
                 <counter def="counter-32.1.enr"/>
@@ -69,13 +69,13 @@
                 <counter def="counter-7.5"/>
                 <counter def="counter-7.6"/>
 
-                <!-- показатели 5-й версии  [5v] -->          
-                <counter def="counter-7.7"/> 
+                <!-- показатели 5-й версии  [5v] -->
+                <counter def="counter-7.7"/>
                 <counter def="counter-10.1"/>
                 <counter def="counter-18.4"/>
                 <counter def="counter-18.5"/>
                 <counter def="counter-32.1.inq"/>
-                <counter def="counter-32.2"/>                
+                <counter def="counter-32.2"/>
             </source-inqry>
 
         </source-uch>
@@ -84,10 +84,10 @@
     <schema-informica id="schema_uch">
         <source-uch>
             <!--
-            <filter field="orgLegalFormCode" cmp="in" value="01 02 07 08" /> 
+            <filter field="orgLegalFormCode" cmp="in" value="01 02 07 08" />
             -->
             <!--
-            <filter field="code" cmp="le" value="005" /> 
+            <filter field="code" cmp="le" value="005" />
             -->
             <source-inqry>
                 <counter def="counter-1"/>
@@ -132,9 +132,9 @@
                 <counter def="counter-20.3"/>
                 <counter def="counter-20.4"/>
                 <counter def="counter-30.inq.act"/>
-                <counter def="counter-30.inq.sent"/>   
+                <counter def="counter-30.inq.sent"/>
                 <counter def="counter-30.1.inq.act"/>
-                <counter def="counter-30.1.inq.sent"/>                
+                <counter def="counter-30.1.inq.sent"/>
                 <counter def="counter-30.2.inq.act"/>
                 <counter def="counter-30.2.inq.sent"/>
                 <counter def="counter-33"/>
@@ -501,7 +501,7 @@
             <filter field="typeCode" cmp="eq" value="02"/>
             <filter field="statusCode" cmp="in" value="04 12"/>
             <!-- Удалён статус 06 т.к. [20.1] <= [19.3] Задача #17719 -->
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>            
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <age-range def="range-16"/>
         </counter-def>
         <!-- 20.2 -->
@@ -538,7 +538,7 @@
             <age-range def="range-16"/>
         </counter-def>
 
-        <!-- Только для отчёта 4й версии. Показатели 22.х НАЧАЛО -->        
+        <!-- Только для отчёта 4й версии. Показатели 22.х НАЧАЛО -->
 
         <!-- 22.1 -->
         <counter-def id="counter-22.1" name="22.1">
@@ -575,14 +575,14 @@
             <filter field="healthNeeds.code" cmp="in" value="02.08 04.10"/>
             <!-- добавлена 17.03.17 Задача#16162 -->
             <age-range def="range-16"/>
-        </counter-def> 
+        </counter-def>
         <!-- 22.8 -->
         <counter-def id="counter-22.8" name="22.8">
             <filter field="healthNeeds.code" cmp="in" value="02.06 04.04 02.09 02.10 02.11 04.09 04.11 04.12 04.13"/>
             <age-range def="range-16"/>
         </counter-def>
 
-        <!-- Только для отчёта 4й версии. Показатели 22.х КОНЕЦ -->        
+        <!-- Только для отчёта 4й версии. Показатели 22.х КОНЕЦ -->
 
         <!-- 23 -->
         <counter-def id="counter-23" name="23">
@@ -633,7 +633,7 @@
             <filter field="statusCode" cmp="in" value="04 12"/>
             <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
-        </counter-def>         
+        </counter-def>
         <counter-def id="counter-30.enr" name="30">
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
         </counter-def>
@@ -650,10 +650,10 @@
             <filter field="statusCode" cmp="in" value="04 12"/>
             <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
             <age-range def="range-16"/>
-        </counter-def>         
+        </counter-def>
         <counter-def id="counter-30.1.enr" name="30.1">
             <age-range def="range-16"/>
-        </counter-def>                       
+        </counter-def>
         <!-- 30.2 -->
         <counter-def id="counter-30.2.inq.act" name="30.2">
             <filter field="typeCode" cmp="eq" value="01"/>
@@ -666,7 +666,7 @@
             <filter field="statusCode" cmp="in" value="04 12"/>
             <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
             <age-range def="range-16" calcDay="1" calcMonth="0" calcYearInc="1"/>
-        </counter-def>         
+        </counter-def>
         <counter-def id="counter-30.2.enr" name="30.2">
             <age-range def="range-16" calcDay="1" calcMonth="0" calcYearInc="1"/>
         </counter-def>
@@ -738,7 +738,7 @@
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <filter field="healthNeedsRootCode" cmp="in" value="02 04"/>
             <age-range def="range-16"/>
-        </counter-def>        
+        </counter-def>
 
         <!-- 14 -->
         <counter-def id="counter-14-v4" name="14">
@@ -747,16 +747,16 @@
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <filter field="healthNeedsRootCode" cmp="eq" value="03"/>
             <age-range def="range-16"/>
-        </counter-def>                
+        </counter-def>
 
         <!-- 20.2 -->
         <counter-def id="counter-20.2-v4" name="20.2">
             <filter field="typeCode" cmp="eq" value="02"/>
             <filter field="statusCode" cmp="in" value="02"/>
             <filter field="healthNeedsRootCode" cmp="in" value="02 04"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>            
-            <age-range def="range-16"/>        
-        </counter-def>                
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
 
         <!-- 7.4 -->
         <counter-def id="counter-7.4-v4" name="7.4">
@@ -765,7 +765,7 @@
             <filter-date field="inUchDt" cmp="gt" educDate="true"/>
             <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
             <age-range def="range-16"/>
-        </counter-def>    
+        </counter-def>
 
         <!-- 20 -->
         <counter-def id="counter-20-v4" name="20">
@@ -866,9 +866,9 @@
             <filter field="typeCode" cmp="eq" value="01"/>
             <filter field="statusCode" cmp="in" value="02 06"/>
             <!-- Добавлен статус 06 т.к. [18.1 + 7.2 - 7.4] <= [7.5] Задача #17719 -->
-            <filter-date field="inUchDt" cmp="le" educDate="true" yearOffset="1"/> 
+            <filter-date field="inUchDt" cmp="le" educDate="true" yearOffset="1"/>
             <age-range def="range-16"/>
-        </counter-def>        
+        </counter-def>
 
         <!-- 7.6 -->
         <counter-def id="counter-7.6" name="7.6">
@@ -878,7 +878,7 @@
             <filter-date field="inUchDt" cmp="le" educDate="true" yearOffset="1"/>
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
             <!-- calcYearInc="1" #20898  -->
-        </counter-def>           
+        </counter-def>
 
         <!-- 30 -->
         <counter-def id="counter-30" name="30">
@@ -899,7 +899,7 @@
             <filter field="healthNeeds.parent.code" cmp="in" value="02 04"/>
             <filter field="invalid" cmp="eq" value="false"/>
             <age-range def="range-16"/>
-        </counter-def> 
+        </counter-def>
 
         <!-- показатели 5-й версии [5v] -->
 
@@ -911,7 +911,7 @@
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
         </counter-def>
 
-        <!-- 10.1 -->        
+        <!-- 10.1 -->
         <counter-def id="counter-10.1" name="10.1">
             <filter field="typeCode" cmp="eq" value="01"/>
             <filter field="statusCode" cmp="in" value="02"/>
@@ -928,7 +928,7 @@
             <age-range def="range-16"/>
         </counter-def>
 
-        <!-- 18.5 --> 
+        <!-- 18.5 -->
         <counter-def id="counter-18.5" name="18.5">
             <filter field="statusCode" cmp="in" value="02 06"/>
             <filter-date field="inUchDt" cmp="le"/>
@@ -1007,7 +1007,7 @@
         <!--<counter-def id="counter-32.1" name="32.1">
             <filter field="statusCode" cmp="in" value="04 12"/>
             <filter-date field="statusSetDate" cmp="ge" day="1" month="0"/>
-            <filter-date field="statusSetDate" cmp="le"/>                    
+            <filter-date field="statusSetDate" cmp="le"/>
             <age-range def="range-16"/>
         </counter-def> -->
         <counter-def id="counter-32.1.inq" name="32.1">
@@ -1033,27 +1033,27 @@
 
         <!-- 20.5 -->
         <counter-def id="counter-20.5" name="20.5">
-            <filter-bean field="idDouGrpTime" cmp="neq" value="idDouGrpTimeEnrol" useOR="true"/>         
-            <filter-bean field="idTcls" cmp="neq" value="idHealthNeeds" useOR="true"/>     
-            <filter-bean field="idTypeSobstven" cmp="neq" value="idFsobstv" useOR="true"/>                             
+            <filter-bean field="idDouGrpTime" cmp="neq" value="idDouGrpTimeEnrol" useOR="true"/>
+            <filter-bean field="idTcls" cmp="neq" value="idHealthNeeds" useOR="true"/>
+            <filter-bean field="idTypeSobstven" cmp="neq" value="idFsobstv" useOR="true"/>
             <age-range def="range-16"/>
         </counter-def>
 
         <!-- 20.6 -->
         <counter-def id="counter-20.6" name="20.6">
-            <filter-bean field="idDouGrpTime" cmp="neq" value="idDouGrpTimeEnrol"/>         
+            <filter-bean field="idDouGrpTime" cmp="neq" value="idDouGrpTimeEnrol"/>
             <age-range def="range-16"/>
         </counter-def>
         <!-- 20.7 -->
         <counter-def id="counter-20.7" name="20.7">
-            <filter-bean field="idTcls" cmp="neq" value="idHealthNeeds"/>         
+            <filter-bean field="idTcls" cmp="neq" value="idHealthNeeds"/>
             <age-range def="range-16"/>
         </counter-def>
         <!-- 20.8 -->
         <counter-def id="counter-20.8" name="20.8">
-            <filter-bean field="idTypeSobstven" cmp="neq" value="idFsobstv"/>         
+            <filter-bean field="idTypeSobstven" cmp="neq" value="idFsobstv"/>
             <age-range def="range-16"/>
-        </counter-def>        
+        </counter-def>
 
     </counters-def>
 

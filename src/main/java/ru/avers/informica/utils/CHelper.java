@@ -3,20 +3,13 @@ package ru.avers.informica.utils;
 //import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
 //import org.json.simple.parser.ParseException;
-import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.utils.ConfigLoader;
-
-import javax.servlet.http.HttpSession;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.TimeZone;
+import ru.avers.informica.infcfg.Config;
+import ru.avers.informica.infcfg.utils.InformicaConfigLoader;
 
 /**
  *
@@ -185,6 +178,7 @@ public class CHelper {
     }
 */
     final private static String s_relative_settings_filename = "/settings/config.xml";
+    final private static String s_relative_informica_config_filename = "/informica/inf5_counter10.xml";
 
     private static String s_app_home_folder;
 
@@ -196,15 +190,17 @@ public class CHelper {
         s_app_home_folder = p_val;
     }
 
-    public static String getSettingsFilename() {
-        return getAppHomeFolder() + s_relative_settings_filename; }
-
+    public static String getSettingsFilename(String s_relative_filename) {
+        return getAppHomeFolder() + s_relative_filename; }
 
     public static CProfile getConfigProfile() {
         //  TODO здесь уже должен быть определен id профиля
-        return ConfigLoader.loadProfile(getSettingsFilename(), "default");
+        return ConfigLoader.loadProfile(getSettingsFilename(s_relative_settings_filename), "default");
     }
-    
+
+    public static Config getInformicaConfig() {
+        return InformicaConfigLoader.loadConfigInformica(getSettingsFilename(s_relative_informica_config_filename));
+    }
     //===================================================================================================
     
 }

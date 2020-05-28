@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="windows-1251" standalone="yes"?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <config version="2">
-    
+
     <informica-service-endpoint password="" login="" ver="4.0">http://127.0.0.1:8700/push_data</informica-service-endpoint>
 
     <system name="ИС «Комплектование ДОО»" vendor="Общество с ограниченной ответственностью центр информационных технологий «Аверс»" version="33.00" email="" installType="Муниципальная" own_server="4"/>

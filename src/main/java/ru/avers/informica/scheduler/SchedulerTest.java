@@ -11,11 +11,13 @@ import ru.avers.informica.launcher.ReportLauncher;
 @RequiredArgsConstructor
 public class SchedulerTest {
     private static final Logger log = LoggerFactory.getLogger(SchedulerTest.class);
+    private static final String launchSite = "Launcher";
+    private static final boolean checkingLaunch = true;
 
     private final ReportLauncher launcher;
 
     @Scheduled(cron = "${scheduler.start.time}")
     public void reportCurrentTime() {
-        launcher.buildReport("Launcher");
+        launcher.buildReport(launchSite, checkingLaunch);
     }
 }

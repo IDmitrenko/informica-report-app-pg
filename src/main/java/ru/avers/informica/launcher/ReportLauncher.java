@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CMisc;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.ReportInformica;
+import ru.avers.informica.infcfg.Config;
 import ru.avers.informica.utils.CHelper;
 
 import javax.servlet.ServletContext;
@@ -28,8 +29,8 @@ public class ReportLauncher {
 
     private String debug;
 
-    public void buildReport(String name) {
-        System.out.println("Запуск отчета - " + name);
+    public void buildReport(String launchSite, boolean checkingLaunch) {
+        System.out.println("Место запуска отчета - " + launchSite);
 
         String absolutePath = context.getClassLoader().getResource("config").getPath();
         cHelper.setAppHomeFolder(absolutePath);
@@ -42,7 +43,7 @@ public class ReportLauncher {
         CProfile x_cfg_profile = cHelper.getConfigProfile();
         CMisc x_cfg_misc = x_cfg_profile.getMisc();
         ReportInformica x_cfg_report_informica = x_cfg_profile.getReports().getReportInformica();
-        if (!x_cfg_report_informica.isAutoUploadEnabled()) {
+        if (checkingLaunch && !x_cfg_report_informica.isAutoUploadEnabled()) {
             s_logger.debug("ReportLauncher: Автовыгрузка отчета Информики отключена");
             return;
         }
@@ -51,6 +52,7 @@ public class ReportLauncher {
             m_marker_email = null;
         }
 
+        Config configInformica = cHelper.getInformicaConfig();
 // TODO продолжить ....
 /*
         try {
