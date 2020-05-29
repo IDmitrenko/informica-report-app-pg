@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  */
 public class DateUtil {
     
-        // Дата начала текущего учебного года
+        // Р”Р°С‚Р° РЅР°С‡Р°Р»Р° С‚РµРєСѓС‰РµРіРѕ СѓС‡РµР±РЅРѕРіРѕ РіРѕРґР°
     public static Date getCurrEducDateByParts(Integer p_educ_year, int p_educ_year_begin_month, int p_educ_year_begin_day) {
         Date x_rv;
         if(p_educ_year == null)
@@ -34,7 +34,7 @@ public class DateUtil {
         int x_rep_year = x_cal_rep_date.get(Calendar.YEAR);
         clearCalendarTimePart(x_cal_rep_date);
         
-        // Дата начала учебного года в текущем году
+        // Р”Р°С‚Р° РЅР°С‡Р°Р»Р° СѓС‡РµР±РЅРѕРіРѕ РіРѕРґР° РІ С‚РµРєСѓС‰РµРј РіРѕРґСѓ
         Calendar x_curr_year_educ_begin = createCalendar(x_rep_year, p_educ_year_begin_month, p_educ_year_begin_day);
         
 //        Calendar x_curr_year_educ_begin = Calendar.getInstance();
@@ -43,7 +43,7 @@ public class DateUtil {
 //        x_curr_year_educ_begin.set(Calendar.DAY_OF_MONTH, p_educ_year_begin_day);
 //        clearCalendarTimePart(x_curr_year_educ_begin);
         
-        // Определить текущий учебный год
+        // РћРїСЂРµРґРµР»РёС‚СЊ С‚РµРєСѓС‰РёР№ СѓС‡РµР±РЅС‹Р№ РіРѕРґ
         if (p_rep_date.before(x_curr_year_educ_begin.getTime())) {
             x_curr_year_educ_begin.add(Calendar.YEAR, -1);
             return x_curr_year_educ_begin.getTime();
@@ -53,11 +53,11 @@ public class DateUtil {
     }
 
     public static Date getCurrentDate(Boolean zero) {
-        Date date = new Date();                      // текущее время
+        Date date = new Date();                      // С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ
         if (zero) {
-            Calendar cal = Calendar.getInstance();       // экземпляр календаря
-            cal.setTime(date);                           // набор временных параметров
-            clearCalendarTimePart(cal);                  // обнуляем часы, минуты, секунды, милисекунды
+            Calendar cal = Calendar.getInstance();       // СЌРєР·РµРјРїР»СЏСЂ РєР°Р»РµРЅРґР°СЂСЏ
+            cal.setTime(date);                           // РЅР°Р±РѕСЂ РІСЂРµРјРµРЅРЅС‹С… РїР°СЂР°РјРµС‚СЂРѕРІ
+            clearCalendarTimePart(cal);                  // РѕР±РЅСѓР»СЏРµРј С‡Р°СЃС‹, РјРёРЅСѓС‚С‹, СЃРµРєСѓРЅРґС‹, РјРёР»РёСЃРµРєСѓРЅРґС‹
             return cal.getTime();
         } else {
             return date;
@@ -81,11 +81,11 @@ public class DateUtil {
     public static Date adjustDate(Date p_date, int p_year) { return adjustDate(p_date, p_year, 0, 0); }
     public static Date adjustDate(Date p_date, int p_year, int p_month) { return adjustDate(p_date, p_year, p_month, 0); }
     /**
-     * Изменить дату на указанное кол-во лет, месяцев и дней
-     * @param p_date дата
-     * @param p_year лет
-     * @param p_month месяцев
-     * @param p_days дней
+     * РР·РјРµРЅРёС‚СЊ РґР°С‚Сѓ РЅР° СѓРєР°Р·Р°РЅРЅРѕРµ РєРѕР»-РІРѕ Р»РµС‚, РјРµСЃСЏС†РµРІ Рё РґРЅРµР№
+     * @param p_date РґР°С‚Р°
+     * @param p_year Р»РµС‚
+     * @param p_month РјРµСЃСЏС†РµРІ
+     * @param p_days РґРЅРµР№
      * @return 
      */    
     public static Date adjustDate(Date p_date, int p_year, int p_month, int p_days) {

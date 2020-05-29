@@ -88,7 +88,7 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
     @Override
     public boolean isPassed(Object item) throws FilterException {
         if (m_comparison == null) {
-            throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
+            throw new FilterException(String.format("РќРµ Р·Р°РґР°РЅР° РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ РґР»СЏ РїРѕР»СЏ %s", m_field));
         }
         Object a = null;
         Object b = null;
@@ -104,7 +104,7 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
             case notEqual:
                 return !CUtil.equals(a, b);
         }
-        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+        throw new FilterException(String.format("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
     }
 
     @Override

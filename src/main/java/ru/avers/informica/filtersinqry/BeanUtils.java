@@ -27,20 +27,20 @@ public class BeanUtils {
                 return x_nested_bean;
             }
         } catch (IllegalAccessException ex) {
-            throw new Exception("Нет доступа к указанному полю", ex);
+            throw new Exception("РќРµС‚ РґРѕСЃС‚СѓРїР° Рє СѓРєР°Р·Р°РЅРЅРѕРјСѓ РїРѕР»СЋ", ex);
         } catch (IllegalArgumentException ex) {
-            throw new Exception("Недопустимый или несоответствующий параметр", ex);
+            throw new Exception("РќРµРґРѕРїСѓСЃС‚РёРјС‹Р№ РёР»Рё РЅРµСЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РїР°СЂР°РјРµС‚СЂ", ex);
         } catch (IntrospectionException ex) {
-            throw new Exception("Не найден метод для свойства " + p_prop, ex);
+            throw new Exception("РќРµ РЅР°Р№РґРµРЅ РјРµС‚РѕРґ РґР»СЏ СЃРІРѕР№СЃС‚РІР° " + p_prop, ex);
         } catch (InvocationTargetException ex) {
-            throw new Exception("Ошибка при вызове метода для свойства " + p_prop, ex);
+            throw new Exception("РћС€РёР±РєР° РїСЂРё РІС‹Р·РѕРІРµ РјРµС‚РѕРґР° РґР»СЏ СЃРІРѕР№СЃС‚РІР° " + p_prop, ex);
         }
     }
 
     private static <T> Object invokeGetter(String p_prop, T p_bean) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        // Не использовать new PropertyDescriptor(p_prop, p_bean.getClass()),
-        // java 1.7 не находит getter, унаследованный от базового класса, (валится
-        // с ошибкой, что не находит соответствующий setter)
+        // РќРµ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ new PropertyDescriptor(p_prop, p_bean.getClass()),
+        // java 1.7 РЅРµ РЅР°С…РѕРґРёС‚ getter, СѓРЅР°СЃР»РµРґРѕРІР°РЅРЅС‹Р№ РѕС‚ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР°, (РІР°Р»РёС‚СЃСЏ
+        // СЃ РѕС€РёР±РєРѕР№, С‡С‚Рѕ РЅРµ РЅР°С…РѕРґРёС‚ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ setter)
         // https://community.oracle.com/thread/1160697?tstart=0
         BeanInfo x_bean_info = Introspector.getBeanInfo(p_bean.getClass());
         PropertyDescriptor[] x_descriptors = x_bean_info.getPropertyDescriptors();

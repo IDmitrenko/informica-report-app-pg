@@ -68,7 +68,7 @@ public class CodesCollectionFilter implements IFilter<Object> {
     
     @Override
     public boolean isPassed(Object p_field_value) throws FilterException {
-        if (m_comparison == null) throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
+        if (m_comparison == null) throw new FilterException(String.format("РќРµ Р·Р°РґР°РЅР° РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ РґР»СЏ РїРѕР»СЏ %s", m_field));
         Collection<String> x_field_value = (Collection<String>) p_field_value;
         switch(m_comparison) {
             case isEmpty: return x_field_value == null || x_field_value.isEmpty();
@@ -78,16 +78,16 @@ public class CodesCollectionFilter implements IFilter<Object> {
             case equal: return CUtil.equals(getValue() != null ? new HashSet<String>(getValue()) : null, x_field_value != null ? new HashSet<String>(x_field_value) : null);
             case notEqual: return !CUtil.equals(getValue() != null ? new HashSet<String>(getValue()) : null, x_field_value != null ? new HashSet<String>(x_field_value) : null);
         }
-        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+        throw new FilterException(String.format("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s", String.valueOf(m_comparison), m_field));
     }    
 
     private boolean intersectAny(Collection<String> p_field_list) {
         Collection<String> x_filter_list = getValue();
-        // значение фильтра=пусто
+        // Р·РЅР°С‡РµРЅРёРµ С„РёР»СЊС‚СЂР°=РїСѓСЃС‚Рѕ
         if (x_filter_list == null || x_filter_list.isEmpty()) return true;
-        // значение фильтра=не пусто, значение поля = пусто
+        // Р·РЅР°С‡РµРЅРёРµ С„РёР»СЊС‚СЂР°=РЅРµ РїСѓСЃС‚Рѕ, Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЏ = РїСѓСЃС‚Рѕ
         if (p_field_list == null || p_field_list.isEmpty()) return false;
-        // и фильтр и поле заполнено
+        // Рё С„РёР»СЊС‚СЂ Рё РїРѕР»Рµ Р·Р°РїРѕР»РЅРµРЅРѕ
         for (String x_field_item : p_field_list) {
             if (x_filter_list.contains(x_field_item))
                 return true;

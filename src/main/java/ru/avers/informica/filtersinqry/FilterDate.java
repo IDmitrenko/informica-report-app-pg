@@ -117,7 +117,7 @@ public class FilterDate implements IFilter<Date>, IFieldFilterParams, IsFilterDa
     @SuppressWarnings("null")
     public boolean isPassed(Date p_field_value) throws FilterException {
         if (m_comparison == null) 
-            throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
+            throw new FilterException(String.format("РќРµ Р·Р°РґР°РЅР° РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ РґР»СЏ РїРѕР»СЏ %s", m_field));
         s_logger.debug("Calc filter for field={}, m_comparison={}, field_value={}", m_field, m_comparison, p_field_value);
 
         Date x_field_value = p_field_value;
@@ -146,10 +146,10 @@ public class FilterDate implements IFilter<Date>, IFieldFilterParams, IsFilterDa
             case like: 
             case in: 
             case notIn: 
-                throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s",
+                throw new FilterException(String.format("РќРµРґРѕРїСѓСЃС‚РёРјР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s",
                                             String.valueOf(m_comparison), m_field));
         }
-        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s",
+        throw new FilterException(String.format("РќРµРёР·РІРµСЃС‚РЅР°СЏ РѕРїРµСЂР°С†РёСЏ СЃСЂР°РІРЅРµРЅРёСЏ %s РґР»СЏ РїРѕР»СЏ %s",
                                         String.valueOf(m_comparison), m_field));
     }    
 
