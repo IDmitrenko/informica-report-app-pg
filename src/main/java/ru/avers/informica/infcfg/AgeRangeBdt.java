@@ -1,13 +1,9 @@
 package ru.avers.informica.infcfg;
 
-import ru.avers.informica.dao.informica.IInformicaVacantCountable;
 import ru.avers.informica.dto.CAge;
-import ru.avers.informica.dto.informica.IInformicaChildCountable;
-import ru.avers.informica.dto.informica.IInformicaCountable;
 import ru.avers.informica.dto.inqry.AgeDto;
 import ru.avers.informica.dto.util.Utils;
 import ru.avers.informica.entities.Prll4stgAges;
-import ru.avers.informica.exception.FspeoException;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

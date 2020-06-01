@@ -17,9 +17,7 @@ public class CMisc implements IDTO {
     private static final Logger s_logger = LoggerFactory.getLogger(CMisc.class);
 
     public static final String s_root_name = "misc";
-    private static final String
-        s_elem_esia = "esia",
-        s_attr_contingent_endpoint = "contingent-endpoint";
+    private static final String s_elem_esia = "esia";
 
     private Defaults m_misc_timezone;
     private Boolean m_is_form_inqries_select_uchs_tab_visible,
@@ -34,7 +32,6 @@ public class CMisc implements IDTO {
     private InqryNextInuchYear m_inqry_next_inuch_year;
     private QueueAllocation m_queue_allocation;
     private Esia m_esia = new Esia();
-    private String m_contingent_endpoint;
 
     private enum TTypeQueue{TOTAL, DISTRICTS, UCHS}
 
@@ -92,18 +89,12 @@ public class CMisc implements IDTO {
         m_esia = p_esia;
     }
 
-    @XmlAttribute(name = s_attr_contingent_endpoint)
-    public String getContingentEndpoint() { return m_contingent_endpoint; }
-    public void setContingentEndpoint(String p_val) { m_contingent_endpoint = p_val; }
-    
-    
     public void set(CMisc p_val) {
         if (p_val == null) throw new IllegalArgumentException();
         
         setInqryEducYearBegin(p_val.getInqryEducYearBegin());
         setInqryNextInuchYear(p_val.getInqryNextInuchYear());
         setEsia(p_val.getEsia());
-        setContingentEndpoint(p_val.getContingentEndpoint());
     }
 
 }

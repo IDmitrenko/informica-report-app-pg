@@ -1,4 +1,4 @@
-package ru.avers.informica.dao.informica;
+package ru.avers.informica.entities.informica;
 
 import ru.avers.informica.dto.informica.IInformicaCountable;
 import ru.avers.informica.entities.Prll4stgAges;

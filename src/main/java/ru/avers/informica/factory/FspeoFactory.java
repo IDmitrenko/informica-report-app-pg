@@ -30,32 +30,18 @@ public class FspeoFactory {
                         .append("]")
                 .toString();
     }        
-    
-    
-    
-//    public FspeoFactory(
-//            UserIdDto p_id_user, 
-//            IInqryEducYearBegin p_educ_year_begin, 
-//            CDBProviders p_cmsn_providers, 
-//            IInteractionProvider p_interaction_provider) {
-//        this(p_id_user, p_educ_year_begin, p_cmsn_providers, p_interaction_provider, null);
-//    }    
-    
+
     public FspeoFactory(
             UserIdDto p_id_user, 
             IInqryEducYearBegin p_educ_year_begin, 
             CDBProviders p_cmsn_providers, 
-            IInteractionProvider p_interaction_provider,
-            String p_contingent_endpoint) {
+            IInteractionProvider p_interaction_provider) {
         m_id_user = p_id_user;
         m_educ_year_begin = p_educ_year_begin;
         m_cmsn_providers = p_cmsn_providers;
         m_interaction_provider = p_interaction_provider;
-        m_contingent_endpoint = p_contingent_endpoint;
-    }    
-    
-    
-    
+    }
+
     public FspeoReport createReport(FspeoVersion p_version, boolean p_is_threaded) throws FspeoException {
         return createReport(p_version, null, IDataAdapter.DataMode.Detail, p_is_threaded);
     }
@@ -172,11 +158,10 @@ public class FspeoFactory {
     
 */
 
-    
     static public FspeoVersion transformVersion(ReportInformica.Version p_val) {
         //  версия 5 по умолчанию
         FspeoVersion x_rv = FspeoVersion.Five;
-//        if(ReportInformica.Version.Six.equals(p_val)) x_rv = FspeoVersion.Six;
+//        if(ReportInformica.Version.Five.equals(p_val)) x_rv = FspeoVersion.Five;
         return x_rv;
     }
 }

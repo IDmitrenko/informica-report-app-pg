@@ -6,3 +6,10 @@ server:
 scheduler:
   start:
     time: 0 23 10 * * ?
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/db_name_here?useUnicode=true&characterEncoding=utf8
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: Helsinki2018
