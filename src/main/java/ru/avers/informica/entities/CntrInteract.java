@@ -1,7 +1,7 @@
-package ru.avers.informica.dao.entities;
+package ru.avers.informica.entities;
 
-import ru.avers.informica.dao.interaction.CInqrySysInteraction;
-import ru.avers.informica.entities.Inqrychldinuch;
+
+import ru.avers.informica.entities.dicts.interaction.CInqrySysInteraction;
 
 import javax.persistence.*;
 

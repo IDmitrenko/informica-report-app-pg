@@ -1,7 +1,6 @@
 package ru.avers.informica.entities;
 
 import ru.avers.informica.dao.IMapFields;
-import ru.avers.informica.dao.entities.CntrInteract;
 import ru.avers.informica.entities.abstraction.CItem;
 import ru.avers.informica.entities.dicts.*;
 

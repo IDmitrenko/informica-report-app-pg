@@ -1,4 +1,4 @@
-package ru.avers.informica.dao.interaction;
+package ru.avers.informica.entities.dicts.interaction;
 
 import ru.avers.informica.entities.dicts.CBaseDict;
 import ru.avers.informica.entities.dicts.CBaseDictDetail;
