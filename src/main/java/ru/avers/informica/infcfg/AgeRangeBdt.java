@@ -3,7 +3,6 @@ package ru.avers.informica.infcfg;
 import ru.avers.informica.dto.CAge;
 import ru.avers.informica.dto.inqry.AgeDto;
 import ru.avers.informica.dto.util.Utils;
-import ru.avers.informica.entities.Prll4stgAges;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -93,9 +92,6 @@ public class AgeRangeBdt {
         return x_calendar.getTime();
     }
     
-    public Collection<TypeAgeRange> getAgeRanges(List<Prll4stgAges> p_ages) {
-        return m_age_range_def.getAgeRangesForPrllAges(p_ages);
-    }
 // TODO продолжить...
 /*
     public Collection<TypeAgeRange> getAgeRanges(Date p_rep_date, IInformicaCountable p_countable)

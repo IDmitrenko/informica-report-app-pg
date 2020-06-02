@@ -1,6 +1,5 @@
 package ru.avers.informica.report;
 
-import ru.avers.informica.entities.informica.IInformicaVacantCountable;
 import ru.avers.informica.dto.CAge;
 import ru.avers.informica.dto.CAgeInterval;
 import ru.avers.informica.dto.informica.IInformicaChildCountable;
@@ -118,49 +117,6 @@ public class Counter {
         builder.append(", getAge=").append(getAge());
         builder.append("]");
         return builder.toString();
-    }
-
-    public void count(IInformicaCountable p_countable, Collection<TypeAgeRange> p_age_ranges) throws FspeoException {
-        if (p_countable instanceof IInformicaChildCountable) {
-            for (TypeAgeRange x_age_range : p_age_ranges) {
-                AgeItem x_age_item = findAgeItem(x_age_range);
-                x_age_item.count(p_countable);
-            }
-        } else if (p_countable instanceof IInformicaVacantCountable) {
-            // Задача 11821, пункт 26
-            // Например, в группе от 2 до 4 лет шесть свободных мест: пишем 2 места для детей 2-х лет, 
-            // два для трех лет, 2 для четырех лет. Если место одно,
-            // привязываемся к крайнему наименьшему диапазону : одно место для детей 2-3 лет.            
-            Map<TypeAgeRange, CapacityItem> x_split_capacity = splitCapacity(p_age_ranges, (IInformicaVacantCountable) p_countable);
-            for (TypeAgeRange x_age_range : x_split_capacity.keySet()) {
-                Counter.AgeItem x_age_item = findAgeItem(x_age_range);
-                x_age_item.count(x_split_capacity.get(x_age_range));
-            }
-        } else throw new FspeoException("Неизвестный тип элемента для подсчета: " + p_countable.getClass().getName());
-    }
-
-    private Map<TypeAgeRange, CapacityItem> splitCapacity(Collection<TypeAgeRange> p_age_ranges,
-                                                          IInformicaVacantCountable p_capacity) {
-        // "Если место одно, привязываемся к крайнему наименьшему диапазону: одно место для детей 2-3 лет."
-        // Упорядочить p_age_ranges так, чтоб первым с списке был наименьший диапазон
-        List<TypeAgeRange> x_sorted_list = new ArrayList<TypeAgeRange>(p_age_ranges);
-        Collections.sort(x_sorted_list, new TypeAgeRangeComparator());
-
-        int x_cap_count = p_capacity.getCount();
-        int x_ranges_size = x_sorted_list.size();
-        int x_div = x_cap_count / x_ranges_size;
-        int x_rem = x_cap_count % x_ranges_size;
-        Map<TypeAgeRange, CapacityItem> x_res = new EnumMap<TypeAgeRange, CapacityItem>(TypeAgeRange.class);
-        for (TypeAgeRange x_age_range : x_sorted_list) {
-            int x_count = x_div;
-            if (x_rem > 0) {
-                x_count += 1;
-                x_rem -= 1;
-            }
-            if (x_count > 0)
-                x_res.put(x_age_range, new CapacityItem(x_count, p_capacity));
-        }
-        return x_res;
     }
 
     private static class TypeAgeRangeComparator implements Comparator<TypeAgeRange> {
