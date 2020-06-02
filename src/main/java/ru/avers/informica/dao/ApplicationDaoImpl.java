@@ -6,6 +6,7 @@ import org.apache.tomcat.util.ExceptionUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import ru.avers.informica.dao.mapper.StatusMapper;
 import ru.avers.informica.entities.ApplicationEntity;
 import ru.avers.informica.entities.Status;
 
@@ -45,15 +46,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private List<Status> getStatuses(Long id) {
         return jdbcTemplate.query("select s.id_status as id_status, s.app_id as app_id, s.statuses_id as statuses_id " +
                         "from app.status s where s.app_id = ?",
-                (resultSet, i) -> statusRowMapper(resultSet, i),
+                new StatusMapper(),
                 id);
-    }
-
-    private Status statusRowMapper(ResultSet resultSet, int i) throws SQLException {
-        Status status = new Status();
-        status.setAppId(resultSet.getLong("app_id"));
-        status.setId(resultSet.getLong("id_status"));
-        status.setStatusesId(resultSet.getLong("statuses_id"));
-        return status;
     }
 }
