@@ -17,16 +17,12 @@ public class FspeoFactory {
     private final UserIdDto m_id_user;
     private final IInqryEducYearBegin m_educ_year_begin;
     private final CDBProviders m_cmsn_providers;
-    private final IInteractionProvider m_interaction_provider;
-    
-    final private String m_contingent_endpoint;
-    
+
     @Override
     public String toString() {
         return new StringBuilder(getClass().getName())
                         .append(" [id_user=").append(m_id_user)
                         .append(", educ_year_begin=").append(m_educ_year_begin)
-                        .append(", contingent_endpoint=").append(m_contingent_endpoint)
                         .append("]")
                 .toString();
     }        
@@ -34,12 +30,10 @@ public class FspeoFactory {
     public FspeoFactory(
             UserIdDto p_id_user, 
             IInqryEducYearBegin p_educ_year_begin, 
-            CDBProviders p_cmsn_providers, 
-            IInteractionProvider p_interaction_provider) {
+            CDBProviders p_cmsn_providers) {
         m_id_user = p_id_user;
         m_educ_year_begin = p_educ_year_begin;
         m_cmsn_providers = p_cmsn_providers;
-        m_interaction_provider = p_interaction_provider;
     }
 
     public FspeoReport createReport(FspeoVersion p_version, boolean p_is_threaded) throws FspeoException {

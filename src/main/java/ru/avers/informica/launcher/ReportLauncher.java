@@ -38,40 +38,41 @@ public class ReportLauncher {
         String absolutePath = context.getClassLoader().getResource("config").getPath();
         cHelper.setAppHomeFolder(absolutePath);
 
-        Calendar x_curr_time = Calendar.getInstance();
-        SimpleDateFormat x_date_format = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm");
+        Calendar currTime = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm");
         s_email_logger.debug("ReportLauncher: Создание отчета информики, текущее время:"
-                + x_date_format.format(x_curr_time.getTime()));
+                + dateFormat.format(currTime.getTime()));
 
-        CProfile x_cfg_profile = cHelper.getConfigProfile();
-        CMisc x_cfg_misc = x_cfg_profile.getMisc();
-        ReportInformica x_cfg_report_informica = x_cfg_profile.getReports().getReportInformica();
-        if (checkingLaunch && !x_cfg_report_informica.isAutoUploadEnabled()) {
+        CProfile cProfile = cHelper.getConfigProfile();
+        CMisc cMisc = cProfile.getMisc();
+        ReportInformica reportInformica = cProfile.getReports().getReportInformica();
+        if (checkingLaunch && !reportInformica.isAutoUploadEnabled()) {
             s_logger.debug("ReportLauncher: Автовыгрузка отчета Информики отключена");
             return;
         }
-        if (!x_cfg_report_informica.isEmailLog()) {
+        if (!reportInformica.isEmailLog()) {
             s_logger.debug("ReportLauncher: Отправка лога на informika@iicavers.ru отключена");
             m_marker_email = null;
         }
 
         Config configInformica = cHelper.getInformicaConfig();
         try {
-            FspeoVersion x_version = FspeoFactory.transformVersion(x_cfg_report_informica.getVersion());
+            FspeoVersion x_version = FspeoFactory.transformVersion(reportInformica.getVersion());
+/*
             FspeoFactory x_factory = new FspeoFactory(
                     null,
-                    x_cfg_misc.getInqryEducYearBegin(),
-                    CBL.getProviders(),
-                    CBL.getInquirerProviders().getInteractionProvider());
+                    cMisc.getInqryEducYearBegin(),
+                    CBL.getProviders());
 
             s_logger.debug("Fspeo Factory: {}", x_factory);
 
             FspeoReport x_fspeo_report = x_factory.createReport(x_version, x_settings.isMt());
+*/
 // InformicaDaemon 188
         } catch(Exception ex) {
             String x_str = "Ошибка при построении отчета";
             s_logger.error(x_str, ex);
-            s_email_logger.error(m_marker_email, "{}. 1. Ошибка построения отчета", x_settings.getStateName());
+            s_email_logger.error(m_marker_email, "{}. 1. Ошибка построения отчета", reportInformica.getStateName());
         }
 
         debug = "1";
