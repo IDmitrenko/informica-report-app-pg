@@ -2,21 +2,16 @@ package ru.avers.informica.launcher;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CMisc;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.ReportInformica;
-import ru.avers.informica.dao.ApplicationDao;
-import ru.avers.informica.entities.ApplicationEntity;
-import ru.avers.informica.factory.FspeoFactory;
+import ru.avers.informica.dao.ApplicationsDao;
+import ru.avers.informica.entities.ApplicationsEntity;
 import ru.avers.informica.infcfg.Config;
-import ru.avers.informica.report.FspeoReport;
 import ru.avers.informica.utils.CHelper;
-import ru.avers.informica.utils.FspeoVersion;
 
 import javax.servlet.ServletContext;
 import java.text.SimpleDateFormat;
@@ -29,7 +24,7 @@ import java.util.List;
 //InformicaDaemon
 public class ReportLauncher {
     private Marker m_marker_email = MarkerFactory.getMarker("EMAIL_LOG");
-    private final ApplicationDao applicationDao;
+    private final ApplicationsDao applicationDao;
     private final ServletContext context;
     private final CHelper cHelper;
 
@@ -60,7 +55,7 @@ public class ReportLauncher {
 
         Config configInformica = cHelper.getInformicaConfig();
         try {
-            List<ApplicationEntity> allApplications = applicationDao.getAllApplications();
+            List<ApplicationsEntity> allApplications = applicationDao.getAllApplications();
             log.info("Found {} applications", allApplications.size());
             //FspeoVersion x_version = FspeoFactory.transformVersion(reportInformica.getVersion());
 /*

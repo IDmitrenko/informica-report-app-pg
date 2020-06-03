@@ -2,30 +2,26 @@ package ru.avers.informica.dao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.ExceptionUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.mapper.StatusMapper;
-import ru.avers.informica.entities.ApplicationEntity;
+import ru.avers.informica.entities.ApplicationsEntity;
 import ru.avers.informica.entities.Status;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class ApplicationDaoImpl implements ApplicationDao {
+public class ApplicationsDaoImpl implements ApplicationsDao {
     private final JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<ApplicationEntity> getAllApplications() {
+    public List<ApplicationsEntity> getAllApplications() {
         try {
-            return jdbcTemplate.query("select a.id_app as id, a.num as num, a.f_name as firstName " +
+            return jdbcTemplate.query("select a.id_app as id, a.num as num " +
                             "from app.applications a ",
                     (resultSet, i) -> applicationRowMapper(resultSet, i));
         } catch (Exception e) {
@@ -34,12 +30,11 @@ public class ApplicationDaoImpl implements ApplicationDao {
         }
     }
 
-    private ApplicationEntity applicationRowMapper(ResultSet rs, int i) throws SQLException {
-        ApplicationEntity app = new ApplicationEntity();
-        app.setId(rs.getLong("id"));
-        app.setFirstName(rs.getString("firstName"));
-        app.setNumber(rs.getString("num"));
-        app.setStatusList(getStatuses(app.getId()));
+    private ApplicationsEntity applicationRowMapper(ResultSet rs, int i) throws SQLException {
+        ApplicationsEntity app = new ApplicationsEntity();
+        app.setId_app(rs.getLong("id"));
+        app.setNum(rs.getString("num"));
+        app.setStatusList(getStatuses(app.getId_app()));
         return app;
     }
 

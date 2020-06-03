@@ -1,8 +1,12 @@
 package ru.avers.informica.entities;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Status {
     private Long id;
     private Long appId;
