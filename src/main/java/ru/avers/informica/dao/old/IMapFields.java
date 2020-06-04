@@ -1,4 +1,4 @@
-package ru.avers.informica.dao;
+package ru.avers.informica.dao.old;
 
 /**
  *

@@ -14,4 +14,74 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class AppConfig {
     @Autowired
     Environment environment;
+
+/* Sprint Boot делает это автоматически из application.yml
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.context.annotation.Bean;
+    private final String URL = "url";
+    private final String DRIVER = "driver-class-name";
+    private final String USER = "username";
+    private final String PASSWORD = "password";
+
+    @Bean
+    DataSource getDataSource() {
+        DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
+        driverManagerDataSource.setUrl(environment.getProperty(URL));
+        driverManagerDataSource.setUsername(environment.getProperty(USER));
+        driverManagerDataSource.setPassword(environment.getProperty(PASSWORD));
+        driverManagerDataSource.setDriverClassName(environment.getProperty(DRIVER));
+        return driverManagerDataSource;
+    }
+*/
+
+/*  для Hibernate и Spring Data JPA
+    @Bean(name = "entityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean getEntityManager() {
+        // Создаем класс фабрики, реализующей интерфейс
+        // FactoryBean<EntityManagerFactory>
+        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
+
+        // Задаем источник подключения
+        factoryBean.setDataSource(getDataSource());
+
+        // Задаем адаптер для конкретной реализации JPA,
+        // указывает, какая именно библиотека будет использоваться в качестве
+        // поставщика постоянства
+        factoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+
+        // Указание пакета, в котором будут находиться классы-сущности
+        factoryBean.setPackagesToScan("ru.avers.informica.entities");
+
+        // Создание свойств для настройки Hibernate
+        Properties jpaProperties = new Properties();
+
+        // Указание диалекта конкретной базы данных
+        jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQL94Dialect");
+
+        // Указание максимальной глубины связи
+        jpaProperties.put("hibernate.max_fetch_depth", 3);
+
+        // Максимальное количество строк, возвращаемых за один запрос из БД
+        jpaProperties.put("hibernate.jdbc.fetch_size", 50);
+
+        // Максимальное количество запросов при использовании пакетных операций
+        jpaProperties.put("hibernate.jdbc.batch_size", 10);
+
+        // Включает логирование
+        jpaProperties.put("hibernate.show_sql", true);
+
+        factoryBean.setJpaProperties(jpaProperties);
+
+        return factoryBean;
+    }
+
+    @Bean(name = "transactionManager")
+    public JpaTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        // Создание менеджера транзакций
+        JpaTransactionManager tm = new JpaTransactionManager();
+        tm.setEntityManagerFactory(entityManagerFactory);
+        return tm;
+    }
+*/
+
 }
