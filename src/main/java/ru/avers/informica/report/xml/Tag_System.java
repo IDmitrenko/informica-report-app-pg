@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * Информация об установленной системе
+ * РРЅС„РѕСЂРјР°С†РёСЏ РѕР± СѓСЃС‚Р°РЅРѕРІР»РµРЅРЅРѕР№ СЃРёСЃС‚РµРјРµ
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)

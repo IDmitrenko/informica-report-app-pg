@@ -5,7 +5,7 @@ import java.math.BigInteger;
 
 
 /**
- * Информация о ДОО
+ * РРЅС„РѕСЂРјР°С†РёСЏ Рѕ Р”РћРћ
  * 
  * <p>Java class for tag_single_organization complex type.
  * 
