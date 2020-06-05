@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 public class Status {
-    private Long id;
-    private Long appId;
-    private Long statusesId;
+    private Long id;                 // id status
+    private Long appId;              // id applications
+    private Long statusesId;         // id статуса заявления
+    private Statuses statuses;       // запись таблицы статусов
 }
