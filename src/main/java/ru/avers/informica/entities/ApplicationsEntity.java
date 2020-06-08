@@ -18,10 +18,10 @@ public class ApplicationsEntity {
 //    private QueueInfo queueInfo;        // Таблица времени вхождения заявления в очередь (INQRY_QUEUE_INFO)
     private List<Status> statusList;    // Статусы заявления (INQRYSTATUS)
 //    private StatementType id_statementType; // Тип заявления (V_DICT_75_INQRY_TYPE)
-//    private List<Buildings> buildingsList;  // Организации (INQRYUCH)
+    private List<Buildings> buildingsList;  // Организации (INQRYUCH)
 //    private ClassType classType;        // Тип класса (CDict08TypeClass)
 //    private ResidenceTime residenceTime;    // Группа ДОУ: время пребывания (CDict85DouGrpTime)
-
+    private List<Benefits> benefitsList;    // Льготы (INQRYLGOT)
 
 
 }

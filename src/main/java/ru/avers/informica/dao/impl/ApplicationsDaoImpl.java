@@ -9,6 +9,7 @@ import ru.avers.informica.dao.mapper.ApplicationsMapper;
 import ru.avers.informica.entities.ApplicationsEntity;
 import ru.avers.informica.exception.CustomSQLErrorCodeTranslator;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -27,9 +28,8 @@ public class ApplicationsDaoImpl implements ApplicationsDao {
         try {
             return jdbcTemplate.query("select a.id_app as id, a.num as num," +
                             "a.d_birth as dtBirth, a.d_plan as dtPlan " +
-                    "from app.applications a ",
-                    applicationsMapper
-                    );
+                    "from app.applications a",
+                    applicationsMapper);
         } catch (Exception ex) {
             log.error("Ошибка выполнения запроса AllApplications.", ex);
             throw ex;
