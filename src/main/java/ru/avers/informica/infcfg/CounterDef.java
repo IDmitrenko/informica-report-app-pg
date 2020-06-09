@@ -1,6 +1,5 @@
 package ru.avers.informica.infcfg;
 
-import ru.avers.informica.dao.filtersort.IFilter;
 import ru.avers.informica.filtersinqry.*;
 
 import javax.xml.bind.annotation.*;

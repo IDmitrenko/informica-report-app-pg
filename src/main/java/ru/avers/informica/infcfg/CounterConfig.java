@@ -1,5 +1,9 @@
 package ru.avers.informica.infcfg;
 
+import ru.avers.informica.filtersinqry.BeanFilter;
+import ru.avers.informica.filtersinqry.IFilter;
+import ru.avers.informica.filtersinqry.IsFilterDate;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -17,8 +21,6 @@ import java.util.List;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CounterConfig {
-// TODO продолжить ...
-/*
     private CounterDef m_counter_def;
 
     @XmlAttribute(name = "def", required = true)
@@ -39,16 +41,16 @@ public class CounterConfig {
                 .toString();
     }
 
-    public boolean isPassed(Date p_dt, Date p_curr_educ_date, Object x_ds_item) throws FspeoException {
+    public boolean isPassed(Date p_dt, Date p_curr_educ_date, Object x_ds_item) throws ReportExceprion {
         if (m_counter_def == null || m_counter_def.getFilters() == null || m_counter_def.getFilters().isEmpty())
             return true;
 
-        if (!hasIncrementByPriority(m_counter_def.getFilters())) {
+      /* if (!hasIncrementByPriority(m_counter_def.getFilters())) {
             if (x_ds_item instanceof InqryInf
                     && ((InqryInf) x_ds_item).getPriorityCount().shortValue() != ((InqryInf) x_ds_item).getMinPriority().shortValue()) {
                 return false;
             }
-        }
+        }*/
         // Для проверки фильтра по условию ИЛИ (нужно прогнать по всем фильтрам)
         boolean isAllOrBeanFilter = true;
         if (x_ds_item instanceof InqryTransfer) {
@@ -78,8 +80,8 @@ public class CounterConfig {
                             return false;
                         }
                     }
-                } catch (FilterException ex) {
-                    throw new FspeoException(ex.getMessage(), ex);
+                } catch (ReportExceprion ex) {
+                    throw new ReportExceprion(ex.getMessage(), ex);
                 }
 
             } else {
@@ -90,8 +92,8 @@ public class CounterConfig {
                     if (!x_filter.isPassed(x_value)) {
                         return false;
                     }
-                } catch (FilterException ex) {
-                    throw new FspeoException(ex.getMessage(), ex);
+                } catch (ReportExceprion ex) {
+                    throw new ReportExceprion(ex.getMessage(), ex);
                 }
             }
         }
@@ -107,7 +109,7 @@ public class CounterConfig {
         return false;
     }
 
-    public static <T> Object getBeanValue(String p_prop, T p_bean) throws FspeoException {
+    public static <T> Object getBeanValue(String p_prop, T p_bean) throws ReportExceprion {
         if (p_prop == null) {
             return null;
         }
@@ -124,13 +126,13 @@ public class CounterConfig {
                 return x_nested_bean;
             }
         } catch (IllegalAccessException ex) {
-            throw new FspeoException("Нет доступа к указанному полю", ex);
+            throw new ReportExceprion("Нет доступа к указанному полю", ex);
         } catch (IllegalArgumentException ex) {
-            throw new FspeoException("Недопустимый или несоответствующий параметр", ex);
+            throw new ReportExceprion("Недопустимый или несоответствующий параметр", ex);
         } catch (IntrospectionException ex) {
-            throw new FspeoException("Не найден метод для свойства " + p_prop, ex);
+            throw new ReportExceprion("Не найден метод для свойства " + p_prop, ex);
         } catch (InvocationTargetException ex) {
-            throw new FspeoException("Ошибка при вызове метода для свойства " + p_prop, ex);
+            throw new ReportExceprion("Ошибка при вызове метода для свойства " + p_prop, ex);
         }
     }
 
@@ -152,6 +154,5 @@ public class CounterConfig {
             throw new IntrospectionException(p_prop);
         return x_found.getReadMethod().invoke(p_bean, (Object[]) null);
     }
-*/
 
 }

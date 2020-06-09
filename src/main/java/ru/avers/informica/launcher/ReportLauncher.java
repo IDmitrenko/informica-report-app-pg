@@ -5,22 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.common.config.CMisc;
 import ru.avers.informica.common.config.CProfile;
-import ru.avers.informica.common.config.ReportInformica;
-import ru.avers.informica.dao.ApplicationsDao;
-import ru.avers.informica.entities.ApplicationsEntity;
-import ru.avers.informica.factory.FspeoFactory;
-import ru.avers.informica.infcfg.Config;
-import ru.avers.informica.report.FspeoReport;
+import ru.avers.informica.report.ReportGenerator;
+import ru.avers.informica.report.xml.PushDataRequest;
 import ru.avers.informica.utils.CHelper;
-import ru.avers.informica.utils.FspeoVersion;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -28,55 +21,48 @@ import java.util.List;
 //InformicaDaemon
 public class ReportLauncher {
     private Marker m_marker_email = MarkerFactory.getMarker("EMAIL_LOG");
-    private final ApplicationsDao applicationDao;
     private final ServletContext context;
     private final CHelper cHelper;
+    private final ReportGenerator reportGenerator;
 
     private String debug;
 
-    public void buildReport(String launchSite, boolean checkingLaunch) {
-        System.out.println("Место запуска отчета - " + launchSite);
-
+    @PostConstruct
+    public void init() {
         String absolutePath = context.getClassLoader().getResource("config").getPath();
         cHelper.setAppHomeFolder(absolutePath);
+    }
 
-        Calendar currTime = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm");
-        log.debug("ReportLauncher: Создание отчета информики, текущее время:"
-                + dateFormat.format(currTime.getTime()));
+    public void buildReport(String launchSite, boolean checkingLaunch) {
+        logStart(launchSite);
 
         CProfile cProfile = cHelper.getConfigProfile();
-        CMisc cMisc = cProfile.getMisc();
-        ReportInformica reportInformica = cProfile.getReports().getReportInformica();
-        if (checkingLaunch && !reportInformica.isAutoUploadEnabled()) {
+        if (checkingLaunch && !cProfile.getReports().getReportInformica().isAutoUploadEnabled()) {
             log.debug("ReportLauncher: Автовыгрузка отчета Информики отключена");
             return;
         }
-        if (!reportInformica.isEmailLog()) {
+        if (!cProfile.getReports().getReportInformica().isEmailLog()) {
             log.debug("ReportLauncher: Отправка лога на informika@iicavers.ru отключена");
             m_marker_email = null;
         }
-
-        Config configInformica = cHelper.getInformicaConfig();
-
         try {
-            List<ApplicationsEntity> allApplications = applicationDao.getAllApplications();
-            log.info("Found {} applications", allApplications.size());
-            FspeoVersion fspeoVersion = FspeoFactory.transformVersion(reportInformica.getVersion());
-            FspeoFactory fspeoFactory = new FspeoFactory(
-                    cMisc.getInqryEducYearBegin(),
-                    configInformica);
-
-            log.debug("Fspeo Factory: {}", fspeoFactory);
-
-            FspeoReport fspeoReport = fspeoFactory.createReport(fspeoVersion, reportInformica.isMt());
+            PushDataRequest report = reportGenerator.generateReport( cProfile);
+            //FspeoReport fspeoReport = fspeoFactory.createReport(fspeoVersion, reportInformica.isMt());
 // InformicaDaemon 188
         } catch (Exception ex) {
             String x_str = "Ошибка при построении отчета";
             log.error(x_str, ex);
-            log.error(m_marker_email, "{}. 1. Ошибка построения отчета", reportInformica.getStateName());
+            log.error(m_marker_email, "{}. 1. Ошибка построения отчета", cProfile.getReports().getReportInformica().getStateName());
         }
 
         debug = "1";
+    }
+
+    private void logStart(String launchSite) {
+        System.out.println("Место запуска отчета - " + launchSite);
+        Calendar currTime = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm");
+        log.debug("ReportLauncher: Создание отчета информики, текущее время:"
+                + dateFormat.format(currTime.getTime()));
     }
 }
