@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tag_pay")
-public class Tag_Pay {
+public class TagPay {
 
     @XmlAttribute(name = "type_pay")
     protected String type_Pay;

@@ -19,16 +19,16 @@ import javax.xml.bind.annotation.*;
 })
 @Getter
 @Setter
-public class Tag_Parent_Pay {
+public class TagParentPay {
 
     @XmlElement(name = "crit_pay")
-    protected Crit_Npa crit_Pay;
+    protected CritNpa crit_Pay;
     @XmlElement(required = true)
     protected Founders founders;
     @XmlElement(name = "max_pay", required = true)
-    protected Tag_Pay max_Pay;
+    protected TagPay max_Pay;
     @XmlElement(name = "mid_pay", required = true)
-    protected Tag_Pay mid_Pay;
+    protected TagPay mid_Pay;
     @XmlAttribute(name = "reg")
     protected String reg;
 

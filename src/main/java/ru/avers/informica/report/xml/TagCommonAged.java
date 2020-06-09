@@ -23,7 +23,7 @@ import java.math.BigInteger;
 @XmlType(name = "tag_common_aged")
 @Getter
 @Setter
-public class Tag_Common_Aged {
+public class TagCommonAged {
 
     @XmlAttribute(name = "age_0_3", required = true)
     protected BigInteger age_0_3;

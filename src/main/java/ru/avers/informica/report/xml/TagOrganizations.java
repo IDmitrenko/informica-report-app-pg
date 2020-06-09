@@ -18,10 +18,10 @@ import java.util.List;
 @XmlType(name = "tag_organizations", propOrder = {
     "organization"
 })
-public class Tag_Organizations {
+public class TagOrganizations {
 
     @XmlElement(required = true)
-    protected List<Tag_Single_Organization> organization;
+    protected List<TagSingleOrganization> organization;
 
     /**
      * Gets the value of the organization property.
@@ -41,13 +41,13 @@ public class Tag_Organizations {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Tag_Single_Organization }
+     * {@link TagSingleOrganization }
      * 
      * 
      */
-    public List<Tag_Single_Organization> getOrganization() {
+    public List<TagSingleOrganization> getOrganization() {
         if (organization == null) {
-            organization = new ArrayList<Tag_Single_Organization>();
+            organization = new ArrayList<TagSingleOrganization>();
         }
         return this.organization;
     }

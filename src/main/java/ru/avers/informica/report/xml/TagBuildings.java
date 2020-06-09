@@ -16,14 +16,14 @@ import java.util.List;
 @XmlType(name = "tag_buildings", propOrder = {
     "building"
 })
-public class Tag_Buildings {
+public class TagBuildings {
 
     @XmlElement(required = true)
-    protected List<Tag_Single_Building> building;
+    protected List<TagSingleBuilding> building;
 
-    public List<Tag_Single_Building> getBuilding() {
+    public List<TagSingleBuilding> getBuilding() {
         if (building == null) {
-            building = new ArrayList<Tag_Single_Building>();
+            building = new ArrayList<TagSingleBuilding>();
         }
         return this.building;
     }

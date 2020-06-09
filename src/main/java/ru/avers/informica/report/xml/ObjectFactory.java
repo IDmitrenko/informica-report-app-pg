@@ -29,107 +29,107 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Push_Data_Request }
+     * Create an instance of {@link PushDataRequest }
      * 
      */
-    public Push_Data_Request createPush_Data_Request() {
-        return new Push_Data_Request();
+    public PushDataRequest createPush_Data_Request() {
+        return new PushDataRequest();
     }
 
     /**
-     * Create an instance of {@link Tag_System }
+     * Create an instance of {@link TagSystem }
      * 
      */
-    public Tag_System createTag_System() {
-        return new Tag_System();
+    public TagSystem createTag_System() {
+        return new TagSystem();
     }
 
     /**
-     * Create an instance of {@link Tag_Reports }
+     * Create an instance of {@link TagReports }
      * 
      */
-    public Tag_Reports createTag_Reports() {
-        return new Tag_Reports();
+    public TagReports createTag_Reports() {
+        return new TagReports();
     }
 
     /**
-     * Create an instance of {@link Tag_Single_Group }
+     * Create an instance of {@link TagSingleGroup }
      * 
      */
-    public Tag_Single_Group createTag_Single_Group() {
-        return new Tag_Single_Group();
+    public TagSingleGroup createTag_Single_Group() {
+        return new TagSingleGroup();
     }
 
     /**
-     * Create an instance of {@link Tag_Single_Building }
+     * Create an instance of {@link TagSingleBuilding }
      * 
      */
-    public Tag_Single_Building createTag_Single_Building() {
-        return new Tag_Single_Building();
+    public TagSingleBuilding createTag_Single_Building() {
+        return new TagSingleBuilding();
     }
 
     /**
-     * Create an instance of {@link Tag_Age_1 }
+     * Create an instance of {@link TagAge1 }
      * 
      */
-    public Tag_Age_1 createTag_Age_1() {
-        return new Tag_Age_1();
+    public TagAge1 createTag_Age_1() {
+        return new TagAge1();
     }
 
     /**
-     * Create an instance of {@link Tag_Age_8 }
+     * Create an instance of {@link TagAge8 }
      * 
      */
-    public Tag_Age_8 createTag_Age_8() {
-        return new Tag_Age_8();
+    public TagAge8 createTag_Age_8() {
+        return new TagAge8();
     }
 
     /**
-     * Create an instance of {@link Tag_Age_8_Special }
+     * Create an instance of {@link TagAge8Special }
      * 
      */
-    public Tag_Age_8_Special createTag_Age_8_Special() {
-        return new Tag_Age_8_Special();
+    public TagAge8Special createTag_Age_8_Special() {
+        return new TagAge8Special();
     }
 
     /**
-     * Create an instance of {@link Tag_Age_16 }
+     * Create an instance of {@link TagAge16 }
      * 
      */
-    public Tag_Age_16 createTag_Age_16() {
-        return new Tag_Age_16();
+    public TagAge16 createTag_Age_16() {
+        return new TagAge16();
     }
 
     /**
-     * Create an instance of {@link Tag_Buildings }
+     * Create an instance of {@link TagBuildings }
      * 
      */
-    public Tag_Buildings createTag_Buildings() {
-        return new Tag_Buildings();
+    public TagBuildings createTag_Buildings() {
+        return new TagBuildings();
     }
 
     /**
-     * Create an instance of {@link Tag_Single_Organization }
+     * Create an instance of {@link TagSingleOrganization }
      * 
      */
-    public Tag_Single_Organization createTag_Single_Organization() {
-        return new Tag_Single_Organization();
+    public TagSingleOrganization createTag_Single_Organization() {
+        return new TagSingleOrganization();
     }
 
     /**
-     * Create an instance of {@link Advisory_Centr }
+     * Create an instance of {@link AdvisoryCentr }
      * 
      */
-    public Advisory_Centr createAdvisory_Centr() {
-        return new Advisory_Centr();
+    public AdvisoryCentr createAdvisory_Centr() {
+        return new AdvisoryCentr();
     }
 
     /**
-     * Create an instance of {@link Early_Assistant }
+     * Create an instance of {@link EarlyAssistant }
      * 
      */
-    public Early_Assistant createEarly_Assistant() {
-        return new Early_Assistant();
+    public EarlyAssistant createEarly_Assistant() {
+        return new EarlyAssistant();
     }
 
     /**
@@ -141,43 +141,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Tag_Common_Aged }
+     * Create an instance of {@link TagCommonAged }
      * 
      */
-    public Tag_Common_Aged createTag_Common_Aged() {
-        return new Tag_Common_Aged();
+    public TagCommonAged createTag_Common_Aged() {
+        return new TagCommonAged();
     }
 
     /**
-     * Create an instance of {@link Tag_Common }
+     * Create an instance of {@link TagCommon }
      * 
      */
-    public Tag_Common createTag_Common() {
-        return new Tag_Common();
+    public TagCommon createTag_Common() {
+        return new TagCommon();
     }
 
     /**
-     * Create an instance of {@link Tag_Organizations }
+     * Create an instance of {@link TagOrganizations }
      * 
      */
-    public Tag_Organizations createTag_Organizations() {
-        return new Tag_Organizations();
+    public TagOrganizations createTag_Organizations() {
+        return new TagOrganizations();
     }
 
     /**
-     * Create an instance of {@link Tag_Municipality }
+     * Create an instance of {@link TagMunicipality }
      * 
      */
-    public Tag_Municipality createTag_Municipality() {
-        return new Tag_Municipality();
+    public TagMunicipality createTag_Municipality() {
+        return new TagMunicipality();
     }
 
     /**
-     * Create an instance of {@link Tag_Parent_Pay }
+     * Create an instance of {@link TagParentPay }
      * 
      */
-    public Tag_Parent_Pay createTag_Parent_Pay() {
-        return new Tag_Parent_Pay();
+    public TagParentPay createTag_Parent_Pay() {
+        return new TagParentPay();
     }
 
     /**
@@ -189,11 +189,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Tag_Pay }
+     * Create an instance of {@link TagPay }
      * 
      */
-    public Tag_Pay createTag_Pay() {
-        return new Tag_Pay();
+    public TagPay createTag_Pay() {
+        return new TagPay();
     }
 
     /**
@@ -205,11 +205,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Crit_Npa }
+     * Create an instance of {@link CritNpa }
      * 
      */
-    public Crit_Npa createCrit_Npa() {
-        return new Crit_Npa();
+    public CritNpa createCrit_Npa() {
+        return new CritNpa();
     }
 
 }

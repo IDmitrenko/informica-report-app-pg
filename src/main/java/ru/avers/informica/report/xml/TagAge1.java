@@ -15,7 +15,7 @@ import java.math.BigInteger;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tag_age_1")
-public class Tag_Age_1 {
+public class TagAge1 {
 
     @XmlAttribute(name = "all", required = true)
     protected BigInteger all;

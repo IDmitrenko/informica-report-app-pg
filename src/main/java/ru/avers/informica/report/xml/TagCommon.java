@@ -22,15 +22,15 @@ import javax.xml.bind.annotation.XmlType;
 })
 @Getter
 @Setter
-public class Tag_Common {
+public class TagCommon {
 
     @XmlElement(name = "no_doo_act", required = true)
-    protected Tag_Common_Aged no_Doo_Act;
+    protected TagCommonAged no_Doo_Act;
     @XmlElement(name = "no_doo_def", required = true)
-    protected Tag_Common_Aged no_Doo_Def;
+    protected TagCommonAged no_Doo_Def;
     @XmlElement(required = true)
-    protected Tag_Common_Aged medic;
+    protected TagCommonAged medic;
     @XmlElement(required = true)
-    protected Tag_Common_Aged family;
+    protected TagCommonAged family;
 
 }

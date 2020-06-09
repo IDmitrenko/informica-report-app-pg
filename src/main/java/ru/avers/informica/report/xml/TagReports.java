@@ -17,24 +17,24 @@ import java.util.List;
     "parent_Pay",
     "municipality"
 })
-public class Tag_Reports {
+public class TagReports {
 
     @XmlElement(required = true)
-    protected List<Tag_Municipality> municipality;
+    protected List<TagMunicipality> municipality;
     @XmlElement(name = "parent_pay", required = true)
-    protected Tag_Parent_Pay parent_Pay;
+    protected TagParentPay parent_Pay;
 
-    public Tag_Parent_Pay getParent_Pay() {
+    public TagParentPay getParent_Pay() {
         return parent_Pay;
     }
 
-    public void setParent_Pay(Tag_Parent_Pay value) {
+    public void setParent_Pay(TagParentPay value) {
         this.parent_Pay = value;
     }
 
-    public List<Tag_Municipality> getMunicipality() {
+    public List<TagMunicipality> getMunicipality() {
         if (municipality == null) {
-            municipality = new ArrayList<Tag_Municipality>();
+            municipality = new ArrayList<TagMunicipality>();
         }
         return this.municipality;
     }

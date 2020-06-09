@@ -10,8 +10,11 @@ import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.ReportInformica;
 import ru.avers.informica.dao.ApplicationsDao;
 import ru.avers.informica.entities.ApplicationsEntity;
+import ru.avers.informica.factory.FspeoFactory;
 import ru.avers.informica.infcfg.Config;
+import ru.avers.informica.report.FspeoReport;
 import ru.avers.informica.utils.CHelper;
+import ru.avers.informica.utils.FspeoVersion;
 
 import javax.servlet.ServletContext;
 import java.text.SimpleDateFormat;
@@ -55,20 +58,18 @@ public class ReportLauncher {
         }
 
         Config configInformica = cHelper.getInformicaConfig();
+
         try {
             List<ApplicationsEntity> allApplications = applicationDao.getAllApplications();
             log.info("Found {} applications", allApplications.size());
-            //FspeoVersion x_version = FspeoFactory.transformVersion(reportInformica.getVersion());
-/*
-            FspeoFactory x_factory = new FspeoFactory(
-                    null,
+            FspeoVersion fspeoVersion = FspeoFactory.transformVersion(reportInformica.getVersion());
+            FspeoFactory fspeoFactory = new FspeoFactory(
                     cMisc.getInqryEducYearBegin(),
-                    CBL.getProviders());
+                    configInformica);
 
-            s_logger.debug("Fspeo Factory: {}", x_factory);
+            log.debug("Fspeo Factory: {}", fspeoFactory);
 
-            FspeoReport x_fspeo_report = x_factory.createReport(x_version, x_settings.isMt());
-*/
+            FspeoReport fspeoReport = fspeoFactory.createReport(fspeoVersion, reportInformica.isMt());
 // InformicaDaemon 188
         } catch (Exception ex) {
             String x_str = "Ошибка при построении отчета";

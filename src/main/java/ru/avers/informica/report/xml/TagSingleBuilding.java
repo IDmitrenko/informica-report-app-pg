@@ -20,10 +20,10 @@ import java.util.List;
 @XmlType(name = "tag_single_building", propOrder = {
     "group"
 })
-public class Tag_Single_Building {
+public class TagSingleBuilding {
 
     @XmlElement(required = true)
-    protected List<Tag_Single_Group> group;
+    protected List<TagSingleGroup> group;
     @XmlAttribute(name = "id", required = true)
     protected String id;
     @XmlAttribute(name = "name", required = true)
@@ -103,9 +103,9 @@ public class Tag_Single_Building {
     @XmlAttribute(name = "ear_equipment")
     protected String ear_Equipment;
 
-    public List<Tag_Single_Group> getGroup() {
+    public List<TagSingleGroup> getGroup() {
         if (group == null) {
-            group = new ArrayList<Tag_Single_Group>();
+            group = new ArrayList<TagSingleGroup>();
         }
         return this.group;
     }

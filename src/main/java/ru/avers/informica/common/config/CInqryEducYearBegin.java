@@ -8,7 +8,7 @@ import ru.avers.informica.dto.IDTO;
  *
  * @author Dias
  */
-class CInqryEducYearBegin extends DateElement implements IDTO {
+public class CInqryEducYearBegin extends DateElement implements IDTO {
     private static final Logger s_logger = LoggerFactory.getLogger(CInqryEducYearBegin.class);
     
     public static final String s_root_name = "inqry-next-educ-year-begin";

@@ -2,8 +2,17 @@ package ru.avers.informica.factory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.avers.informica.common.config.CInqryEducYearBegin;
 import ru.avers.informica.common.config.ReportInformica;
+import ru.avers.informica.exception.FspeoException;
+import ru.avers.informica.infcfg.Config;
+import ru.avers.informica.infcfg.TypeSchemaVersion;
+import ru.avers.informica.report.FspeoReport;
+import ru.avers.informica.report.IPushDataRequest;
+import ru.avers.informica.report.xml.PushDataRequest;
 import ru.avers.informica.utils.FspeoVersion;
+
+import java.util.Date;
 
 /**
  *
@@ -12,28 +21,29 @@ import ru.avers.informica.utils.FspeoVersion;
 public class FspeoFactory {
     private static final Logger s_logger = LoggerFactory.getLogger(FspeoFactory.class);
 
-// TODO продолжение ...
-/*
-    private final UserIdDto m_id_user;
-    private final IInqryEducYearBegin m_educ_year_begin;
-    private final CDBProviders m_cmsn_providers;
+//    private final UserIdDto m_id_user;
+    private final CInqryEducYearBegin m_educ_year_begin;
+    private final Config configInformica;
+//    private final CDBProviders m_cmsn_providers;
 
     @Override
     public String toString() {
         return new StringBuilder(getClass().getName())
-                        .append(" [id_user=").append(m_id_user)
+//                        .append(" [id_user=").append(m_id_user)
                         .append(", educ_year_begin=").append(m_educ_year_begin)
                         .append("]")
                 .toString();
     }        
 
     public FspeoFactory(
-            UserIdDto p_id_user, 
-            IInqryEducYearBegin p_educ_year_begin, 
-            CDBProviders p_cmsn_providers) {
-        m_id_user = p_id_user;
+//            UserIdDto p_id_user,
+            CInqryEducYearBegin p_educ_year_begin,
+            Config p_configInformica) {
+//            CDBProviders p_cmsn_providers) {
+//        m_id_user = p_id_user;
         m_educ_year_begin = p_educ_year_begin;
-        m_cmsn_providers = p_cmsn_providers;
+        configInformica = p_configInformica;
+//        m_cmsn_providers = p_cmsn_providers;
     }
 
     public FspeoReport createReport(FspeoVersion p_version, boolean p_is_threaded) throws FspeoException {
@@ -47,24 +57,18 @@ public class FspeoFactory {
                         boolean p_is_threaded) throws FspeoException {
         try {
             s_logger.debug("Build begin " + new Date().toString());
-            IPushDataRequest x_push_data_request;
-            if(FspeoVersion.Three.equals(p_version)) {
-                x_push_data_request = new org.avers.fspeo.v3.PushDataRequest(TypeSchemaVersion.tThreeDotO);
-            } else 
-            if(FspeoVersion.Two.equals(p_version)) {
-                x_push_data_request = new org.avers.fspeo.v2.PushDataRequest(TypeSchemaVersion.tTwoDotO);
-            } else
-            if(FspeoVersion.Four.equals(p_version)) {
-                x_push_data_request = new org.avers.fspeo.v3.PushDataRequest(TypeSchemaVersion.tThreeDotO);
+            IPushDataRequest pushDataRequest;
+            if(FspeoVersion.Five.equals(p_version)) {
+                pushDataRequest = new PushDataRequest(TypeSchemaVersion.tFiveDotO);
             } else {
                 throw new FspeoException("Unknown version " + String.valueOf(p_version));
             }
-            Config x_config = retrieveInformicaConfig(p_version);
-            if (x_config == null) 
+
+            if (configInformica == null)
                 throw new FspeoException(
                         String.format("Не удалось прочитать настройки для взаимодействия (версия: %s)",
                                        String.valueOf(p_version)));
-            String x_message = createDataAdapter(x_config, p_is_threaded)
+            String x_message = createDataAdapter(configInformica, p_is_threaded)
                                                 .fill(x_push_data_request, p_data_mode, p_id_uch);
             //  todo рассмотреть возможность создания только при необходимости
             //  create additional report with counters for ver4
@@ -150,12 +154,13 @@ public class FspeoFactory {
             return x_descr.build(x_config);
     }
     
-*/
 
     static public FspeoVersion transformVersion(ReportInformica.Version p_val) {
         //  версия 5 по умолчанию
-        FspeoVersion x_rv = FspeoVersion.Five;
-//        if(ReportInformica.Version.Five.equals(p_val)) x_rv = FspeoVersion.Five;
-        return x_rv;
+        FspeoVersion fspeoVersion = FspeoVersion.Five;
+        if(ReportInformica.Version.Five.equals(p_val)) {
+            fspeoVersion = FspeoVersion.Five;
+        }
+        return fspeoVersion;
     }
 }

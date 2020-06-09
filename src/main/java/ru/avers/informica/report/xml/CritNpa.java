@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "crit_npa")
-public class Crit_Npa {
+public class CritNpa {
 
     @XmlAttribute(name = "crit_npa")
     protected String crit_Npa;

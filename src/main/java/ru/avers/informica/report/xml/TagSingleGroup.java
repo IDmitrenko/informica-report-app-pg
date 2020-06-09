@@ -15,7 +15,7 @@ import java.math.BigInteger;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tag_single_group")
-public class Tag_Single_Group {
+public class TagSingleGroup {
 
     @XmlAttribute(name = "id", required = true)
     protected String id;

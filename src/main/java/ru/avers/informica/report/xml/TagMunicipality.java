@@ -12,12 +12,12 @@ import javax.xml.bind.annotation.*;
     "common",
     "organizations"
 })
-public class Tag_Municipality {
+public class TagMunicipality {
 
     @XmlElement(required = true)
-    protected Tag_Common common;
+    protected TagCommon common;
     @XmlElement(required = true)
-    protected Tag_Organizations organizations;
+    protected TagOrganizations organizations;
     @XmlAttribute(name = "oktmo", required = true)
     protected String oktmo;
     @XmlAttribute(name = "epgu_link", required = true)
@@ -47,19 +47,19 @@ public class Tag_Municipality {
     @XmlAttribute(name = "num_early_assistance")
     protected String num_Early_Assistance;
 
-    public Tag_Common getCommon() {
+    public TagCommon getCommon() {
         return common;
     }
 
-    public void setCommon(Tag_Common value) {
+    public void setCommon(TagCommon value) {
         this.common = value;
     }
 
-    public Tag_Organizations getOrganizations() {
+    public TagOrganizations getOrganizations() {
         return organizations;
     }
 
-    public void setOrganizations(Tag_Organizations value) {
+    public void setOrganizations(TagOrganizations value) {
         this.organizations = value;
     }
 

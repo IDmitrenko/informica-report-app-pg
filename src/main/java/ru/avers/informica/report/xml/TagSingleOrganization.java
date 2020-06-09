@@ -111,202 +111,202 @@ import java.math.BigInteger;
     "early_Assistant",
     "specialists"
 })
-public class Tag_Single_Organization {
+public class TagSingleOrganization {
 
     @XmlElement(required = true)
-    protected Tag_Buildings buildings;
+    protected TagBuildings buildings;
     @XmlElement(required = true)
-    protected Tag_Age_1 ind_1;
+    protected TagAge1 ind_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_1_1;
+    protected TagAge16 ind_1_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_2_1;
+    protected TagAge16 ind_2_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_3_1;
+    protected TagAge16 ind_3_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_4;
+    protected TagAge16 ind_4;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_4_1;
+    protected TagAge16 ind_4_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_4_2;
+    protected TagAge16 ind_4_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_5;
+    protected TagAge16 ind_5;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_6;
+    protected TagAge16 ind_6;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7;
+    protected TagAge16 ind_7;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7_1;
+    protected TagAge16 ind_7_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7_2;
+    protected TagAge16 ind_7_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7_3;
+    protected TagAge16 ind_7_3;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7_4;
+    protected TagAge16 ind_7_4;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7_5;
+    protected TagAge16 ind_7_5;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7_6;
+    protected TagAge16 ind_7_6;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_7_7;
+    protected TagAge16 ind_7_7;
     @XmlElement(required = true)
-    protected Tag_Age_8_Special ind_8;
+    protected TagAge8Special ind_8;
     @XmlElement(required = true)
-    protected Tag_Age_8_Special ind_8_1;
+    protected TagAge8Special ind_8_1;
     @XmlElement(required = true)
-    protected Tag_Age_8_Special ind_8_2;
+    protected TagAge8Special ind_8_2;
     @XmlElement(required = true)
-    protected Tag_Age_8_Special ind_8_3;
+    protected TagAge8Special ind_8_3;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_9;
+    protected TagAge16 ind_9;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_9_1;
+    protected TagAge16 ind_9_1;
     @XmlElement(required = true)
-    protected Tag_Age_1 ind_10;
+    protected TagAge1 ind_10;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_10_1;
+    protected TagAge16 ind_10_1;
     @XmlElement(required = true)
-    protected Tag_Age_1 ind_11;
+    protected TagAge1 ind_11;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_12;
+    protected TagAge16 ind_12;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_12_1;
+    protected TagAge16 ind_12_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_13;
+    protected TagAge16 ind_13;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_13_1;
+    protected TagAge16 ind_13_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_14;
+    protected TagAge16 ind_14;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_15;
+    protected TagAge16 ind_15;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_16;
+    protected TagAge16 ind_16;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_17;
+    protected TagAge16 ind_17;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_17_1;
+    protected TagAge16 ind_17_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_18;
+    protected TagAge16 ind_18;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_18_1;
+    protected TagAge16 ind_18_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_18_2;
+    protected TagAge16 ind_18_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_18_3;
+    protected TagAge16 ind_18_3;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_18_4;
+    protected TagAge16 ind_18_4;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_18_5;
+    protected TagAge16 ind_18_5;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_19;
+    protected TagAge16 ind_19;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_19_1;
+    protected TagAge16 ind_19_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_19_2;
+    protected TagAge16 ind_19_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_19_3;
+    protected TagAge16 ind_19_3;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20;
+    protected TagAge16 ind_20;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_1;
+    protected TagAge16 ind_20_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_2;
+    protected TagAge16 ind_20_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_3;
+    protected TagAge16 ind_20_3;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_4;
+    protected TagAge16 ind_20_4;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_5;
+    protected TagAge16 ind_20_5;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_6;
+    protected TagAge16 ind_20_6;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_7;
+    protected TagAge16 ind_20_7;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_20_8;
+    protected TagAge16 ind_20_8;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_21;
+    protected TagAge16 ind_21;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22;
+    protected TagAge16 ind_22;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_1;
+    protected TagAge16 ind_22_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_1_1;
+    protected TagAge16 ind_22_1_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_1_2;
+    protected TagAge16 ind_22_1_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_2;
+    protected TagAge16 ind_22_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_3;
+    protected TagAge16 ind_22_3;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_3_1;
+    protected TagAge16 ind_22_3_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_3_2;
+    protected TagAge16 ind_22_3_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_4;
+    protected TagAge16 ind_22_4;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_5;
+    protected TagAge16 ind_22_5;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_5_1;
+    protected TagAge16 ind_22_5_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_5_2;
+    protected TagAge16 ind_22_5_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_6;
+    protected TagAge16 ind_22_6;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_7;
+    protected TagAge16 ind_22_7;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_8;
+    protected TagAge16 ind_22_8;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_8_1;
+    protected TagAge16 ind_22_8_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_22_8_2;
+    protected TagAge16 ind_22_8_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_23;
+    protected TagAge16 ind_23;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_24;
+    protected TagAge16 ind_24;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_25;
+    protected TagAge16 ind_25;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_26;
+    protected TagAge16 ind_26;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_27;
+    protected TagAge16 ind_27;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_28;
+    protected TagAge16 ind_28;
     @XmlElement(required = true)
-    protected Tag_Age_1 ind_29;
+    protected TagAge1 ind_29;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_29_1;
+    protected TagAge16 ind_29_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_29_2;
+    protected TagAge16 ind_29_2;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_29_3;
+    protected TagAge16 ind_29_3;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_30;
+    protected TagAge16 ind_30;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_30_1;
+    protected TagAge16 ind_30_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_30_2;
+    protected TagAge16 ind_30_2;
     @XmlElement(required = true)
-    protected Tag_Age_8 ind_31;
+    protected TagAge8 ind_31;
     @XmlElement(required = true)
-    protected Tag_Age_8 ind_31_1;
+    protected TagAge8 ind_31_1;
     @XmlElement(required = true)
-    protected Tag_Age_8 ind_31_2;
+    protected TagAge8 ind_31_2;
     @XmlElement(required = true)
-    protected Tag_Age_8 ind_31_3;
+    protected TagAge8 ind_31_3;
     @XmlElement(required = true)
-    protected Tag_Age_8 ind_31_4;
+    protected TagAge8 ind_31_4;
     @XmlElement(required = true)
-    protected Tag_Age_1 ind_32;
+    protected TagAge1 ind_32;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_32_1;
+    protected TagAge16 ind_32_1;
     @XmlElement(required = true)
-    protected Tag_Age_16 ind_32_2;
+    protected TagAge16 ind_32_2;
     @XmlElement(required = true)
-    protected Tag_Age_1 ind_33;
+    protected TagAge1 ind_33;
     @XmlElement(name = "advisory_centr", required = true)
-    protected Advisory_Centr advisory_Centr;
+    protected AdvisoryCentr advisory_Centr;
     @XmlElement(name = "early_assistant", required = true)
-    protected Early_Assistant early_Assistant;
+    protected EarlyAssistant early_Assistant;
     @XmlElement(required = true)
     protected Specialists specialists;
     @XmlAttribute(name = "code", required = true)
@@ -360,779 +360,779 @@ public class Tag_Single_Organization {
     @XmlAttribute(name = "passport")
     protected String passport;
 
-    public Tag_Buildings getBuildings() {
+    public TagBuildings getBuildings() {
         return buildings;
     }
 
-    public void setBuildings(Tag_Buildings value) {
+    public void setBuildings(TagBuildings value) {
         this.buildings = value;
     }
 
-    public Tag_Age_1 getInd_1() {
+    public TagAge1 getInd_1() {
         return ind_1;
     }
 
-    public void setInd_1(Tag_Age_1 value) {
+    public void setInd_1(TagAge1 value) {
         this.ind_1 = value;
     }
 
-    public Tag_Age_16 getInd_1_1() {
+    public TagAge16 getInd_1_1() {
         return ind_1_1;
     }
 
-    public void setInd_1_1(Tag_Age_16 value) {
+    public void setInd_1_1(TagAge16 value) {
         this.ind_1_1 = value;
     }
 
-    public Tag_Age_16 getInd_2_1() {
+    public TagAge16 getInd_2_1() {
         return ind_2_1;
     }
 
-    public void setInd_2_1(Tag_Age_16 value) {
+    public void setInd_2_1(TagAge16 value) {
         this.ind_2_1 = value;
     }
 
-    public Tag_Age_16 getInd_3_1() {
+    public TagAge16 getInd_3_1() {
         return ind_3_1;
     }
 
-    public void setInd_3_1(Tag_Age_16 value) {
+    public void setInd_3_1(TagAge16 value) {
         this.ind_3_1 = value;
     }
 
-    public Tag_Age_16 getInd_4() {
+    public TagAge16 getInd_4() {
         return ind_4;
     }
 
-    public void setInd_4(Tag_Age_16 value) {
+    public void setInd_4(TagAge16 value) {
         this.ind_4 = value;
     }
 
-    public Tag_Age_16 getInd_4_1() {
+    public TagAge16 getInd_4_1() {
         return ind_4_1;
     }
 
-    public void setInd_4_1(Tag_Age_16 value) {
+    public void setInd_4_1(TagAge16 value) {
         this.ind_4_1 = value;
     }
 
-    public Tag_Age_16 getInd_4_2() {
+    public TagAge16 getInd_4_2() {
         return ind_4_2;
     }
 
-    public void setInd_4_2(Tag_Age_16 value) {
+    public void setInd_4_2(TagAge16 value) {
         this.ind_4_2 = value;
     }
 
-    public Tag_Age_16 getInd_5() {
+    public TagAge16 getInd_5() {
         return ind_5;
     }
 
-    public void setInd_5(Tag_Age_16 value) {
+    public void setInd_5(TagAge16 value) {
         this.ind_5 = value;
     }
 
-    public Tag_Age_16 getInd_6() {
+    public TagAge16 getInd_6() {
         return ind_6;
     }
 
-    public void setInd_6(Tag_Age_16 value) {
+    public void setInd_6(TagAge16 value) {
         this.ind_6 = value;
     }
 
-    public Tag_Age_16 getInd_7() {
+    public TagAge16 getInd_7() {
         return ind_7;
     }
 
-    public void setInd_7(Tag_Age_16 value) {
+    public void setInd_7(TagAge16 value) {
         this.ind_7 = value;
     }
 
-    public Tag_Age_16 getInd_7_1() {
+    public TagAge16 getInd_7_1() {
         return ind_7_1;
     }
 
-    public void setInd_7_1(Tag_Age_16 value) {
+    public void setInd_7_1(TagAge16 value) {
         this.ind_7_1 = value;
     }
 
-    public Tag_Age_16 getInd_7_2() {
+    public TagAge16 getInd_7_2() {
         return ind_7_2;
     }
 
-    public void setInd_7_2(Tag_Age_16 value) {
+    public void setInd_7_2(TagAge16 value) {
         this.ind_7_2 = value;
     }
 
-    public Tag_Age_16 getInd_7_3() {
+    public TagAge16 getInd_7_3() {
         return ind_7_3;
     }
 
-    public void setInd_7_3(Tag_Age_16 value) {
+    public void setInd_7_3(TagAge16 value) {
         this.ind_7_3 = value;
     }
 
-    public Tag_Age_16 getInd_7_4() {
+    public TagAge16 getInd_7_4() {
         return ind_7_4;
     }
 
-    public void setInd_7_4(Tag_Age_16 value) {
+    public void setInd_7_4(TagAge16 value) {
         this.ind_7_4 = value;
     }
 
-    public Tag_Age_16 getInd_7_5() {
+    public TagAge16 getInd_7_5() {
         return ind_7_5;
     }
 
-    public void setInd_7_5(Tag_Age_16 value) {
+    public void setInd_7_5(TagAge16 value) {
         this.ind_7_5 = value;
     }
 
-    public Tag_Age_16 getInd_7_6() {
+    public TagAge16 getInd_7_6() {
         return ind_7_6;
     }
 
-    public void setInd_7_6(Tag_Age_16 value) {
+    public void setInd_7_6(TagAge16 value) {
         this.ind_7_6 = value;
     }
 
-    public Tag_Age_16 getInd_7_7() {
+    public TagAge16 getInd_7_7() {
         return ind_7_7;
     }
 
-    public void setInd_7_7(Tag_Age_16 value) {
+    public void setInd_7_7(TagAge16 value) {
         this.ind_7_7 = value;
     }
 
-    public Tag_Age_8_Special getInd_8() {
+    public TagAge8Special getInd_8() {
         return ind_8;
     }
 
-    public void setInd_8(Tag_Age_8_Special value) {
+    public void setInd_8(TagAge8Special value) {
         this.ind_8 = value;
     }
 
-    public Tag_Age_8_Special getInd_8_1() {
+    public TagAge8Special getInd_8_1() {
         return ind_8_1;
     }
 
-    public void setInd_8_1(Tag_Age_8_Special value) {
+    public void setInd_8_1(TagAge8Special value) {
         this.ind_8_1 = value;
     }
 
-    public Tag_Age_8_Special getInd_8_2() {
+    public TagAge8Special getInd_8_2() {
         return ind_8_2;
     }
 
-    public void setInd_8_2(Tag_Age_8_Special value) {
+    public void setInd_8_2(TagAge8Special value) {
         this.ind_8_2 = value;
     }
 
-    public Tag_Age_8_Special getInd_8_3() {
+    public TagAge8Special getInd_8_3() {
         return ind_8_3;
     }
 
-    public void setInd_8_3(Tag_Age_8_Special value) {
+    public void setInd_8_3(TagAge8Special value) {
         this.ind_8_3 = value;
     }
 
-    public Tag_Age_16 getInd_9() {
+    public TagAge16 getInd_9() {
         return ind_9;
     }
 
-    public void setInd_9(Tag_Age_16 value) {
+    public void setInd_9(TagAge16 value) {
         this.ind_9 = value;
     }
 
-    public Tag_Age_16 getInd_9_1() {
+    public TagAge16 getInd_9_1() {
         return ind_9_1;
     }
 
-    public void setInd_9_1(Tag_Age_16 value) {
+    public void setInd_9_1(TagAge16 value) {
         this.ind_9_1 = value;
     }
 
-    public Tag_Age_1 getInd_10() {
+    public TagAge1 getInd_10() {
         return ind_10;
     }
 
-    public void setInd_10(Tag_Age_1 value) {
+    public void setInd_10(TagAge1 value) {
         this.ind_10 = value;
     }
 
-    public Tag_Age_16 getInd_10_1() {
+    public TagAge16 getInd_10_1() {
         return ind_10_1;
     }
 
-    public void setInd_10_1(Tag_Age_16 value) {
+    public void setInd_10_1(TagAge16 value) {
         this.ind_10_1 = value;
     }
 
-    public Tag_Age_1 getInd_11() {
+    public TagAge1 getInd_11() {
         return ind_11;
     }
 
-    public void setInd_11(Tag_Age_1 value) {
+    public void setInd_11(TagAge1 value) {
         this.ind_11 = value;
     }
 
-    public Tag_Age_16 getInd_12() {
+    public TagAge16 getInd_12() {
         return ind_12;
     }
 
-    public void setInd_12(Tag_Age_16 value) {
+    public void setInd_12(TagAge16 value) {
         this.ind_12 = value;
     }
 
-    public Tag_Age_16 getInd_12_1() {
+    public TagAge16 getInd_12_1() {
         return ind_12_1;
     }
 
-    public void setInd_12_1(Tag_Age_16 value) {
+    public void setInd_12_1(TagAge16 value) {
         this.ind_12_1 = value;
     }
 
-    public Tag_Age_16 getInd_13() {
+    public TagAge16 getInd_13() {
         return ind_13;
     }
 
-    public void setInd_13(Tag_Age_16 value) {
+    public void setInd_13(TagAge16 value) {
         this.ind_13 = value;
     }
 
-    public Tag_Age_16 getInd_13_1() {
+    public TagAge16 getInd_13_1() {
         return ind_13_1;
     }
 
-    public void setInd_13_1(Tag_Age_16 value) {
+    public void setInd_13_1(TagAge16 value) {
         this.ind_13_1 = value;
     }
 
-    public Tag_Age_16 getInd_14() {
+    public TagAge16 getInd_14() {
         return ind_14;
     }
 
-    public void setInd_14(Tag_Age_16 value) {
+    public void setInd_14(TagAge16 value) {
         this.ind_14 = value;
     }
 
-    public Tag_Age_16 getInd_15() {
+    public TagAge16 getInd_15() {
         return ind_15;
     }
 
-    public void setInd_15(Tag_Age_16 value) {
+    public void setInd_15(TagAge16 value) {
         this.ind_15 = value;
     }
 
-    public Tag_Age_16 getInd_16() {
+    public TagAge16 getInd_16() {
         return ind_16;
     }
 
-    public void setInd_16(Tag_Age_16 value) {
+    public void setInd_16(TagAge16 value) {
         this.ind_16 = value;
     }
 
-    public Tag_Age_16 getInd_17() {
+    public TagAge16 getInd_17() {
         return ind_17;
     }
 
-    public void setInd_17(Tag_Age_16 value) {
+    public void setInd_17(TagAge16 value) {
         this.ind_17 = value;
     }
 
-    public Tag_Age_16 getInd_17_1() {
+    public TagAge16 getInd_17_1() {
         return ind_17_1;
     }
 
-    public void setInd_17_1(Tag_Age_16 value) {
+    public void setInd_17_1(TagAge16 value) {
         this.ind_17_1 = value;
     }
 
-    public Tag_Age_16 getInd_18() {
+    public TagAge16 getInd_18() {
         return ind_18;
     }
 
-    public void setInd_18(Tag_Age_16 value) {
+    public void setInd_18(TagAge16 value) {
         this.ind_18 = value;
     }
 
-    public Tag_Age_16 getInd_18_1() {
+    public TagAge16 getInd_18_1() {
         return ind_18_1;
     }
 
-    public void setInd_18_1(Tag_Age_16 value) {
+    public void setInd_18_1(TagAge16 value) {
         this.ind_18_1 = value;
     }
 
-    public Tag_Age_16 getInd_18_2() {
+    public TagAge16 getInd_18_2() {
         return ind_18_2;
     }
 
-    public void setInd_18_2(Tag_Age_16 value) {
+    public void setInd_18_2(TagAge16 value) {
         this.ind_18_2 = value;
     }
 
-    public Tag_Age_16 getInd_18_3() {
+    public TagAge16 getInd_18_3() {
         return ind_18_3;
     }
 
-    public void setInd_18_3(Tag_Age_16 value) {
+    public void setInd_18_3(TagAge16 value) {
         this.ind_18_3 = value;
     }
 
-    public Tag_Age_16 getInd_18_4() {
+    public TagAge16 getInd_18_4() {
         return ind_18_4;
     }
 
-    public void setInd_18_4(Tag_Age_16 value) {
+    public void setInd_18_4(TagAge16 value) {
         this.ind_18_4 = value;
     }
 
-    public Tag_Age_16 getInd_18_5() {
+    public TagAge16 getInd_18_5() {
         return ind_18_5;
     }
 
-    public void setInd_18_5(Tag_Age_16 value) {
+    public void setInd_18_5(TagAge16 value) {
         this.ind_18_5 = value;
     }
 
-    public Tag_Age_16 getInd_19() {
+    public TagAge16 getInd_19() {
         return ind_19;
     }
 
-    public void setInd_19(Tag_Age_16 value) {
+    public void setInd_19(TagAge16 value) {
         this.ind_19 = value;
     }
 
-    public Tag_Age_16 getInd_19_1() {
+    public TagAge16 getInd_19_1() {
         return ind_19_1;
     }
 
-    public void setInd_19_1(Tag_Age_16 value) {
+    public void setInd_19_1(TagAge16 value) {
         this.ind_19_1 = value;
     }
 
-    public Tag_Age_16 getInd_19_2() {
+    public TagAge16 getInd_19_2() {
         return ind_19_2;
     }
 
-    public void setInd_19_2(Tag_Age_16 value) {
+    public void setInd_19_2(TagAge16 value) {
         this.ind_19_2 = value;
     }
 
-    public Tag_Age_16 getInd_19_3() {
+    public TagAge16 getInd_19_3() {
         return ind_19_3;
     }
 
-    public void setInd_19_3(Tag_Age_16 value) {
+    public void setInd_19_3(TagAge16 value) {
         this.ind_19_3 = value;
     }
 
-    public Tag_Age_16 getInd_20() {
+    public TagAge16 getInd_20() {
         return ind_20;
     }
 
-    public void setInd_20(Tag_Age_16 value) {
+    public void setInd_20(TagAge16 value) {
         this.ind_20 = value;
     }
 
-    public Tag_Age_16 getInd_20_1() {
+    public TagAge16 getInd_20_1() {
         return ind_20_1;
     }
 
-    public void setInd_20_1(Tag_Age_16 value) {
+    public void setInd_20_1(TagAge16 value) {
         this.ind_20_1 = value;
     }
 
-    public Tag_Age_16 getInd_20_2() {
+    public TagAge16 getInd_20_2() {
         return ind_20_2;
     }
 
-    public void setInd_20_2(Tag_Age_16 value) {
+    public void setInd_20_2(TagAge16 value) {
         this.ind_20_2 = value;
     }
 
-    public Tag_Age_16 getInd_20_3() {
+    public TagAge16 getInd_20_3() {
         return ind_20_3;
     }
 
-    public void setInd_20_3(Tag_Age_16 value) {
+    public void setInd_20_3(TagAge16 value) {
         this.ind_20_3 = value;
     }
 
-    public Tag_Age_16 getInd_20_4() {
+    public TagAge16 getInd_20_4() {
         return ind_20_4;
     }
 
-    public void setInd_20_4(Tag_Age_16 value) {
+    public void setInd_20_4(TagAge16 value) {
         this.ind_20_4 = value;
     }
 
-    public Tag_Age_16 getInd_20_5() {
+    public TagAge16 getInd_20_5() {
         return ind_20_5;
     }
 
-    public void setInd_20_5(Tag_Age_16 value) {
+    public void setInd_20_5(TagAge16 value) {
         this.ind_20_5 = value;
     }
 
-    public Tag_Age_16 getInd_20_6() {
+    public TagAge16 getInd_20_6() {
         return ind_20_6;
     }
 
-    public void setInd_20_6(Tag_Age_16 value) {
+    public void setInd_20_6(TagAge16 value) {
         this.ind_20_6 = value;
     }
 
-    public Tag_Age_16 getInd_20_7() {
+    public TagAge16 getInd_20_7() {
         return ind_20_7;
     }
 
-    public void setInd_20_7(Tag_Age_16 value) {
+    public void setInd_20_7(TagAge16 value) {
         this.ind_20_7 = value;
     }
 
-    public Tag_Age_16 getInd_20_8() {
+    public TagAge16 getInd_20_8() {
         return ind_20_8;
     }
 
-    public void setInd_20_8(Tag_Age_16 value) {
+    public void setInd_20_8(TagAge16 value) {
         this.ind_20_8 = value;
     }
 
-    public Tag_Age_16 getInd_21() {
+    public TagAge16 getInd_21() {
         return ind_21;
     }
 
-    public void setInd_21(Tag_Age_16 value) {
+    public void setInd_21(TagAge16 value) {
         this.ind_21 = value;
     }
 
-    public Tag_Age_16 getInd_22() {
+    public TagAge16 getInd_22() {
         return ind_22;
     }
 
-    public void setInd_22(Tag_Age_16 value) {
+    public void setInd_22(TagAge16 value) {
         this.ind_22 = value;
     }
 
-    public Tag_Age_16 getInd_22_1() {
+    public TagAge16 getInd_22_1() {
         return ind_22_1;
     }
 
-    public void setInd_22_1(Tag_Age_16 value) {
+    public void setInd_22_1(TagAge16 value) {
         this.ind_22_1 = value;
     }
 
-    public Tag_Age_16 getInd_22_1_1() {
+    public TagAge16 getInd_22_1_1() {
         return ind_22_1_1;
     }
 
-    public void setInd_22_1_1(Tag_Age_16 value) {
+    public void setInd_22_1_1(TagAge16 value) {
         this.ind_22_1_1 = value;
     }
 
-    public Tag_Age_16 getInd_22_1_2() {
+    public TagAge16 getInd_22_1_2() {
         return ind_22_1_2;
     }
 
-    public void setInd_22_1_2(Tag_Age_16 value) {
+    public void setInd_22_1_2(TagAge16 value) {
         this.ind_22_1_2 = value;
     }
 
-    public Tag_Age_16 getInd_22_2() {
+    public TagAge16 getInd_22_2() {
         return ind_22_2;
     }
 
-    public void setInd_22_2(Tag_Age_16 value) {
+    public void setInd_22_2(TagAge16 value) {
         this.ind_22_2 = value;
     }
 
-    public Tag_Age_16 getInd_22_3() {
+    public TagAge16 getInd_22_3() {
         return ind_22_3;
     }
 
-    public void setInd_22_3(Tag_Age_16 value) {
+    public void setInd_22_3(TagAge16 value) {
         this.ind_22_3 = value;
     }
 
-    public Tag_Age_16 getInd_22_3_1() {
+    public TagAge16 getInd_22_3_1() {
         return ind_22_3_1;
     }
 
-    public void setInd_22_3_1(Tag_Age_16 value) {
+    public void setInd_22_3_1(TagAge16 value) {
         this.ind_22_3_1 = value;
     }
 
-    public Tag_Age_16 getInd_22_3_2() {
+    public TagAge16 getInd_22_3_2() {
         return ind_22_3_2;
     }
 
-    public void setInd_22_3_2(Tag_Age_16 value) {
+    public void setInd_22_3_2(TagAge16 value) {
         this.ind_22_3_2 = value;
     }
 
-    public Tag_Age_16 getInd_22_4() {
+    public TagAge16 getInd_22_4() {
         return ind_22_4;
     }
 
-    public void setInd_22_4(Tag_Age_16 value) {
+    public void setInd_22_4(TagAge16 value) {
         this.ind_22_4 = value;
     }
 
-    public Tag_Age_16 getInd_22_5() {
+    public TagAge16 getInd_22_5() {
         return ind_22_5;
     }
 
-    public void setInd_22_5(Tag_Age_16 value) {
+    public void setInd_22_5(TagAge16 value) {
         this.ind_22_5 = value;
     }
 
-    public Tag_Age_16 getInd_22_5_1() {
+    public TagAge16 getInd_22_5_1() {
         return ind_22_5_1;
     }
 
-    public void setInd_22_5_1(Tag_Age_16 value) {
+    public void setInd_22_5_1(TagAge16 value) {
         this.ind_22_5_1 = value;
     }
 
-    public Tag_Age_16 getInd_22_5_2() {
+    public TagAge16 getInd_22_5_2() {
         return ind_22_5_2;
     }
 
-    public void setInd_22_5_2(Tag_Age_16 value) {
+    public void setInd_22_5_2(TagAge16 value) {
         this.ind_22_5_2 = value;
     }
 
-    public Tag_Age_16 getInd_22_6() {
+    public TagAge16 getInd_22_6() {
         return ind_22_6;
     }
 
-    public void setInd_22_6(Tag_Age_16 value) {
+    public void setInd_22_6(TagAge16 value) {
         this.ind_22_6 = value;
     }
 
-    public Tag_Age_16 getInd_22_7() {
+    public TagAge16 getInd_22_7() {
         return ind_22_7;
     }
 
-    public void setInd_22_7(Tag_Age_16 value) {
+    public void setInd_22_7(TagAge16 value) {
         this.ind_22_7 = value;
     }
 
-    public Tag_Age_16 getInd_22_8() {
+    public TagAge16 getInd_22_8() {
         return ind_22_8;
     }
 
-    public void setInd_22_8(Tag_Age_16 value) {
+    public void setInd_22_8(TagAge16 value) {
         this.ind_22_8 = value;
     }
 
-    public Tag_Age_16 getInd_22_8_1() {
+    public TagAge16 getInd_22_8_1() {
         return ind_22_8_1;
     }
 
-    public void setInd_22_8_1(Tag_Age_16 value) {
+    public void setInd_22_8_1(TagAge16 value) {
         this.ind_22_8_1 = value;
     }
 
-    public Tag_Age_16 getInd_22_8_2() {
+    public TagAge16 getInd_22_8_2() {
         return ind_22_8_2;
     }
 
-    public void setInd_22_8_2(Tag_Age_16 value) {
+    public void setInd_22_8_2(TagAge16 value) {
         this.ind_22_8_2 = value;
     }
 
-    public Tag_Age_16 getInd_23() {
+    public TagAge16 getInd_23() {
         return ind_23;
     }
 
-    public void setInd_23(Tag_Age_16 value) {
+    public void setInd_23(TagAge16 value) {
         this.ind_23 = value;
     }
 
-    public Tag_Age_16 getInd_24() {
+    public TagAge16 getInd_24() {
         return ind_24;
     }
 
-    public void setInd_24(Tag_Age_16 value) {
+    public void setInd_24(TagAge16 value) {
         this.ind_24 = value;
     }
 
-    public Tag_Age_16 getInd_25() {
+    public TagAge16 getInd_25() {
         return ind_25;
     }
 
-    public void setInd_25(Tag_Age_16 value) {
+    public void setInd_25(TagAge16 value) {
         this.ind_25 = value;
     }
 
-    public Tag_Age_16 getInd_26() {
+    public TagAge16 getInd_26() {
         return ind_26;
     }
 
-    public void setInd_26(Tag_Age_16 value) {
+    public void setInd_26(TagAge16 value) {
         this.ind_26 = value;
     }
 
-    public Tag_Age_16 getInd_27() {
+    public TagAge16 getInd_27() {
         return ind_27;
     }
 
-    public void setInd_27(Tag_Age_16 value) {
+    public void setInd_27(TagAge16 value) {
         this.ind_27 = value;
     }
 
-    public Tag_Age_16 getInd_28() {
+    public TagAge16 getInd_28() {
         return ind_28;
     }
 
-    public void setInd_28(Tag_Age_16 value) {
+    public void setInd_28(TagAge16 value) {
         this.ind_28 = value;
     }
 
-    public Tag_Age_1 getInd_29() {
+    public TagAge1 getInd_29() {
         return ind_29;
     }
 
-    public void setInd_29(Tag_Age_1 value) {
+    public void setInd_29(TagAge1 value) {
         this.ind_29 = value;
     }
 
-    public Tag_Age_16 getInd_29_1() {
+    public TagAge16 getInd_29_1() {
         return ind_29_1;
     }
 
-    public void setInd_29_1(Tag_Age_16 value) {
+    public void setInd_29_1(TagAge16 value) {
         this.ind_29_1 = value;
     }
 
-    public Tag_Age_16 getInd_29_2() {
+    public TagAge16 getInd_29_2() {
         return ind_29_2;
     }
 
-    public void setInd_29_2(Tag_Age_16 value) {
+    public void setInd_29_2(TagAge16 value) {
         this.ind_29_2 = value;
     }
 
-    public Tag_Age_16 getInd_29_3() {
+    public TagAge16 getInd_29_3() {
         return ind_29_3;
     }
 
-    public void setInd_29_3(Tag_Age_16 value) {
+    public void setInd_29_3(TagAge16 value) {
         this.ind_29_3 = value;
     }
 
-    public Tag_Age_16 getInd_30() {
+    public TagAge16 getInd_30() {
         return ind_30;
     }
 
-    public void setInd_30(Tag_Age_16 value) {
+    public void setInd_30(TagAge16 value) {
         this.ind_30 = value;
     }
 
-    public Tag_Age_16 getInd_30_1() {
+    public TagAge16 getInd_30_1() {
         return ind_30_1;
     }
 
-    public void setInd_30_1(Tag_Age_16 value) {
+    public void setInd_30_1(TagAge16 value) {
         this.ind_30_1 = value;
     }
 
-    public Tag_Age_16 getInd_30_2() {
+    public TagAge16 getInd_30_2() {
         return ind_30_2;
     }
 
-    public void setInd_30_2(Tag_Age_16 value) {
+    public void setInd_30_2(TagAge16 value) {
         this.ind_30_2 = value;
     }
 
-    public Tag_Age_8 getInd_31() {
+    public TagAge8 getInd_31() {
         return ind_31;
     }
 
-    public void setInd_31(Tag_Age_8 value) {
+    public void setInd_31(TagAge8 value) {
         this.ind_31 = value;
     }
 
-    public Tag_Age_8 getInd_31_1() {
+    public TagAge8 getInd_31_1() {
         return ind_31_1;
     }
 
-    public void setInd_31_1(Tag_Age_8 value) {
+    public void setInd_31_1(TagAge8 value) {
         this.ind_31_1 = value;
     }
 
-    public Tag_Age_8 getInd_31_2() {
+    public TagAge8 getInd_31_2() {
         return ind_31_2;
     }
 
-    public void setInd_31_2(Tag_Age_8 value) {
+    public void setInd_31_2(TagAge8 value) {
         this.ind_31_2 = value;
     }
 
-    public Tag_Age_8 getInd_31_3() {
+    public TagAge8 getInd_31_3() {
         return ind_31_3;
     }
 
-    public void setInd_31_3(Tag_Age_8 value) {
+    public void setInd_31_3(TagAge8 value) {
         this.ind_31_3 = value;
     }
 
-    public Tag_Age_8 getInd_31_4() {
+    public TagAge8 getInd_31_4() {
         return ind_31_4;
     }
 
-    public void setInd_31_4(Tag_Age_8 value) {
+    public void setInd_31_4(TagAge8 value) {
         this.ind_31_4 = value;
     }
 
-    public Tag_Age_1 getInd_32() {
+    public TagAge1 getInd_32() {
         return ind_32;
     }
 
-    public void setInd_32(Tag_Age_1 value) {
+    public void setInd_32(TagAge1 value) {
         this.ind_32 = value;
     }
 
-    public Tag_Age_16 getInd_32_1() {
+    public TagAge16 getInd_32_1() {
         return ind_32_1;
     }
 
-    public void setInd_32_1(Tag_Age_16 value) {
+    public void setInd_32_1(TagAge16 value) {
         this.ind_32_1 = value;
     }
 
-    public Tag_Age_16 getInd_32_2() {
+    public TagAge16 getInd_32_2() {
         return ind_32_2;
     }
 
-    public void setInd_32_2(Tag_Age_16 value) {
+    public void setInd_32_2(TagAge16 value) {
         this.ind_32_2 = value;
     }
 
-    public Tag_Age_1 getInd_33() {
+    public TagAge1 getInd_33() {
         return ind_33;
     }
 
-    public void setInd_33(Tag_Age_1 value) {
+    public void setInd_33(TagAge1 value) {
         this.ind_33 = value;
     }
 
-    public Advisory_Centr getAdvisory_Centr() {
+    public AdvisoryCentr getAdvisory_Centr() {
         return advisory_Centr;
     }
 
-    public void setAdvisory_Centr(Advisory_Centr value) {
+    public void setAdvisory_Centr(AdvisoryCentr value) {
         this.advisory_Centr = value;
     }
 
-    public Early_Assistant getEarly_Assistant() {
+    public EarlyAssistant getEarly_Assistant() {
         return early_Assistant;
     }
 
-    public void setEarly_Assistant(Early_Assistant value) {
+    public void setEarly_Assistant(EarlyAssistant value) {
         this.early_Assistant = value;
     }
 

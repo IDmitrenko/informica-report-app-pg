@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tag_age_8_special")
-public class Tag_Age_8_Special {
+public class TagAge8Special {
 
     @XmlAttribute(name = "y_0_1", required = true)
     protected String y_0_1;

@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tag_system")
-public class Tag_System {
+public class TagSystem {
 
     @XmlAttribute(name = "name", required = true)
     protected String name;
