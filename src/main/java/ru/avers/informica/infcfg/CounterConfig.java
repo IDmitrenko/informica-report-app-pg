@@ -1,5 +1,6 @@
 package ru.avers.informica.infcfg;
 
+import ru.avers.informica.exception.ReportExceprion;
 import ru.avers.informica.filtersinqry.BeanFilter;
 import ru.avers.informica.filtersinqry.IFilter;
 import ru.avers.informica.filtersinqry.IsFilterDate;
