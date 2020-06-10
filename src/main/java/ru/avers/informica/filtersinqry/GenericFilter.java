@@ -114,30 +114,36 @@ public class GenericFilter implements IFieldFilterParams, IFilter<Object> {
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) > 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s",
+                            String.valueOf(m_comparison), m_field));
             case greaterOrEqual:
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) >= 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s",
+                            String.valueOf(m_comparison), m_field));
             case less:
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) < 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s",
+                            String.valueOf(m_comparison), m_field));
             case lessOrEqual:
                 if (p_field_value instanceof Comparable)
                     return ((Comparable) p_field_value).compareTo(getValue()) <= 0;
                 else
-                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                    throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s",
+                            String.valueOf(m_comparison), m_field));
             case in:
                 return ((List) getValue()).contains(p_field_value);
             case notIn:
                 return !((List) getValue()).contains(p_field_value);
             case like:
-                throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+                throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s",
+                        String.valueOf(m_comparison), m_field));
         }
-        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s",
+                String.valueOf(m_comparison), m_field));
     }
 
     @Override

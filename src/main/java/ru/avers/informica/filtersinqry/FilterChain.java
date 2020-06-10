@@ -20,7 +20,8 @@ public class FilterChain {
     private Date m_curr_dt,
             m_educ_dt;
 
-    public boolean isPassed(List<IFilter> filters, Date p_curr_dt, Date p_educ_date, Object p_value) throws FilterException {
+    public boolean isPassed(List<IFilter> filters, Date p_curr_dt,
+                            Date p_educ_date, Object p_value) throws FilterException {
         m_curr_dt = p_curr_dt;
         m_educ_dt = p_educ_date;
         if (filters == null) return true;
@@ -50,7 +51,8 @@ public class FilterChain {
     }
 
     private boolean isReservedField(String p_field) {
-        return IsFilterDate.filterCurrentDate.equals(p_field) || IsFilterDate.filterCurrentTime.equals(p_field);
+        return IsFilterDate.filterCurrentDate.equals(p_field) ||
+                IsFilterDate.filterCurrentTime.equals(p_field);
     }
 
     private Object getReservedFieldValue(String p_field) throws FilterException {

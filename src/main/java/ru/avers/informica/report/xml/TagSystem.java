@@ -1,5 +1,7 @@
 package ru.avers.informica.report.xml;
 
+import ru.avers.informica.infcfg.TypeInstall;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -23,7 +25,7 @@ public class TagSystem {
     @XmlAttribute(name = "email", required = true)
     protected String email;
     @XmlAttribute(name = "install_type", required = true)
-    protected String install_Type;
+    protected TypeInstall install_Type;
     @XmlAttribute(name = "own_server")
     protected String own_Server;
 
@@ -59,11 +61,11 @@ public class TagSystem {
         this.email = value;
     }
 
-    public String getInstall_Type() {
+    public TypeInstall getInstall_Type() {
         return install_Type;
     }
 
-    public void setInstall_Type(String value) {
+    public void setInstall_Type(TypeInstall value) {
         this.install_Type = value;
     }
 

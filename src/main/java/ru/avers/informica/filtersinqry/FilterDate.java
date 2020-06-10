@@ -118,7 +118,8 @@ public class FilterDate implements IFilter<Date>, IFieldFilterParams, IsFilterDa
     public boolean isPassed(Date p_field_value) throws FilterException {
         if (m_comparison == null) 
             throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
-        s_logger.debug("Calc filter for field={}, m_comparison={}, field_value={}", m_field, m_comparison, p_field_value);
+        s_logger.debug("Calc filter for field={}, m_comparison={}, field_value={}",
+                m_field, m_comparison, p_field_value);
 
         Date x_field_value = p_field_value;
         if (x_field_value != null)

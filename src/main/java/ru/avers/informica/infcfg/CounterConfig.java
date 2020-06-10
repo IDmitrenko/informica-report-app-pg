@@ -43,7 +43,9 @@ public class CounterConfig {
     }
 
     public boolean isPassed(Date p_dt, Date p_curr_educ_date, Object x_ds_item) throws ReportExceprion {
-        if (m_counter_def == null || m_counter_def.getFilters() == null || m_counter_def.getFilters().isEmpty())
+        if (m_counter_def == null ||
+                m_counter_def.getFilters() == null ||
+                m_counter_def.getFilters().isEmpty())
             return true;
 
       /* if (!hasIncrementByPriority(m_counter_def.getFilters())) {
@@ -70,7 +72,8 @@ public class CounterConfig {
                     if (x_filter.isPassed(x_ds_item)) {
                         if (x_ds_item instanceof InqryTransfer) {
                             if (isAllOrBeanFilter && ((BeanFilter) x_filter).getUseOR()) {
-                                ((InqryTransfer) x_ds_item).setCount(((InqryTransfer) x_ds_item).getCount() + 1);
+                                ((InqryTransfer) x_ds_item)
+                                        .setCount(((InqryTransfer) x_ds_item).getCount() + 1);
                             } else {
                                 ((InqryTransfer) x_ds_item).setCount(1);
                                 isAllOrBeanFilter = false;

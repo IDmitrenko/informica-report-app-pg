@@ -37,7 +37,9 @@ public class BeanUtils {
         }
     }
 
-    private static <T> Object invokeGetter(String p_prop, T p_bean) throws IntrospectionException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    private static <T> Object invokeGetter(String p_prop, T p_bean)
+            throws IntrospectionException, IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException {
         // Не использовать new PropertyDescriptor(p_prop, p_bean.getClass()),
         // java 1.7 не находит getter, унаследованный от базового класса, (валится
         // с ошибкой, что не находит соответствующий setter)

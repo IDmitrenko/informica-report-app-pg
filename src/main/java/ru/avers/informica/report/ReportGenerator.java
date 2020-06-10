@@ -24,15 +24,17 @@ public class ReportGenerator {
     private final FilterChain filterChain;
 
     public PushDataRequest generateReport(CProfile cProfile) throws FilterException {
+        Config configInformica = cHelper.getInformicaConfig();
         PushDataRequest request = new PushDataRequest();
-        request.setSystem(buildSystemInfo(cProfile));
-        request.setSchemaVersion(schemaBuilder(cProfile));
-        request.setReports(reportBuilder(cProfile));
+        request.setSystem(buildSystemInfo(configInformica));
+        request.setSchemaVersion(schemaBuilder());
+        request.setReports(reportBuilder(cProfile, configInformica));
         return request;
     }
 
-    private TagReports reportBuilder(CProfile cProfile) throws FilterException {
-        Config configInformica = cHelper.getInformicaConfig();
+    private TagReports reportBuilder(CProfile cProfile, Config configInformica) throws FilterException {
+//DIAS  считать InqryInf
+
         List<ApplicationsEntity> allApplications = applicationDao.getAllApplications();
         log.info("Found {} applications", allApplications.size());
         TagReports tagReports = new TagReports();
@@ -41,7 +43,9 @@ public class ReportGenerator {
         List<TagMunicipality> municipality = new ArrayList<>();
         Map<String, TagMunicipality> municipalityMap = new HashMap<>();
         Date currentDate = new Date();
-        Date x_curr_educ_date = DateUtil.getCurrEducDate(currentDate, cProfile.getMisc().getInqryEducYearBegin().getMonth(), cProfile.getMisc().getInqryEducYearBegin().getDay());
+        Date x_curr_educ_date = DateUtil.getCurrEducDate(currentDate,
+                cProfile.getMisc().getInqryEducYearBegin().getMonth(),
+                cProfile.getMisc().getInqryEducYearBegin().getDay());
 
         for (ApplicationsEntity application : allApplications) {
             TagMunicipality tagMunicipality = municipalityMap.get(application.getOktmo());
@@ -66,7 +70,9 @@ public class ReportGenerator {
             }
             for (SchemaConfig schema : configInformica.getSchemas()) {
                 for (CounterConfig inqryCounter : schema.getSource().getInqryCounters()) {
-                    Object value = new Object();//application TODO объект класса в котором есть все поля из field в теге filter (<filter field="typeCode" cmp="eq" value="01"/>)
+//application TODO объект класса в котором есть все поля из field в теге filter
+// (<filter field="typeCode" cmp="eq" value="01"/>)
+                    Object value = new Object();
                     if (inqryCounter.isPassed(
                             currentDate,
                             x_curr_educ_date,
@@ -85,18 +91,18 @@ public class ReportGenerator {
 
     }
 
-    private TypeSchemaVersion schemaBuilder(CProfile cProfile) {
+    private TypeSchemaVersion schemaBuilder() {
         return TypeSchemaVersion.tFiveDotO;
     }
 
-    private TagSystem buildSystemInfo(CProfile cProfile) {
+    private TagSystem buildSystemInfo(Config configInformica) {
         TagSystem tagSystem = new TagSystem();
-        tagSystem.setEmail("");
-        tagSystem.setInstall_Type("");
-        tagSystem.setName("");
-        tagSystem.setOwn_Server("");
-        tagSystem.setVendor("");
-        tagSystem.setVersion("");
+        tagSystem.setName(configInformica.getSystem().getName());
+        tagSystem.setVendor(configInformica.getSystem().getVendor());
+        tagSystem.setVersion(configInformica.getSystem().getVersion());
+        tagSystem.setEmail(configInformica.getSystem().getEmail());
+        tagSystem.setInstall_Type(configInformica.getSystem().getInstallType());
+        tagSystem.setOwn_Server(configInformica.getSystem().getOwn_server());
         return tagSystem;
     }
 }

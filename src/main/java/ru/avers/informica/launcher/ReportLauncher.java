@@ -18,7 +18,6 @@ import java.util.Calendar;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-//InformicaDaemon
 public class ReportLauncher {
     private Marker m_marker_email = MarkerFactory.getMarker("EMAIL_LOG");
     private final ServletContext context;
@@ -47,12 +46,12 @@ public class ReportLauncher {
         }
         try {
             PushDataRequest report = reportGenerator.generateReport( cProfile);
-            //FspeoReport fspeoReport = fspeoFactory.createReport(fspeoVersion, reportInformica.isMt());
-// InformicaDaemon 188
+
         } catch (Exception ex) {
             String x_str = "Ошибка при построении отчета";
             log.error(x_str, ex);
-            log.error(m_marker_email, "{}. 1. Ошибка построения отчета", cProfile.getReports().getReportInformica().getStateName());
+            log.error(m_marker_email, "{}. 1. Ошибка построения отчета",
+                    cProfile.getReports().getReportInformica().getStateName());
         }
 
         debug = "1";

@@ -24,7 +24,8 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
     public BeanFilter() {
     }
 
-    public BeanFilter(String p_field, ComparisonType p_comparison, String p_str_value, boolean p_useOR) {
+    public BeanFilter(String p_field, ComparisonType p_comparison,
+                      String p_str_value, boolean p_useOR) {
         this.m_field = p_field;
         this.m_comparison = p_comparison;
         this.m_str_value = p_str_value;
@@ -88,7 +89,8 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
     @Override
     public boolean isPassed(Object item) throws FilterException {
         if (m_comparison == null) {
-            throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
+            throw new FilterException(String.format("Не задана операция сравнения для поля %s",
+                    m_field));
         }
         Object a = null;
         Object b = null;
@@ -104,7 +106,8 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
             case notEqual:
                 return !CUtil.equals(a, b);
         }
-        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s", String.valueOf(m_comparison), m_field));
+        throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s",
+                String.valueOf(m_comparison), m_field));
     }
 
     @Override
@@ -114,11 +117,16 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
 
         BeanFilter that = (BeanFilter) o;
 
-        if (m_useOR != that.m_useOR) return false;
-        if (m_field != null ? !m_field.equals(that.m_field) : that.m_field != null) return false;
-        if (m_str_value != null ? !m_str_value.equals(that.m_str_value) : that.m_str_value != null) return false;
-        if (m_comparison != that.m_comparison) return false;
-        return m_field_type != null ? m_field_type.equals(that.m_field_type) : that.m_field_type == null;
+        if (m_useOR != that.m_useOR)
+            return false;
+        if (m_field != null ? !m_field.equals(that.m_field) : that.m_field != null)
+            return false;
+        if (m_str_value != null ? !m_str_value.equals(that.m_str_value) : that.m_str_value != null)
+            return false;
+        if (m_comparison != that.m_comparison)
+            return false;
+        return m_field_type != null ?
+                m_field_type.equals(that.m_field_type) : that.m_field_type == null;
     }
 
     @Override
