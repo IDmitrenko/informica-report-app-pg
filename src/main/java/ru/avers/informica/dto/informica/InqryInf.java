@@ -15,8 +15,9 @@ public class InqryInf implements IInformicaChildCountable {
                                         // id = buildings.uch_buildings_id (prty)
                                         // - ссылка на таблицу uch_buildings
                                         // uch_buildings.uch - ссылка на таблицу uch (Основная информация)
-    private Short priorityCount = 0;
-    private Short minPriority = 0;
+    private Short priorityCount = 0;    // Old - InqryUch.prty
+                                        // New - buildings.prty
+    private Short minPriority = 0;      // min prty  buildings.prty
 
     private Date m_inuch_dt,        // желаемая дата зачисления applications.d_plan
                  m_enter_queue_dt,  // queue_info.d_enter - (CDATETIME) Дата, время постановки в очередь
@@ -34,24 +35,16 @@ public class InqryInf implements IInformicaChildCountable {
                                     // New - applications.grp_time_csp - ссылка на spr_b (?? поле для кода)
                    m_health_needs_code, // Old - InqryChldInUch.id_health_needs   CDict08TypeClass.Code
                                         // New - applications.health_csp - ссылка на spr_b (?? поле для кода)
-                   m_health_needs_parent_code,  // Old - CDict08TypeClass.id_parent   CDict08TypeClass.Code
+                   m_health_needs_parent_code;  // Old - CDict08TypeClass.id_parent   CDict08TypeClass.Code
                                                 // New - spr_b.spra_id    spr_b.sp (?? поле для кода)
 
-                   m_prev_health_needs_parent_code, // направленность на начало текущего учебного года
-                   m_type_name,
-                   m_status_name,
-                   m_grp_type_name,
-                   m_health_needs_name,
-                   m_health_needs_parent_name,
-                   m_prev_health_needs_parent_name;
-            
     private Collection<String> m_lgots,
                                m_lgots_types,
                                m_grp_times;     // Old - (LIST)InqryDouGrpTime.id__dou_grp_time  CDict85DouGrpTime.Code
                                                 // New - (LIST)Grp_time.grp_time_csp - ссылка на spr_b (?? поле для кода)
     
     private boolean m_from_pgu,           
-                    m_have_refused_status;
+                    m_have_refused_status;      // true - не явился или отказ (определяется подзапросом)
     
     public InqryInf() {
     }
@@ -115,13 +108,6 @@ public class InqryInf implements IInformicaChildCountable {
         m_type_code = p_code;
     }    
 
-    public String getTypeName() {
-        return m_type_name;
-    }    
-    public void setTypeName(String p_name) {
-        m_type_name = p_name;
-    }    
-        
     public String getStatusCode() {
         return m_status_code;
     }
@@ -129,13 +115,6 @@ public class InqryInf implements IInformicaChildCountable {
         this.m_status_code = p_status_code;
     }
 
-    public String getStatusName() {
-        return m_status_name;
-    }
-    public void setStatusName(String p_status_name) {
-        this.m_status_name = p_status_name;
-    }    
-    
     public Date getStatusSetDate() {
         return m_status_set_date;
     }
@@ -150,13 +129,6 @@ public class InqryInf implements IInformicaChildCountable {
         m_grp_type_code = p_grp_type_code;
     }
 
-    public String getGrpTypeName() {
-        return m_grp_type_name;
-    }    
-    public void setGrpTypeName(String p_grp_type_name) {
-        m_grp_type_name = p_grp_type_name;
-    }    
-    
     public String getHealthNeedsCode() {
         return m_health_needs_code;
     }
@@ -164,13 +136,6 @@ public class InqryInf implements IInformicaChildCountable {
         this.m_health_needs_code = p_health_needs_code;
     }
 
-    public String getHealthNeedsName() {
-        return m_health_needs_name;
-    }
-    public void setHealthNeedsName(String p_health_needs_name) {
-        this.m_health_needs_name = p_health_needs_name;
-    }    
-    
     public String getHealthNeedsRootCode() {
         return m_health_needs_parent_code;
     }
@@ -178,27 +143,6 @@ public class InqryInf implements IInformicaChildCountable {
         this.m_health_needs_parent_code = p_health_needs_parent_code;
     }       
 
-    public String getPrevHealthNeedsRootCode() {
-        return m_prev_health_needs_parent_code;
-    }
-    public void setPrevHealthNeedsRootCode(String p_prev_health_needs_parent_code) {
-        this.m_prev_health_needs_parent_code = p_prev_health_needs_parent_code;
-    }           
-    
-    public String getHealthNeedsRootName() {
-        return m_health_needs_parent_name;
-    }
-    public void setHealthNeedsRootName(String p_health_needs_parent_name) {
-        this.m_health_needs_parent_name = p_health_needs_parent_name;
-    }           
-
-    public String getPrevHealthNeedsRootName() {
-        return m_prev_health_needs_parent_name;
-    }
-    public void setPrevHealthNeedsRootName(String p_prev_health_needs_parent_name) {
-        this.m_prev_health_needs_parent_name = p_prev_health_needs_parent_name;
-    }               
-    
     public boolean isFromPortal() {
         return m_from_pgu;
     }    
