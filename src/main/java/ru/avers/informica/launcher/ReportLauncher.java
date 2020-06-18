@@ -58,7 +58,7 @@ public class ReportLauncher {
     }
 
     private void logStart(String launchSite) {
-        System.out.println("Место запуска отчета - " + launchSite);
+        log.info("Место запуска отчета - " + launchSite);
         Calendar currTime = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy'T'HH:mm");
         log.debug("ReportLauncher: Создание отчета информики, текущее время:"

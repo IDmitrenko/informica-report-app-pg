@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.impl.BenefitsDaoImpl;
 import ru.avers.informica.dao.impl.BuildingsDaoImpl;
+import ru.avers.informica.dao.impl.NamedParameterBenefitsDaoImpl;
 import ru.avers.informica.dao.impl.StatusDaoImpl;
 import ru.avers.informica.entities.ApplicationsEntity;
 
@@ -18,6 +19,7 @@ public class ApplicationsMapper implements RowMapper<ApplicationsEntity> {
     private final StatusDaoImpl statusDao;
     private final BuildingsDaoImpl buildingsDao;
     private final BenefitsDaoImpl benefitsDao;
+//    private final NamedParameterBenefitsDaoImpl benefitsDao;
 
     @Override
     public ApplicationsEntity mapRow(ResultSet rs, int rowNum) throws SQLException {

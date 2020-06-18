@@ -19,6 +19,12 @@ public class InqryInf implements IInformicaChildCountable {
                                         // New - buildings.prty
     private Short minPriority = 0;      // min prty  buildings.prty
 
+//    private Short m_type_code;          // new - applications.statement_type (smallint - 1,2)
+//                                        // тип заявления (Прием, перевод)
+    private String m_type_code;         // new - applications.statement_type (smallint - 1,2) ?? нужен код
+                                        // Old - InqryChldInUch.id_type_inqry  CDict75InqryType.Code
+
+
     private Date m_inuch_dt,        // желаемая дата зачисления applications.d_plan
                  m_enter_queue_dt,  // queue_info.d_enter - (CDATETIME) Дата, время постановки в очередь
                  m_reg_dt,          // queue_info.d_reg - (CDATETIME) Дата, время постановки на учет.
@@ -27,14 +33,18 @@ public class InqryInf implements IInformicaChildCountable {
                  m_status_set_date; // InqryStatus.dt -> status.d_status - (CDATETIME) Дата присвоения статуса
     
     private String m_num,           // номер заявления applications.num
-                   m_type_code,     // new - applications.statement_type (smallint - 1,2) ?? нужен код
-                                    // Old - InqryChldInUch.id_type_inqry  CDict75InqryType.Code
                    m_status_code,   // Old - InqryStatus.id_status   CDict76InqryStatus.Code
                                     // New - Status.statuses_id  statuses. ?? нужен код
+
                    m_grp_type_code, // Old - InqryChldInUch.id_dou_grp_time  CDict85DouGrpTime.Code
                                     // New - applications.grp_time_csp - ссылка на spr_b (?? поле для кода)
+                                    // этот вариант теперь не используется
+                                    // ===== рабочий вариант - Время пребывания в группе =====
+                                    // app.grp_time.grp_time_csp (app_id) -> public.spr_b.sp (cname) ?? Нет кода в справочнике
+
                    m_health_needs_code, // Old - InqryChldInUch.id_health_needs   CDict08TypeClass.Code
                                         // New - applications.health_csp - ссылка на spr_b (?? поле для кода)
+                                        // Подтвержденная потребность по здоровью
                    m_health_needs_parent_code;  // Old - CDict08TypeClass.id_parent   CDict08TypeClass.Code
                                                 // New - spr_b.spra_id    spr_b.sp (?? поле для кода)
 
@@ -202,4 +212,5 @@ public class InqryInf implements IInformicaChildCountable {
     public void setMinPriority(Short minPriority) {
         this.minPriority = minPriority;
     }
+
 }

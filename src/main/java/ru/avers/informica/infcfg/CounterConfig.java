@@ -42,18 +42,21 @@ public class CounterConfig {
                 .toString();
     }
 
+/* продолжить...
     public boolean isPassed(Date p_dt, Date p_curr_educ_date, Object x_ds_item) throws ReportExceprion {
         if (m_counter_def == null ||
                 m_counter_def.getFilters() == null ||
                 m_counter_def.getFilters().isEmpty())
             return true;
 
-      /* if (!hasIncrementByPriority(m_counter_def.getFilters())) {
+      */
+/* if (!hasIncrementByPriority(m_counter_def.getFilters())) {
             if (x_ds_item instanceof InqryInf
                     && ((InqryInf) x_ds_item).getPriorityCount().shortValue() != ((InqryInf) x_ds_item).getMinPriority().shortValue()) {
                 return false;
             }
-        }*/
+        }*//*
+
         // Для проверки фильтра по условию ИЛИ (нужно прогнать по всем фильтрам)
         boolean isAllOrBeanFilter = true;
         if (x_ds_item instanceof InqryTransfer) {
@@ -158,5 +161,6 @@ public class CounterConfig {
             throw new IntrospectionException(p_prop);
         return x_found.getReadMethod().invoke(p_bean, (Object[]) null);
     }
+*/
 
 }
