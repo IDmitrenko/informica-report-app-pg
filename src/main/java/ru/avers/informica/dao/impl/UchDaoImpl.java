@@ -10,10 +10,13 @@ import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.dao.mapper.IdMapper;
 import ru.avers.informica.dao.mapper.UchMapper;
 import ru.avers.informica.dto.informica.UchInf;
+import ru.avers.informica.dto.inqry.AgeDto;
+import ru.avers.informica.utils.DateUtil;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Slf4j
@@ -25,42 +28,16 @@ public class UchDaoImpl implements UchDao {
     private final UchMapper uchMapper;
 
     @Override
-    public List<UchInf> getUchInformica(List<IFieldFilterParams> repForUchFilter) {
+    public List<UchInf> getUchInformica(List<IFieldFilterParams> repForUchFilter,
+                                        Date currDate, Date currEducDate) {
 
         try {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
 
-            String code_refusing = InqryStatusCode.REFUSING_08;
-            String code_didnt_arrive = InqryStatusCode.DIDNT_ARRIVE_13;
-            String code_archive_status = InqryStatusCode.ARCHIVED_09;
+            Integer currEducYear = DateUtil.getYearPart(currEducDate);
 
-            parameterSource.addValue("code_cname_refusing", code_refusing);
-            parameterSource.addValue("code_cname_didnt_arrive", code_didnt_arrive);
-            parameterSource.addValue("code_cname_archive_status", code_archive_status);
 
-            Integer id_refusing = jdbcTemplate.queryForObject("select sts.id as id " +
-                            "from app.statuses sts " +
-                            "where sts.cname = :code_cname_refusing",
-                    parameterSource,
-                    idMapper);
-
-            Integer id_didnt_arrive = jdbcTemplate.queryForObject("select sts.id as id " +
-                            "from app.statuses sts " +
-                            "where sts.cname = :code_cname_didnt_arrive",
-                    parameterSource,
-                    idMapper);
-
-            Integer id_archive_status = jdbcTemplate.queryForObject("select sts.id as id " +
-                            "from app.statuses sts " +
-                            "where sts.cname = :code_cname_archive_status",
-                    parameterSource,
-                    idMapper);
-
-            List<Integer> refused_ids = Arrays.asList(id_refusing, id_didnt_arrive);
-            parameterSource.addValue("refused_ids", refused_ids);
-            parameterSource.addValue("dt_curr", currDate);
-            parameterSource.addValue("id_archive_status", id_archive_status);
-            parameterSource.addValue("rf_from", beginCurrYear);
+            parameterSource.addValue("currEducYear", currEducYear);
 
             List<UchInf> allUch = jdbcTemplate.query("select u.domen_uch as id, " +
                             "u.comp_code as code, " +
@@ -70,44 +47,46 @@ public class UchDaoImpl implements UchDao {
                             "sbt.cname as terName, " +
                             "u.cf_name + ' ' + u.ci_name + ' ' + u.co_name as chief, " +
                             "u.code_oktmo as municipObrOktmo, " +
-
-                            "u.epgu_link as epguLink, " +
-                            "u.epgu_link as rpguLink, " +
+                            "mc.epgu_link as epguLink, " +
+                            "mc.epgu_link as rpguLink, " +
                             "u.work_days as workDays, " +
                             "u.work_from as timeFrom, " +
                             "u.work_to as timeTo, " +
-
-
-                            "b.prty as uch_prty, " +
-                            "(select min(bui.prty) " +
-                            " from app.buildings bui " +
-                            " where bui.app_id = a.id_app) as uch_minprty, " +
-                            "case when exists" +
-                            " (select stat.id_status" +
-                            "  from app.status stat" +
-                            "  where stat.app_id = a.id_app and stat.statuses_id in (:refused_ids) " +
-                            "        and stat.d_status >= :rf_from " +
-                            "        and stat.d_status < :dt_curr) " +
-                            "  then true" +
-                            "  else false" +
-                            "  end" +
-                            "  as haveRefusedStatus " +
-
+// сделать обработку: Пятидневка, с 07:30 по 18:00
+                            "u.meal_serving as mealServingType, " +
+                            "sbs.cname as orgLegalFormName, " +
+                            "sbs.sr as orgLegalFormCode, " +
+                            "sts.cname as statusName, " +
+                            "sts.sr as statusCode, " +
+                            "(select c.name, sb.name as napr " +
+                            " from public.circ c " +
+                            " left outer join public.spr_b sb on sb.sp = c.circle_sp " +
+                            " where c.uch = u.domen_uch and " +
+                            "       c.year_school = :currEducYear and " +
+                            "       (c.logopunkt = '-' or c.logopunkt is null) and " +
+                            "       c.edu_activity is null) as addEducation, " +
+// сделать обработку: 1-ое поле + пробел + ( + второе поле + ) + ;(кроме последнего)
+                            "u.edu_activity as features, " +
+                            "u.addr_fias as fiasHouseGuid, " +
+                            "u.address_fakt as addrKladr, " +
+                            "sbu.cname as structureName, " +
+                            "sbu.sr as structureCode " +
                     "from public.uch u " +
-                    "inner  join public.spr_b sbt on sbt.sp = u.uch_ter_csp " +
-                    "inner join public.municip mc on mc.m_id = u.uch_ter_csp " +
-
-                            "inner join app.status st on st.app_id = a.id_app " +
-                            "inner join app.statuses sts on sts.id = st.statuses_id " +
-                            "inner join app.buildings b on b.app_id = a.id_app " +
-                            "inner join app.grp_time gt on gt.app_id = a.id_app " +
-                    "left  join public.spr_b sbn on sbn.sp = a.health_csp " +
-                    "left  join public.spr_b sba on sba.sp = sbn.spra_id " +
-                    "where st.d_status <= :dt_curr and st.d_validity > :dt_curr and " +
-                          "(sts.id <> :id_archive_status or " +
-                          " qi.d_reg >= :rf_from and qi.d_reg < :dt_curr)",
+                    "left join public.spr_b sbt on sbt.sp = u.uch_ter_csp " +
+                    "left join public.municip mc on mc.m_id = u.uch_ter_csp " +
+                    "left join public.spr_b sbs on sbs.sp = u.org_form_csp " +
+                    "left join public.spr_b sts on sts.sp = u.org_status_csp " +
+                    "left join public.spr_b sbu on sbu.sp = u.uch_struct_csp",
                     parameterSource,
                     uchMapper);
+
+            // Муниципальные показатели
+            AgeDto age0 = new AgeDto((short)0, (short)0, (short)0);
+            AgeDto age3 = new AgeDto((short)3, (short)0, (short)0);
+            AgeDto age7 = new AgeDto((short)7, (short)0, (short)0);
+            // Данные о детях, стоящих на учете в связи с отсутствием ДОО, передаются
+            // в тэге noDooAct для детей, желающих получить место в текущем учебном году
+//            Map<Integer, Integer> noDooAct_0_3 =
 
             return allUch;
 

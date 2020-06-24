@@ -16,21 +16,30 @@ public class UchMapper implements RowMapper<UchInf> {
     public UchInf mapRow(ResultSet rs, int rowNum) throws SQLException {
         UchInf uchInf = new UchInf();
         uchInf.setId(rs.getInt("id"));
-        uchInf.setIdUch(rs.getInt("uch_id"));
-        uchInf.setNum(rs.getString("num"));
-        uchInf.setInUchDt(rs.getDate("dtPlan"));
-        uchInf.setBdt(rs.getDate("dtBirth"));
-        uchInf.setEnterQueueDt(rs.getTimestamp("enterQueueDt"));
-        uchInf.setRegDt(rs.getTimestamp("regDt"));
-        uchInf.setGrpTypeCode(rs.getString("grpTypeCode"));
-        uchInf.setHealthNeedsCode(rs.getString("healthNeedsCode"));
-        uchInf.setHealthNeedsRootCode(rs.getString("healthNeedsRootCode"));
-        uchInf.setStatusCode(rs.getString("statusCode"));
-        uchInf.setStatusSetDate(rs.getTimestamp("statusSetDate"));
-        uchInf.setTypeCode(String.valueOf(rs.getShort("typeInqry")));
-        uchInf.setPriorityCount(rs.getShort("uch_prty"));
-        uchInf.setMinPriority(rs.getShort("uch_minprty"));
-        uchInf.setHaveRefusedStatus(rs.getBoolean("haveRefusedStatus"));
+        uchInf.setCode(rs.getString("code"));
+        uchInf.setName(rs.getString("name"));
+        uchInf.setShortName(rs.getString("shortName"));
+        uchInf.setIdTer(rs.getInt("idTer"));
+        uchInf.setTerName(rs.getString("terName"));
+        uchInf.setChief(rs.getString("chief"));
+        uchInf.setMunicipObrOktmo(rs.getString("municipObrOktmo"));
+        uchInf.setEpguLink(rs.getString("epguLink"));
+        uchInf.setRpguLink(rs.getString("rpguLink"));
+        uchInf.setWorkDays(rs.getShort("workDays"));
+        uchInf.setWorkFrom(rs.getTime("timeFrom").toString());
+        uchInf.setWorkTo(rs.getTime("timeTo").toString());
+        uchInf.setMealServingType(rs.getShort("mealServingType"));
+        uchInf.setOrgLegalFormName(rs.getString("orgLegalFormName"));
+        uchInf.setOrgLegalFormCode(rs.getString("orgLegalFormCode"));
+        uchInf.setStatusName(rs.getString("statusName"));
+        uchInf.setStatusСode(rs.getString("statusCode"));
+        uchInf.setAddEducation(rs.getString("addEducation"));
+        uchInf.setFeatures(rs.getString("features"));
+        uchInf.setFiasHouseGuid(rs.getString("fiasHouseGuid"));
+        uchInf.setAddrKladr(rs.getString("addrKladr"));
+        uchInf.setStructureName(rs.getString("structureName"));
+        uchInf.setStructureCode(rs.getString("structureCode"));
+
         return uchInf;
     }
 }

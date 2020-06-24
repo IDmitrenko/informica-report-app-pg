@@ -11,89 +11,93 @@ import java.util.GregorianCalendar;
  * @author Dias
  */
 public class AgeDto implements IDTO {
-    private short m_years;
-    private short m_months;
-    private short m_days;
+    private short years;
+    private short months;
+    private short days;
 
     public AgeDto() {
     }    
     
-    public AgeDto(short p_years, short p_months, short p_days) {
-        m_years = p_years;
-        m_months = p_months;
-        m_days = p_days;
+    public AgeDto(short pYears, short pMonths, short pDays) {
+        years = pYears;
+        months = pMonths;
+        days = pDays;
     }
 
     public short getDays() {
-        return m_days;
+        return days;
     }
 
-    public void setDays(short p_days) {
-        this.m_days = p_days;
+    public void setDays(short pDays) {
+        this.days = pDays;
     }            
     
     public short getMonths() {
-        return m_months;
+        return months;
     }
 
-    public void setMonths(short p_months) {
-        this.m_months = p_months;
+    public void setMonths(short pMonths) {
+        this.months = pMonths;
     }    
     
     public short getYears() {
-        return m_years;
+        return years;
     }
 
-    public void setYears(short p_years) {
-        this.m_years = p_years;
+    public void setYears(short pYears) {
+        this.years = pYears;
     }
 
-    public Date getBirthDate(Date p_curr_date) {
-        Calendar x_calendar = new GregorianCalendar();
-        x_calendar.setTime(p_curr_date);
-        x_calendar.add(Calendar.YEAR, -m_years);
-        x_calendar.add(Calendar.MONTH, -m_months);
-        x_calendar.add(Calendar.DAY_OF_MONTH, -m_days);
-        return x_calendar.getTime();
+    public Date getBirthDate(Date currDate) {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(currDate);
+        calendar.add(Calendar.YEAR, -years);
+        calendar.add(Calendar.MONTH, -months);
+        calendar.add(Calendar.DAY_OF_MONTH, -days);
+        return calendar.getTime();
     }
     
     /**
      * Вычислить возраст
-     * @param p_dt дата на которую вычисляется возраст
-     * @param p_birth_dt дата рождения
+     * @param pDt дата на которую вычисляется возраст
+     * @param pBirthDt дата рождения
      * @return возраст
      */    
-    public static AgeDto calculateAge(Date p_dt, Date p_birth_dt) {
-        Calendar x_dt_calendar = new GregorianCalendar();
-        x_dt_calendar.setTime(p_dt);
-        Calendar x_bdt_calendar = new GregorianCalendar();
-        x_bdt_calendar.setTime(p_birth_dt);
+    public static AgeDto calculateAge(Date pDt, Date pBirthDt) {
+        Calendar dtCalendar = new GregorianCalendar();
+        dtCalendar.setTime(pDt);
+        Calendar bdtCalendar = new GregorianCalendar();
+        bdtCalendar.setTime(pBirthDt);
         
-        // День рождения в году из даты p_dt
+        // День рождения в году из даты pDt
         Calendar x_this_bdt_calendar = new GregorianCalendar(
-                x_dt_calendar.get(Calendar.YEAR),
-                x_bdt_calendar.get(Calendar.MONTH),
-                x_bdt_calendar.get(Calendar.DAY_OF_MONTH));
+                dtCalendar.get(Calendar.YEAR),
+                bdtCalendar.get(Calendar.MONTH),
+                bdtCalendar.get(Calendar.DAY_OF_MONTH));
 
-        // Поправка для года если день рождения в году даты p_dt еще не достигнут
-        Integer x_age_years_delta = 0;
-        if (x_dt_calendar.before(x_this_bdt_calendar)) x_age_years_delta = 1;
+        // Поправка для года если день рождения в году даты pDt еще не достигнут
+        Integer ageYearsDelta = 0;
+        if (dtCalendar.before(x_this_bdt_calendar)) ageYearsDelta = 1;
         // Возвраст. лет
-        Integer x_age_years = x_dt_calendar.get(Calendar.YEAR) - x_bdt_calendar.get(Calendar.YEAR) - x_age_years_delta;
+        Integer ageYears = dtCalendar.get(Calendar.YEAR) - bdtCalendar.get(Calendar.YEAR) -
+                ageYearsDelta;
         // Поправка для месяца, если не достигнуто дней до полного месяца
-        Integer x_age_months_delta = 0;
-        Integer x_age_days;
-        if (x_dt_calendar.get(Calendar.DAY_OF_MONTH) < x_bdt_calendar.get(Calendar.DAY_OF_MONTH)) {
-            x_age_months_delta = 1;                        
-            Calendar x_prevmonth_bdt_calendar = (Calendar) x_dt_calendar.clone();
-            x_prevmonth_bdt_calendar.roll(Calendar.MONTH, false);
-            x_age_days = x_prevmonth_bdt_calendar.getActualMaximum(Calendar.DAY_OF_MONTH) - x_bdt_calendar.get(Calendar.DAY_OF_MONTH) + x_dt_calendar.get(Calendar.DAY_OF_MONTH);
+        Integer ageMonthsDelta = 0;
+        Integer ageDays;
+        if (dtCalendar.get(Calendar.DAY_OF_MONTH) < bdtCalendar.get(Calendar.DAY_OF_MONTH)) {
+            ageMonthsDelta = 1;
+            Calendar prevMonthBdtCalendar = (Calendar) dtCalendar.clone();
+            prevMonthBdtCalendar.roll(Calendar.MONTH, false);
+            ageDays = prevMonthBdtCalendar.getActualMaximum(Calendar.DAY_OF_MONTH) -
+                    bdtCalendar.get(Calendar.DAY_OF_MONTH) +
+                    dtCalendar.get(Calendar.DAY_OF_MONTH);
 
         }
         else
-            x_age_days = x_dt_calendar.get(Calendar.DAY_OF_MONTH) - x_bdt_calendar.get(Calendar.DAY_OF_MONTH);
-        Integer x_age_months = 12 * x_age_years_delta - x_bdt_calendar.get(Calendar.MONTH) + x_dt_calendar.get(Calendar.MONTH) - x_age_months_delta;
-        return new AgeDto(x_age_years.shortValue(), x_age_months.shortValue(), x_age_days.shortValue());
+            ageDays = dtCalendar.get(Calendar.DAY_OF_MONTH) - bdtCalendar.get(Calendar.DAY_OF_MONTH);
+        Integer x_age_months = 12 * ageYearsDelta - bdtCalendar.get(Calendar.MONTH) +
+                dtCalendar.get(Calendar.MONTH) - ageMonthsDelta;
+        return new AgeDto(ageYears.shortValue(), x_age_months.shortValue(), ageDays.shortValue());
     }       
     
     public Integer compactAge() {
@@ -103,9 +107,9 @@ public class AgeDto implements IDTO {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + this.m_years;
-        hash = 53 * hash + this.m_months;
-        hash = 53 * hash + this.m_days;
+        hash = 53 * hash + this.years;
+        hash = 53 * hash + this.months;
+        hash = 53 * hash + this.days;
         return hash;
     }
 
@@ -118,13 +122,13 @@ public class AgeDto implements IDTO {
             return false;
         }
         final AgeDto other = (AgeDto) obj;
-        if (this.m_years != other.m_years) {
+        if (this.years != other.years) {
             return false;
         }
-        if (this.m_months != other.m_months) {
+        if (this.months != other.months) {
             return false;
         }
-        if (this.m_days != other.m_days) {
+        if (this.days != other.days) {
             return false;
         }
         return true;
@@ -133,9 +137,9 @@ public class AgeDto implements IDTO {
     @Override
     public String toString() {
         return AgeDto.class.getName()
-                + "{" + "m_years=" + String.valueOf(m_years)
-                + ", m_months=" + String.valueOf(m_months)
-                + ", m_days=" + String.valueOf(m_days)
+                + "{" + "years=" + String.valueOf(years)
+                + ", months=" + String.valueOf(months)
+                + ", days=" + String.valueOf(days)
                 + '}';
     }
         

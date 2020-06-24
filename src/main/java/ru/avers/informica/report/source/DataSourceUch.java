@@ -64,7 +64,7 @@ public class DataSourceUch {
         List<UchInf> validateUch = uchDao.getUchsInformica(repForUchFilter,
                 currDate, DateUtil.adjustDate(currEducDate, 1));
 */
-        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter);
+        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter, currDate, currEducDate);
         log.info("Найдено {} uch-source", validateUch.size());
 
         StringBuilder uchMessage = new StringBuilder();
@@ -90,7 +90,7 @@ public class DataSourceUch {
             if (uchFilters != null) {
                 CHelper.setFilterFieldType(uchFilters, UchInf.class);
             }
-            List<UchInf> uchInfs = uchDao.getUchsInformica(uchFilters,
+            List<UchInf> uchInfs = uchDao.getUchInformica(uchFilters,
                     currDate, DateUtil.adjustDate(currEducDate, 1));
             for (UchInf uchInf : uchInfs) {
                 if (!notValidUchIds.contains(uchInf.getId()))

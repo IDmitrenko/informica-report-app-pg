@@ -36,7 +36,8 @@ public class ReportGenerator {
     private final UchDao uchDao;
     private final FilterChain filterChain;
 
-    public PushDataRequest generateReport(CProfile cProfile) throws FilterException, ReportExceprion {
+    public PushDataRequest generateReport(CProfile cProfile)
+            throws FilterException, ReportExceprion, FspeoException {
         Config configInformica = cHelper.getInformicaConfig();
         PushDataRequest request = new PushDataRequest();
         request.setSystem(buildSystemInfo(configInformica));
@@ -73,7 +74,8 @@ public class ReportGenerator {
         TagReports tagReports = new TagReports();
         tagReports.setParent_Pay(parentPayBuider());
 
-        Map<Integer, List<InqryInf>> inqryByUchMap = allInqry.stream().collect(Collectors.groupingBy(inqry -> inqry.getIdUch()));
+        Map<Integer, List<InqryInf>> inqryByUchMap = allInqry.stream()
+                .collect(Collectors.groupingBy(inqry -> inqry.getIdUch()));
         for (DataSourceUch.UchInfSchema uchInfSchema : sourceUch.getUchInfSchemas().getFirst()) {
             //Учреждение
             UchInf uchInf = uchInfSchema.getUchInf();
