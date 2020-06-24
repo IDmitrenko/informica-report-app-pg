@@ -92,7 +92,7 @@ public class ReportGenerator {
                                 counter.getCounterDef().getAgeRange().getAgeRanges(currDate, inqryInf);
                         if (ageRanges != null && !ageRanges.isEmpty()) {
                             // Посчитать элемент
-                            x_counter.count(p_countable, ageRanges);
+//TODO                            x_counter.count(p_countable, ageRanges);
                         }
                     }
                 }

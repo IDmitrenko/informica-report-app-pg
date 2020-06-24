@@ -109,7 +109,7 @@ public class DataSourceUch {
         boolean requiredFieldEmpty = CUtil.isStringNullOrBlank(uchInf.getMunicipObrOktmo()) ||
                 CUtil.isStringNullOrBlank(uchInf.getCode()) ||
                 CUtil.isStringNullOrBlank(uchInf.getOrgLegalFormCode()) ||
-                CUtil.isStringNullOrBlank(uchInf.getStatusCode()) ||
+                CUtil.isStringNullOrBlank(uchInf.getStatusСode()) ||
                 CUtil.isStringNullOrBlank(uchInf.getStructureCode());
         if (requiredFieldEmpty) {
             StringBuilder builder = new StringBuilder();
@@ -131,7 +131,7 @@ public class DataSourceUch {
                 builder.append(delimiter).append("Орг.-правовая форма");
                 delimiter = ", ";
             }
-            if (CUtil.isStringNullOrBlank(uchInf.getStatusCode())) {
+            if (CUtil.isStringNullOrBlank(uchInf.getStatusСode())) {
                 builder.append(delimiter).append("Статус");
                 delimiter = ", ";
             }

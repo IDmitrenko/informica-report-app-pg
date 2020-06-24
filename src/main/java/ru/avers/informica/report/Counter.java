@@ -222,6 +222,7 @@ public class Counter {
         }
     }
 
+/* TODO понять что в новой БД вместо Prll4stgAges
     public void count(IInformicaCountable p_countable, Collection<TypeAgeRange> p_age_ranges) throws FspeoException {
         if (p_countable instanceof IInformicaChildCountable) {
             for (TypeAgeRange x_age_range : p_age_ranges) {
@@ -262,4 +263,5 @@ public class Counter {
         }
         return x_res;
     }
+*/
 }

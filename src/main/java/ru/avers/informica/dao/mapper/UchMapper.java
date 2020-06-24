@@ -26,8 +26,12 @@ public class UchMapper implements RowMapper<UchInf> {
         uchInf.setEpguLink(rs.getString("epguLink"));
         uchInf.setRpguLink(rs.getString("rpguLink"));
         uchInf.setWorkDays(rs.getShort("workDays"));
-        uchInf.setWorkFrom(rs.getTime("timeFrom").toString());
-        uchInf.setWorkTo(rs.getTime("timeTo").toString());
+        if (rs.getTime("timeFrom") != null) {
+            uchInf.setWorkFrom(rs.getTime("timeFrom").toString());
+        }
+        if (rs.getTime("timeTo") != null) {
+            uchInf.setWorkTo(rs.getTime("timeTo").toString());
+        }
         uchInf.setMealServingType(rs.getShort("mealServingType"));
         uchInf.setOrgLegalFormName(rs.getString("orgLegalFormName"));
         uchInf.setOrgLegalFormCode(rs.getString("orgLegalFormCode"));

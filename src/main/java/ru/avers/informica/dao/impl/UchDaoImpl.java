@@ -45,7 +45,7 @@ public class UchDaoImpl implements UchDao {
                             "u.name_long as shortName, " +
                             "sbt.sp as idTer, " +
                             "sbt.cname as terName, " +
-                            "u.cf_name + ' ' + u.ci_name + ' ' + u.co_name as chief, " +
+                            "u.cf_name || ' ' || u.ci_name || ' ' || u.co_name as chief, " +
                             "u.code_oktmo as municipObrOktmo, " +
                             "mc.epgu_link as epguLink, " +
                             "mc.epgu_link as rpguLink, " +
@@ -58,14 +58,14 @@ public class UchDaoImpl implements UchDao {
                             "sbs.sr as orgLegalFormCode, " +
                             "sts.cname as statusName, " +
                             "sts.sr as statusCode, " +
-                            "(select c.name, sb.name as napr " +
+                            "(select string_agg(c.name || '  (' || sb.cname || ')', '; ' order by c.name) as educNapr " +
                             " from public.circ c " +
                             " left outer join public.spr_b sb on sb.sp = c.circle_sp " +
                             " where c.uch = u.domen_uch and " +
                             "       c.year_school = :currEducYear and " +
                             "       (c.logopunkt = '-' or c.logopunkt is null) and " +
                             "       c.edu_activity is null) as addEducation, " +
-// сделать обработку: 1-ое поле + пробел + ( + второе поле + ) + ;(кроме последнего)
+// обработка: 1-ое поле + пробел + ( + второе поле + ) + ;(кроме последнего)
                             "u.edu_activity as features, " +
                             "u.addr_fias as fiasHouseGuid, " +
                             "u.address_fakt as addrKladr, " +

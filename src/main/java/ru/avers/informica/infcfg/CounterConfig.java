@@ -46,16 +46,20 @@ public class CounterConfig {
 
     public boolean isPassed(Date p_dt, Date p_curr_educ_date, Object x_ds_item) throws ReportExceprion, FilterException {
         if (m_counter_def == null ||
-                m_counter_def.getFilters() == null ||
-                m_counter_def.getFilters().isEmpty())
+            m_counter_def.getFilters() == null ||
+            m_counter_def.getFilters().isEmpty()) {
             return true;
+        }
+        return false;
+    }
 
-        /*if (!hasIncrementByPriority(m_counter_def.getFilters())) {
+/* TODO продолжить - это isPassed
+        if (!hasIncrementByPriority(m_counter_def.getFilters())) {
             if (x_ds_item instanceof InqryInf
                     && ((InqryInf) x_ds_item).getPriorityCount().shortValue() != ((InqryInf) x_ds_item).getMinPriority().shortValue()) {
                 return false;
             }
-        }*/
+        }
 
         // Для проверки фильтра по условию ИЛИ (нужно прогнать по всем фильтрам)
         boolean isAllOrBeanFilter = true;
@@ -107,14 +111,14 @@ public class CounterConfig {
         return true;
     }
 
-   /* private boolean hasIncrementByPriority(List<IFilter> filters) {
+    private boolean hasIncrementByPriority(List<IFilter> filters) {
         for (IFilter filter : filters) {
             if (filter instanceof IncrementByPriorities) {
                 return true;
             }
         }
         return false;
-    }*/
+    }
 
     public static <T> Object getBeanValue(String p_prop, T p_bean) throws ReportExceprion {
         if (p_prop == null) {
@@ -161,5 +165,6 @@ public class CounterConfig {
             throw new IntrospectionException(p_prop);
         return x_found.getReadMethod().invoke(p_bean, (Object[]) null);
     }
+*/
 
 }

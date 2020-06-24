@@ -100,7 +100,8 @@ public class AgeRangeBdt {
             throws FspeoException, ReportExceprion {
         if (p_countable instanceof IInformicaChildCountable) {
             if (getDateField() != null && !getDateField().isEmpty()) {
-                Object beanValue = CounterConfig.getBeanValue(getDateField(), p_countable);
+                Object beanValue = new Object(); // временно заглушка
+//убрал временно  Object beanValue = CounterConfig.getBeanValue(getDateField(), p_countable);
                 if (beanValue != null) {
                     return getAgeRanges((Date) beanValue,((IInformicaChildCountable) p_countable).getBdt());
                 }
@@ -108,9 +109,11 @@ public class AgeRangeBdt {
             }
             return getAgeRanges(p_rep_date, ((IInformicaChildCountable) p_countable).getBdt());
         }
+/* TODO понять что в новой БД вместо Prll4stgAges
         else if (p_countable instanceof IInformicaVacantCountable) {
             return getAgeRanges(((IInformicaVacantCountable)p_countable).getAges());
         }
+*/
         else throw new FspeoException("Неизвестный тип элемента для подсчета: " + p_countable.getClass().getName());
     }
 
