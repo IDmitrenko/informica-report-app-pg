@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.UchDao;
 import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.dao.mapper.IdMapper;
+import ru.avers.informica.dao.mapper.UchMapper;
 import ru.avers.informica.dto.informica.UchInf;
 
 import java.util.Arrays;
@@ -21,6 +22,7 @@ public class UchDaoImpl implements UchDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final IdMapper idMapper;
+    private final UchMapper uchMapper;
 
     @Override
     public List<UchInf> getUchInformica(List<IFieldFilterParams> repForUchFilter) {
@@ -60,20 +62,22 @@ public class UchDaoImpl implements UchDao {
             parameterSource.addValue("id_archive_status", id_archive_status);
             parameterSource.addValue("rf_from", beginCurrYear);
 
-            List<UchInf> allUch = jdbcTemplate.query("select a.id_app as id, " +
-                            "b.uch_buildings_id as uch_id, " +
-                            "a.num as num, " +
-                            "a.d_plan as dtPlan, " +
-                            "a.d_birth as dtBirth, " +
-                            "qi.d_enter as enterQueueDt, " +
-                            "qi.d_reg as regDt, " +
-                            "sb.cname as grpTypeCode, " +
-                            "a.health_csp as healthCsp, " +
-                            "sbn.cname as healthNeedsCode, " +
-                            "sba.cname as healthNeedsRootCode, " +
-                            "sts.cname as statusCode, " +
-                            "st.d_status as statusSetDate, " +
-                            "a.statement_type as typeInqry, " +
+            List<UchInf> allUch = jdbcTemplate.query("select u.domen_uch as id, " +
+                            "u.comp_code as code, " +
+                            "u.name as name, " +
+                            "u.name_long as shortName, " +
+                            "sbt.sp as idTer, " +
+                            "sbt.cname as terName, " +
+                            "u.cf_name + ' ' + u.ci_name + ' ' + u.co_name as chief, " +
+                            "u.code_oktmo as municipObrOktmo, " +
+
+                            "u.epgu_link as epguLink, " +
+                            "u.epgu_link as rpguLink, " +
+                            "u.work_days as workDays, " +
+                            "u.work_from as timeFrom, " +
+                            "u.work_to as timeTo, " +
+
+
                             "b.prty as uch_prty, " +
                             "(select min(bui.prty) " +
                             " from app.buildings bui " +
@@ -88,24 +92,24 @@ public class UchDaoImpl implements UchDao {
                             "  else false" +
                             "  end" +
                             "  as haveRefusedStatus " +
-                    "from app.applications a " +
-                    "inner join app.queue_info qi on qi.app_id = a.id_app " +
-                    "inner join app.status st on st.app_id = a.id_app " +
-                    "inner join app.statuses sts on sts.id = st.statuses_id " +
-                    "inner join app.buildings b on b.app_id = a.id_app " +
-                    "inner join app.grp_time gt on gt.app_id = a.id_app " +
-                    "left  join public.spr_b sb on sb.sp = gt.grp_time_csp " +
+
+                    "from public.uch u " +
+                    "inner  join public.spr_b sbt on sbt.sp = u.uch_ter_csp " +
+                    "inner join public.municip mc on mc.m_id = u.uch_ter_csp " +
+
+                            "inner join app.status st on st.app_id = a.id_app " +
+                            "inner join app.statuses sts on sts.id = st.statuses_id " +
+                            "inner join app.buildings b on b.app_id = a.id_app " +
+                            "inner join app.grp_time gt on gt.app_id = a.id_app " +
                     "left  join public.spr_b sbn on sbn.sp = a.health_csp " +
                     "left  join public.spr_b sba on sba.sp = sbn.spra_id " +
                     "where st.d_status <= :dt_curr and st.d_validity > :dt_curr and " +
                           "(sts.id <> :id_archive_status or " +
-                          " qi.d_reg >= :rf_from and qi.d_reg < :dt_curr)" +
-                    "order by haveRefusedStatus desc",
-//                          "and a.num = '20BE7D20A8561C71'",
+                          " qi.d_reg >= :rf_from and qi.d_reg < :dt_curr)",
                     parameterSource,
-                    inqryMapper);
+                    uchMapper);
 
-            return allInqry;
+            return allUch;
 
         } catch (Exception ex) {
             log.error("Ошибка выполнения запроса UchIformica.", ex);

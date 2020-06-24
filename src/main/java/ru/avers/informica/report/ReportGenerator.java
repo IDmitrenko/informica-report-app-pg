@@ -12,14 +12,19 @@ import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.dto.informica.UchInf;
 import ru.avers.informica.entities.ApplicationsEntity;
 import ru.avers.informica.exception.FilterException;
+import ru.avers.informica.exception.FspeoException;
+import ru.avers.informica.exception.ReportExceprion;
 import ru.avers.informica.filtersinqry.FilterChain;
+import ru.avers.informica.filtersinqry.IFilter;
 import ru.avers.informica.infcfg.*;
+import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.xml.*;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.CUtil;
 import ru.avers.informica.utils.DateUtil;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -31,7 +36,7 @@ public class ReportGenerator {
     private final UchDao uchDao;
     private final FilterChain filterChain;
 
-    public PushDataRequest generateReport(CProfile cProfile) throws FilterException {
+    public PushDataRequest generateReport(CProfile cProfile) throws FilterException, ReportExceprion {
         Config configInformica = cHelper.getInformicaConfig();
         PushDataRequest request = new PushDataRequest();
         request.setSystem(buildSystemInfo(configInformica));
@@ -40,7 +45,7 @@ public class ReportGenerator {
         return request;
     }
 
-    private TagReports reportBuilder(CProfile cProfile, Config configInformica) throws FilterException {
+    private TagReports reportBuilder(CProfile cProfile, Config configInformica) throws FilterException, ReportExceprion, FspeoException {
 
         final Date currDate = DateUtil.getCurrentDate(false);
         final Date currEducDate = DateUtil.getCurrEducDate(currDate,
@@ -59,37 +64,39 @@ public class ReportGenerator {
                 beginCurrYear.getTime());
         log.info("Найдено {} inqry-source", allInqry.size());
 
-//  считать UchInf
-        List<IFieldFilterParams> repForUchFilter = null;
-        Set<Integer> notValidUchIds = new HashSet<Integer>();  // id не прошедших проверку учреждений
-// сначала считываем все учреждения
-//   TODO  разобрать далее - подумать куда это вынести (в модуль)
-//        List<UchInf> validateUch = uchDao.getUchsInformica(repForUchFilter,
-//                currDate, DateUtil.adjustDate(currEducDate, 1));
-        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter);
-        log.info("Найдено {} uch-source", validateUch.size());
+        final ReportConfig reportConfig = configInformica.getReport(Config.s_informica_report);
+        List<SchemaConfig> schemaConfigs = reportConfig.getSchemas();
+        // Собрать базовую информацию по учреждениям и их схемы показателей
+        DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs, currDate, currEducDate);
 
-        StringBuilder uchMessage = new StringBuilder();
-        String notValidUchMessage = "";
-        for (UchInf uchInf : validateUch) {
-            String checkRes = checkReportRequiredFields(uchInf);
-            if (checkRes != null) {
-                uchMessage.append(checkRes);
-                notValidUchIds.add(uchInf.getId());
-            }
-        }
-        if (!"".equals(uchMessage.toString())) {
-           notValidUchMessage = "Следующие организации не включены в отчет, так как у них не заполнены " +
-                   "обязательные поля:\n" + uchMessage.toString() + "\n";
-        } else {
-            notValidUchMessage = null;
-        }
-
-        // используем validateUch для отбора учреждений
-        //TODO продолжить  (DataSourceUch - 102)
 
         TagReports tagReports = new TagReports();
         tagReports.setParent_Pay(parentPayBuider());
+
+        Map<Integer, List<InqryInf>> inqryByUchMap = allInqry.stream().collect(Collectors.groupingBy(inqry -> inqry.getIdUch()));
+        for (DataSourceUch.UchInfSchema uchInfSchema : sourceUch.getUchInfSchemas().getFirst()) {
+            //Учреждение
+            UchInf uchInf = uchInfSchema.getUchInf();
+            //Счетчики учреждения
+            List<CounterConfig> inqryCounters = uchInfSchema.getSchema().getSource().getInqryCounters();
+            //Заявления текущего учреждения
+            List<InqryInf> inqryInfs = inqryByUchMap.get(uchInf.getId());
+            //Пройтись по каждому заявлению и посчитать счетчики
+            for (InqryInf inqryInf : inqryInfs) {
+                //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
+                for (CounterConfig counter : inqryCounters) {
+                    if (counter.isPassed(currDate, currEducDate, inqryInf)) {
+                        Collection<TypeAgeRange> ageRanges =
+                                counter.getCounterDef().getAgeRange().getAgeRanges(currDate, inqryInf);
+                        if (ageRanges != null && !ageRanges.isEmpty()) {
+                            // Посчитать элемент
+                            x_counter.count(p_countable, ageRanges);
+                        }
+                    }
+                }
+            }
+
+        }
 
 /* продолжить...
         List<TagMunicipality> municipality = new ArrayList<>();
@@ -155,46 +162,4 @@ public class ReportGenerator {
         return tagSystem;
     }
 
-    static private String checkReportRequiredFields(UchInf uchInf) {
-        //ОКТМО
-        //code
-        //type
-        //status
-        //structure
-        boolean requiredFieldEmpty = CUtil.isStringNullOrBlank(uchInf.getMunicipObrOktmo()) ||
-                CUtil.isStringNullOrBlank(uchInf.getCode()) ||
-                CUtil.isStringNullOrBlank(uchInf.getOrgLegalFormCode()) ||
-                CUtil.isStringNullOrBlank(uchInf.getStatusCode()) ||
-                CUtil.isStringNullOrBlank(uchInf.getStructureCode());
-        if (requiredFieldEmpty) {
-            StringBuilder builder = new StringBuilder();
-            builder.append("У организации '")
-                    .append(uchInf.getName())
-                    .append("' района")
-                    .append(uchInf.getTerName())
-                    .append("\nне заполнены поля: ");
-            String delimiter = "";
-            if (CUtil.isStringNullOrBlank(uchInf.getCode())) {
-                builder.append("Код");
-                delimiter = ", ";
-            }
-            if (CUtil.isStringNullOrBlank(uchInf.getMunicipObrOktmo())) {
-                builder.append(delimiter).append("ОКТМО");
-                delimiter = ", ";
-            }
-            if (CUtil.isStringNullOrBlank(uchInf.getOrgLegalFormCode())) {
-                builder.append(delimiter).append("Орг.-правовая форма");
-                delimiter = ", ";
-            }
-            if (CUtil.isStringNullOrBlank(uchInf.getStatusCode())) {
-                builder.append(delimiter).append("Статус");
-                delimiter = ", ";
-            }
-            if (CUtil.isStringNullOrBlank(uchInf.getStructureCode())) {
-                builder.append(delimiter).append("Структура");
-            }
-            return builder.append("\n").toString();
-        }
-        return null;
-    }
 }

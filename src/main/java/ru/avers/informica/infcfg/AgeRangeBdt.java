@@ -1,8 +1,12 @@
 package ru.avers.informica.infcfg;
 
 import ru.avers.informica.dto.CAge;
+import ru.avers.informica.dto.informica.IInformicaChildCountable;
+import ru.avers.informica.dto.informica.IInformicaCountable;
 import ru.avers.informica.dto.inqry.AgeDto;
 import ru.avers.informica.dto.util.Utils;
+import ru.avers.informica.exception.FspeoException;
+import ru.avers.informica.exception.ReportExceprion;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -92,10 +96,8 @@ public class AgeRangeBdt {
         return x_calendar.getTime();
     }
     
-// TODO продолжить...
-/*
     public Collection<TypeAgeRange> getAgeRanges(Date p_rep_date, IInformicaCountable p_countable)
-            throws FspeoException {
+            throws FspeoException, ReportExceprion {
         if (p_countable instanceof IInformicaChildCountable) {
             if (getDateField() != null && !getDateField().isEmpty()) {
                 Object beanValue = CounterConfig.getBeanValue(getDateField(), p_countable);
@@ -111,6 +113,5 @@ public class AgeRangeBdt {
         }
         else throw new FspeoException("Неизвестный тип элемента для подсчета: " + p_countable.getClass().getName());
     }
-*/
 
 }

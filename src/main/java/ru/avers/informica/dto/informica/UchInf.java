@@ -5,12 +5,12 @@ package ru.avers.informica.dto.informica;
  * @author Dias
  */
 public class UchInf {
-    private int m_id;    
-    private String m_code,
-                   m_name,
-                   m_short_name,
-                   m_ter_name,
-                   m_chief,
+    private int m_id;               // id учреждения
+    private String m_code,          // код учреждения
+                   m_name,          // наименование учреждения
+                   m_short_name,    // краткое наименование учреждения
+                   m_ter_name,      // наименование территории
+                   m_chief,         // ФИО директора, заведующего
                    m_municipObrOktmo,
                    m_epgu_link,
                    m_rpgu_link,
@@ -26,16 +26,15 @@ public class UchInf {
                    m_features,
                    m_structure_name,
                    m_structure_code;
-    private Integer m_id_main_uch,
-                    m_id_ter,
-                    m_no_doo_act_0_3,
-                    m_no_doo_act_3_7,
-                    m_no_doo_def_0_3,
-                    m_no_doo_def_3_7,
-                    m_medic_0_3,
-                    m_medic_3_7,
-                    m_family_0_3,
-                    m_family_3_7;
+    private Integer m_id_ter,
+                    m_no_doo_act_0_3,       //
+                    m_no_doo_act_3_7,       //
+                    m_no_doo_def_0_3,       //
+                    m_no_doo_def_3_7,       // для учреждения, чтобы потом
+                    m_medic_0_3,            //  перенести в municipality
+                    m_medic_3_7,            //
+                    m_family_0_3,           //
+                    m_family_3_7;           //
             
     public UchInf() {
     }
@@ -47,14 +46,6 @@ public class UchInf {
         m_id = p_id;
     }
 
-    public Integer getIdMainUch() {
-        return m_id_main_uch;
-    }
-
-    public void setIdMainUch(Integer p_id_main_uch) {
-        this.m_id_main_uch = p_id_main_uch;
-    }
-    
     public String getCode() {
         return this.m_code;
     }    
