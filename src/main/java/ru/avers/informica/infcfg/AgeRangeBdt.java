@@ -109,7 +109,7 @@ public class AgeRangeBdt {
             }
             return getAgeRanges(p_rep_date, ((IInformicaChildCountable) p_countable).getBdt());
         }
-/* TODO понять что в новой БД вместо Prll4stgAges
+/* TODO понять что в новой БД вместо Prll4stgAges  - public.group_years изучить
         else if (p_countable instanceof IInformicaVacantCountable) {
             return getAgeRanges(((IInformicaVacantCountable)p_countable).getAges());
         }

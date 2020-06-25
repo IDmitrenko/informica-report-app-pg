@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.avers.informica.dao.CommonDao;
 import ru.avers.informica.dao.UchDao;
 import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.dao.mapper.IdMapper;
@@ -26,6 +27,7 @@ public class UchDaoImpl implements UchDao {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final IdMapper idMapper;
     private final UchMapper uchMapper;
+    private final CommonDao commonDao;
 
     @Override
     public List<UchInf> getUchInformica(List<IFieldFilterParams> repForUchFilter,
@@ -86,7 +88,10 @@ public class UchDaoImpl implements UchDao {
             AgeDto age7 = new AgeDto((short)7, (short)0, (short)0);
             // Данные о детях, стоящих на учете в связи с отсутствием ДОО, передаются
             // в тэге noDooAct для детей, желающих получить место в текущем учебном году
-//            Map<Integer, Integer> noDooAct_0_3 =
+            Map<Integer, Integer> noDooAct_0_3 = commonDao.getNoDooCounter(currDate,
+                    DateUtil.adjustDate(currEducDate, 1),
+                    true,
+                    age0, age3);
 
             return allUch;
 

@@ -8,7 +8,7 @@ public class InqryStatusCode {
     private InqryStatusCode() {}
 
     public static final String CREATED_01 = "01",  // Создано
-            ACCEPTED_02 = "02", // Принято
+            ACCEPTED_02 = "Принято", //"02", // Принято
             NEED_CORRECTION_03 = "03", // Требуется корректировка заявления
             HAS_ARRIVED_04 = "04", // Явился
             CANCELLED_05 = "05", // Отклонено
