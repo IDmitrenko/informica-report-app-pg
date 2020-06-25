@@ -7,53 +7,53 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author Dias
  */
 public class CalcAgeElement extends DateElement {
-    private static final String s_attr_curr_date = "curr-date",
-                                s_attr_educ_year_offset = "offset";
-    private Boolean m_curr_date;
-    private Integer m_educ_year_offset;
+    private static final String S_ATTR_CURR_DATE = "curr-date",
+                                S_ATTR_EDUC_YEAR_OFFSET = "offset";
+    private Boolean currDate;
+    private Integer educYearOffset;
 
     public CalcAgeElement() {
     }
 
-    public CalcAgeElement(boolean p_curr_date) {
-        m_curr_date = p_curr_date;
+    public CalcAgeElement(boolean pCurrDate) {
+        currDate = pCurrDate;
     }    
     
-    public CalcAgeElement(Integer p_year) {
-        super(p_year);
+    public CalcAgeElement(Integer pYear) {
+        super(pYear);
     }
 
-    public CalcAgeElement(Integer p_year, Integer p_month) {
-        super(p_year, p_month);
+    public CalcAgeElement(Integer pYear, Integer pMonth) {
+        super(pYear, pMonth);
     }
 
-    public CalcAgeElement(Integer p_year, Integer p_month, Integer p_day) {
-        super(p_year, p_month, p_day);
+    public CalcAgeElement(Integer pYear, Integer pMonth, Integer pDay) {
+        super(pYear, pMonth, pDay);
     }        
 
-    @XmlAttribute(name = s_attr_curr_date)
+    @XmlAttribute(name = S_ATTR_CURR_DATE)
     public Boolean isCurrDate() {
-        return m_curr_date;
+        return currDate;
     }
 
-    public void setCurrDate(Boolean p_curr_date) {
-        m_curr_date = p_curr_date;
+    public void setCurrDate(Boolean pCurrDate) {
+        currDate = pCurrDate;
     }
 
-    @XmlAttribute(name = s_attr_educ_year_offset)
+    @XmlAttribute(name = S_ATTR_EDUC_YEAR_OFFSET)
     public Integer getYearOffset() {
-        return m_educ_year_offset;
+        return educYearOffset;
     }
 
-    public void setYearOffset(Integer p_offset) {
-        m_educ_year_offset = p_offset;
+    public void setYearOffset(Integer pOffset) {
+        educYearOffset = pOffset;
     }
 
     @Override
     public int hashCode() {
         int hash = 5 + super.hashCode();
-        hash = 37 * hash + (this.m_curr_date != null ? this.m_curr_date.hashCode() : 0);
-        hash = 37 * hash + (this.m_educ_year_offset != null ? this.m_educ_year_offset.hashCode() : 0);
+        hash = 37 * hash + (this.currDate != null ? this.currDate.hashCode() : 0);
+        hash = 37 * hash + (this.educYearOffset != null ? this.educYearOffset.hashCode() : 0);
         return hash;
     }
 
@@ -69,10 +69,12 @@ public class CalcAgeElement extends DateElement {
             return false;
         }        
         final CalcAgeElement other = (CalcAgeElement) obj;
-        if (this.m_curr_date != other.m_curr_date && (this.m_curr_date == null || !this.m_curr_date.equals(other.m_curr_date))) {
+        if (this.currDate != other.currDate &&
+                (this.currDate == null || !this.currDate.equals(other.currDate))) {
             return false;
         }
-        if (this.m_educ_year_offset != other.m_educ_year_offset && (this.m_educ_year_offset == null || !this.m_educ_year_offset.equals(other.m_educ_year_offset))) {
+        if (this.educYearOffset != other.educYearOffset &&
+                (this.educYearOffset == null || !this.educYearOffset.equals(other.educYearOffset))) {
             return false;
         }
         return true;

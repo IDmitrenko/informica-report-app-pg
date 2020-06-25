@@ -1,7 +1,5 @@
 package ru.avers.informica.common.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -12,201 +10,200 @@ import javax.xml.bind.annotation.XmlEnumValue;
  * @author Dias
  */
 public class ReportInformica implements IDTO {
-    private static final Logger s_logger = LoggerFactory.getLogger(ReportInformica.class);
-    
-    public final static String s_root_name = "informica-report",
-                               s_attr_report_access_level = "level",
-                               s_attr_email_log = "email-log",
-                               s_attr_state_name = "state-name",
-                               s_attr_auto_upload_enabled = "auto-upload-enabled",
-                               s_attr_auto_upload_hours = "auto-upload-hours",
-                               s_attr_auto_upload_minutes = "auto-upload-minutes",
-                               s_attr_debug_enabled = "debug",
-                               s_attr_get_enrolled_from = "get-enrolled-from",
-                               s_attr_con_timeout = "con-timeout",
-                               s_attr_req_timeout = "req-timeout",
-                               s_attr_push_data_delay = "delay",
-                               s_attr_async_upload = "async",                               
-                               s_attr_mt = "mt",
-                               s_attr_ver = "ver";
+
+    public final static String S_ROOT_NAME = "informica-report",
+                               S_ATTR_REPORT_ACCESS_LEVEL = "level",
+                               S_ATTR_EMAIL_LOG = "email-log",
+                               S_ATTR_STATE_NAME = "state-name",
+                               S_ATTR_AUTO_UPLOAD_ENABLED = "auto-upload-enabled",
+                               S_ATTR_AUTO_UPLOAD_HOURS = "auto-upload-hours",
+                               S_ATTR_AUTO_UPLOAD_MINUTES = "auto-upload-minutes",
+                               S_ATTR_DEBUG_ENABLED = "debug",
+                               S_ATTR_GET_ENROLLED_FROM = "get-enrolled-from",
+                               S_ATTR_CON_TIMEOUT = "con-timeout",
+                               S_ATTR_REQ_TIMEOUT = "req-timeout",
+                               S_ATTR_PUSH_DATA_DELAY = "delay",
+                               S_ATTR_ASYNC_UPLOAD = "async",
+                               S_ATTR_MT = "mt",
+                               S_ATTR_VER = "ver";
 
     public ReportInformica() { 
     }
     
-    private CMisc.AccessLevel m_access_level = CMisc.AccessLevel.SUPERUSER;
-    private EnrolledSource m_enrolled_source = EnrolledSource.CMSN;
-    private Boolean m_is_email_log = true,
-                    m_is_auto_upload_enabled = true,
-                    m_is_debug_enabled = false,
-                    m_is_async_upload_enabled = true,            
-                    m_is_mt = true;
-    private Integer m_auto_upload_hours = 2,
-                    m_auto_upload_minutes = 0,
-                    m_connection_timeout,
-                    m_request_timeout,
-                    m_delay = 60;
-    private String m_state_name;
-    private Version m_version = Version.Five;
+    private CMisc.AccessLevel accessLevel = CMisc.AccessLevel.SUPERUSER;
+    private EnrolledSource enrolledSource = EnrolledSource.CMSN;
+    private Boolean emailLog = true,
+                    autoUploadEnabled = true,
+                    debugEnabled = false,
+                    asyncUploadEnabled = true,
+                    mt = true;
+    private Integer autoUploadHours = 2,
+                    autoUploadMinutes = 0,
+            connectionTimeout,
+            requestTimeout,
+                    delay = 60;
+    private String stateName;
+    private Version version = Version.Five;
     private enum EnrolledSource{CMSN, CNTGN, PLUS}
     public enum Version {
         @XmlEnumValue("5")
         Five
     }
 
-    @XmlAttribute(name = s_attr_email_log)
+    @XmlAttribute(name = S_ATTR_EMAIL_LOG)
     public Boolean isEmailLog() {
-        return m_is_email_log;
+        return emailLog;
     }
 
-    public void setEmailLog(Boolean p_val) {
-        m_is_email_log = p_val;
+    public void setEmailLog(Boolean pVal) {
+        emailLog = pVal;
     }
 
     // Минимальный уровень доступа для которого доступна функция "Отчет информики"
     // (Кнопка на главной форме приложения, пункт "Отчет. Информика" в выпадающем списке формы "Отчеты")
     // Используется только в приложении "Комиссия". Если данная функция отключена возвращается null (для
     // отключения в конфиге в качестве параметра указать пустую строку)
-    @XmlAttribute(name = s_attr_report_access_level, required = true)
+    @XmlAttribute(name = S_ATTR_REPORT_ACCESS_LEVEL, required = true)
     public CMisc.AccessLevel getReportAccessLevel() {
-        return m_access_level;
+        return accessLevel;
     }
 
-    public void setReportAccessLevel(CMisc.AccessLevel p_value) {
-        m_access_level = p_value;
+    public void setReportAccessLevel(CMisc.AccessLevel pVal) {
+        accessLevel = pVal;
     }
 
     // Наименование региона (используется в логах на email)
-    @XmlAttribute(name = s_attr_state_name)
+    @XmlAttribute(name = S_ATTR_STATE_NAME)
     public String getStateName() {
-        return m_state_name;
+        return stateName;
     }
 
-    public void setStateName(String p_val) {
-        m_state_name = p_val;
+    public void setStateName(String pVal) {
+        stateName = pVal;
     }
 
     // Откуда брать заявления в показатели со статусом "зачислены"
-    @XmlAttribute(name = s_attr_get_enrolled_from)
+    @XmlAttribute(name = S_ATTR_GET_ENROLLED_FROM)
     public EnrolledSource getEnrolledFrom() {
-        return m_enrolled_source;
+        return enrolledSource;
     }
 
-    public void setEnrolledFrom(EnrolledSource p_value) {
-        m_enrolled_source = p_value;
+    public void setEnrolledFrom(EnrolledSource pVal) {
+        enrolledSource = pVal;
     }
 
     // Включена ли автоматическая загрузка отчета информики
-    @XmlAttribute(name = s_attr_auto_upload_enabled)
+    @XmlAttribute(name = S_ATTR_AUTO_UPLOAD_ENABLED)
     public Boolean isAutoUploadEnabled() {
-        return m_is_auto_upload_enabled;
+        return autoUploadEnabled;
     }
 
-    public void setAutoUploadEnabled(Boolean p_val) {
-        m_is_auto_upload_enabled = p_val;
+    public void setAutoUploadEnabled(Boolean pVal) {
+        autoUploadEnabled = pVal;
     }
 
     // Часы когда производить авто загрузку отчета
-    @XmlAttribute(name = s_attr_auto_upload_hours)
+    @XmlAttribute(name = S_ATTR_AUTO_UPLOAD_HOURS)
     public Integer getAutoUploadHours() {
-        return m_auto_upload_hours; 
+        return autoUploadHours;
     }
 
-    public void setAutoUploadHours(Integer p_val) {
-        m_auto_upload_hours = p_val;
+    public void setAutoUploadHours(Integer pVal) {
+        autoUploadHours = pVal;
     }
 
     // Минуты когда производить авто загрузку отчета
-    @XmlAttribute(name = s_attr_auto_upload_minutes)
+    @XmlAttribute(name = S_ATTR_AUTO_UPLOAD_MINUTES)
     public Integer getAutoUploadMinutes() {
-        return m_auto_upload_minutes;
+        return autoUploadMinutes;
     }
 
-    public void setAutoUploadMinutes(Integer p_val) {
-        m_auto_upload_minutes = p_val;
+    public void setAutoUploadMinutes(Integer pVal) {
+        autoUploadMinutes = pVal;
     }
 
     // Включить отладку отчета
-    @XmlAttribute(name = s_attr_debug_enabled)
+    @XmlAttribute(name = S_ATTR_DEBUG_ENABLED)
     public Boolean isDebugEnabled() {
-        return m_is_debug_enabled;
+        return debugEnabled;
     }
 
-    public void setDebugEnabled(Boolean p_val) {
-        m_is_debug_enabled = p_val;
+    public void setDebugEnabled(Boolean pVal) {
+        debugEnabled = pVal;
     }
 
     // Таймаут на соединение с веб сервисом информики, в минутах
-    @XmlAttribute(name = s_attr_con_timeout)
+    @XmlAttribute(name = S_ATTR_CON_TIMEOUT)
     public Integer getConnectionTimeout() {
-        return m_connection_timeout;
+        return connectionTimeout;
     }
 
-    public void setConnectionTimeout(Integer p_connection_timeout) {
-        m_connection_timeout = p_connection_timeout;
+    public void setConnectionTimeout(Integer pConnectionTimeout) {
+        connectionTimeout = pConnectionTimeout;
     }
 
     // Таймаут на ожидание ответа от веб сервиса информики, в минутах
-    @XmlAttribute(name = s_attr_req_timeout)
+    @XmlAttribute(name = S_ATTR_REQ_TIMEOUT)
     public Integer getRequestTimeout() {
-        return m_request_timeout;
+        return requestTimeout;
     }
 
-    public void setRequestTimeout(Integer p_request_timeout) {
-        m_request_timeout = p_request_timeout;
+    public void setRequestTimeout(Integer pRequestTimeout) {
+        requestTimeout = pRequestTimeout;
     }    
     
-    @XmlAttribute(name = s_attr_async_upload)
+    @XmlAttribute(name = S_ATTR_ASYNC_UPLOAD)
     public Boolean isAsyncUploadEnabled() {
-        return m_is_async_upload_enabled;
+        return asyncUploadEnabled;
     }
 
-    public void setAsyncUploadEnabled(Boolean p_val) {
-        m_is_async_upload_enabled = p_val;
+    public void setAsyncUploadEnabled(Boolean pVal) {
+        asyncUploadEnabled = pVal;
     }
 
     // Задержка между повторными попытками выгрузки отчета, в минутах
-    @XmlAttribute(name = s_attr_push_data_delay)
+    @XmlAttribute(name = S_ATTR_PUSH_DATA_DELAY)
     public Integer getPushDataDelay() {
-        return m_delay;
+        return delay;
     }
 
-    public void setPushDataDelay(Integer p_val) {
-        m_delay = p_val;
+    public void setPushDataDelay(Integer pVal) {
+        delay = pVal;
     }
 
     // Использовать многопоточность при построении отчета
-    @XmlAttribute(name = s_attr_mt)
+    @XmlAttribute(name = S_ATTR_MT)
     public Boolean isMt() {
-        return m_is_mt;
+        return mt;
     }
 
-    public void setMt(Boolean p_val) {
-        m_is_mt = p_val;
+    public void setMt(Boolean pVal) {
+        mt = pVal;
     }
 
-    @XmlAttribute(name = s_attr_ver)
+    @XmlAttribute(name = S_ATTR_VER)
     public Version getVersion() {
-        return m_version;
+        return version;
     }
 
-    public void setVersion(Version p_version) {
-        m_version = p_version;
+    public void setVersion(Version pVersion) {
+        version = pVersion;
     }
           
-    public final void set(ReportInformica p_val) {
-        if (p_val == null) throw new IllegalArgumentException();
+    public final void set(ReportInformica pVal) {
+        if (pVal == null) throw new IllegalArgumentException();
 
-        setEmailLog(p_val.isEmailLog());
-        setReportAccessLevel(p_val.getReportAccessLevel());
-        setAutoUploadEnabled(p_val.isAutoUploadEnabled());
-        setAutoUploadHours(p_val.getAutoUploadHours());
-        setAutoUploadMinutes(p_val.getAutoUploadMinutes());
-        setDebugEnabled(p_val.isDebugEnabled());
-        setEnrolledFrom(p_val.getEnrolledFrom());
-        setConnectionTimeout(p_val.getConnectionTimeout());
-        setRequestTimeout(p_val.getRequestTimeout());
-        setPushDataDelay(p_val.getPushDataDelay());
-        setMt(p_val.isMt());
+        setEmailLog(pVal.isEmailLog());
+        setReportAccessLevel(pVal.getReportAccessLevel());
+        setAutoUploadEnabled(pVal.isAutoUploadEnabled());
+        setAutoUploadHours(pVal.getAutoUploadHours());
+        setAutoUploadMinutes(pVal.getAutoUploadMinutes());
+        setDebugEnabled(pVal.isDebugEnabled());
+        setEnrolledFrom(pVal.getEnrolledFrom());
+        setConnectionTimeout(pVal.getConnectionTimeout());
+        setRequestTimeout(pVal.getRequestTimeout());
+        setPushDataDelay(pVal.getPushDataDelay());
+        setMt(pVal.isMt());
     }
     
 }

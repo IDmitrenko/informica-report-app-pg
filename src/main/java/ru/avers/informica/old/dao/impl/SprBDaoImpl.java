@@ -1,13 +1,13 @@
-package ru.avers.informica.dao.impl;
+package ru.avers.informica.old.dao.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.dao.SprBDao;
-import ru.avers.informica.dao.mapper.SprBMapper;
-import ru.avers.informica.entities.SprB;
+import ru.avers.informica.old.dao.SprBDao;
+import ru.avers.informica.old.dao.mapper.SprBMapper;
+import ru.avers.informica.old.entities.SprB;
 import ru.avers.informica.exception.CustomSQLErrorCodeTranslator;
 
 @Component

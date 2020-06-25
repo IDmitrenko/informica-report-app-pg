@@ -9,25 +9,25 @@ import javax.xml.bind.annotation.XmlValue;
  */
 public class Esia {
     
-    private boolean m_enabled = false;
-    private String m_url;
+    private boolean enabled = false;
+    private String url;
 
     @XmlAttribute
     public boolean isEnabled() {
-        return m_enabled;
+        return enabled;
     }
 
-    public void setEnabled(boolean p_enabled) {
-        this.m_enabled = p_enabled;
+    public void setEnabled(boolean pEnabled) {
+        this.enabled = pEnabled;
     }
 
     @XmlValue
     public String getUrl() {
-        return m_url;
+        return url;
     }
 
-    public void setUrl(String p_url) {
-        this.m_url = p_url;
+    public void setUrl(String pUrl) {
+        this.url = pUrl;
     }
     
 }

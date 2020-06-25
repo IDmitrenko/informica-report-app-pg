@@ -10,44 +10,46 @@ import java.util.List;
  * @author Dias
  */
 public class QueueRule {
-    public static final String s_inuch = "inuch",
-                               s_weight = "weight",
-                               s_queue_enter = "queue_enter",
-                               s_bdt = "bdt",
-                               s_num = "num";
+    public static final String S_INUCH = "inuch",
+                               S_WEIGHT = "weight",
+                               S_QUEUE_ENTER = "queue_enter",
+                               S_BDT = "bdt",
+                               S_NUM = "num";
     
-    private final static String s_attr_ter_code = "ter-code";
+    private final static String S_ATTR_TER_CODE = "ter-code";
     
-    private String m_ter_code;
-    private List<QueueSortingItem> m_data;
+    private String terCode;
+    private List<QueueSortingItem> queueSortingItems;
 
     public QueueRule() {
     }    
     
-    public QueueRule(String p_ter_code, List<QueueSortingItem> p_sorting_list) {
-        this.m_ter_code = p_ter_code;
-        m_data = p_sorting_list;
+    public QueueRule(String pTerCode, List<QueueSortingItem> pSortingList) {
+        this.terCode = pTerCode;
+        queueSortingItems = pSortingList;
     }
 
-    @XmlAttribute(name=s_attr_ter_code)
+    @XmlAttribute(name= S_ATTR_TER_CODE)
     public String getTerCode() {
-        return m_ter_code;
+        return terCode;
     }
-    public void setTerCode(String p_ter_code) {
-        m_ter_code = p_ter_code;
+    public void setTerCode(String pTerCode) {
+        terCode = pTerCode;
     }
             
     @XmlElement(name = "item")
     public List<QueueSortingItem> getSortingList() {
-        if(m_data == null) m_data = new ArrayList<QueueSortingItem>();
-        return m_data; 
+        if(queueSortingItems == null) queueSortingItems = new ArrayList<QueueSortingItem>();
+        return queueSortingItems;
     }
-    public void setSortingList(List<QueueSortingItem> p_val) { m_data = p_val; }
+    public void setSortingList(List<QueueSortingItem> pVal) {
+        queueSortingItems = pVal;
+    }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + (this.m_ter_code != null ? this.m_ter_code.hashCode() : 0);
+        hash = 59 * hash + (this.terCode != null ? this.terCode.hashCode() : 0);
         return hash;
     }
 
@@ -60,7 +62,8 @@ public class QueueRule {
             return false;
         }
         final QueueRule other = (QueueRule) obj;
-        if ((this.m_ter_code == null) ? (other.m_ter_code != null) : !this.m_ter_code.equals(other.m_ter_code)) {
+        if ((this.terCode == null) ? (other.terCode != null) :
+                !this.terCode.equals(other.terCode)) {
             return false;
         }
         return true;

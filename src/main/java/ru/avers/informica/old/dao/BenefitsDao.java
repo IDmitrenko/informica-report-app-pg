@@ -1,6 +1,6 @@
-package ru.avers.informica.dao;
+package ru.avers.informica.old.dao;
 
-import ru.avers.informica.entities.Benefits;
+import ru.avers.informica.old.entities.Benefits;
 
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package ru.avers.informica.common.config.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.Configuration;
 
@@ -16,36 +15,36 @@ import java.io.InputStream;
  * @author Dias
  */
 @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch"})
+@Slf4j
 public class ConfigLoader {
-    private static final Logger s_logger = LoggerFactory.getLogger(ConfigLoader.class);
-    final private static JAXBContext s_jaxb_ctx;
+    final private static JAXBContext JAXB_CONTEXT;
     static {
-        JAXBContext x_jaxb_ctx = null;
+        JAXBContext jaxbCtx = null;
         try {
-            x_jaxb_ctx = JAXBContext.newInstance(Configuration.class);
-        } catch (Exception p_ex) {
-            s_logger.error("instantiate JAXBContext for " + Configuration.class.getName(), p_ex);
+            jaxbCtx = JAXBContext.newInstance(Configuration.class);
+        } catch (Exception ex) {
+            log.error("instantiate JAXBContext for " + Configuration.class.getName(), ex);
         }
-        s_jaxb_ctx = x_jaxb_ctx;
+        JAXB_CONTEXT = jaxbCtx;
     }  
     
-    public static Configuration load(String p_file_name) {
-        Configuration x_config = null;
+    public static Configuration load(String pFileName) {
+        Configuration config = null;
         try {
-            InputStream x_is = new FileInputStream(p_file_name);
-            x_config = ru.avers.informica.utils.xml.CUtil
-                    .<Configuration>reestablish(x_is, Configuration.class, s_jaxb_ctx);
-            x_is.close();
+            InputStream is = new FileInputStream(pFileName);
+            config = ru.avers.informica.utils.xml.CUtil
+                    .<Configuration>reestablish(is, Configuration.class, JAXB_CONTEXT);
+            is.close();
         } catch (FileNotFoundException ex) {
-            s_logger.error("Config file not found", ex);
+            log.error("Config file not found", ex);
         } catch (IOException ex) {
-            s_logger.error("getConfigProfile", ex);
+            log.error("getConfigProfile", ex);
         }
-        return x_config;
+        return config;
     }
 
-    public static CProfile loadProfile(String p_file_name, String p_id_profile) {
-        Configuration x_config = load(p_file_name);
-        return x_config.getProfile(p_id_profile);
+    public static CProfile loadProfile(String pFileName, String pIdProfile) {
+        Configuration x_config = load(pFileName);
+        return x_config.getProfile(pIdProfile);
     }
 }

@@ -18,27 +18,27 @@ public class Configuration implements IDTO {
     public Configuration() {
     }        
     
-    private Collection<CProfile> m_profiles;
+    private Collection<CProfile> cProfiles;
     
     @XmlElement(name="profile", type=CProfile.class)
     public Collection<CProfile> getProfiles() {
-        if (m_profiles == null) m_profiles = new HashSet<CProfile>();
-        return m_profiles;
+        if (cProfiles == null) cProfiles = new HashSet<CProfile>();
+        return cProfiles;
     }
     
-    public void setProfiles(Collection<CProfile> p_val) {
-        m_profiles = p_val;
+    public void setProfiles(Collection<CProfile> pVal) {
+        cProfiles = pVal;
     }    
 
-    public void addProfile(CProfile p_val) {
-        if (p_val == null) return;
-        getProfiles().add(p_val);
+    public void addProfile(CProfile pVal) {
+        if (pVal == null) return;
+        getProfiles().add(pVal);
     }
 
-    public void removeProfile(String p_id) {
-        CProfile x_profile = find(p_id);
-        if (x_profile != null) {
-            getProfiles().remove(x_profile);
+    public void removeProfile(String pId) {
+        CProfile cProfile = find(pId);
+        if (cProfile != null) {
+            getProfiles().remove(cProfile);
         }
     }
 
@@ -46,25 +46,25 @@ public class Configuration implements IDTO {
         getProfiles().clear();
     }
 
-    public CProfile find(String p_id) {
-        if (p_id == null) return null;
+    public CProfile find(String pId) {
+        if (pId == null) return null;
         
-        Collection<CProfile> x_profiles = getProfiles();
-        for (CProfile x_profile : x_profiles) {
-            if (p_id.equalsIgnoreCase(x_profile.getId()))
-                return x_profile;
+        Collection<CProfile> cProfiles = getProfiles();
+        for (CProfile cProfile : cProfiles) {
+            if (pId.equalsIgnoreCase(cProfile.getId()))
+                return cProfile;
         }
         return null;
     }
 
-    public CProfile getProfile(String p_id) {
-        CProfile x_profile = find(p_id);
-        if (x_profile == null) {
-            x_profile = new CProfile();
-            x_profile.setId(p_id);
-            getProfiles().add(x_profile);
+    public CProfile getProfile(String pId) {
+        CProfile cProfile = find(pId);
+        if (cProfile == null) {
+            cProfile = new CProfile();
+            cProfile.setId(pId);
+            getProfiles().add(cProfile);
         }
-        return x_profile;
+        return cProfile;
     }
 
     public void saveConfig() {

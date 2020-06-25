@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dao.mapper.IdMapper;
 import ru.avers.informica.dao.mapper.InqryMapper;
-import ru.avers.informica.dao.mapper.StatusesMapper;
 import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.dto.informica.InqryInf;
 

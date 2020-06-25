@@ -10,31 +10,39 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author Dias
  */
 public class QueueSortingItem {
-    private IFieldSortingParams.SortDir m_sort_dir;
-    private String m_field;
+    private IFieldSortingParams.SortDir sortDir;
+    private String field;
 
     public QueueSortingItem() {
     }    
 
-    public QueueSortingItem(IFieldSortingParams.SortDir p_sort_dir, String p_field) {
-        this.m_sort_dir = p_sort_dir;
-        this.m_field = p_field;
+    public QueueSortingItem(IFieldSortingParams.SortDir pSortDir, String pField) {
+        this.sortDir = pSortDir;
+        this.field = pField;
     }        
     
     @XmlAttribute(name="sort-dir", required=true)
-    public IFieldSortingParams.SortDir getSortDir() { return m_sort_dir; }
-    public void setSortDir(IFieldSortingParams.SortDir p_val) { m_sort_dir = p_val; }
+    public IFieldSortingParams.SortDir getSortDir() {
+        return sortDir;
+    }
+    public void setSortDir(IFieldSortingParams.SortDir pVal) {
+        sortDir = pVal;
+    }
 
     @XmlAttribute(name="fld", required=false)
-    public String getSortField() { return m_field; }
-    public void setSortField(String p_val) { m_field = p_val; }
+    public String getSortField() {
+        return field;
+    }
+    public void setSortField(String pVal) {
+        field = pVal;
+    }
 
     @Override
     public String toString() {
         return
             QueueSortingItem.class.getName() + " {" +
-            "sort_dir = " + String.valueOf(m_sort_dir) +
-            "; field = " + String.valueOf(m_field) +
+            "sort_dir = " + String.valueOf(sortDir) +
+            "; field = " + String.valueOf(field) +
             "}";
     }
     

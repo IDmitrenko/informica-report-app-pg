@@ -1,7 +1,5 @@
 package ru.avers.informica.common.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -12,102 +10,101 @@ import javax.xml.bind.annotation.XmlElement;
  * @author Dias
  */
 class CMailNotification implements IDTO {
-    private static final Logger s_logger = LoggerFactory.getLogger(CMailNotification.class);
 
-    public static final String s_root_name = "mail-notification";
-    private static final String s_attr_enabled = "enabled",
-                                s_attr_ssl_enabled = "ssl-enabled",
-                                s_attr_start_tls_enabled = "start-tls-enabled",
-                                s_attr_debug = "debug",
-                                s_attr_port = "port",
-                                s_node_host = "host",
-                                s_attr_user = "user",
-                                s_attr_password = "password",
-                                s_node_from = "from";
+    public static final String S_ROOT_NAME = "mail-notification";
+    private static final String S_ATTR_ENABLED = "enabled",
+                                S_ATTR_SSL_ENABLED = "ssl-enabled",
+                                S_ATTR_START_TLS_ENABLED = "start-tls-enabled",
+                                S_ATTR_DEBUG = "debug",
+                                S_ATTR_PORT = "port",
+                                S_NODE_HOST = "host",
+                                S_ATTR_USER = "user",
+                                S_ATTR_PASSWORD = "password",
+                                S_NODE_FROM = "from";
     
-    private Boolean m_is_enabled = false,
-                    m_is_ssl_enabled,
-                    m_is_start_tls_enabled,
-                    m_is_debug;
-    private Integer m_port;
-    private String m_host,
-                   m_user,
-                   m_password,
-                   m_from;
+    private Boolean isEnabled = false,
+            isSslEnabled,
+            isStartTlsEnabled,
+                    isDebug;
+    private Integer port;
+    private String host,
+            user,
+            password,
+                   from;
     
     public CMailNotification() {
     }
     
-    @XmlAttribute(name = s_attr_enabled)
+    @XmlAttribute(name = S_ATTR_ENABLED)
     public Boolean isEnabled() {
-        return m_is_enabled; 
+        return isEnabled;
     }
-    public void setEnabled(Boolean p_val) {
-        m_is_enabled = p_val; 
+    public void setEnabled(Boolean pVal) {
+        isEnabled = pVal;
     }        
     
-    @XmlAttribute(name = s_attr_ssl_enabled)
+    @XmlAttribute(name = S_ATTR_SSL_ENABLED)
     public Boolean isSslEnabled() {
-        return m_is_ssl_enabled;
+        return isSslEnabled;
     }
-    public void setSslEnabled(Boolean p_val) {
-        m_is_ssl_enabled = p_val;
+    public void setSslEnabled(Boolean pVal) {
+        isSslEnabled = pVal;
     }
     
-    @XmlAttribute(name = s_attr_start_tls_enabled)
+    @XmlAttribute(name = S_ATTR_START_TLS_ENABLED)
     public Boolean isStartTlsEnabled() {
-        return m_is_start_tls_enabled;
+        return isStartTlsEnabled;
     }
-    public void setStartTlsEnabled(Boolean p_val) {
-        m_is_start_tls_enabled = p_val;
+    public void setStartTlsEnabled(Boolean pVal) {
+        isStartTlsEnabled = pVal;
     }
 
-    @XmlAttribute(name = s_attr_debug)
+    @XmlAttribute(name = S_ATTR_DEBUG)
     public Boolean isDebug() {
-        return m_is_debug;
+        return isDebug;
     }
-    public void setDebug(Boolean p_val) {
-        m_is_debug = p_val;
+    public void setDebug(Boolean pVal) {
+        isDebug = pVal;
     }
 
-    @XmlAttribute(name = s_attr_port)
+    @XmlAttribute(name = S_ATTR_PORT)
     public Integer getPort() {
-        return m_port;
+        return port;
     }
-    public void setPort(Integer p_val) {
-        m_port = p_val;
+    public void setPort(Integer pVal) {
+        port = pVal;
     }
 
-    @XmlElement(name = s_node_host)
+    @XmlElement(name = S_NODE_HOST)
     public String getHost() {
-        return m_host;
+        return host;
     }
-    public void setHost(String p_val) {
-        m_host = p_val;
+    public void setHost(String pVal) {
+        host = pVal;
     }
 
-    @XmlAttribute(name = s_attr_user)
+    @XmlAttribute(name = S_ATTR_USER)
     public String getUser() {
-        return m_user;
+        return user;
     }
-    public void setUser(String p_val) {
-        m_user = p_val;
+    public void setUser(String pVal) {
+        user = pVal;
     }
 
-    @XmlAttribute(name = s_attr_password)
+    @XmlAttribute(name = S_ATTR_PASSWORD)
     public String getPassword() {
-        return m_password;
+        return password;
     }
-    public void setPassword(String p_val) {
-        m_password = p_val;
+    public void setPassword(String pVal) {
+        password = pVal;
     }
 
-    @XmlElement(name = s_node_from)
+    @XmlElement(name = S_NODE_FROM)
     public String getFrom() {
-        return m_from;
+        return from;
     }
-    public void setFrom(String p_val) {
-        m_from = p_val;
+    public void setFrom(String pVal) {
+        from = pVal;
     }
 
     @Override
@@ -127,18 +124,18 @@ class CMailNotification implements IDTO {
         return builder.toString();
     }           
     
-    public void set(CMailNotification p_val) {
-        if (p_val == null) throw new IllegalArgumentException();
+    public void set(CMailNotification pVal) {
+        if (pVal == null) throw new IllegalArgumentException();
         
-        setDebug(p_val.isDebug());
-        setEnabled(p_val.isEnabled());
-        setSslEnabled(p_val.isSslEnabled());
-        setStartTlsEnabled(p_val.isStartTlsEnabled());
-        setFrom(p_val.getFrom());
-        setHost(p_val.getHost());
-        setPassword(p_val.getPassword());
-        setPort(p_val.getPort());
-        setUser(p_val.getUser());
+        setDebug(pVal.isDebug());
+        setEnabled(pVal.isEnabled());
+        setSslEnabled(pVal.isSslEnabled());
+        setStartTlsEnabled(pVal.isStartTlsEnabled());
+        setFrom(pVal.getFrom());
+        setHost(pVal.getHost());
+        setPassword(pVal.getPassword());
+        setPort(pVal.getPort());
+        setUser(pVal.getUser());
     }
     
 }

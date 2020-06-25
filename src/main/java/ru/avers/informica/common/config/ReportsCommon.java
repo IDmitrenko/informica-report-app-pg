@@ -1,7 +1,5 @@
 package ru.avers.informica.common.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -11,40 +9,39 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author Dias
  */
 public class ReportsCommon implements IDTO {
-    private static final Logger s_logger = LoggerFactory.getLogger(ReportsCommon.class);
-    
-    public final static String s_root_name = "common",
-                               s_attr_authority = "authority",
-                               s_attr_app_descr = "app-descr";
 
-    private String m_authority,
-                   m_app_descr;
+    public final static String S_ROOT_NAME = "common",
+                               S_ATTR_AUTHORITY = "authority",
+                               S_ATTR_APP_DESCR = "app-descr";
+
+    private String authority,
+                   appDescr;
     
     public ReportsCommon() { }
     
-    @XmlAttribute(name = s_attr_authority)
+    @XmlAttribute(name = S_ATTR_AUTHORITY)
     public String getAuthority() {
-        return m_authority;
+        return authority;
     }
 
-    public void setAuthority(String p_val) {
-        m_authority = p_val;
+    public void setAuthority(String pVal) {
+        authority = pVal;
     }
 
-    @XmlAttribute(name = s_attr_app_descr)
+    @XmlAttribute(name = S_ATTR_APP_DESCR)
     public String getAppDescr() {
-        return m_app_descr;
+        return appDescr;
     }
     
-    public void setAppDescr(String p_val) {
-        m_app_descr = p_val;
+    public void setAppDescr(String pVal) {
+        appDescr = pVal;
     }
 
-    public final void set(ReportsCommon p_val) {
-        if (p_val == null) throw new IllegalArgumentException();
+    public final void set(ReportsCommon pVal) {
+        if (pVal == null) throw new IllegalArgumentException();
         
-        setAuthority(p_val.getAuthority());
-        setAppDescr(p_val.getAppDescr());
+        setAuthority(pVal.getAuthority());
+        setAppDescr(pVal.getAppDescr());
     }
 
 }

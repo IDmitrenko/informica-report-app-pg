@@ -1,4 +1,4 @@
-package ru.avers.informica.entities;
+package ru.avers.informica.old.entities;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

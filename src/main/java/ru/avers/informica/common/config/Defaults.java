@@ -10,38 +10,38 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author Dias
  */
 public class Defaults implements IDTO {
-    public final static String s_root_name = "defaults",
-                               s_attr_timezone = "timezone",
-                               s_attr_theme_id = "theme-id";
+    public final static String S_ROOT_NAME = "defaults",
+                               S_ATTR_TIMEZONE = "timezone",
+                               S_ATTR_THEME_ID = "theme-id";
     
-    private String m_timezone, m_theme_id;
+    private String timezone, themeId;
     
     public Defaults() {
     }
 
-    @XmlAttribute(name = s_attr_timezone)
+    @XmlAttribute(name = S_ATTR_TIMEZONE)
     public String getTimezone() {
-        return m_timezone;
+        return timezone;
     }
 
-    public void setTimezone(String p_val) {
-        m_timezone = p_val;
+    public void setTimezone(String pVal) {
+        timezone = pVal;
     }
 
-    @XmlAttribute(name = s_attr_theme_id)
+    @XmlAttribute(name = S_ATTR_THEME_ID)
     public String getThemeId() {
-        return m_theme_id;
+        return themeId;
     }
 
-    public void setThemeId(String p_val) {
-        m_theme_id = p_val;
+    public void setThemeId(String pVal) {
+        themeId = pVal;
     }    
     
-    public final void set(Defaults p_val) {
-        if (p_val == null) throw new IllegalArgumentException();
+    public final void set(Defaults pVal) {
+        if (pVal == null) throw new IllegalArgumentException();
         
-        setTimezone(p_val.getTimezone());
-        setThemeId(p_val.getThemeId());
+        setTimezone(pVal.getTimezone());
+        setThemeId(pVal.getThemeId());
     }        
     
 }

@@ -1,8 +1,7 @@
-package ru.avers.informica.dao;
+package ru.avers.informica.old.dao;
 
-import ru.avers.informica.entities.ApplicationsEntity;
+import ru.avers.informica.old.entities.ApplicationsEntity;
 
-import java.util.Date;
 import java.util.List;
 
 public interface ApplicationsDao {

@@ -1,7 +1,5 @@
 package ru.avers.informica.common.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
 import ru.avers.informica.dto.IDateElement;
 
@@ -12,66 +10,65 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author Dias
  */
 public class DateElement implements IDateElement, IDTO {
-    private static final Logger s_logger = LoggerFactory.getLogger(DateElement.class);
-    private static final String s_attr_year = "year",
-                                s_attr_month = "month",
-                                s_attr_day = "day";
+    private static final String S_ATTR_YEAR = "year",
+                                S_ATTR_MONTH = "month",
+                                S_ATTR_DAY = "day";
 
-    private Integer m_year, m_month, m_day;
+    private Integer year, month, day;
     
     public DateElement() { 
     }
 
-    public DateElement(Integer p_year) {
-        this(p_year, null, null);
+    public DateElement(Integer pYear) {
+        this(pYear, null, null);
     }        
     
-    public DateElement(Integer p_year, Integer p_month) {
-        this(p_year, p_month, null);
+    public DateElement(Integer pYear, Integer pMonth) {
+        this(pYear, pMonth, null);
     }    
     
-    public DateElement(Integer p_year, Integer p_month, Integer p_day) {
-        m_year = p_year;
-        m_month = p_month;
-        m_day = p_day;
+    public DateElement(Integer pYear, Integer pMonth, Integer pDay) {
+        year = pYear;
+        month = pMonth;
+        day = pDay;
     }
     
-    @XmlAttribute(name = s_attr_year)
+    @XmlAttribute(name = S_ATTR_YEAR)
     @Override
     public Integer getYear() {
-        return m_year;
+        return year;
     }
     @Override
-    public void setYear(Integer p_val) {
-        m_year = p_val;
+    public void setYear(Integer pVal) {
+        year = pVal;
     }
     
-    @XmlAttribute(name = s_attr_month)
+    @XmlAttribute(name = S_ATTR_MONTH)
     @Override
     public Integer getMonth() {
-        return m_month;
+        return month;
     }
     @Override
-    public void setMonth(Integer p_val) {
-        m_month = p_val;
+    public void setMonth(Integer pVal) {
+        month = pVal;
     }
     
-    @XmlAttribute(name = s_attr_day)
+    @XmlAttribute(name = S_ATTR_DAY)
     @Override
     public Integer getDay() {
-        return m_day;
+        return day;
     }
     @Override
-    public void setDay(Integer p_val) {
-        m_day = p_val;
+    public void setDay(Integer pVal) {
+        day = pVal;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + (this.m_year != null ? this.m_year.hashCode() : 0);
-        hash = 41 * hash + (this.m_month != null ? this.m_month.hashCode() : 0);
-        hash = 41 * hash + (this.m_day != null ? this.m_day.hashCode() : 0);
+        hash = 41 * hash + (this.year != null ? this.year.hashCode() : 0);
+        hash = 41 * hash + (this.month != null ? this.month.hashCode() : 0);
+        hash = 41 * hash + (this.day != null ? this.day.hashCode() : 0);
         return hash;
     }
 
@@ -80,17 +77,20 @@ public class DateElement implements IDateElement, IDTO {
         if (obj == null) {
             return false;
         }
-        if (!getClass().isAssignableFrom(obj.getClass()) && !obj.getClass().isAssignableFrom(getClass())) {
+        if (!getClass().isAssignableFrom(obj.getClass()) &&
+                !obj.getClass().isAssignableFrom(getClass())) {
             return false;
         }        
         final DateElement other = (DateElement) obj;
-        if (this.m_year != other.m_year && (this.m_year == null || !this.m_year.equals(other.m_year))) {
+        if (this.year != other.year &&
+                (this.year == null || !this.year.equals(other.year))) {
             return false;
         }
-        if (this.m_month != other.m_month && (this.m_month == null || !this.m_month.equals(other.m_month))) {
+        if (this.month != other.month &&
+                (this.month == null || !this.month.equals(other.month))) {
             return false;
         }
-        if (this.m_day != other.m_day && (this.m_day == null || !this.m_day.equals(other.m_day))) {
+        if (this.day != other.day && (this.day == null || !this.day.equals(other.day))) {
             return false;
         }
         return true;
@@ -107,12 +107,12 @@ public class DateElement implements IDateElement, IDTO {
     }        
     
     @Override
-    public void set(IDateElement p_val) {
-        if (p_val == null) throw new IllegalArgumentException();
+    public void set(IDateElement pVal) {
+        if (pVal == null) throw new IllegalArgumentException();
 
-        setYear(p_val.getYear());
-        setMonth(p_val.getMonth());
-        setDay(p_val.getDay());        
+        setYear(pVal.getYear());
+        setMonth(pVal.getMonth());
+        setDay(pVal.getDay());
     }
     
 }

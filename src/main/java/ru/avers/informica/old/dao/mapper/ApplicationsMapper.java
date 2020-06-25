@@ -1,13 +1,12 @@
-package ru.avers.informica.dao.mapper;
+package ru.avers.informica.old.dao.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.dao.impl.BenefitsDaoImpl;
-import ru.avers.informica.dao.impl.BuildingsDaoImpl;
-import ru.avers.informica.dao.impl.NamedParameterBenefitsDaoImpl;
-import ru.avers.informica.dao.impl.StatusDaoImpl;
-import ru.avers.informica.entities.ApplicationsEntity;
+import ru.avers.informica.old.dao.impl.BenefitsDaoImpl;
+import ru.avers.informica.old.dao.impl.BuildingsDaoImpl;
+import ru.avers.informica.old.dao.impl.StatusDaoImpl;
+import ru.avers.informica.old.entities.ApplicationsEntity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,12 +1,12 @@
-package ru.avers.informica.dao.impl;
+package ru.avers.informica.old.dao.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.dao.BuildingsDao;
-import ru.avers.informica.dao.mapper.BuildingsMapper;
-import ru.avers.informica.entities.Buildings;
+import ru.avers.informica.old.dao.BuildingsDao;
+import ru.avers.informica.old.dao.mapper.BuildingsMapper;
+import ru.avers.informica.old.entities.Buildings;
 import ru.avers.informica.exception.CustomSQLErrorCodeTranslator;
 
 import java.util.List;

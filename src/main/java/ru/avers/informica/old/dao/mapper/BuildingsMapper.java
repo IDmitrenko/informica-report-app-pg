@@ -1,9 +1,9 @@
-package ru.avers.informica.dao.mapper;
+package ru.avers.informica.old.dao.mapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.entities.Buildings;
+import ru.avers.informica.old.entities.Buildings;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

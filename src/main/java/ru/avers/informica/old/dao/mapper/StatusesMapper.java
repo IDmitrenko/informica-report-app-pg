@@ -1,8 +1,8 @@
-package ru.avers.informica.dao.mapper;
+package ru.avers.informica.old.dao.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.entities.Statuses;
+import ru.avers.informica.old.entities.Statuses;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

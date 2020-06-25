@@ -1,7 +1,5 @@
 package ru.avers.informica.common.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -15,60 +13,59 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CProfile implements IDTO {
-    private static final Logger s_logger = LoggerFactory.getLogger(CProfile.class);
 
-    public static final String s_root_name = "profile";
-    public static final String s_attr_id = "id";
+    public static final String S_ROOT_NAME = "profile";
+    public static final String S_ATTR_ID = "id";
 
     public CProfile() {
     }
     
-    private String m_id;
-    private CMailNotification m_mail_notification;
-    private CMisc m_misc;
-    private Reports m_reports;
+    private String id;
+    private CMailNotification cMailNotification;
+    private CMisc cMisc;
+    private Reports reports;
 
-    @XmlAttribute(name=s_attr_id)
+    @XmlAttribute(name= S_ATTR_ID)
     public String getId() {
-        return m_id;
+        return id;
     }
 
-    public void setId(String p_val) {
-        m_id = p_val;
+    public void setId(String pVal) {
+        id = pVal;
     }   
 
-    @XmlElement(name = CMailNotification.s_root_name, type = CMailNotification.class)
+    @XmlElement(name = CMailNotification.S_ROOT_NAME, type = CMailNotification.class)
     public CMailNotification getMailNotification() {
-        if (m_mail_notification == null) m_mail_notification = new CMailNotification();
-        return m_mail_notification;
+        if (cMailNotification == null) cMailNotification = new CMailNotification();
+        return cMailNotification;
     }
-    public void setMailNotification(CMailNotification p_val) {
-        m_mail_notification = p_val;
+    public void setMailNotification(CMailNotification pVal) {
+        cMailNotification = pVal;
     }    
     
-    @XmlElement(name = CMisc.s_root_name, type = CMisc.class)
+    @XmlElement(name = CMisc.S_ROOT_NAME, type = CMisc.class)
     public CMisc getMisc() {
-        if (m_misc == null) m_misc = new CMisc();
-        return m_misc;
+        if (cMisc == null) cMisc = new CMisc();
+        return cMisc;
     }
 
-    public void setMisc(CMisc p_val) {
-        m_misc = p_val;
+    public void setMisc(CMisc pVal) {
+        cMisc = pVal;
     }    
     
-    @XmlElement(name = Reports.s_root_name, type = Reports.class)
+    @XmlElement(name = Reports.S_ROOT_NAME, type = Reports.class)
     public Reports getReports() {
-        if (m_reports == null) {
-            m_reports = new Reports();
+        if (reports == null) {
+            reports = new Reports();
         }
-        return m_reports;
+        return reports;
     }
 
-    public void setReports(Reports p_reports) {
-        m_reports = p_reports;
+    public void setReports(Reports reports) {
+        this.reports = reports;
     }    
     
-    public void set(CProfile p_val) {
+    public void set(CProfile pVal) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
