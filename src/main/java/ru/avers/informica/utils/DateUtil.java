@@ -11,45 +11,45 @@ import java.util.GregorianCalendar;
 public class DateUtil {
     
         // Дата начала текущего учебного года
-    public static Date getCurrEducDateByParts(Integer p_educ_year, int p_educ_year_begin_month, int p_educ_year_begin_day) {
-        Date x_rv;
-        if(p_educ_year == null)
-            x_rv = getCurrEducDate(new Date(), p_educ_year_begin_month, p_educ_year_begin_day);
+    public static Date getCurrEducDateByParts(Integer pEducYear,
+                                              int pEducYearBeginMonth,
+                                              int pEducYearBeginDay) {
+        Date rv;
+        if(pEducYear == null)
+            rv = getCurrEducDate(new Date(), pEducYearBeginMonth, pEducYearBeginDay);
         else
-            x_rv = createCalendar(p_educ_year, p_educ_year_begin_month, p_educ_year_begin_day).getTime();
-        return x_rv;
+            rv = createCalendar(pEducYear, pEducYearBeginMonth, pEducYearBeginDay).getTime();
+        return rv;
     }
 
-    static public int getYearPart(Date p_date) { return getPartFromDate(p_date, Calendar.YEAR); }
-    
-    static private int getPartFromDate(Date p_date, int p_part) {
-        Calendar x_calendar = GregorianCalendar.getInstance();
-        x_calendar.setTime(p_date);
-        return x_calendar.get(p_part);
+    static public int getYearPart(Date pDate) {
+        return getPartFromDate(pDate, Calendar.YEAR);
     }
     
-    public static Date getCurrEducDate(Date p_rep_date, int p_educ_year_begin_month, int p_educ_year_begin_day) {
-        Calendar x_cal_rep_date = GregorianCalendar.getInstance();
-        x_cal_rep_date.setTime(p_rep_date);
-        int x_rep_year = x_cal_rep_date.get(Calendar.YEAR);
-        clearCalendarTimePart(x_cal_rep_date);
+    static private int getPartFromDate(Date pDate, int pPart) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(pDate);
+        return calendar.get(pPart);
+    }
+    
+    public static Date getCurrEducDate(Date pRepDate,
+                                       int pEducYearBeginMonth,
+                                       int pEducYearBeginDay) {
+        Calendar calRepDate = GregorianCalendar.getInstance();
+        calRepDate.setTime(pRepDate);
+        int repYear = calRepDate.get(Calendar.YEAR);
+        clearCalendarTimePart(calRepDate);
         
         // Дата начала учебного года в текущем году
-        Calendar x_curr_year_educ_begin = createCalendar(x_rep_year, p_educ_year_begin_month, p_educ_year_begin_day);
-        
-//        Calendar x_curr_year_educ_begin = Calendar.getInstance();
-//        x_curr_year_educ_begin.set(Calendar.YEAR, x_rep_year);
-//        x_curr_year_educ_begin.set(Calendar.MONTH, p_educ_year_begin_month);
-//        x_curr_year_educ_begin.set(Calendar.DAY_OF_MONTH, p_educ_year_begin_day);
-//        clearCalendarTimePart(x_curr_year_educ_begin);
+        Calendar currYearEducBegin = createCalendar(repYear, pEducYearBeginMonth, pEducYearBeginDay);
         
         // Определить текущий учебный год
-        if (p_rep_date.before(x_curr_year_educ_begin.getTime())) {
-            x_curr_year_educ_begin.add(Calendar.YEAR, -1);
-            return x_curr_year_educ_begin.getTime();
+        if (pRepDate.before(currYearEducBegin.getTime())) {
+            currYearEducBegin.add(Calendar.YEAR, -1);
+            return currYearEducBegin.getTime();
         }
         else 
-            return x_curr_year_educ_begin.getTime();
+            return currYearEducBegin.getTime();
     }
 
     public static Date getCurrentDate(Boolean zero) {
@@ -64,49 +64,54 @@ public class DateUtil {
         }
     }
     
-    public static void clearCalendarTimePart(Calendar p_calendar) {
-        p_calendar.set(Calendar.HOUR_OF_DAY, 0);
-        p_calendar.set(Calendar.MINUTE, 0);
-        p_calendar.set(Calendar.SECOND, 0);
-        p_calendar.set(Calendar.MILLISECOND, 0);
+    public static void clearCalendarTimePart(Calendar pCalendar) {
+        pCalendar.set(Calendar.HOUR_OF_DAY, 0);
+        pCalendar.set(Calendar.MINUTE, 0);
+        pCalendar.set(Calendar.SECOND, 0);
+        pCalendar.set(Calendar.MILLISECOND, 0);
     }
     
-    public static Date clearDateTimePart(Date p_date) {
-        Calendar x_calendar = GregorianCalendar.getInstance();
-        x_calendar.setTime(p_date);
-        clearCalendarTimePart(x_calendar);
-        return x_calendar.getTime();
+    public static Date clearDateTimePart(Date pDate) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(pDate);
+        clearCalendarTimePart(calendar);
+        return calendar.getTime();
     }    
     
-    public static Date adjustDate(Date p_date, int p_year) { return adjustDate(p_date, p_year, 0, 0); }
-    public static Date adjustDate(Date p_date, int p_year, int p_month) { return adjustDate(p_date, p_year, p_month, 0); }
+    public static Date adjustDate(Date pDate, int pYear) {
+        return adjustDate(pDate, pYear, 0, 0);
+    }
+
+    public static Date adjustDate(Date pDate, int pYear, int pMonth) {
+        return adjustDate(pDate, pYear, pMonth, 0);
+    }
     /**
      * Изменить дату на указанное кол-во лет, месяцев и дней
-     * @param p_date дата
-     * @param p_year лет
-     * @param p_month месяцев
-     * @param p_days дней
+     * @param pDate дата
+     * @param pYear лет
+     * @param pMonth месяцев
+     * @param pDays дней
      * @return 
      */    
-    public static Date adjustDate(Date p_date, int p_year, int p_month, int p_days) {
-        Calendar x_calendar = GregorianCalendar.getInstance();
-        x_calendar.setTime(p_date);
-        x_calendar.add(Calendar.YEAR, p_year);
-        x_calendar.add(Calendar.MONTH, p_month);
-        x_calendar.add(Calendar.DAY_OF_MONTH, p_days);
-        return x_calendar.getTime();
+    public static Date adjustDate(Date pDate, int pYear, int pMonth, int pDays) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(pDate);
+        calendar.add(Calendar.YEAR, pYear);
+        calendar.add(Calendar.MONTH, pMonth);
+        calendar.add(Calendar.DAY_OF_MONTH, pDays);
+        return calendar.getTime();
     }    
     
-    public static Calendar createCalendar(Integer p_month, Integer p_days) {
-        return createCalendar(null, p_month, p_days);
+    public static Calendar createCalendar(Integer pMonth, Integer pDays) {
+        return createCalendar(null, pMonth, pDays);
     }
-    public static Calendar createCalendar(Integer p_year, Integer p_month, Integer p_days) {
-        Calendar x_calendar = GregorianCalendar.getInstance();
-        clearCalendarTimePart(x_calendar);
-        if(p_year != null) x_calendar.set(Calendar.YEAR, p_year);
-        if(p_month != null) x_calendar.set(Calendar.MONTH, p_month);
-        if(p_days != null) x_calendar.set(Calendar.DAY_OF_MONTH, p_days);
-        return x_calendar;
+    public static Calendar createCalendar(Integer pYear, Integer pMonth, Integer pDays) {
+        Calendar calendar = GregorianCalendar.getInstance();
+        clearCalendarTimePart(calendar);
+        if(pYear != null) calendar.set(Calendar.YEAR, pYear);
+        if(pMonth != null) calendar.set(Calendar.MONTH, pMonth);
+        if(pDays != null) calendar.set(Calendar.DAY_OF_MONTH, pDays);
+        return calendar;
     }
         
 }

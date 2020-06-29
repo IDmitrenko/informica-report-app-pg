@@ -20,20 +20,20 @@ import java.util.List;
 @Slf4j
 public class CHelper {
 
-    static public void setFilterFieldType(List<IFieldFilterParams> p_filters, Class<UchInf> p_class) {
-        for (IFieldFilterParams x_filter : p_filters) {
-            if (x_filter instanceof GenericFilter)
-                ((GenericFilter)x_filter).setFieldType(getFieldType(x_filter.getField(), p_class));
+    static public void setFilterFieldType(List<IFieldFilterParams> pFilters, Class<UchInf> pClass) {
+        for (IFieldFilterParams filter : pFilters) {
+            if (filter instanceof GenericFilter)
+                ((GenericFilter)filter).setFieldType(getFieldType(filter.getField(), pClass));
         }
     }
     
-    static public Class<?> getFieldType(String p_field_name, Class<UchInf> p_class) {
+    static public Class<?> getFieldType(String pFieldName, Class<UchInf> pClass) {
         try {
-            BeanInfo x_bean_info = Introspector.getBeanInfo(p_class);
-            PropertyDescriptor[] x_descriptors = x_bean_info.getPropertyDescriptors();
-            for (PropertyDescriptor x_prop_descr : x_descriptors) {
-                if (x_prop_descr.getName().equals(p_field_name)) {
-                    return x_prop_descr.getPropertyType();
+            BeanInfo beanInfo = Introspector.getBeanInfo(pClass);
+            PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor propDescr : descriptors) {
+                if (propDescr.getName().equals(pFieldName)) {
+                    return propDescr.getPropertyType();
                 }
             }            
         } catch (IntrospectionException ex) {
@@ -42,13 +42,13 @@ public class CHelper {
         return null;
     }    
     
-    static public IFieldFilterParams createUchIdFilter(Integer p_id_uch) {
-        GenericFilter x_filter = new GenericFilter();
-        x_filter.setField("id");
-        x_filter.setComparison(IFieldFilterParams.ComparisonType.equal);
-        x_filter.setStringValue(String.valueOf(p_id_uch));
-        x_filter.setFieldType(Integer.class);
-        return x_filter;
+    static public IFieldFilterParams createUchIdFilter(Integer pIdUch) {
+        GenericFilter filter = new GenericFilter();
+        filter.setField("id");
+        filter.setComparison(IFieldFilterParams.ComparisonType.equal);
+        filter.setStringValue(String.valueOf(pIdUch));
+        filter.setFieldType(Integer.class);
+        return filter;
     }
     
 }

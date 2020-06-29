@@ -3,8 +3,6 @@ package ru.avers.informica.utils;
 //import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
 //import org.json.simple.parser.ParseException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.utils.ConfigLoader;
@@ -18,7 +16,6 @@ import ru.avers.informica.infcfg.utils.InformicaConfigLoader;
 
 @Component
 public class CHelper {
-    private static final Logger s_logger = LoggerFactory.getLogger(CHelper.class);
 // TODO продолжить ...
 /*1
     private static IMapFactory m_default_map_factory;
@@ -177,29 +174,31 @@ public class CHelper {
         }
     }
 */
-    final private static String s_relative_settings_filename = "/settings/config.xml";
-    final private static String s_relative_informica_config_filename = "/informica/inf5_counter10.xml";
+    final private static String S_RELATIVE_SETTINGS_FILENAME = "/settings/config.xml";
+    final private static String S_RELATIVE_INFORMICA_CONFIG_FILENAME = "/informica/inf5_counter10.xml";
 
-    private static String s_app_home_folder;
+    private static String appHomeFolder;
 
     public static String getAppHomeFolder() {
-        return s_app_home_folder;
+        return appHomeFolder;
     }
 
-    public static void setAppHomeFolder(String p_val) {
-        s_app_home_folder = p_val;
+    public static void setAppHomeFolder(String pVal) {
+        appHomeFolder = pVal;
     }
 
-    public static String getSettingsFilename(String s_relative_filename) {
-        return getAppHomeFolder() + s_relative_filename; }
+    public static String getSettingsFilename(String sRelativeFilename) {
+        return getAppHomeFolder() + sRelativeFilename; }
 
     public static CProfile getConfigProfile() {
         //  TODO здесь уже должен быть определен id профиля
-        return ConfigLoader.loadProfile(getSettingsFilename(s_relative_settings_filename), "default");
+        return ConfigLoader.loadProfile(getSettingsFilename(S_RELATIVE_SETTINGS_FILENAME),
+                "default");
     }
 
     public static Config getInformicaConfig() {
-        return InformicaConfigLoader.loadConfigInformica(getSettingsFilename(s_relative_informica_config_filename));
+        return InformicaConfigLoader
+                .loadConfigInformica(getSettingsFilename(S_RELATIVE_INFORMICA_CONFIG_FILENAME));
     }
     //===================================================================================================
     

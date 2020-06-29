@@ -10,10 +10,10 @@ import java.util.List;
  */
 public interface IReport {
 
-    void fillData(UchInf p_uch_inf);
+    void fillData(UchInf pUchInf);
 
-    public void addCounters(List<? extends Counter> p_counters);
+    public void addCounters(List<? extends Counter> pCounters);
 
-    public void initCounter(CounterConfig p_counter_config, boolean p_details);
+    public void initCounter(CounterConfig pCounterConfig, boolean pDetails);
 
 }

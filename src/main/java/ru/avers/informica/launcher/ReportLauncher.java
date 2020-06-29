@@ -19,7 +19,7 @@ import java.util.Calendar;
 @RequiredArgsConstructor
 @Slf4j
 public class ReportLauncher {
-    private Marker m_marker_email = MarkerFactory.getMarker("EMAIL_LOG");
+    private Marker markerEmail = MarkerFactory.getMarker("EMAIL_LOG");
     private final ServletContext context;
     private final CHelper cHelper;
     private final ReportGenerator reportGenerator;
@@ -42,7 +42,7 @@ public class ReportLauncher {
         }
         if (!cProfile.getReports().getReportInformica().isEmailLog()) {
             log.debug("ReportLauncher: Отправка лога на informika@iicavers.ru отключена");
-            m_marker_email = null;
+            markerEmail = null;
         }
         try {
             PushDataRequest report = reportGenerator.generateReport( cProfile);
@@ -50,7 +50,7 @@ public class ReportLauncher {
         } catch (Exception ex) {
             String x_str = "Ошибка при построении отчета";
             log.error(x_str, ex);
-            log.error(m_marker_email, "{}. 1. Ошибка построения отчета",
+            log.error(markerEmail, "{}. 1. Ошибка построения отчета",
                     cProfile.getReports().getReportInformica().getStateName());
         }
 

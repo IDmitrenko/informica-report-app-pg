@@ -1,7 +1,6 @@
 package ru.avers.informica.utils.xml;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.*;
@@ -27,20 +26,21 @@ import java.util.regex.Pattern;
  *
  * @author Dias
  */
+@Slf4j
 public class CUtil {
-    private static final Logger s_logger = LoggerFactory.getLogger(CUtil.class);
+
+    final static private String S_DEFAULT_ENCODING = ru.avers.informica.utils.Const.S_ENCODING_UTF8;
     
-    final static private String s_default_encoding = ru.avers.informica.utils.Const.S_ENCODING_UTF8;
-    
-    final static private ThreadLocal<DocumentBuilder> s_doc_builder = new ThreadLocal<DocumentBuilder>() {
+    final static private ThreadLocal<DocumentBuilder> S_DOC_BUILDER =
+            new ThreadLocal<DocumentBuilder>() {
         @Override
         protected DocumentBuilder initialValue() {
-            DocumentBuilderFactory x_dom_factory = DocumentBuilderFactory.newInstance();
-            x_dom_factory.setNamespaceAware(true);
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setNamespaceAware(true);
             try {
-                return x_dom_factory.newDocumentBuilder();
+                return documentBuilderFactory.newDocumentBuilder();
             } catch (ParserConfigurationException p_ex) {
-                s_logger.error("newDocumentBuilder", p_ex);
+                log.error("newDocumentBuilder", p_ex);
                 throw new RuntimeException(p_ex);
             }
         }
@@ -52,624 +52,614 @@ public class CUtil {
     //
     //==============================================================================================
 
-    static public XMLGregorianCalendar createXMLGregorianCalendar(int p_y, int p_m, int p_d) {
-        String x_debug_str = "createXMLGregorianCalendar for y=" + String.valueOf(p_y) +
-                ", m=" + String.valueOf(p_m) +
-                ", d=" + String.valueOf(p_d);
-        s_logger.debug(x_debug_str + ": start");
+    static public XMLGregorianCalendar createXMLGregorianCalendar(int pY, int pM, int pD) {
+        String debugStr = "createXMLGregorianCalendar for y=" + String.valueOf(pY) +
+                ", m=" + String.valueOf(pM) +
+                ", d=" + String.valueOf(pD);
+        log.debug(debugStr + ": start");
         
-        XMLGregorianCalendar x_rv = null;
+        XMLGregorianCalendar rv = null;
         try {
-            GregorianCalendar x_gc = (GregorianCalendar) GregorianCalendar.getInstance();
-            x_gc.set(p_y, p_m, p_d, 0, 0, 0);
-            x_gc.set(GregorianCalendar.MILLISECOND, 0);
-            x_rv = DatatypeFactory.newInstance().newXMLGregorianCalendar(x_gc);
+            GregorianCalendar gc = (GregorianCalendar) GregorianCalendar.getInstance();
+            gc.set(pY, pM, pD, 0, 0, 0);
+            gc.set(GregorianCalendar.MILLISECOND, 0);
+            rv = DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
         } catch (DatatypeConfigurationException p_ex) {
-            s_logger.error(x_debug_str, p_ex);
+            log.error(debugStr, p_ex);
         }
-        s_logger.debug(x_debug_str + ": x_rv=" + String.valueOf(x_rv));
-        return x_rv;
+        log.debug(debugStr + ": x_rv=" + String.valueOf(rv));
+        return rv;
     }
     
-    static public XMLGregorianCalendar createXMLGregorianCalendar(Date p_dt) {
-        String x_debug_str = "createXMLGregorianCalendar for date=" + String.valueOf(p_dt);
-        s_logger.debug(x_debug_str + ": start");
+    static public XMLGregorianCalendar createXMLGregorianCalendar(Date pDt) {
+        String debugStr = "createXMLGregorianCalendar for date=" + String.valueOf(pDt);
+        log.debug(debugStr + ": start");
         
-        XMLGregorianCalendar x_rv = null;
+        XMLGregorianCalendar rv = null;
         try {
-            GregorianCalendar x_gc = (GregorianCalendar) GregorianCalendar.getInstance();
-            x_gc.setTime(p_dt);
-            x_rv = DatatypeFactory.newInstance().newXMLGregorianCalendar(x_gc);
+            GregorianCalendar gc = (GregorianCalendar) GregorianCalendar.getInstance();
+            gc.setTime(pDt);
+            rv = DatatypeFactory.newInstance().newXMLGregorianCalendar(gc);
 //        } catch (DatatypeConfigurationException p_ex) {
         } catch (Exception p_ex) {
-            s_logger.error("createXMLGregorianCalendar", p_ex);
+            log.error("createXMLGregorianCalendar", p_ex);
         }
-        s_logger.debug(x_debug_str + ": x_rv=" + String.valueOf(x_rv));
-        return x_rv;
+        log.debug(debugStr + ": x_rv=" + String.valueOf(rv));
+        return rv;
     }
-    //==============================================================================================
-
     //==============================================================================================
     //
     //  JAXB
     //
     //==============================================================================================
     
-    static public <T> T reestablish(String p_xml_str, Class<T> p_cls, JAXBContext p_jaxb_ctx) {
-        T x_rv = null;
-        if (p_xml_str != null) {
-            String x_xml_decl = getXmlDecl(p_xml_str), x_enc = null;
-            if (!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(x_xml_decl)) {
-                x_enc = resolveEncodingFromXmlDecl(x_xml_decl);
+    static public <T> T reestablish(String pXmlStr, Class<T> pCls, JAXBContext pJaxbCtx) {
+        T rv = null;
+        if (pXmlStr != null) {
+            String xmlDecl = getXmlDecl(pXmlStr), enc = null;
+            if (!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(xmlDecl)) {
+                enc = resolveEncodingFromXmlDecl(xmlDecl);
             }
             try {
-                byte[] x_bytes = (x_enc == null ? p_xml_str.getBytes() : p_xml_str.getBytes(x_enc));
-                x_rv = reestablish(new ByteArrayInputStream(x_bytes), p_cls, p_jaxb_ctx);
+                byte[] bytes = (enc == null ? pXmlStr.getBytes() : pXmlStr.getBytes(enc));
+                rv = reestablish(new ByteArrayInputStream(bytes), pCls, pJaxbCtx);
             } catch (UnsupportedEncodingException p_ex) {
-                s_logger.error("getBytes from input str", p_ex);
+                log.error("getBytes from input str", p_ex);
             }
         }
-        return x_rv;
+        return rv;
     }
-    static public <T> T reestablish(InputStream p_is, Class<T> p_cls, JAXBContext p_jaxb_ctx) {
-        T x_rv = null;
+    static public <T> T reestablish(InputStream pIs, Class<T> pCls, JAXBContext pJaxbCtx) {
+        T rv = null;
         try {
-            Unmarshaller x_unmarshaller = p_jaxb_ctx.createUnmarshaller();
+            Unmarshaller unmarshaller = pJaxbCtx.createUnmarshaller();
             // Выбрасывает исключение при ошибках unmarshal, например когда jaxb не может найти свойство
             // (по умолчанию jaxb не показывает ошибок и возвращает null для не найденных свойств)
             // проверить необходимость флага -Djaxb.debug=true
             // x_unmarshaller.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());        
-            JAXBElement<T> x_obj = (JAXBElement<T>)x_unmarshaller.unmarshal(new StreamSource(p_is), p_cls);
-            x_rv = (x_obj != null ? x_obj.getValue() : null);
+            JAXBElement<T> obj = (JAXBElement<T>)unmarshaller.unmarshal(new StreamSource(pIs), pCls);
+            rv = (obj != null ? obj.getValue() : null);
         } catch(JAXBException p_ex) {
-            s_logger.error("reestablish", p_ex);
+            log.error("reestablish", p_ex);
         }
-        return x_rv;
+        return rv;
     }
-    static public <T> T reestablish(org.w3c.dom.Node p_node, Class<T> p_cls, JAXBContext p_jaxb_ctx) {
-        T x_rv = null;
+    static public <T> T reestablish(org.w3c.dom.Node pNode, Class<T> pCls, JAXBContext pJaxbCtx) {
+        T rv = null;
         try {
-            Unmarshaller x_unmarshaller = p_jaxb_ctx.createUnmarshaller();
-            JAXBElement<T> x_obj = p_cls == null ?
-                     (JAXBElement<T>)x_unmarshaller.unmarshal(p_node) :
-                     (JAXBElement<T>)x_unmarshaller.unmarshal(p_node, p_cls);
-            x_rv = (x_obj != null ? x_obj.getValue() : null);
+            Unmarshaller unmarshaller = pJaxbCtx.createUnmarshaller();
+            JAXBElement<T> obj = pCls == null ?
+                     (JAXBElement<T>)unmarshaller.unmarshal(pNode) :
+                     (JAXBElement<T>)unmarshaller.unmarshal(pNode, pCls);
+            rv = (obj != null ? obj.getValue() : null);
         } catch(JAXBException p_ex) {
-            s_logger.error("reestablish", p_ex);
+            log.error("reestablish", p_ex);
         }
-        return x_rv;
+        return rv;
     }
     
-    static public <T> T reestablish(InputStream p_is, JAXBContext p_jaxb_ctx) {
-        T x_rv = null;
+    static public <T> T reestablish(InputStream pIs, JAXBContext pJaxbCtx) {
+        T rv = null;
         try {
-            Unmarshaller x_unmarshaller = p_jaxb_ctx.createUnmarshaller();
-            JAXBElement<T> x_obj = (JAXBElement<T>)x_unmarshaller.unmarshal(p_is);
-            x_rv = (x_obj != null ? x_obj.getValue() : null);
+            Unmarshaller unmarshaller = pJaxbCtx.createUnmarshaller();
+            JAXBElement<T> obj = (JAXBElement<T>)unmarshaller.unmarshal(pIs);
+            rv = (obj != null ? obj.getValue() : null);
         } catch(JAXBException p_ex) {
-            s_logger.error("reestablish", p_ex);
+            log.error("reestablish", p_ex);
         }
-        return x_rv;
+        return rv;
     }
     
     public static <T> boolean toOutputStream(
-            OutputStream p_os, JAXBElement<T> p_val, JAXBContext p_jaxb_ctx, boolean p_is_formatted) {
-        return toOutputStream(p_os, p_val, p_jaxb_ctx, p_is_formatted, null);        
+            OutputStream pOs, JAXBElement<T> tjaxbElement,
+            JAXBContext pJaxbCtx, boolean pIsFormatted) {
+        return toOutputStream(pOs, tjaxbElement, pJaxbCtx, pIsFormatted, null);
     }
     public static <T> boolean toOutputStream(
-            OutputStream p_os, JAXBElement<T> p_val, JAXBContext p_jaxb_ctx,
-            boolean p_is_formatted, String p_enc) {
-        return toOutputStream(p_os, (Object)p_val, p_jaxb_ctx, p_is_formatted, p_enc);
-
-//        boolean x_rv = false;
-//        try {
-//            Marshaller x_marshaller = createMarshaller(p_jaxb_ctx, p_is_formatted, p_enc);
-//            x_marshaller.marshal(p_val, p_os);
-//            x_rv = true;
-//        } catch(Exception p_ex) {
-//            s_logger.error("toOutputStream", p_ex);
-//        }
-//        return x_rv;
+            OutputStream pOs, JAXBElement<T> tjaxbElement, JAXBContext pJaxbCtx,
+            boolean pIsFormatted, String pEnc) {
+        return toOutputStream(pOs, (Object)tjaxbElement, pJaxbCtx, pIsFormatted, pEnc);
     }
     
     public static <T> boolean toOutputStream(
-            OutputStream p_os, Object p_val, JAXBContext p_jaxb_ctx,
-            boolean p_is_formatted, String p_enc) {
-        return toOutputStream(p_os, p_val, p_jaxb_ctx,  p_is_formatted,  p_enc, null);
+            OutputStream pOs, Object pVal, JAXBContext pJaxbCtx,
+            boolean pIsFormatted, String pEnc) {
+        return toOutputStream(pOs, pVal, pJaxbCtx,  pIsFormatted,  pEnc, null);
     }
     
     public static <T> boolean toOutputStream(
-                                    OutputStream p_os,
-                                    Object p_val,
-                                    JAXBContext p_jaxb_ctx,
-                                    boolean p_is_formatted, 
-                                    String p_enc,
-                                    String p_schema_location) {
-        boolean x_rv = false;
+                                    OutputStream pOs,
+                                    Object pVal,
+                                    JAXBContext pJaxbCtx,
+                                    boolean pIsFormatted,
+                                    String pEnc,
+                                    String pSchemaLocation) {
+        boolean rv = false;
         try {
-            Marshaller x_marshaller = createMarshaller(p_jaxb_ctx, p_is_formatted, p_enc, p_schema_location);
-            x_marshaller.marshal(p_val, p_os);
-            x_rv = true;
+            Marshaller marshaller = createMarshaller(pJaxbCtx, pIsFormatted, pEnc, pSchemaLocation);
+            marshaller.marshal(pVal, pOs);
+            rv = true;
         } catch (Exception p_ex) {
-            s_logger.error("toOutputStream", p_ex);
+            log.error("toOutputStream", p_ex);
         }
-        return x_rv;
+        return rv;
     }
     
     @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch"})
     public static <T> boolean toOutputStream(
-            OutputStream p_os, JAXBElement<T> p_val, JAXBContext p_jaxb_ctx, Map<String,
-            Object> p_marshaller_properties) {
-        boolean x_rv = false;
+            OutputStream pOs, JAXBElement<T> tjaxbElement, JAXBContext pJaxbCtx,
+            Map<String,Object> pMarshallerProperties) {
+        boolean rv = false;
         try {
-            Marshaller x_marshaller = createMarshaller(p_jaxb_ctx, p_marshaller_properties);
-            x_marshaller.marshal(p_val, p_os);
-            x_rv = true;
+            Marshaller marshaller = createMarshaller(pJaxbCtx, pMarshallerProperties);
+            marshaller.marshal(tjaxbElement, pOs);
+            rv = true;
         } catch (Exception p_ex) {
-            s_logger.error("toOutputStream", p_ex);
+            log.error("toOutputStream", p_ex);
         }
-        return x_rv;
+        return rv;
     }
     
-    public static <T> String toStringXML(JAXBElement<T> p_val,
-                                         JAXBContext p_jaxb_ctx, boolean p_is_formatted) {
-        return toStringXML(p_val, p_jaxb_ctx, p_is_formatted, null);
+    public static <T> String toStringXML(JAXBElement<T> tjaxbElement,
+                                         JAXBContext pJaxbCtx,
+                                         boolean pIsFormatted) {
+        return toStringXML(tjaxbElement, pJaxbCtx, pIsFormatted, null);
     }
     
     public static <T> String toStringXML(
-            JAXBElement<T> p_val, JAXBContext p_jaxb_ctx,
-            boolean p_is_formatted, String p_enc) {
-        String x_rv = null;
+            JAXBElement<T> tjaxbElement, JAXBContext pJaxbCtx,
+            boolean pIsFormatted, String pEnc) {
+        String rv = null;
         try {
-            Marshaller x_marshaller = createMarshaller(p_jaxb_ctx, p_is_formatted, p_enc);
-            StringWriter x_w = new StringWriter();
-            x_marshaller.marshal(p_val, x_w);
-            x_rv = x_w.getBuffer().toString();
-            x_w.close();
+            Marshaller marshaller = createMarshaller(pJaxbCtx, pIsFormatted, pEnc);
+            StringWriter stringWriter = new StringWriter();
+            marshaller.marshal(tjaxbElement, stringWriter);
+            rv = stringWriter.getBuffer().toString();
+            stringWriter.close();
         } catch (Exception p_ex) {
-            s_logger.error("toStringXML", p_ex);
+            log.error("toStringXML", p_ex);
         }
-        return x_rv;
+        return rv;
     }
     
     public static <T> org.w3c.dom.Node toNode(
-            JAXBElement<T> p_val, JAXBContext p_jaxb_ctx, boolean p_is_formatted, String p_enc) {
-        org.w3c.dom.Node x_rv = null;
+            JAXBElement<T> tjaxbElement, JAXBContext pJaxbCtx,
+            boolean pIsFormatted, String pEnc) {
+        org.w3c.dom.Node rv = null;
         try {
-            Marshaller x_marshaller = createMarshaller(p_jaxb_ctx, p_is_formatted, p_enc);
+            Marshaller marshaller = createMarshaller(pJaxbCtx, pIsFormatted, pEnc);
 //            x_rv = createDocumentBuilder().newDocument();
-            x_rv = s_doc_builder.get().newDocument();
-            x_marshaller.marshal(p_val, x_rv);
+            rv = S_DOC_BUILDER.get().newDocument();
+            marshaller.marshal(tjaxbElement, rv);
         } catch (Exception p_ex) {
-            s_logger.error("toNode", p_ex);
+            log.error("toNode", p_ex);
         }
-        return x_rv;
+        return rv;
     }
     
     
-    static private Marshaller createMarshaller(JAXBContext p_jaxb_ctx,
-                                               boolean p_is_formatted, String p_enc)
+    static private Marshaller createMarshaller(JAXBContext pJaxbCtx,
+                                               boolean pIsFormatted, String pEnc)
             throws JAXBException {
-        return createMarshaller(p_jaxb_ctx, p_is_formatted, p_enc, null);
+        return createMarshaller(pJaxbCtx, pIsFormatted, pEnc, null);
     }
     
     static private Marshaller createMarshaller(
-            JAXBContext p_jaxb_ctx, boolean p_is_formatted,
-            String p_enc, String p_schema_location)
+            JAXBContext pJaxbCtx, boolean pIsFormatted,
+            String pEnc, String pSchemaLocation)
             throws JAXBException {
-        Marshaller x_marshaller = p_jaxb_ctx.createMarshaller();
-        x_marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, p_is_formatted);
-        if(!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(p_enc))
-            x_marshaller.setProperty(Marshaller.JAXB_ENCODING, p_enc);
-        if(!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(p_schema_location))
-            x_marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, p_schema_location);
-        return x_marshaller;
+        Marshaller marshaller = pJaxbCtx.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, pIsFormatted);
+        if (!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(pEnc)) {
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, pEnc);
+        }
+        if (!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(pSchemaLocation)) {
+            marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, pSchemaLocation);
+        }
+        return marshaller;
     }
     
-    static private Marshaller createMarshaller(JAXBContext p_jaxb_ctx, Map<String,
-            Object> p_marshaller_properties)
+    static private Marshaller createMarshaller(JAXBContext pJaxbCtx,
+                                               Map<String,Object> pMarshallerProperties)
                    throws JAXBException {
-        Marshaller x_marshaller = p_jaxb_ctx.createMarshaller();
-        for (Entry<String, Object> x_prop : p_marshaller_properties.entrySet()) {
-            x_marshaller.setProperty(x_prop.getKey(), x_prop.getValue());
+        Marshaller marshaller = pJaxbCtx.createMarshaller();
+        for (Entry<String, Object> stringObjectEntry : pMarshallerProperties.entrySet()) {
+            marshaller.setProperty(stringObjectEntry.getKey(), stringObjectEntry.getValue());
         }
-        return x_marshaller;
+        return marshaller;
     }    
-    //==============================================================================================
-  
     //==============================================================================================
     //
     //  Transform
     //
     //==============================================================================================
 
-    static public String toPrettyStr(org.w3c.dom.Node p_node)
+    static public String toPrettyStr(org.w3c.dom.Node pNode)
             throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, false, true);
+        return toStr(pNode, false, true);
     }
-    static public String toStr(org.w3c.dom.Node p_node)
+    static public String toStr(org.w3c.dom.Node pNode)
             throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, false);
+        return toStr(pNode, false);
     }
-    static public String toStr(org.w3c.dom.Node p_node, boolean p_is_omit_xml_decl)
+    static public String toStr(org.w3c.dom.Node pNode, boolean pIsOmitXmlDecl)
             throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, p_is_omit_xml_decl, false);
+        return toStr(pNode, pIsOmitXmlDecl, false);
     }
-    static public String toStr(org.w3c.dom.Node p_node, String p_method, boolean p_is_omit_xml_decl)
+    static public String toStr(org.w3c.dom.Node pNode, String pMethod, boolean pIsOmitXmlDecl)
             throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, p_method, p_is_omit_xml_decl, false);
+        return toStr(pNode, pMethod, pIsOmitXmlDecl, false);
     }
-    static public String toStr(org.w3c.dom.Node p_node, boolean p_is_omit_xml_decl, boolean p_is_indent)
+    static public String toStr(org.w3c.dom.Node pNode, boolean pIsOmitXmlDecl, boolean pIsIndent)
             throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, null, p_is_omit_xml_decl, p_is_indent);
+        return toStr(pNode, null, pIsOmitXmlDecl, pIsIndent);
     }
-    static public String toStr(org.w3c.dom.Node p_node, String p_method, boolean p_is_omit_xml_decl, boolean p_is_indent)
+    static public String toStr(org.w3c.dom.Node pNode, String pMethod,
+                               boolean pIsOmitXmlDecl, boolean pIsIndent)
             throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, p_is_omit_xml_decl, p_is_indent, resolveXmlEncoding(p_node), p_method);
-    }
-    static public String toStr(
-            org.w3c.dom.Node p_node, boolean p_is_omit_xml_decl, boolean p_is_indent, String p_enc)
-            throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, p_is_omit_xml_decl, p_is_indent, p_enc, null);
+        return toStr(pNode, pIsOmitXmlDecl, pIsIndent, resolveXmlEncoding(pNode), pMethod);
     }
     static public String toStr(
-                        org.w3c.dom.Node p_node, 
-                        boolean p_is_omit_xml_decl, 
-                        boolean p_is_indent, 
-                        String p_enc,
-                        String p_method)
+            org.w3c.dom.Node pNode, boolean pIsOmitXmlDecl,
+            boolean pIsIndent, String pEnc)
             throws TransformerConfigurationException, TransformerException {
-        return toStr(p_node, createFormatProps(p_is_omit_xml_decl, p_is_indent, p_enc, p_method));
+        return toStr(pNode, pIsOmitXmlDecl, pIsIndent, pEnc, null);
+    }
+    static public String toStr(
+                        org.w3c.dom.Node pNode,
+                        boolean pIsOmitXmlDecl,
+                        boolean pIsIndent,
+                        String pEnc,
+                        String pMethod)
+            throws TransformerConfigurationException, TransformerException {
+        return toStr(pNode, createFormatProps(pIsOmitXmlDecl, pIsIndent, pEnc, pMethod));
     }
     
     //  TODO здесь непонятно действие параметра p_enc ???
     static public Properties createFormatProps(
-                                boolean p_is_omit_xml_decl, 
-                                boolean p_is_indent, 
-                                String p_enc,
-                                String p_method) {
-        Properties x_oformat = new Properties();
-        if (p_enc != null) {
-            x_oformat.setProperty(OutputKeys.ENCODING, p_enc);
+                                boolean pIsOmitXmlDecl,
+                                boolean pIsIndent,
+                                String pEnc,
+                                String pMethod) {
+        Properties oformat = new Properties();
+        if (pEnc != null) {
+            oformat.setProperty(OutputKeys.ENCODING, pEnc);
         }
-        if (p_is_indent) {
-            x_oformat.setProperty(OutputKeys.INDENT, "yes");
+        if (pIsIndent) {
+            oformat.setProperty(OutputKeys.INDENT, "yes");
         }
-        if (p_is_omit_xml_decl) {
-            x_oformat.setProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+        if (pIsOmitXmlDecl) {
+            oformat.setProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
         }
-        if (p_method != null) {
-            x_oformat.setProperty(OutputKeys.METHOD, p_method);
+        if (pMethod != null) {
+            oformat.setProperty(OutputKeys.METHOD, pMethod);
         }
-        return x_oformat.isEmpty() ? null : x_oformat;
+        return oformat.isEmpty() ? null : oformat;
     }
 
     //  в строку в текущей кодировке
 //    static public String toStr(org.w3c.dom.Node p_node, Properties p_oformat) 
-    static private String toStr(org.w3c.dom.Node p_node, Properties p_oformat)
+    static private String toStr(org.w3c.dom.Node pNode, Properties pOformat)
             throws TransformerConfigurationException, TransformerException {
-        StringWriter x_sw = new StringWriter();
-        toResult(p_node, p_oformat, new javax.xml.transform.stream.StreamResult(x_sw));
-        return x_sw.getBuffer().toString();
+        StringWriter sw = new StringWriter();
+        toResult(pNode, pOformat, new javax.xml.transform.stream.StreamResult(sw));
+        return sw.getBuffer().toString();
     }
     
-    static public byte[] toBytes(org.w3c.dom.Node p_node, Properties p_oformat)
+    static public byte[] toBytes(org.w3c.dom.Node pNode, Properties pOformat)
             throws TransformerConfigurationException, TransformerException, UnsupportedEncodingException {
-        ByteArrayOutputStream x_baos = new ByteArrayOutputStream();
-        toOutputStream(p_node, p_oformat, x_baos);
-        return x_baos.toByteArray();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        toOutputStream(pNode, pOformat, baos);
+        return baos.toByteArray();
     }
     static public void saveToFile(
-            String p_fn, org.w3c.dom.Node p_node, String p_method,
-            boolean p_is_omit_xml_decl, boolean p_is_indent)
+            String pFn, org.w3c.dom.Node pNode, String pMethod,
+            boolean pIsOmitXmlDecl, boolean pIsIndent)
             throws FileNotFoundException, TransformerException, IOException {
-        saveToFile(p_fn, p_node, p_is_omit_xml_decl, p_is_indent, resolveXmlEncoding(p_node), p_method);
+        saveToFile(pFn, pNode, pIsOmitXmlDecl, pIsIndent, resolveXmlEncoding(pNode), pMethod);
     }
     static public void saveToFile(
-            String p_fn, org.w3c.dom.Node p_node, boolean p_is_omit_xml_decl, boolean p_is_indent)
+            String pFn, org.w3c.dom.Node pNode, boolean pIsOmitXmlDecl, boolean pIsIndent)
             throws FileNotFoundException, TransformerException, IOException {
-        saveToFile(p_fn, p_node, p_is_omit_xml_decl, p_is_indent, resolveXmlEncoding(p_node));
+        saveToFile(pFn, pNode, pIsOmitXmlDecl, pIsIndent, resolveXmlEncoding(pNode));
     }
     static public void saveToFile(
-            String p_fn, org.w3c.dom.Node p_node, boolean p_is_omit_xml_decl,
-            boolean p_is_indent, String p_enc)
+            String pFn, org.w3c.dom.Node pNode, boolean pIsOmitXmlDecl,
+            boolean pIsIndent, String pEnc)
             throws FileNotFoundException, TransformerException, IOException {
-        saveToFile(p_fn, p_node, p_is_omit_xml_decl, p_is_indent, p_enc, null);
+        saveToFile(pFn, pNode, pIsOmitXmlDecl, pIsIndent, pEnc, null);
     }
     static public void saveToFile(
-                            String p_fn,
-                            org.w3c.dom.Node p_node, 
-                            boolean p_is_omit_xml_decl, 
-                            boolean p_is_indent, 
-                            String p_enc,
-                            String p_method)
+                            String pFn,
+                            org.w3c.dom.Node pNode,
+                            boolean pIsOmitXmlDecl,
+                            boolean pIsIndent,
+                            String pEnc,
+                            String pMethod)
             throws FileNotFoundException, TransformerException, IOException {
-        saveToFile(p_fn, p_node, createFormatProps(p_is_omit_xml_decl, p_is_indent, p_enc, p_method));
+        saveToFile(pFn, pNode, createFormatProps(pIsOmitXmlDecl, pIsIndent, pEnc, pMethod));
     }
-    static private void saveToFile(String p_fn, org.w3c.dom.Node p_node, Properties p_oformat)
+    static private void saveToFile(String pFn, org.w3c.dom.Node pNode, Properties pOformat)
             throws FileNotFoundException, TransformerException, IOException {
-        OutputStream x_os = new FileOutputStream(p_fn);
-        toOutputStream(p_node, p_oformat, x_os);
-        x_os.close();
+        OutputStream os = new FileOutputStream(pFn);
+        toOutputStream(pNode, pOformat, os);
+        os.close();
     }
-    static public void toOutputStream(org.w3c.dom.Node p_node, Properties p_oformat, OutputStream p_os)
+    static public void toOutputStream(org.w3c.dom.Node pNode, Properties pOformat, OutputStream pOs)
             throws TransformerConfigurationException, TransformerException {
-        toResult(p_node, p_oformat, new javax.xml.transform.stream.StreamResult(p_os));
+        toResult(pNode, pOformat, new javax.xml.transform.stream.StreamResult(pOs));
     }
     
-    static public String getXmlStrWithEncInXmlDecl(String p_xml_str, String p_enc) {
-        String x_rv = null;
-        final String x_default_ver = "1.0";
+    static public String getXmlStrWithEncInXmlDecl(String pXmlStr, String pEnc) {
+        String rv = null;
+        final String defaultVer = "1.0";
         
-        String x_enc = ru.avers.informica.utils.CUtil.isStringNullOrEmpty(p_enc) ? s_default_encoding : p_enc;
-        String x_xml_decl = getXmlDecl(p_xml_str);
-        if (x_xml_decl == null) {
-            x_rv = constructXmlDecl(x_default_ver, x_enc) + p_xml_str;
+        String enc = ru.avers.informica.utils.CUtil.isStringNullOrEmpty(pEnc) ?
+                S_DEFAULT_ENCODING : pEnc;
+        String xmlDecl = getXmlDecl(pXmlStr);
+        if (xmlDecl == null) {
+            rv = constructXmlDecl(defaultVer, enc) + pXmlStr;
         } else {
-            String x_src_enc = resolveEncodingFromXmlDecl(x_xml_decl);
-            if (x_enc.equalsIgnoreCase(x_src_enc)) {
-                x_rv = p_xml_str;
+            String srcEnc = resolveEncodingFromXmlDecl(xmlDecl);
+            if (enc.equalsIgnoreCase(srcEnc)) {
+                rv = pXmlStr;
             } else {
-                String x_ver = resolveVersionFromXmlDecl(x_xml_decl);
-                if (x_ver == null) {
-                    x_ver = x_default_ver;
+                String ver = resolveVersionFromXmlDecl(xmlDecl);
+                if (ver == null) {
+                    ver = defaultVer;
                 }
-                String x_new_xml_decl = constructXmlDecl(x_ver, x_enc);
-                x_rv = x_new_xml_decl + p_xml_str.substring(x_xml_decl.length());
+                String newXmlDecl = constructXmlDecl(ver, enc);
+                rv = newXmlDecl + pXmlStr.substring(xmlDecl.length());
             }
         }
-        return x_rv;
+        return rv;
     }
     
-    static public void saveToFileXmlStr(String p_fn, String p_xml_str)
+    static public void saveToFileXmlStr(String pFn, String pXmlStr)
             throws FileNotFoundException, IOException {
-        OutputStream x_os = new FileOutputStream(p_fn);
-        toOutputStreamXmlStr(p_xml_str, x_os);
-        x_os.close();
+        OutputStream os = new FileOutputStream(pFn);
+        toOutputStreamXmlStr(pXmlStr, os);
+        os.close();
     }
-    static public void toOutputStreamXmlStr(String p_xml_str, OutputStream p_os)
+    static public void toOutputStreamXmlStr(String pXmlStr, OutputStream pOs)
             throws UnsupportedEncodingException, IOException {
-        String x_xml_decl = getXmlDecl(p_xml_str), x_enc = null;
-        if (!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(x_xml_decl)) {
-            x_enc = resolveEncodingFromXmlDecl(x_xml_decl);
+        String xmlDecl = getXmlDecl(pXmlStr), enc = null;
+        if (!ru.avers.informica.utils.CUtil.isStringNullOrEmpty(xmlDecl)) {
+            enc = resolveEncodingFromXmlDecl(xmlDecl);
         }
-        byte[] x_bytes = ru.avers.informica.utils.CUtil.isStringNullOrEmpty(x_enc) ?
-                                                              p_xml_str.getBytes() :
-                p_xml_str.getBytes(x_enc);
-        p_os.write(x_bytes);
+        byte[] bytes = ru.avers.informica.utils.CUtil.isStringNullOrEmpty(enc) ?
+                                                              pXmlStr.getBytes() :
+                pXmlStr.getBytes(enc);
+        pOs.write(bytes);
     }
     
-    private static void toResult(org.w3c.dom.Node p_node, Properties p_oformat,
-                                 javax.xml.transform.Result p_result)
+    private static void toResult(org.w3c.dom.Node pNode, Properties pOformat,
+                                 javax.xml.transform.Result pResult)
              throws TransformerConfigurationException, TransformerException {
-        if (p_node == null) {
+        if (pNode == null) {
             return;
         }
-        Transformer x_t = TransformerFactory.newInstance().newTransformer();
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
 //        s_logger.debug("Transformer: {}", x_t);
-        if (p_oformat != null) {
-            x_t.setOutputProperties(p_oformat);
+        if (pOformat != null) {
+            transformer.setOutputProperties(pOformat);
         }
-        x_t.transform(new javax.xml.transform.dom.DOMSource(p_node), p_result);
+        transformer.transform(new javax.xml.transform.dom.DOMSource(pNode), pResult);
     }
     
     //  TODO is needed charset?
-    static public javax.xml.transform.Source createSourceFromStr(String p_str, String p_charset)
+    static public javax.xml.transform.Source createSourceFromStr(String pStr, String pCharset)
             throws UnsupportedEncodingException {
-        if (p_str == null) {
+        if (pStr == null) {
             return null;
         }
         return createSource(
-                ru.avers.informica.utils.CUtil.isStringNullOrEmpty(p_charset) ?
-                        p_str.getBytes() :
-                        p_str.getBytes(p_charset));
+                ru.avers.informica.utils.CUtil.isStringNullOrEmpty(pCharset) ?
+                        pStr.getBytes() :
+                        pStr.getBytes(pCharset));
     }
-    static private javax.xml.transform.Source createSource(byte[] p_data) {
-        return new StreamSource(new ByteArrayInputStream(p_data));
+    static private javax.xml.transform.Source createSource(byte[] pData) {
+        return new StreamSource(new ByteArrayInputStream(pData));
     }
-    //==============================================================================================
-
-    
     //==============================================================================================
     //
     //  Produce org.w3c.dom.Document
     //
     //==============================================================================================
     
-    static public org.w3c.dom.Document loadDocument(String p_str)
+    static public org.w3c.dom.Document loadDocument(String pStr)
             throws ParserConfigurationException, SAXException, IOException {
-        org.xml.sax.InputSource x_is = new org.xml.sax.InputSource(new StringReader(p_str));
+        org.xml.sax.InputSource is = new org.xml.sax.InputSource(new StringReader(pStr));
 //        x_is.setEncoding(Charset.defaultCharset().name());
-        return loadDocument(x_is);
+        return loadDocument(is);
     }
     
-    static public org.w3c.dom.Document loadDocumentFromFile(String p_fn)
+    static public org.w3c.dom.Document loadDocumentFromFile(String pFn)
             throws FileNotFoundException, ParserConfigurationException, SAXException, IOException {
-        InputStream x_is = new FileInputStream(p_fn);
+        InputStream is = new FileInputStream(pFn);
         try {
-            return loadDocumentFromInputStream(x_is);
+            return loadDocumentFromInputStream(is);
         } finally {
             try {
-                x_is.close();
-            } catch (IOException p_ex) {
-                s_logger.error("close file input stream", p_ex);
-                throw p_ex;
+                is.close();
+            } catch (IOException ex) {
+                log.error("close file input stream", ex);
+                throw ex;
             }
         }
     }
-    static public org.w3c.dom.Document loadDocumentFromInputStream(InputStream p_is)
+    static public org.w3c.dom.Document loadDocumentFromInputStream(InputStream pIs)
             throws ParserConfigurationException, SAXException, IOException {
-        org.xml.sax.InputSource x_isrc = new org.xml.sax.InputSource(p_is);
+        org.xml.sax.InputSource isrc = new org.xml.sax.InputSource(pIs);
         //            x_isrc.setEncoding(Charset.defaultCharset().name());
-        return loadDocument(x_isrc);
+        return loadDocument(isrc);
     }
     
     //  TODO review to do private
-    static public org.w3c.dom.Document loadDocument(org.xml.sax.InputSource p_is) 
+    static public org.w3c.dom.Document loadDocument(org.xml.sax.InputSource pIs)
             throws ParserConfigurationException, SAXException, IOException {
 //        return createDocumentBuilder().parse(p_is);
-        return s_doc_builder.get().parse(p_is);
+        return S_DOC_BUILDER.get().parse(pIs);
     }
     
-//    static private javax.xml.parsers.DocumentBuilder createDocumentBuilder() throws ParserConfigurationException {
-//        return createDocumentBuilder(true);
-//    }
-//    static private javax.xml.parsers.DocumentBuilder createDocumentBuilder(boolean p_is_ns_aware) 
-//                                                                                throws ParserConfigurationException {
-//        javax.xml.parsers.DocumentBuilderFactory x_dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
-//        x_dbf.setNamespaceAware(p_is_ns_aware);
-//        return x_dbf.newDocumentBuilder();
-//    }
-    
-    static public org.w3c.dom.Document clone(org.w3c.dom.Document p_src_doc)
+    static public org.w3c.dom.Document clone(org.w3c.dom.Document pSrcDoc)
             throws ParserConfigurationException {
-        org.w3c.dom.Document x_doc = p_src_doc.getImplementation().createDocument(
-                                        p_src_doc.getNamespaceURI(), null, p_src_doc.getDoctype());
-        x_doc.appendChild(x_doc.importNode(p_src_doc.getDocumentElement(), true));
-        return x_doc;
+        org.w3c.dom.Document doc = pSrcDoc.getImplementation().createDocument(
+                                        pSrcDoc.getNamespaceURI(),
+                null, pSrcDoc.getDoctype());
+        doc.appendChild(doc.importNode(pSrcDoc.getDocumentElement(), true));
+        return doc;
     } 
 
-    static public org.w3c.dom.Document cloneByTransformer(org.w3c.dom.Document p_src_doc)
+    static public org.w3c.dom.Document cloneByTransformer(org.w3c.dom.Document pSrcDoc)
             throws TransformerConfigurationException, TransformerException {
-        Properties x_oformat = null;
+        Properties oformat = null;
 
         //------------------
         //  TODO is needed this block?
-        String x_enc = getXmlEncoding(p_src_doc);
-        if (x_enc != null) {
-            x_oformat = new Properties();
-            x_oformat.setProperty(OutputKeys.ENCODING, x_enc);
+        String enc = getXmlEncoding(pSrcDoc);
+        if (enc != null) {
+            oformat = new Properties();
+            oformat.setProperty(OutputKeys.ENCODING, enc);
         }
         //------------------
         
-        DOMResult x_result = new DOMResult();
-        toResult(p_src_doc, x_oformat, x_result);
-        return (org.w3c.dom.Document)x_result.getNode();
+        DOMResult result = new DOMResult();
+        toResult(pSrcDoc, oformat, result);
+        return (org.w3c.dom.Document)result.getNode();
     }
     
-    static public String getFirstNodeValue(org.w3c.dom.Element p_parent, String p_ns, String p_local_nm) {
-        String x_rv = null;
-        if (p_parent != null) {
-            org.w3c.dom.NodeList x_node_list = p_parent.getElementsByTagNameNS(p_ns, p_local_nm);
-            if (x_node_list.getLength() > 0) {
-                x_node_list = x_node_list.item(0).getChildNodes();
-                for (int i = 0; i < x_node_list.getLength(); ++i) {
-                    org.w3c.dom.Node x_node = x_node_list.item(i);
-                    if (x_node.getNodeType() == org.w3c.dom.Node.TEXT_NODE) {
-                        x_rv = x_node.getNodeValue();
+    static public String getFirstNodeValue(org.w3c.dom.Element pParent,
+                                           String pNs,
+                                           String pLocalNm) {
+        String rv = null;
+        if (pParent != null) {
+            org.w3c.dom.NodeList nodeList = pParent.getElementsByTagNameNS(pNs, pLocalNm);
+            if (nodeList.getLength() > 0) {
+                nodeList = nodeList.item(0).getChildNodes();
+                for (int i = 0; i < nodeList.getLength(); ++i) {
+                    org.w3c.dom.Node node = nodeList.item(i);
+                    if (node.getNodeType() == org.w3c.dom.Node.TEXT_NODE) {
+                        rv = node.getNodeValue();
                         break;
                     }
                 }
             }
         }
-        return x_rv;
+        return rv;
     }
 
-    static public org.w3c.dom.Node getFirstChildNodeWithType(org.w3c.dom.Node p_node, short p_type) {
-        if (p_node == null) {
+    static public org.w3c.dom.Node getFirstChildNodeWithType(org.w3c.dom.Node pNode, short pType) {
+        if (pNode == null) {
             return null;
         }
-        org.w3c.dom.Node x_rv = null;
-        org.w3c.dom.NodeList x_node_list = p_node.getChildNodes();
-        for (int i = 0; i < x_node_list.getLength(); ++i) {
-            org.w3c.dom.Node x_node = x_node_list.item(i);
-            if (x_node.getNodeType() == p_type) {
-                x_rv = x_node;
+        org.w3c.dom.Node rv = null;
+        org.w3c.dom.NodeList nodeList = pNode.getChildNodes();
+        for (int i = 0; i < nodeList.getLength(); ++i) {
+            org.w3c.dom.Node node = nodeList.item(i);
+            if (node.getNodeType() == pType) {
+                rv = node;
                 break;
             }
         }
-        return x_rv;
+        return rv;
     }
     
-    static private void inspectNodeList(org.w3c.dom.NodeList p_val) {
-        if (p_val == null) {
-            s_logger.debug("input node list is null");
+    static private void inspectNodeList(org.w3c.dom.NodeList pNodeList) {
+        if (pNodeList == null) {
+            log.debug("input node list is null");
         }
-        int x_len = p_val.getLength();
-        s_logger.debug("input node list length: {}", x_len);
-        for (int i = 0; i < x_len; ++i) {
-            org.w3c.dom.Node x_node = p_val.item(i);
-            s_logger.debug(
+        int listLength = pNodeList.getLength();
+        log.debug("input node list length: {}", listLength);
+        for (int i = 0; i < listLength; ++i) {
+            org.w3c.dom.Node node = pNodeList.item(i);
+            log.debug(
                     "\r\nnum:{}\r\nBaseURI:{}\r\nLocalName:{}\r\nNamespaceURI:{}\r\nNodeName:{}\r\nNodeType:{}\r\n"
                             + "NodeValue:{}\r\nPrefix:{}\r\nTextContent:{}", 
-                    i, x_node.getBaseURI(), x_node.getLocalName(), x_node.getNamespaceURI(), x_node.getNodeName(), 
-                    x_node.getNodeType(), x_node.getNodeValue(), x_node.getPrefix(), x_node.getTextContent());
+                    i, node.getBaseURI(), node.getLocalName(), node.getNamespaceURI(), node.getNodeName(),
+                    node.getNodeType(), node.getNodeValue(), node.getPrefix(), node.getTextContent());
         }
     }
     
     
     //==============================================================================================
     
-    static public String resolveXmlEncoding(org.w3c.dom.Node p_node) {
-        String x_rv = getXmlEncoding(p_node);
-        return x_rv == null ? s_default_encoding : x_rv;
+    static public String resolveXmlEncoding(org.w3c.dom.Node pNode) {
+        String rv = getXmlEncoding(pNode);
+        return rv == null ? S_DEFAULT_ENCODING : rv;
     }
     
-    static public String getXmlEncoding(org.w3c.dom.Node p_node) {
-        String x_rv = null;
-        org.w3c.dom.Document x_doc = 
-                p_node instanceof org.w3c.dom.Document ?
-                        (org.w3c.dom.Document)p_node : p_node.getOwnerDocument();
-        if (x_doc != null) {
-            x_rv = x_doc.getXmlEncoding();
+    static public String getXmlEncoding(org.w3c.dom.Node pNode) {
+        String rv = null;
+        org.w3c.dom.Document doc =
+                pNode instanceof org.w3c.dom.Document ?
+                        (org.w3c.dom.Document)pNode : pNode.getOwnerDocument();
+        if (doc != null) {
+            rv = doc.getXmlEncoding();
         }
-        return x_rv;
+        return rv;
     }
 
     final static private String
-                        s_enc = "encoding",
-                        s_version = "version";
-    static public String constructXmlDecl(String p_version, String p_encoding) {
-        String x_rv = null, x_ver = "", x_enc = "";
-        if (p_version != null && !p_version.isEmpty()) {
-            x_ver = (new StringBuilder())
-                    .append(" ").append(s_version).append("=\"").append(p_version).append("\"").toString();
+            S_ENC = "encoding",
+                        S_VERSION = "version";
+
+    static public String constructXmlDecl(String pVersion, String pEncoding) {
+        String rv = null, ver = "", enc = "";
+        if (pVersion != null && !pVersion.isEmpty()) {
+            ver = (new StringBuilder())
+                    .append(" ").append(S_VERSION).append("=\"")
+                    .append(pVersion).append("\"").toString();
         }
-        if (p_encoding != null && !p_encoding.isEmpty()) {
-            x_enc = (new StringBuilder())
-                    .append(" ").append(s_enc).append("=\"").append(p_encoding).append("\"").toString();
+        if (pEncoding != null && !pEncoding.isEmpty()) {
+            enc = (new StringBuilder())
+                    .append(" ").append(S_ENC).append("=\"")
+                    .append(pEncoding).append("\"").toString();
         }
-        if (!x_ver.isEmpty() || !x_enc.isEmpty()) {
-            x_rv = (new StringBuilder()).append("<?xml").append(x_ver).append(x_enc).append("?>").toString();
+        if (!ver.isEmpty() || !enc.isEmpty()) {
+            rv = (new StringBuilder()).append("<?xml")
+                    .append(ver).append(enc).append("?>").toString();
         }
-        return x_rv;
+        return rv;
     }
     
-    static public String getXmlStrWithoutXmlDecl(String p_xml_str) {
-        String x_xml_decl = getXmlDecl(p_xml_str);
-        return (x_xml_decl == null ? p_xml_str : p_xml_str.substring(x_xml_decl.length()));
+    static public String getXmlStrWithoutXmlDecl(String pXmlStr) {
+        String xmlDecl = getXmlDecl(pXmlStr);
+        return (xmlDecl == null ? pXmlStr : pXmlStr.substring(xmlDecl.length()));
     }
     
-    static public boolean hasXmlDecl(String p_doc_str) { return (getXmlDecl(p_doc_str) != null); }
+    static public boolean hasXmlDecl(String pDocStr) {
+        return (getXmlDecl(pDocStr) != null);
+    }
     
-    static public String getXmlDecl(String p_doc_str) {
-        String x_rv = null;
-        String x_pattern = "<\\?xml[^(\\?>)]*\\?>";
-        Pattern x_p = Pattern.compile(x_pattern);
-        Matcher x_m = x_p.matcher(p_doc_str);
-        if (x_m.find()) {
-            x_rv = x_m.group(0);
+    static public String getXmlDecl(String pDocStr) {
+        String rv = null;
+        String stringPattern = "<\\?xml[^(\\?>)]*\\?>";
+        Pattern pattern = Pattern.compile(stringPattern);
+        Matcher matcher = pattern.matcher(pDocStr);
+        if (matcher.find()) {
+            rv = matcher.group(0);
         }
-        return x_rv;
+        return rv;
     }
 
-    static public String resolveEncodingFromXmlDecl(String p_xml_decl) {
-        return resolveValueFromXmlDecl(p_xml_decl, s_enc);
+    static public String resolveEncodingFromXmlDecl(String pXmlDecl) {
+        return resolveValueFromXmlDecl(pXmlDecl, S_ENC);
     }
 
-    static public String resolveVersionFromXmlDecl(String p_xml_decl) {
-        return resolveValueFromXmlDecl(p_xml_decl, s_version);
+    static public String resolveVersionFromXmlDecl(String pXmlDecl) {
+        return resolveValueFromXmlDecl(pXmlDecl, S_VERSION);
     }
 
-    static private String resolveValueFromXmlDecl(String p_xml_decl, String p_what) {
-        String x_rv = null;
-        String x_pattern = p_what + "[\\s]*=[\\s]*[\"']([^\"']*)[\"']";
-        Pattern x_p = Pattern.compile(x_pattern);
-        Matcher x_m = x_p.matcher(p_xml_decl);
-        if (x_m.find()) {
-            x_rv = x_m.group(1);
+    static private String resolveValueFromXmlDecl(String pXmlDecl, String pWhat) {
+        String rv = null;
+        String stringPattern = pWhat + "[\\s]*=[\\s]*[\"']([^\"']*)[\"']";
+        Pattern pattern = Pattern.compile(stringPattern);
+        Matcher matcher = pattern.matcher(pXmlDecl);
+        if (matcher.find()) {
+            rv = matcher.group(1);
         }
-        return x_rv;
+        return rv;
     }
     
 }

@@ -25,20 +25,20 @@ public class DataSourceUch {
                        currEducDate;
     private final UchDao uchDao;
 
-    public DataSourceUch(UchDao p_uchDao,
-                List<SchemaConfig> p_schemas,
-                Date p_rep_date,
-                Date p_curr_educ_year) {
-        uchDao = p_uchDao;
-        schemaConfigs = p_schemas;
-        currDate = p_rep_date;
-        currEducDate = p_curr_educ_year;
+    public DataSourceUch(UchDao pUchDao,
+                List<SchemaConfig> pSchemas,
+                Date pRepDate,
+                Date pCurrEducYear) {
+        uchDao = pUchDao;
+        schemaConfigs = pSchemas;
+        currDate = pRepDate;
+        currEducDate = pCurrEducYear;
     }
     
     public static class UchInfSchema extends Pair<UchInf, SchemaConfig> {
 
-        public UchInfSchema(UchInf p_k, SchemaConfig p_t) {
-            super(p_k, p_t);
+        public UchInfSchema(UchInf pUchInf, SchemaConfig pSchemaConfig) {
+            super(pUchInf, pSchemaConfig);
         }                
         
         public UchInf getUchInf() {
@@ -51,7 +51,7 @@ public class DataSourceUch {
     }
     
     public Pair<Collection<UchInfSchema>, String> getUchInfSchemas() {
-        Collection<UchInfSchema> x_uch_schemas = new ArrayList<UchInfSchema>();
+        Collection<UchInfSchema> uchInfSchemas = new ArrayList<UchInfSchema>();
         // проверить учреждения на заполнение обязательных полей
         //  считать UchInf
         List<IFieldFilterParams> repForUchFilter = null;
@@ -94,10 +94,10 @@ public class DataSourceUch {
                     currDate, DateUtil.adjustDate(currEducDate, 1));
             for (UchInf uchInf : uchInfs) {
                 if (!notValidUchIds.contains(uchInf.getId()))
-                    x_uch_schemas.add(new UchInfSchema(uchInf, schemaConfig));
+                    uchInfSchemas.add(new UchInfSchema(uchInf, schemaConfig));
             }
         }
-        return new Pair<Collection<UchInfSchema>, String>(x_uch_schemas, uchMessage.toString());
+        return new Pair<Collection<UchInfSchema>, String>(uchInfSchemas, uchMessage.toString());
     }
 
     static private String checkReportRequiredFields(UchInf uchInf) {

@@ -2,8 +2,7 @@ package ru.avers.informica.utils;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.io.BaseEncoding;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.text.ParseException;
@@ -20,404 +19,417 @@ import java.util.zip.InflaterOutputStream;
  *
  * @author Dias
  */
+@Slf4j
 public class CUtil {
-    private static final Logger s_logger = LoggerFactory.getLogger(CUtil.class);
-    
-    public static boolean isStringNullOrEmpty(String p_val) {
-        return p_val == null || p_val.isEmpty();
+
+    public static boolean isStringNullOrEmpty(String pVal) {
+        return pVal == null || pVal.isEmpty();
     }
     
-    public static boolean isStringNullOrBlank(String p_val) {
-        return p_val == null || p_val.trim().isEmpty();
+    public static boolean isStringNullOrBlank(String pVal) {
+        return pVal == null || pVal.trim().isEmpty();
     }    
 
-    public static String concatCollection(Collection p_col, String p_separator) {
-        if (p_col == null) {
+    public static String concatCollection(Collection pCol, String pSeparator) {
+        if (pCol == null) {
             return "null";
         }
-        StringBuilder x_builder = new StringBuilder();
-        String x_separator = "";
-        for (Object x_item : p_col) {
-            x_builder.append(x_separator).append(x_item);
-            x_separator = p_separator;
+        StringBuilder builder = new StringBuilder();
+        String separator = "";
+        for (Object item : pCol) {
+            builder.append(separator).append(item);
+            separator = pSeparator;
         }
-        return x_builder.toString();
+        return builder.toString();
     }
 
-    public static <A, B> Map<B, A> revertMap(Map<A, B> p_src) {
-        if(p_src == null) {
+    public static <A, B> Map<B, A> revertMap(Map<A, B> pSrc) {
+        if(pSrc == null) {
             return null;
         }
-        Map<B, A> x_rv = new HashMap<B, A>();
-        for(Map.Entry<A, B> x_entry: p_src.entrySet()) {
-            x_rv.put(x_entry.getValue(), x_entry.getKey());
+        Map<B, A> rv = new HashMap<B, A>();
+        for(Map.Entry<A, B> abEntry: pSrc.entrySet()) {
+            rv.put(abEntry.getValue(), abEntry.getKey());
         }
-        return x_rv;
+        return rv;
     }
 
     public static List<String> getListOfTimeZonesIds() {
-        List<String> x_ids = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));
-        if (!x_ids.contains(TimeZone.getDefault().getID())) {
-            x_ids.add(TimeZone.getDefault().getID());
+        List<String> listIds = new ArrayList<String>(Arrays.asList(TimeZone.getAvailableIDs()));
+        if (!listIds.contains(TimeZone.getDefault().getID())) {
+            listIds.add(TimeZone.getDefault().getID());
         }
-        return x_ids;                
+        return listIds;
     }
     
     //  список серверных таймзон отсортированных по id
     public static List<TimeZone> getListOfTimeZones() {
-        List<TimeZone> x_rv = new ArrayList<TimeZone>();
+        List<TimeZone> rv = new ArrayList<TimeZone>();
         
-        for (String x_tz_id: getListOfTimeZonesIds()) {
-            x_rv.add(TimeZone.getTimeZone(x_tz_id));
+        for (String tzId: getListOfTimeZonesIds()) {
+            rv.add(TimeZone.getTimeZone(tzId));
         }
 
         //  sort by id
-        Collections.sort(x_rv, new Comparator<TimeZone>() {
-            public int compare(TimeZone p_tz1, TimeZone p_tz2) {
-                return p_tz1.getID().compareTo(p_tz2.getID());
+        Collections.sort(rv, new Comparator<TimeZone>() {
+            public int compare(TimeZone pTz1, TimeZone pTz2) {
+                return pTz1.getID().compareTo(pTz2.getID());
             }
         });
 
-//        s_logger.debug("x_rv = {}", x_rv);
+//        log.debug("x_rv = {}", x_rv);
         
-        return x_rv;
+        return rv;
     }
     
-    public static byte[] hexToBytes(String p_str) throws ParseException {
-        if(p_str == null) {
+    public static byte[] hexToBytes(String pStr) throws ParseException {
+        if(pStr == null) {
             return null;
         }
-        if(p_str.length() % 2 != 0) {
+        if(pStr.length() % 2 != 0) {
             throw new ParseException("Wrong length of input string (is not even)", 0);
         }
 
-        Pattern x_pattern = Pattern.compile("[^0-9A-F]+");
-        Matcher x_matcher = x_pattern.matcher(p_str);
-        if(x_matcher.find()) {
-            MatchResult x_mr = x_matcher.toMatchResult();
-            throw new ParseException("Wrong symbol in input string", x_mr.start());
+        Pattern pattern = Pattern.compile("[^0-9A-F]+");
+        Matcher matcher = pattern.matcher(pStr);
+        if(matcher.find()) {
+            MatchResult mr = matcher.toMatchResult();
+            throw new ParseException("Wrong symbol in input string", mr.start());
         }
         else {
-            int x_len = p_str.length() / 2;
-            byte[] x_buffer = new byte[x_len];
-            for(int i = 0; i < x_len; ++i) {
-                x_buffer[i] = (byte) Integer.parseInt(p_str.substring(i * 2, i * 2 + 2), 16);
+            int len = pStr.length() / 2;
+            byte[] buffer = new byte[len];
+            for(int i = 0; i < len; ++i) {
+                buffer[i] = (byte) Integer.parseInt(pStr.substring(i * 2, i * 2 + 2), 16);
             }
-            return x_buffer;
+            return buffer;
         }
     }
 
-    static final protected char[] s_hex_array = "0123456789ABCDEF".toCharArray();
-    static public String bytesToHex(byte[] p_bytes) {
-        char[] x_hex_chars = new char[p_bytes.length * 2];
-        for(int j = 0; j < p_bytes.length; j++ ) {
-            int x_v = p_bytes[j] & 0xFF, x_ind = j * 2;
-            x_hex_chars[x_ind] = s_hex_array[x_v >>> 4];
-            x_hex_chars[x_ind + 1] = s_hex_array[x_v & 0x0F];
+    static final protected char[] S_HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+    static public String bytesToHex(byte[] pBytes) {
+        char[] hexChars = new char[pBytes.length * 2];
+        for(int j = 0; j < pBytes.length; j++ ) {
+            int v = pBytes[j] & 0xFF, ind = j * 2;
+            hexChars[ind] = S_HEX_ARRAY[v >>> 4];
+            hexChars[ind + 1] = S_HEX_ARRAY[v & 0x0F];
         }
-        return new String(x_hex_chars);
+        return new String(hexChars);
     }    
     
-    public static int getOffset(int p_offset, int p_total, int p_pos_selected, int p_page_size) {
-        if (p_pos_selected > -1) {
-            p_offset = p_pos_selected - p_pos_selected % p_page_size;
-        } else if (p_offset >= p_total) {
-            p_offset = p_total - p_total % p_page_size;
+    public static int getOffset(int pOffset, int pTotal, int pPosSelected, int pPageSize) {
+        if (pPosSelected > -1) {
+            pOffset = pPosSelected - pPosSelected % pPageSize;
+        } else if (pOffset >= pTotal) {
+            pOffset = pTotal - pTotal % pPageSize;
         }
-        return p_offset;
+        return pOffset;
     }
     
-    public static Properties loadProperties(String p_filename)
+    public static Properties loadProperties(String pFilename)
             throws FileNotFoundException, IOException {
-        return loadProperties(new FileInputStream(p_filename));
+        return loadProperties(new FileInputStream(pFilename));
     }
-    public static Properties loadProperties(InputStream p_is) throws IOException {
-        Properties x_rv = new Properties();
-        x_rv.load(p_is);
-        return x_rv;
+    public static Properties loadProperties(InputStream pIs) throws IOException {
+        Properties rv = new Properties();
+        rv.load(pIs);
+        return rv;
     }
     
-    static public InputStream createInputStreamFromString(String p_str) {
-        return new ByteArrayInputStream(p_str.getBytes());
+    static public InputStream createInputStreamFromString(String pStr) {
+        return new ByteArrayInputStream(pStr.getBytes());
     }
-    static public InputStream createInputStreamFromString(String p_str, String p_charset_name)
+    static public InputStream createInputStreamFromString(String pStr, String pCharsetName)
             throws UnsupportedEncodingException {
         return new ByteArrayInputStream(
-                isStringNullOrEmpty(p_charset_name) ? p_str.getBytes() : p_str.getBytes(p_charset_name));
+                isStringNullOrEmpty(pCharsetName) ? pStr.getBytes() :
+                        pStr.getBytes(pCharsetName));
     }
     
-    public static String loadFileToStr(String p_fn) throws FileNotFoundException, IOException {
-        return loadFileToStr(p_fn, null);
+    public static String loadFileToStr(String pFn) throws FileNotFoundException, IOException {
+        return loadFileToStr(pFn, null);
     }
-    public static String loadFileToStr(String p_fn, String p_charset_name) throws FileNotFoundException, IOException {
-        FileInputStream x_fis = new FileInputStream(p_fn);
-        ByteArrayOutputStream x_baos = new ByteArrayOutputStream();
-        int x_c;
-        while((x_c = x_fis.read()) != -1) x_baos.write(x_c);
-        String x_rv = (isStringNullOrEmpty(p_charset_name) ?
-                                         x_baos.toString() :
-                x_baos.toString(p_charset_name));
-        x_fis.close();
-        x_baos.close();
-        return x_rv;
+    public static String loadFileToStr(String pFn, String pCharsetName)
+            throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(pFn);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int c;
+        while((c = fis.read()) != -1) {
+            baos.write(c);
+        }
+        String rv = (isStringNullOrEmpty(pCharsetName) ?
+                                         baos.toString() :
+                baos.toString(pCharsetName));
+        fis.close();
+        baos.close();
+        return rv;
     }
-    static public byte[] loadFile(String p_fn) throws FileNotFoundException, IOException {
-        FileInputStream x_fis = new FileInputStream(p_fn);
-        ByteArrayOutputStream x_baos = new ByteArrayOutputStream();
+    static public byte[] loadFile(String pFn) throws FileNotFoundException, IOException {
+        FileInputStream fis = new FileInputStream(pFn);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try {
-            int x_c;
-            while((x_c = x_fis.read()) != -1) {
-                x_baos.write(x_c);
+            int c;
+            while((c = fis.read()) != -1) {
+                baos.write(c);
             }
-            return x_baos.toByteArray();
+            return baos.toByteArray();
         } finally {
-            x_fis.close();
-            x_baos.close();
+            fis.close();
+            baos.close();
         }
     }
     
-    public static void writeStrToFile(String p_fn, String p_data) throws FileNotFoundException, IOException {
-        writeStrToFile(p_fn, p_data, null);
-    }
-    public static void writeStrToFile(String p_fn, String p_data, String p_encoding)
+    public static void writeStrToFile(String pFn, String pData)
             throws FileNotFoundException, IOException {
-        FileOutputStream x_fos = new FileOutputStream(p_fn);
-        x_fos.write(p_encoding == null ? p_data.getBytes() : p_data.getBytes(p_encoding));
-        x_fos.close();
+        writeStrToFile(pFn, pData, null);
+    }
+    public static void writeStrToFile(String pFn, String pData, String pEncoding)
+            throws FileNotFoundException, IOException {
+        FileOutputStream fos = new FileOutputStream(pFn);
+        fos.write(pEncoding == null ? pData.getBytes() : pData.getBytes(pEncoding));
+        fos.close();
     }
     
     /**
      * Поиск в списке мапов первого мапа с указанным значением указанного ключа
-     * @param p_list список мапов
-     * @param p_key ключ мапа
-     * @param p_key_value значение ключа мапа
+     * @param pList список мапов
+     * @param pKey ключ мапа
+     * @param pKeyValue значение ключа мапа
      * @return 
      */
-    public static Map<String, Object> findMapInList(List<Map<String, Object>> p_list,
-                                                    String p_key, Object p_key_value) {
-        for (Map<String, Object> x_item : p_list) {
-            if (x_item.containsKey(p_key) && equals(x_item.get(p_key), p_key_value)) {
-                return x_item;
+    public static Map<String, Object> findMapInList(List<Map<String, Object>> pList,
+                                                    String pKey, Object pKeyValue) {
+        for (Map<String, Object> item : pList) {
+            if (item.containsKey(pKey) && equals(item.get(pKey), pKeyValue)) {
+                return item;
             }
         }
         return null;
     }
     
-    public static List<Map<String, Object>> findMapsInList(List<Map<String,
-            Object>> p_list, String p_key, Object p_key_value) {
-        List<Map<String, Object>> x_res = new ArrayList<Map<String, Object>>();
-        for (Map<String, Object> x_item : p_list) {
-            if (x_item.containsKey(p_key) && equals(x_item.get(p_key), p_key_value)) {
-                x_res.add(x_item);
+    public static List<Map<String, Object>> findMapsInList(List<Map<String,Object>> pList,
+                                                           String pKey, Object pKeyValue) {
+        List<Map<String, Object>> res = new ArrayList<Map<String, Object>>();
+        for (Map<String, Object> item : pList) {
+            if (item.containsKey(pKey) && equals(item.get(pKey), pKeyValue)) {
+                res.add(item);
             }
         }
-        return x_res.isEmpty() ? null : x_res;
+        return res.isEmpty() ? null : res;
     }    
 
-    public static String generateUnique(Set<String> p_set, Integer p_max_len, String p_alphabet) {
-        String x_rv = null;
-        if (p_max_len == null || p_alphabet == null || p_alphabet.isEmpty()) {
+    public static String generateUnique(Set<String> pSet,
+                                        Integer pMaxLen,
+                                        String pAlphabet) {
+        String rv = null;
+        if (pMaxLen == null || pAlphabet == null || pAlphabet.isEmpty()) {
             //  TODO
         } else {
-            Set<Integer> x_set = new HashSet<Integer>();
-            for (String x_str: p_set) {
-                x_set.add(toInt(x_str, p_alphabet));
+            Set<Integer> set = new HashSet<Integer>();
+            for (String str: pSet) {
+                set.add(toInt(str, pAlphabet));
             }
-            List<Integer> x_lst = new ArrayList<Integer>(x_set);
-            Collections.sort(x_lst);
-            int x_lst_size = x_lst.size();
-            Integer x_val = x_lst.get(x_lst_size - 1) + 1;
-            String x_str = toStr(x_val, p_alphabet);
-            if (x_str.length() <= p_max_len) {
-                x_rv = x_str;
+            List<Integer> list = new ArrayList<Integer>(set);
+            Collections.sort(list);
+            int listSize = list.size();
+            Integer val = list.get(listSize - 1) + 1;
+            String str = toStr(val, pAlphabet);
+            if (str.length() <= pMaxLen) {
+                rv = str;
             } else {
-                for (int i = 0; i < x_lst_size - 1; ++i) {
-                    Integer x_elem = x_lst.get(i), x_next_elem = x_lst.get(i + 1);
-                    if (x_next_elem - x_elem > 1) {
-                        x_str = toStr(x_elem + 1, p_alphabet);
-                        if (x_str.length() <= p_max_len) {
-                            x_rv = x_str;
+                for (int i = 0; i < listSize - 1; ++i) {
+                    Integer elem = list.get(i), nextElem = list.get(i + 1);
+                    if (nextElem - elem > 1) {
+                        str = toStr(elem + 1, pAlphabet);
+                        if (str.length() <= pMaxLen) {
+                            rv = str;
                         }
                         break;
                     }
                 }
             }
         }
-        return x_rv;
+        return rv;
     }
     
-    private static int toInt(String p_val, String p_alphabet) {
-        if (p_alphabet == null || p_alphabet.isEmpty()) {
+    private static int toInt(String pVal, String pAlphabet) {
+        if (pAlphabet == null || pAlphabet.isEmpty()) {
             throw new IllegalArgumentException("Alphabet is empty");
         }
         
-        if (p_val == null || p_val.isEmpty()) {
+        if (pVal == null || pVal.isEmpty()) {
             return 0;
         }
         
-        int x_basis = p_alphabet.length(), x_val_len = p_val.length(), x_rv = 0;
-        for (int x_degree = 0; x_degree < x_val_len; ++x_degree) {
-            char x_ch = p_val.charAt(x_val_len - 1 - x_degree);
-            int x_pos = p_alphabet.indexOf(x_ch);
-            x_rv += x_pos * (int) Math.pow(x_basis, x_degree);
+        int basis = pAlphabet.length(), valLen = pVal.length(), rv = 0;
+        for (int degree = 0; degree < valLen; ++degree) {
+            char ch = pVal.charAt(valLen - 1 - degree);
+            int pos = pAlphabet.indexOf(ch);
+            rv += pos * (int) Math.pow(basis, degree);
         }
-        return x_rv;
+        return rv;
     }
 
-    private static String toStr(int p_val, String p_alphabet) {
-        if (p_alphabet == null || p_alphabet.isEmpty()) {
+    private static String toStr(int pVal, String pAlphabet) {
+        if (pAlphabet == null || pAlphabet.isEmpty()) {
             throw new IllegalArgumentException("Alphabet is empty");
         }
-        String x_rv = "";
-        int x_basis = p_alphabet.length();
+        String rv = "";
+        int basis = pAlphabet.length();
         
         do {
-            int x_ind = p_val % x_basis;
-            p_val /= x_basis;
-            x_rv = p_alphabet.charAt(x_ind) + x_rv;
-        } while(p_val > 0);
+            int ind = pVal % basis;
+            pVal /= basis;
+            rv = pAlphabet.charAt(ind) + rv;
+        } while(pVal > 0);
         
-        return x_rv;
+        return rv;
     }
     
     /**
      * Вернуть первый найденный ключ мапа по значению мапа
      * @param <K>
      * @param <V>
-     * @param p_map
-     * @param p_value
+     * @param pMap
+     * @param pValue
      * @return 
      */
-    public static <K,V> K getMapFirstKeyByValue(Map<K,V> p_map, V p_value)
+    public static <K,V> K getMapFirstKeyByValue(Map<K,V> pMap, V pValue)
     {
-        for (Map.Entry<K,V> x_entry_set : p_map.entrySet()) {
-            if (equals(x_entry_set.getValue(), p_value)) {
-                return x_entry_set.getKey();
+        for (Map.Entry<K,V> entrySet : pMap.entrySet()) {
+            if (equals(entrySet.getValue(), pValue)) {
+                return entrySet.getKey();
             }
         }
         return null;
     }    
     
-    static public <K,V> boolean putToMap(Map<K, List<V>> p_src, K p_k, V p_v) {
-        List<V> x_lst = p_src.get(p_k);
-        if (x_lst == null) {
-            x_lst = new ArrayList<V>();
-            p_src.put(p_k, x_lst);
+    static public <K,V> boolean putToMap(Map<K, List<V>> pSrc, K pK, V pV) {
+        List<V> vList = pSrc.get(pK);
+        if (vList == null) {
+            vList = new ArrayList<V>();
+            pSrc.put(pK, vList);
         }
-        return x_lst.add(p_v);
+        return vList.add(pV);
     }
-    static public <K,V> boolean putAllToMap(Map<K, List<V>> p_src, K p_k, Collection<V> p_v_collection) {
-        if (p_v_collection == null) {
+    static public <K,V> boolean putAllToMap(Map<K, List<V>> pSrc, K pK,
+                                            Collection<V> pVCollection) {
+        if (pVCollection == null) {
             return false;
         }
-        List<V> x_lst = p_src.get(p_k);
-        if (x_lst == null) {
-            x_lst = new ArrayList<V>();
-            p_src.put(p_k, x_lst);
+        List<V> vList = pSrc.get(pK);
+        if (vList == null) {
+            vList = new ArrayList<V>();
+            pSrc.put(pK, vList);
         }
-        return x_lst.addAll(p_v_collection);
+        return vList.addAll(pVCollection);
     }
     /**
      * Равенство двух объектов (null safe)
      */
-    public static boolean equals(Object p_left, Object p_right) {
-        if (p_left == p_right) {
+    public static boolean equals(Object pLeft, Object pRight) {
+        if (pLeft == pRight) {
             return true;
         }
-        if (p_left == null || p_right == null) {
+        if (pLeft == null || pRight == null) {
             return false;
         }
-        return p_left.equals(p_right);
+        return pLeft.equals(pRight);
     }
     
-    public static <T> List<List<T>> partitionList(List<T> p_list, int p_partitions_count) {
-        int x_list_size = p_list.size();
-        int x_elems_in_partition = x_list_size / p_partitions_count +
-                (x_list_size % p_partitions_count == 0 ? 0 : 1);
-        List<List<T>> x_res = new ArrayList<List<T>>();
-        for (int i = 0; i < x_list_size; i += x_elems_in_partition) {
-            x_res.add(new ArrayList<T>(p_list.subList(i, Math.min(x_list_size, i + x_elems_in_partition))));
+    public static <T> List<List<T>> partitionList(List<T> pList, int pPartitionsCount) {
+        int listSize = pList.size();
+        int elemsInPartition = listSize / pPartitionsCount +
+                (listSize % pPartitionsCount == 0 ? 0 : 1);
+        List<List<T>> res = new ArrayList<List<T>>();
+        for (int i = 0; i < listSize; i += elemsInPartition) {
+            res.add(new ArrayList<T>(pList.subList(i, Math.min(listSize, i + elemsInPartition))));
         }
-        return x_res;
+        return res;
     }    
     
-    static public byte[] deflate(byte[] p_in, int p_method) throws IOException {
-        ByteArrayOutputStream x_out = new ByteArrayOutputStream();
+    static public byte[] deflate(byte[] pIn, int pMethod) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
-            DeflaterOutputStream x_dos = new DeflaterOutputStream(x_out, new Deflater(p_method, true));
+            DeflaterOutputStream dos = new DeflaterOutputStream(out,
+                    new Deflater(pMethod, true));
             try {
-                x_dos.write(p_in);
+                dos.write(pIn);
             } finally {
-                x_dos.close();
+                dos.close();
             }
-            return x_out.toByteArray();
+            return out.toByteArray();
         } finally {
-            x_out.close();
+            out.close();
         }
     }
 
-    static public byte[] inflate(byte[] p_in) throws IOException {
-        ByteArrayOutputStream x_out = new ByteArrayOutputStream();
+    static public byte[] inflate(byte[] pIn) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
-            InflaterOutputStream x_ios = new InflaterOutputStream(x_out, new Inflater(true));
+            InflaterOutputStream ios = new InflaterOutputStream(out, new Inflater(true));
             try {
-                x_ios.write(p_in);
+                ios.write(pIn);
             }
             finally {
-                x_ios.close();
+                ios.close();
             }
-            return x_out.toByteArray();
+            return out.toByteArray();
         }
         finally {
-            x_out.close();
+            out.close();
         }
     }
     //
     //  guava encoding
     //
-    public static String encode(String p_text, BaseEncoding p_enc) {
-        s_logger.debug("{}", p_text);
-        String x_rv;
+    public static String encode(String pText, BaseEncoding pEnc) {
+        log.debug("{}", pText);
+        String rv;
         try {
-            x_rv = p_enc.encode(p_text.getBytes(Const.S_ENCODING_UTF8));
-        } catch(UnsupportedEncodingException p_ex) {
-            s_logger.error("encode", p_ex);
-            x_rv = null;
+            rv = pEnc.encode(pText.getBytes(Const.S_ENCODING_UTF8));
+        } catch(UnsupportedEncodingException ex) {
+            log.error("encode", ex);
+            rv = null;
         }
-        s_logger.debug("retval = {}", x_rv);
-        return x_rv;
+        log.debug("retval = {}", rv);
+        return rv;
     }
     
-    public static String decode(String p_text, BaseEncoding p_enc){
-        s_logger.debug("{}", p_text);
-        String x_rv;
+    public static String decode(String pText, BaseEncoding pEnc){
+        log.debug("{}", pText);
+        String rv;
         try {
-            x_rv = new String(p_enc.decode(p_text), Const.S_ENCODING_UTF8);
-        } catch(Exception p_ex) {
-            s_logger.error("decode", p_ex);
-            x_rv = null;
+            rv = new String(pEnc.decode(pText), Const.S_ENCODING_UTF8);
+        } catch(Exception ex) {
+            log.error("decode", ex);
+            rv = null;
         }
-        s_logger.debug("retval = {}", x_rv);
-        return x_rv;
+        log.debug("retval = {}", rv);
+        return rv;
     }
     
-    final static private BaseEncoding s_base64 = BaseEncoding.base64();
-    public static String base64encode(String p_text) { return encode(p_text, s_base64); }
-    public static String base64decode(String p_text) { return decode(p_text, s_base64); }
-    //
-    
-    private static final String s_line_separator = System.getProperty("line.separator");
+    final static private BaseEncoding S_BASE_64 = BaseEncoding.base64();
+    public static String base64encode(String pText) {
+        return encode(pText, S_BASE_64);
+    }
+    public static String base64decode(String pText) {
+        return decode(pText, S_BASE_64);
+    }
+
+    private static final String S_LINE_SEPARATOR = System.getProperty("line.separator");
     // Base64 transfer encoding for MIME (RFC 2045), Maximum encoded line length = 76
     // 76 используется в sun.misc.BASE64Encoder
-    private static final int s_chars_per_line = 76;
-    static public byte[] encodeToBase64(byte[] p_in) throws IOException {
-        return BaseEncoding.base64().withSeparator(s_line_separator, s_chars_per_line).encode(p_in).getBytes();
+    private static final int S_CHARS_PER_LINE = 76;
+    static public byte[] encodeToBase64(byte[] pIn) throws IOException {
+        return BaseEncoding.base64().withSeparator(S_LINE_SEPARATOR, S_CHARS_PER_LINE)
+                .encode(pIn).getBytes();
     }
-    static public byte[] decodeFromBase64(byte[] p_in) throws IOException {
+    static public byte[] decodeFromBase64(byte[] pIn) throws IOException {
         // Удалить из p_in все WHITESPACE символы (http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/base/CharMatcher.html#WHITESPACE)
         // в том числе переносы строки (\n и \r\n)
-        String x_string_to_decode = CharMatcher.WHITESPACE.removeFrom(new String(p_in));
-        return BaseEncoding.base64().decode(x_string_to_decode);
+        String stringToDecode = CharMatcher.WHITESPACE.removeFrom(new String(pIn));
+        return BaseEncoding.base64().decode(stringToDecode);
     }
 
 }

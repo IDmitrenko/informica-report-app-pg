@@ -2,9 +2,7 @@ package ru.avers.informica.report;
 
 import ru.avers.informica.dto.CAge;
 import ru.avers.informica.dto.CAgeInterval;
-import ru.avers.informica.dto.informica.IInformicaChildCountable;
 import ru.avers.informica.dto.informica.IInformicaCountable;
-import ru.avers.informica.exception.FspeoException;
 import ru.avers.informica.infcfg.CounterDef;
 import ru.avers.informica.infcfg.TypeAgeRange;
 
@@ -16,67 +14,72 @@ import java.util.*;
 @XmlTransient
 public class Counter {
 
-    protected String m_id;
-    protected List<AgeItem> m_age;
+    protected String id;
+    protected List<AgeItem> age;
 
     public Counter() {
     }
 
-    public Counter(CounterDef p_counter_def) {
-        m_id = p_counter_def.getName();
-        Collection<TypeAgeRange> x_ranges = p_counter_def.getAgeRange().getAgeRangeDef().getAgeRanges();
-        for (TypeAgeRange x_range : x_ranges) {
-            AgeItem x_item = new AgeItem();
-            x_item.setCategory(x_range);
-            x_item.setValue(0);
-            m_cache.put(x_range, x_item);
-            getAge().add(x_item);
+    public Counter(CounterDef pCounterDef) {
+        id = pCounterDef.getName();
+        Collection<TypeAgeRange> ranges = pCounterDef.getAgeRange().getAgeRangeDef().getAgeRanges();
+        for (TypeAgeRange range : ranges) {
+            AgeItem ageItem = new AgeItem();
+            ageItem.setCategory(range);
+            ageItem.setValue(0);
+            typeAgeRangeAgeItemEnumMap.put(range, ageItem);
+            getAge().add(ageItem);
         }
     }
 
     @XmlAttribute(required = true)
     public String getId() {
-        return m_id;
+        return id;
     }
 
-    public void setId(String p_value) {
-        this.m_id = p_value;
+    public void setId(String pId) {
+        this.id = pId;
     }
 
     @XmlElement(required = true)
     public final List<AgeItem> getAge() {
-        if (m_age == null) {
-            m_age = new ArrayList<AgeItem>();
+        if (age == null) {
+            age = new ArrayList<AgeItem>();
         }
-        return this.m_age;
+        return this.age;
     }
 
-    public void addCounter(Counter p_counter) {
-        if (!m_id.equals(p_counter.getId()) || getAge().size() != p_counter.getAge().size())
+    public void addCounter(Counter pCounter) {
+        if (!id.equals(pCounter.getId()) || getAge().size() != pCounter.getAge().size()) {
             throw new IllegalArgumentException();
-        for (AgeItem x_age_item : getAge()) {
-            AgeItem x_found = p_counter.findAgeItem(x_age_item.getCategory());
-            x_age_item.add(x_found);
+        }
+        for (AgeItem ageItem : getAge()) {
+            AgeItem found = pCounter.findAgeItem(ageItem.getCategory());
+            ageItem.add(found);
         }
     }
 
-    protected Map<TypeAgeRange, AgeItem> m_cache = new EnumMap<TypeAgeRange, AgeItem>(TypeAgeRange.class);
+    protected Map<TypeAgeRange, AgeItem> typeAgeRangeAgeItemEnumMap =
+            new EnumMap<TypeAgeRange, AgeItem>(TypeAgeRange.class);
 
     /**
      * Найти конкретный счетчик для указанного диапазона возрастов, если не найдено - null
      *
-     * @param p_age_range
+     * @param pAgeRange
      * @return
      */
-    public AgeItem findAgeItem(TypeAgeRange p_age_range) {
-        if (p_age_range == null) return null;
-        if (m_cache.containsKey(p_age_range))
-            return m_cache.get(p_age_range);
-        if (m_age != null) {
-            for (AgeItem x_item : m_age) {
-                if (p_age_range.equals(x_item.getCategory())) {
-                    m_cache.put(p_age_range, x_item);
-                    return x_item;
+    public AgeItem findAgeItem(TypeAgeRange pAgeRange) {
+        if (pAgeRange == null) {
+            return null;
+        }
+        if (typeAgeRangeAgeItemEnumMap.containsKey(pAgeRange)) {
+            return typeAgeRangeAgeItemEnumMap.get(pAgeRange);
+        }
+        if (age != null) {
+            for (AgeItem ageItem : age) {
+                if (pAgeRange.equals(ageItem.getCategory())) {
+                    typeAgeRangeAgeItemEnumMap.put(pAgeRange, ageItem);
+                    return ageItem;
                 }
             }
         }
@@ -86,8 +89,8 @@ public class Counter {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + (this.m_id != null ? this.m_id.hashCode() : 0);
-        hash = 37 * hash + (this.m_age != null ? this.m_age.hashCode() : 0);
+        hash = 37 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 37 * hash + (this.age != null ? this.age.hashCode() : 0);
         return hash;
     }
 
@@ -100,10 +103,10 @@ public class Counter {
             return false;
         }
         final Counter other = (Counter) obj;
-        if ((this.m_id == null) ? (other.m_id != null) : !this.m_id.equals(other.m_id)) {
+        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
             return false;
         }
-        if (this.m_age != other.m_age && (this.m_age == null || !this.m_age.equals(other.m_age))) {
+        if (this.age != other.age && (this.age == null || !this.age.equals(other.age))) {
             return false;
         }
         return true;
@@ -121,22 +124,31 @@ public class Counter {
 
     private static class TypeAgeRangeComparator implements Comparator<TypeAgeRange> {
         @Override
-        public int compare(TypeAgeRange p_o1, TypeAgeRange p_o2) {
-            CAgeInterval x_in1 = p_o1.getAgeInterval();
-            CAgeInterval x_in2 = p_o2.getAgeInterval();
+        public int compare(TypeAgeRange pO1, TypeAgeRange pO2) {
+            CAgeInterval ageInterval1 = pO1.getAgeInterval();
+            CAgeInterval ageInterval2 = pO2.getAgeInterval();
 
-            int x_res = compareAge(x_in1.getBegin(), x_in2.getBegin(), true);
-            if (x_res != 0) return x_res;
-            return compareAge(x_in1.getEnd(), x_in2.getEnd(), false);
+            int res = compareAge(ageInterval1.getBegin(), ageInterval2.getBegin(), true);
+            if (res != 0) {
+                return res;
+            }
+            return compareAge(ageInterval1.getEnd(), ageInterval2.getEnd(), false);
         }
 
-        private int compareAge(CAge p_age1, CAge p_age2, boolean p_null_first) {
-            if (p_age1 != null && p_age2 != null)
-                return p_age1.compareTo(p_age2);
+        private int compareAge(CAge pAge1, CAge pAge2, boolean pNullFirst) {
+            if (pAge1 != null && pAge2 != null) {
+                return pAge1.compareTo(pAge2);
+            }
             else {
-                if (p_age1 == null && p_age2 == null) return 0;
-                if (p_age1 == null) return p_null_first ? -1 : 1;
-                else return p_null_first ? 1 : -1;
+                if (pAge1 == null && pAge2 == null) {
+                    return 0;
+                }
+                if (pAge1 == null) {
+                    return pNullFirst ? -1 : 1;
+                }
+                else {
+                    return pNullFirst ? 1 : -1;
+                }
             }
         }
     }
@@ -148,44 +160,44 @@ public class Counter {
     })
     public static class AgeItem {
 
-        protected TypeAgeRange m_category;
-        protected int m_value;
+        protected TypeAgeRange category;
+        protected int value;
 
         public AgeItem() {
         }
 
-        public AgeItem(TypeAgeRange p_category, int p_value) {
-            this.m_category = p_category;
-            this.m_value = p_value;
+        public AgeItem(TypeAgeRange pCategory, int pValue) {
+            this.category = pCategory;
+            this.value = pValue;
         }
 
         @XmlAttribute(required = true)
         public TypeAgeRange getCategory() {
-            return m_category;
+            return category;
         }
 
-        public void setCategory(TypeAgeRange p_value) {
-            this.m_category = p_value;
+        public void setCategory(TypeAgeRange pCategory) {
+            this.category = pCategory;
         }
 
         @XmlValue
         public int getValue() {
-            return m_value;
+            return value;
         }
 
-        public void setValue(int p_value) {
-            this.m_value = p_value;
+        public void setValue(int pValue) {
+            this.value = pValue;
         }
 
-        public void count(IInformicaCountable p_cnt) {
-            m_value = m_value + p_cnt.getCount();
+        public void count(IInformicaCountable pCnt) {
+            value = value + pCnt.getCount();
         }
 
         @Override
         public int hashCode() {
             int hash = 7;
-            hash = 73 * hash + (this.m_category != null ? this.m_category.hashCode() : 0);
-            hash = 73 * hash + this.m_value;
+            hash = 73 * hash + (this.category != null ? this.category.hashCode() : 0);
+            hash = 73 * hash + this.value;
             return hash;
         }
 
@@ -198,10 +210,10 @@ public class Counter {
                 return false;
             }
             final AgeItem other = (AgeItem) obj;
-            if (this.m_category != other.m_category) {
+            if (this.category != other.category) {
                 return false;
             }
-            if (this.m_value != other.m_value) {
+            if (this.value != other.value) {
                 return false;
             }
             return true;
@@ -218,7 +230,7 @@ public class Counter {
         }
 
         protected void add(AgeItem p_item) {
-            m_value += p_item.getValue();
+            value += p_item.getValue();
         }
     }
 
