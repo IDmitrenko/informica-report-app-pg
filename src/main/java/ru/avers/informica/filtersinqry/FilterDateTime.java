@@ -12,7 +12,7 @@ import java.util.Date;
 public class FilterDateTime extends FilterDate {
 
     @Override
-    protected Date prepDate(Date p_date) {
-        return p_date;
+    protected Date prepDate(Date pDate) {
+        return pDate;
     }    
 }

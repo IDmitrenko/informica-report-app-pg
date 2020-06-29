@@ -1,7 +1,6 @@
 package ru.avers.informica.filtersinqry;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.exception.FilterException;
 import ru.avers.informica.utils.CUtil;
@@ -18,144 +17,153 @@ import java.util.Date;
  * @author Dias
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@Slf4j
 public class FilterDate implements IFilter<Date>, IFieldFilterParams, IsFilterDate {
-    private static final Logger s_logger = LoggerFactory.getLogger(FilterDate.class);
 
-    protected String m_field;
-    protected ComparisonType m_comparison;
-    protected Integer m_year,
-                      m_month,
-                      m_day,
-                      m_year_offset;
-    protected Date m_rep_date;
-    protected boolean m_use_educ_date = false;
+    protected String field;
+    protected ComparisonType comparison;
+    protected Integer year,
+            month,
+            day,
+                      yearOffset;
+    protected Date repDate;
+    protected boolean isEducDate = false;
 
     @XmlAttribute
     public Integer getYear() {
-        return m_year;
+        return year;
     }
-    public void setYear(Integer m_year) {
-        this.m_year = m_year;
+    public void setYear(Integer pYear) {
+        this.year = pYear;
     }
 
     @XmlAttribute
     public Integer getMonth() {
-        return m_month;
+        return month;
     }
-    public void setMonth(Integer m_month) {
-        this.m_month = m_month;
+    public void setMonth(Integer pMonth) {
+        this.month = pMonth;
     }
 
     @XmlAttribute
     public Integer getDay() {
-        return m_day;
+        return day;
     }
-    public void setDay(Integer m_day) {
-        this.m_day = m_day;
+    public void setDay(Integer pDay) {
+        this.day = pDay;
     }
 
     @XmlAttribute
     public Integer getYearOffset() {
-        return m_year_offset;
+        return yearOffset;
     }   
-    public void setYearOffset(Integer p_rep_year_inc) {
-        this.m_year_offset = p_rep_year_inc;
+    public void setYearOffset(Integer pYearOffset) {
+        this.yearOffset = pYearOffset;
     }
 
     @Override
     @XmlAttribute(required = true)
     public String getField() {
-        return m_field;
+        return field;
     }    
-    public void setField(String p_field) {
-        m_field = p_field;
+    public void setField(String pField) {
+        field = pField;
     }
 
     @Override
     @XmlAttribute(name = "cmp", required = true)
     public ComparisonType getComparison() {
-        return m_comparison;
+        return comparison;
     }    
-    public void setComparison(ComparisonType p_comparison) {
-        m_comparison = p_comparison;
+    public void setComparison(ComparisonType pComparison) {
+        comparison = pComparison;
     }
     
     @Override
     @XmlAttribute
     public boolean isEducDate() {
-        return m_use_educ_date;
+        return isEducDate;
     }
     
-    public void setEducDate(boolean p_use_educ_date) {
-        m_use_educ_date = p_use_educ_date;                
+    public void setEducDate(boolean pIsEducDate) {
+        isEducDate = pIsEducDate;
     }
     
     @Override
     public Date getRepDate() {
-        return m_rep_date;
+        return repDate;
     }
     @Override
-    public void setRepDate(Date p_date) {
-        m_rep_date = p_date;
+    public void setRepDate(Date pDate) {
+        repDate = pDate;
     }   
     
     @Override
     public Date getValue() {
-        if (m_year == null && m_month == null && m_day == null && m_year_offset == null) {
-            return m_rep_date;
+        if (year == null && month == null && day == null && yearOffset == null) {
+            return repDate;
         }
-        Calendar x_calendar = Calendar.getInstance();
-        x_calendar.setTime(m_rep_date);
-        if (m_year != null) x_calendar.set(Calendar.YEAR, m_year);
-        if (m_year_offset != null) x_calendar.add(Calendar.YEAR, m_year_offset);
-        if (m_month != null) x_calendar.set(Calendar.MONTH, m_month);
-        if (m_day != null) x_calendar.set(Calendar.DAY_OF_MONTH, m_day);
-        return x_calendar.getTime();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(repDate);
+        if (year != null) {
+            calendar.set(Calendar.YEAR, year);
+        }
+        if (yearOffset != null) {
+            calendar.add(Calendar.YEAR, yearOffset);
+        }
+        if (month != null) {
+            calendar.set(Calendar.MONTH, month);
+        }
+        if (day != null) {
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+        }
+        return calendar.getTime();
     }
     
     @Override
     @SuppressWarnings("null")
-    public boolean isPassed(Date p_field_value) throws FilterException {
-        if (m_comparison == null) 
-            throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
-        s_logger.debug("Calc filter for field={}, m_comparison={}, field_value={}",
-                m_field, m_comparison, p_field_value);
+    public boolean isPassed(Date pFieldValue) throws FilterException {
+        if (comparison == null)
+            throw new FilterException(String.format("Не задана операция сравнения для поля %s", field));
+        log.debug("Calc filter for field={}, m_comparison={}, field_value={}",
+                field, comparison, pFieldValue);
 
-        Date x_field_value = p_field_value;
-        if (x_field_value != null)
-            x_field_value = prepDate(p_field_value);
-        Date x_filter_date = prepDate(getValue());
-        switch(m_comparison) {
+        Date fieldValue = pFieldValue;
+        if (fieldValue != null) {
+            fieldValue = prepDate(pFieldValue);
+        }
+        Date filterDate = prepDate(getValue());
+        switch(comparison) {
             case isnull: 
-                return x_field_value == null;
+                return fieldValue == null;
             case isnotnull: 
-                return x_field_value != null;
+                return fieldValue != null;
             case equal: 
-                return CUtil.equals(x_field_value, x_filter_date);
+                return CUtil.equals(fieldValue, filterDate);
             case notEqual: 
-                return !CUtil.equals(x_field_value, x_filter_date);
+                return !CUtil.equals(fieldValue, filterDate);
             case greater: 
-                return x_field_value != null && x_field_value.after(x_filter_date);
+                return fieldValue != null && fieldValue.after(filterDate);
             case greaterOrEqual: 
-                return x_field_value != null 
-                        && (x_field_value.after(x_filter_date) || x_field_value.equals(x_filter_date));
+                return fieldValue != null
+                        && (fieldValue.after(filterDate) || fieldValue.equals(filterDate));
             case less: 
-                return x_field_value != null && x_field_value.before(x_filter_date);
+                return fieldValue != null && fieldValue.before(filterDate);
             case lessOrEqual: 
-                return x_field_value != null 
-                        && (x_field_value.before(x_filter_date) || x_field_value.equals(x_filter_date));
+                return fieldValue != null
+                        && (fieldValue.before(filterDate) || fieldValue.equals(filterDate));
             case like: 
             case in: 
             case notIn: 
                 throw new FilterException(String.format("Недопустимая операция сравнения %s для поля %s",
-                                            String.valueOf(m_comparison), m_field));
+                                            String.valueOf(comparison), field));
         }
         throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s",
-                                        String.valueOf(m_comparison), m_field));
+                                        String.valueOf(comparison), field));
     }    
 
-    protected Date prepDate(Date p_date) {
-        return DateUtil.clearDateTimePart(p_date);
+    protected Date prepDate(Date pDate) {
+        return DateUtil.clearDateTimePart(pDate);
     }
     
 }

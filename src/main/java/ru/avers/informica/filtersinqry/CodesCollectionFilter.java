@@ -30,74 +30,88 @@ public class CodesCollectionFilter implements IFilter<Object> {
         @XmlEnumValue("neq")
         notEqual;
         
-        private final boolean m_is_need_param;
+        private final boolean isNeedParam;
         
-        private ComparisonType() { this(true); }
-        private ComparisonType(boolean p_val) { m_is_need_param = p_val; }
-        
-        public boolean isNeedParam() { return m_is_need_param; }
+        private ComparisonType() {
+            this(true);
+        }
+        private ComparisonType(boolean pVal) {
+            isNeedParam = pVal;
+        }
+        public boolean isNeedParam() {
+            return isNeedParam;
+        }
     };    
     
-    private String m_field;
-    private ComparisonType m_comparison;    
-    private Collection<String> m_values;
+    private String field;
+    private ComparisonType comparison;
+    private Collection<String> values;
     
     @Override
     @XmlAttribute(required = true)
     public String getField() {
-        return m_field;
+        return field;
     }
-    public void setField(String p_field) {
-        this.m_field = p_field;
+    public void setField(String pField) {
+        this.field = pField;
     }
     
     @XmlAttribute(name = "cmp", required = true)
     public ComparisonType getComparison() {
-        return m_comparison;
+        return comparison;
     }
-    public void setComparison(ComparisonType p_comparison_type) {
-        this.m_comparison = p_comparison_type;
+    public void setComparison(ComparisonType pComparison) {
+        this.comparison = pComparison;
     }
     
     @XmlList
     @XmlAttribute
     public Collection<String> getValue() {
-        if (m_values == null) m_values = new ArrayList<String>();
-        return m_values;
+        if (values == null) {
+            values = new ArrayList<String>();
+        }
+        return values;
     }
     
     @Override
-    public boolean isPassed(Object p_field_value) throws FilterException {
-        if (m_comparison == null)
-            throw new FilterException(String.format("Не задана операция сравнения для поля %s", m_field));
-        Collection<String> x_field_value = (Collection<String>) p_field_value;
-        switch(m_comparison) {
-            case isEmpty: return x_field_value == null || x_field_value.isEmpty();
-            case isNotEmpty: return x_field_value != null && !x_field_value.isEmpty();
-            case any: return intersectAny(x_field_value);
-            case none: return !intersectAny(x_field_value);
-            case equal: return CUtil.equals(getValue() != null ?
-                    new HashSet<String>(getValue()) : null, x_field_value != null ?
-                    new HashSet<String>(x_field_value) : null);
-            case notEqual: return !CUtil.equals(getValue() != null ?
-                    new HashSet<String>(getValue()) : null, x_field_value != null ?
-                    new HashSet<String>(x_field_value) : null);
+    public boolean isPassed(Object pFieldValue) throws FilterException {
+        if (comparison == null) {
+            throw new FilterException(String.format("Не задана операция сравнения для поля %s", field));
+        }
+        Collection<String> fieldValue = (Collection<String>) pFieldValue;
+        switch(comparison) {
+            case isEmpty:
+                return fieldValue == null || fieldValue.isEmpty();
+            case isNotEmpty:
+                return fieldValue != null && !fieldValue.isEmpty();
+            case any:
+                return intersectAny(fieldValue);
+            case none:
+                return !intersectAny(fieldValue);
+            case equal:
+                return CUtil.equals(getValue() != null ?
+                    new HashSet<String>(getValue()) : null, fieldValue != null ?
+                    new HashSet<String>(fieldValue) : null);
+            case notEqual:
+                return !CUtil.equals(getValue() != null ?
+                    new HashSet<String>(getValue()) : null, fieldValue != null ?
+                    new HashSet<String>(fieldValue) : null);
         }
         throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s",
-                String.valueOf(m_comparison), m_field));
+                String.valueOf(comparison), field));
     }    
 
-    private boolean intersectAny(Collection<String> p_field_list) {
-        Collection<String> x_filter_list = getValue();
+    private boolean intersectAny(Collection<String> pFieldList) {
+        Collection<String> filterList = getValue();
         // значение фильтра=пусто
-        if (x_filter_list == null || x_filter_list.isEmpty())
+        if (filterList == null || filterList.isEmpty())
             return true;
         // значение фильтра=не пусто, значение поля = пусто
-        if (p_field_list == null || p_field_list.isEmpty())
+        if (pFieldList == null || pFieldList.isEmpty())
             return false;
         // и фильтр и поле заполнено
-        for (String x_field_item : p_field_list) {
-            if (x_filter_list.contains(x_field_item))
+        for (String fieldItem : pFieldList) {
+            if (filterList.contains(fieldItem))
                 return true;
         }
         return false;

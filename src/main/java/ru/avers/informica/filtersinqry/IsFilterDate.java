@@ -18,5 +18,5 @@ public interface IsFilterDate {
     boolean isEducDate();
     
     Date getRepDate();
-    void setRepDate(Date p_date);
+    void setRepDate(Date pDate);
 }

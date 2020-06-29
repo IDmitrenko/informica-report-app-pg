@@ -15,82 +15,82 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
 
-    private String m_field,
-            m_str_value;
-    private ComparisonType m_comparison;
-    private Class<?> m_field_type;
-    private boolean m_useOR;
+    private String field,
+            stringValue;
+    private ComparisonType comparison;
+    private Class<?> fieldType;
+    private boolean useOR;
 
     public BeanFilter() {
     }
 
-    public BeanFilter(String p_field, ComparisonType p_comparison,
-                      String p_str_value, boolean p_useOR) {
-        this.m_field = p_field;
-        this.m_comparison = p_comparison;
-        this.m_str_value = p_str_value;
-        this.m_useOR = p_useOR;
+    public BeanFilter(String pField, ComparisonType pComparison,
+                      String pStringValue, boolean pUseOR) {
+        this.field = pField;
+        this.comparison = pComparison;
+        this.stringValue = pStringValue;
+        this.useOR = pUseOR;
     }
 
     @Override
     @XmlAttribute(required = true)
     public String getField() {
-        return m_field;
+        return field;
     }
 
-    public void setField(String p_field) {
-        this.m_field = p_field;
+    public void setField(String pField) {
+        this.field = pField;
     }
 
     @Override
     @XmlAttribute(name = "cmp", required = true)
     public ComparisonType getComparison() {
-        return m_comparison;
+        return comparison;
     }
 
-    public void setComparison(ComparisonType p_comparison_type) {
-        this.m_comparison = p_comparison_type;
+    public void setComparison(ComparisonType pComparison) {
+        this.comparison = pComparison;
     }
 
     @Override
     @XmlTransient
     public Object getValue() {
-        if (m_str_value == null) return null;
+        if (stringValue == null) return null;
 
         return getStringValue();
     }
 
     public Class<?> getFieldType() {
-        return m_field_type;
+        return fieldType;
     }
 
-    public void setFieldType(Class<?> p_field_type) {
-        m_field_type = p_field_type;
+    public void setFieldType(Class<?> pFieldType) {
+        fieldType = pFieldType;
     }
 
     @XmlAttribute(name = "value")
     public String getStringValue() {
-        return m_str_value;
+        return stringValue;
     }
 
-    public void setStringValue(String p_str_value) {
-        m_str_value = p_str_value;
+    public void setStringValue(String pStringValue) {
+        stringValue = pStringValue;
     }
 
     @XmlAttribute(name = "useOR")
     public boolean getUseOR() {
-        return m_useOR;
+        return useOR;
     }
 
     public void setUseOR(boolean m_useOR) {
-        this.m_useOR = m_useOR;
+        this.useOR = m_useOR;
     }
 
     @Override
     public boolean isPassed(Object item) throws FilterException {
-        if (m_comparison == null) {
+        if (comparison == null) {
             throw new FilterException(String.format("Не задана операция сравнения для поля %s",
-                    m_field));
+                    field));
         }
         Object a = null;
         Object b = null;
@@ -100,53 +100,61 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
         } catch (Exception e) {
             throw new FilterException(e);
         }
-        switch (m_comparison) {
+        switch (comparison) {
             case equal:
                 return CUtil.equals(a, b);
             case notEqual:
                 return !CUtil.equals(a, b);
         }
         throw new FilterException(String.format("Неизвестная операция сравнения %s для поля %s",
-                String.valueOf(m_comparison), m_field));
+                String.valueOf(comparison), field));
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         BeanFilter that = (BeanFilter) o;
 
-        if (m_useOR != that.m_useOR)
+        if (useOR != that.useOR) {
             return false;
-        if (m_field != null ? !m_field.equals(that.m_field) : that.m_field != null)
+        }
+        if (field != null ? !field.equals(that.field) : that.field != null) {
             return false;
-        if (m_str_value != null ? !m_str_value.equals(that.m_str_value) : that.m_str_value != null)
+        }
+        if (stringValue != null ? !stringValue.equals(that.stringValue) : that.stringValue != null) {
             return false;
-        if (m_comparison != that.m_comparison)
+        }
+        if (comparison != that.comparison) {
             return false;
-        return m_field_type != null ?
-                m_field_type.equals(that.m_field_type) : that.m_field_type == null;
+        }
+        return fieldType != null ?
+                fieldType.equals(that.fieldType) : that.fieldType == null;
     }
 
     @Override
     public int hashCode() {
-        int result = m_field != null ? m_field.hashCode() : 0;
-        result = 31 * result + (m_str_value != null ? m_str_value.hashCode() : 0);
-        result = 31 * result + (m_comparison != null ? m_comparison.hashCode() : 0);
-        result = 31 * result + (m_field_type != null ? m_field_type.hashCode() : 0);
-        result = 31 * result + (m_useOR ? 1 : 0);
+        int result = field != null ? field.hashCode() : 0;
+        result = 31 * result + (stringValue != null ? stringValue.hashCode() : 0);
+        result = 31 * result + (comparison != null ? comparison.hashCode() : 0);
+        result = 31 * result + (fieldType != null ? fieldType.hashCode() : 0);
+        result = 31 * result + (useOR ? 1 : 0);
         return result;
     }
 
     @Override
     public String toString() {
         return "BeanFilter{" +
-                "m_field='" + m_field + '\'' +
-                ", m_str_value='" + m_str_value + '\'' +
-                ", m_comparison=" + m_comparison +
-                ", m_field_type=" + m_field_type +
-                ", m_useOR=" + m_useOR +
+                "field='" + field + '\'' +
+                ", stringValue='" + stringValue + '\'' +
+                ", comparison=" + comparison +
+                ", fieldType=" + fieldType +
+                ", useOR=" + useOR +
                 '}';
     }
 
