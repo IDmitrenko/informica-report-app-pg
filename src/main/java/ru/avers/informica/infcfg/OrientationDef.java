@@ -12,45 +12,45 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @XmlType(name = "")
 public class OrientationDef {
-    private String m_key;
-    private int m_orientation;
-    private Integer m_ovz_type;
-    private Integer m_wellness;
+    private String key;
+    private int orientation;
+    private Integer ovzType;
+    private Integer wellness;
     
     @XmlAttribute
     public String getKey() {
-        return m_key;
+        return key;
     }
 
-    public void setKey(String p_key) {
-        this.m_key = p_key;
+    public void setKey(String pKey) {
+        this.key = pKey;
     }
 
     @XmlAttribute
     public int getOrientation() {
-        return m_orientation;
+        return orientation;
     }
 
-    public void setOrientation(int orientation) {
-        this.m_orientation = orientation;
+    public void setOrientation(int pOrientation) {
+        this.orientation = pOrientation;
     }    
     
     @XmlAttribute
     public Integer getOvzType() {
-        return m_ovz_type;
+        return ovzType;
     }
 
-    public void setOvzType(Integer ovzType) {
-        this.m_ovz_type = ovzType;
+    public void setOvzType(Integer pOvzType) {
+        this.ovzType = pOvzType;
     }
 
     @XmlAttribute
     public Integer getWellness() {
-        return m_wellness;
+        return wellness;
     }
 
-    public void setWellness(Integer wellness) {
-        this.m_wellness = wellness;
+    public void setWellness(Integer pWellness) {
+        this.wellness = pWellness;
     }
             
 }

@@ -13,45 +13,55 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class SourceUch {
 
-    private List<IFieldFilterParams> m_filters;
-    private List<CounterConfig> m_inqry_counters,
-            m_enrolled_counter,
-            m_capacity_counters,
-            m_transfer_counters;
+    private List<IFieldFilterParams> filters;
+    private List<CounterConfig> inqryCounters,
+            enrolledCounters,
+            capacityCounters,
+            transferCounters;
 
     @XmlElements(value = {
             @XmlElement(name = "filter", type = GenericFilter.class)
     })
     public List<IFieldFilterParams> getFilters() {
-        if (m_filters == null) m_filters = new ArrayList<IFieldFilterParams>();
-        return m_filters;
+        if (filters == null) {
+            filters = new ArrayList<IFieldFilterParams>();
+        }
+        return filters;
     }
 
     @XmlElementWrapper(name = "source-inqry")
     @XmlElement(name = "counter")
     public List<CounterConfig> getInqryCounters() {
-        if (m_inqry_counters == null) m_inqry_counters = new ArrayList<CounterConfig>();
-        return m_inqry_counters;
+        if (inqryCounters == null) {
+            inqryCounters = new ArrayList<CounterConfig>();
+        }
+        return inqryCounters;
     }
 
     @XmlElementWrapper(name = "source-enrolled")
     @XmlElement(name = "counter")
     public List<CounterConfig> getEnrolledCounters() {
-        if (m_enrolled_counter == null) m_enrolled_counter = new ArrayList<CounterConfig>();
-        return m_enrolled_counter;
+        if (enrolledCounters == null) {
+            enrolledCounters = new ArrayList<CounterConfig>();
+        }
+        return enrolledCounters;
     }
 
     @XmlElementWrapper(name = "source-capacity")
     @XmlElement(name = "counter")
     public List<CounterConfig> getCapacityCounters() {
-        if (m_capacity_counters == null) m_capacity_counters = new ArrayList<CounterConfig>();
-        return m_capacity_counters;
+        if (capacityCounters == null) {
+            capacityCounters = new ArrayList<CounterConfig>();
+        }
+        return capacityCounters;
     }
 
     @XmlElementWrapper(name = "source-transfer")
     @XmlElement(name = "counter")
     public List<CounterConfig> getTransferCounters() {
-        if (m_transfer_counters == null) m_transfer_counters = new ArrayList<CounterConfig>();
-        return m_transfer_counters;
+        if (transferCounters == null) {
+            transferCounters = new ArrayList<CounterConfig>();
+        }
+        return transferCounters;
     }
 }

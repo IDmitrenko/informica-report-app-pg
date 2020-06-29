@@ -5,17 +5,17 @@ package ru.avers.informica.infcfg;
  * @author Dias
  */
 public interface IConst {
-    final static String s_tag_push_data_request = "push_data_request";
-    final static String s_ns = "http://Fed.edu.segment/gisdo";
-    final static String s_schema_location = "http://Fed.edu.segment/gisdo ../../main/castor/gisdo_types_2014_05_12.xsd";
-    public final static String s_ns3 = "http://eo.edu.ru/";
-    public final static String s_schema_location3 = "http://eo.edu.ru/ http://eo.edu.ru/gisdo_types_v3.xsd";
+    final static String S_TAG_PUSH_DATA_REQUEST = "push_data_request";
+    final static String S_NS = "http://Fed.edu.segment/gisdo";
+    final static String S_SCHEMA_LOCATION = "http://Fed.edu.segment/gisdo ../../main/castor/gisdo_types_2014_05_12.xsd";
+    public final static String S_NS3 = "http://eo.edu.ru/";
+    public final static String S_SCHEMA_LOCATION3 = "http://eo.edu.ru/ http://eo.edu.ru/gisdo_types_v3.xsd";
     
-    final static javax.xml.namespace.QName s_qname_push_data_request = 
-                 new javax.xml.namespace.QName(s_ns, s_tag_push_data_request);
+    final static javax.xml.namespace.QName S_QNAME_PUSH_DATA_REQUEST =
+                 new javax.xml.namespace.QName(S_NS, S_TAG_PUSH_DATA_REQUEST);
     
-    public final static javax.xml.namespace.QName s_qname_push_data_request3 = 
-                        new javax.xml.namespace.QName(s_ns, s_tag_push_data_request);
+    public final static javax.xml.namespace.QName S_QNAME_PUSH_DATA_REQUEST3 =
+                        new javax.xml.namespace.QName(S_NS, S_TAG_PUSH_DATA_REQUEST);
 
 
     final static String

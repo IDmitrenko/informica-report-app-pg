@@ -61,7 +61,7 @@ public class ReportGenerator {
                 beginCurrYear.getTime());
         log.info("Найдено {} inqry-source", allInqry.size());
 
-        final ReportConfig reportConfig = configInformica.getReport(Config.s_informica_report);
+        final ReportConfig reportConfig = configInformica.getReport(Config.S_INFORMICA_REPORT);
         List<SchemaConfig> schemaConfigs = reportConfig.getSchemas();
         // Собрать базовую информацию по учреждениям и их схемы показателей
         DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs, currDate, currEducDate);

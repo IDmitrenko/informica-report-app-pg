@@ -1,7 +1,5 @@
 package ru.avers.informica.infcfg;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.avers.informica.dto.IDTO;
 
 import javax.xml.bind.annotation.*;
@@ -24,84 +22,83 @@ import java.util.*;
     "orientationDef"
 })
 public class Config implements IDTO {
-    private static final Logger s_logger = LoggerFactory.getLogger(Config.class);
-    
-    public final static String s_informica_report = "informica";
 
-    final static private String s_root_nm = "config";
+    public final static String S_INFORMICA_REPORT = "informica";
+
+    final static private String S_ROOT_NM = "config";
 
     public Config() {
 
     }
     
-    private List<ServiceEndpoint> m_informica_service_endpoint;
-    private Integer m_version;
-    private SystemInfoType m_system;
-    private List<ReportConfig> m_reports;
-    private List<SchemaConfig> m_schemas;
-    private List<CounterDef> m_counters_def;
-    private List<AgeRangeDef> m_age_ranges_def;
-    private List<OvzTypeDef> m_ovz_type_def;
-    private List<OrientationDef> m_orientation_def;
+    private List<ServiceEndpoint> endpoints;
+    private Integer version;
+    private SystemInfoType system;
+    private List<ReportConfig> reports;
+    private List<SchemaConfig> schemas;
+    private List<CounterDef> countersDef;
+    private List<AgeRangeDef> ageRangesDef;
+    private List<OvzTypeDef> ovzTypeDef;
+    private List<OrientationDef> orientationDef;
 
     @XmlAttribute
     public Integer getVersion() {
-        return m_version;
+        return version;
     }
-    public void setVersion(Integer p_version) {
-        m_version = p_version;
+    public void setVersion(Integer pVersion) {
+        version = pVersion;
     }
 
     @XmlElement(name = "informica-service-endpoint")
     public List<ServiceEndpoint> getEndpoints() {
-        if (m_informica_service_endpoint == null) {
-            m_informica_service_endpoint = new ArrayList<ServiceEndpoint>();
+        if (endpoints == null) {
+            endpoints = new ArrayList<ServiceEndpoint>();
         }
-        return m_informica_service_endpoint;
+        return endpoints;
     }
     @XmlType(name = "")
     public static class SystemInfoType extends SystemInfo {}
 
     @XmlElement(name = "system")
-    public SystemInfoType getSystem() { return m_system; }
-    public void setSystem(SystemInfoType p_system) {
-        m_system = p_system;
+    public SystemInfoType getSystem() { return system; }
+    public void setSystem(SystemInfoType pSystem) {
+        system = pSystem;
     }
     
     @XmlElement(name = "report-informica")
     public List<ReportConfig> getReports() {
-        if (m_reports == null) {
-            m_reports = new ArrayList<ReportConfig>();
+        if (reports == null) {
+            reports = new ArrayList<ReportConfig>();
         }
-        return m_reports;
+        return reports;
     }
 
     @XmlElementWrapper(name = "counters-def")
     @XmlElement(name = "counter-def")
     public List<CounterDef> getCountersDef() {
-        if (m_counters_def == null) {
-            m_counters_def = new ArrayList<CounterDef>();
+        if (countersDef == null) {
+            countersDef = new ArrayList<CounterDef>();
         }
-        return m_counters_def;
+        return countersDef;
     }
 
     @XmlElementWrapper(name = "age-ranges-def")
     @XmlElement(name = "age-range-def")
     public List<AgeRangeDef> getAgeRangesDef() {
-        if (m_age_ranges_def == null) {
-            m_age_ranges_def = new ArrayList<AgeRangeDef>();
+        if (ageRangesDef == null) {
+            ageRangesDef = new ArrayList<AgeRangeDef>();
         }
-        return m_age_ranges_def;
+        return ageRangesDef;
     }
 
 // 28.05.2020  убрал, так как такой секции нет в файле
     @XmlElementWrapper(name = "ovz-def")
     @XmlElement(name = "item")
     public List<OvzTypeDef> getOvzTypeDef() {
-        if (m_ovz_type_def == null) {
-            m_ovz_type_def = new ArrayList<OvzTypeDef>();
+        if (ovzTypeDef == null) {
+            ovzTypeDef = new ArrayList<OvzTypeDef>();
         }
-        return m_ovz_type_def;
+        return ovzTypeDef;
     }
 
     public Map<String, TypeOvz> getMapTypeOvzDev() {
@@ -115,34 +112,34 @@ public class Config implements IDTO {
     @XmlElementWrapper(name = "orientation-def")
     @XmlElement(name = "item")
     public List<OrientationDef> getOrientationDef() {
-        if (m_orientation_def == null) {
-            m_orientation_def = new ArrayList<OrientationDef>();
+        if (orientationDef == null) {
+            orientationDef = new ArrayList<OrientationDef>();
         }
-        return m_orientation_def;
+        return orientationDef;
     }    
     
-    private volatile Map<String, OrientationDef> m_map_orientation;
+    private volatile Map<String, OrientationDef> orientationDefMap;
     public Map<String, OrientationDef> getMapOrientation() {
-        if (m_map_orientation != null) {
-            return m_map_orientation;
+        if (orientationDefMap != null) {
+            return orientationDefMap;
         }
         synchronized(this) {
-            if (m_map_orientation != null) {
-                return m_map_orientation;
+            if (orientationDefMap != null) {
+                return orientationDefMap;
             }
-            Map<String, OrientationDef> x_map = new HashMap<String, OrientationDef>();
-            for (OrientationDef x_def : getOrientationDef()) {
-                x_map.put(x_def.getKey(), x_def);
+            Map<String, OrientationDef> defMap = new HashMap<String, OrientationDef>();
+            for (OrientationDef orientationDef : getOrientationDef()) {
+                defMap.put(orientationDef.getKey(), orientationDef);
             }
-            m_map_orientation = Collections.unmodifiableMap(x_map);
-            return m_map_orientation;
+            orientationDefMap = Collections.unmodifiableMap(defMap);
+            return orientationDefMap;
         }
     }
     
-    public ReportConfig getReport(String p_id_report) {
-        for (ReportConfig x_report : m_reports) {
-            if (p_id_report.equals(x_report.getId())) {
-                return x_report;
+    public ReportConfig getReport(String pIdReport) {
+        for (ReportConfig report : reports) {
+            if (pIdReport.equals(report.getId())) {
+                return report;
             }
         }
         return null;
@@ -150,51 +147,10 @@ public class Config implements IDTO {
     
     @XmlElement(name="schema-informica")
     public List<SchemaConfig> getSchemas() {
-        if (m_schemas == null) {
-            m_schemas = new ArrayList<SchemaConfig>();
+        if (schemas == null) {
+            schemas = new ArrayList<SchemaConfig>();
         }
-        return m_schemas;
+        return schemas;
     }
-
-// TODO вынес в InformicaConfigLoader
-/*
-    final private static JAXBContext s_jaxb_ctx;
-    public static JAXBContext getJAXBContext() {
-        return s_jaxb_ctx;
-    }
-    static {
-        JAXBContext x_jaxb_ctx = null;
-        try {
-            x_jaxb_ctx = JAXBContext.newInstance(ConfigInformica.class);
-        } catch(JAXBException p_ex) {
-            s_logger.error("instantiate JAXBContext for " + ConfigInformica.class.getName(), p_ex);
-        }
-        s_jaxb_ctx = x_jaxb_ctx;
-    }
-
-    @Override
-    public String toString() {
-        return s_jaxb_ctx == null ? 
-                                null : 
-                                CUtil.toStringXML(
-                                        new JAXBElement<ConfigInformica>(
-                                                 new QName(s_root_nm),
-                                                 ConfigInformica.class,
-                                            null,
-                                            this),
-                                        s_jaxb_ctx,
-                            true);
-    }    
-    
-    public boolean toOutputStream(OutputStream p_os) {
-        return s_jaxb_ctx == null ? false : CUtil.toOutputStream(p_os,
-            new JAXBElement<ConfigInformica>(new QName(s_root_nm),
-                    ConfigInformica.class, null, this), s_jaxb_ctx, true);
-    }
-    
-    static public ConfigInformica reestablish(String p_val) {
-        return CUtil.<ConfigInformica> reestablish(p_val, ConfigInformica.class, s_jaxb_ctx);
-    }    
-*/
 
 }

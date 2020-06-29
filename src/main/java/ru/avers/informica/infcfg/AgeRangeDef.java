@@ -10,35 +10,35 @@ import java.util.*;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class AgeRangeDef {
-    private String m_id;
-    private List<TypeAgeRange> m_age_ranges;
+    private String id;
+    private List<TypeAgeRange> ageRanges;
 
     @XmlAttribute
     @XmlID
     public String getId() {
-        return m_id;
+        return id;
     }
 
-    public void setId(String m_id) {
-        this.m_id = m_id;
+    public void setId(String pId) {
+        this.id = pId;
     }
 
     @XmlElement(name = "range")
     public List<TypeAgeRange> getAgeRanges() {
-        if (m_age_ranges == null) m_age_ranges = new ArrayList<TypeAgeRange>();
-        return m_age_ranges;
+        if (ageRanges == null) ageRanges = new ArrayList<TypeAgeRange>();
+        return ageRanges;
     }
 
-    public List<TypeAgeRange> getAgeRangesForAge(CAge p_age) {
-        List<TypeAgeRange> x_res = new ArrayList<TypeAgeRange>();
-        for (TypeAgeRange x_item : getAgeRanges()) {
-            if (x_item.getAgeInterval().containsLeft(p_age))
-                x_res.add(x_item);
+    public List<TypeAgeRange> getAgeRangesForAge(CAge pAge) {
+        List<TypeAgeRange> res = new ArrayList<TypeAgeRange>();
+        for (TypeAgeRange item : getAgeRanges()) {
+            if (item.getAgeInterval().containsLeft(pAge))
+                res.add(item);
         }
-        return x_res;
+        return res;
     }
 
-    private Integer getInt(Short p_value) {
-        return p_value == null ? null : p_value.intValue();
+    private Integer getInt(Short pValue) {
+        return pValue == null ? null : pValue.intValue();
     }
 }

@@ -17,20 +17,22 @@ public enum TypeInstall {
     @XmlEnumValue(IConst.s_install_type_municipal)
     install_type_municipal(IConst.s_install_type_municipal);
     
-    private final String m_value;
+    private final String value;
 
-    private TypeInstall(String p_value) {
-        m_value = p_value;
+    private TypeInstall(String pValue) {
+        value = pValue;
     }
 
-    public String value() { return m_value; }
+    public String value() {
+        return value;
+    }
 
-    public static TypeInstall fromValue(String p_val) {
-        for (TypeInstall x_item : TypeInstall.values()) {
-            if (x_item.m_value.equals(p_val)) {
-                return x_item;
+    public static TypeInstall fromValue(String pVal) {
+        for (TypeInstall item : TypeInstall.values()) {
+            if (item.value.equals(pVal)) {
+                return item;
             }
         }
-        throw new IllegalArgumentException(p_val);
+        throw new IllegalArgumentException(pVal);
     }
 }

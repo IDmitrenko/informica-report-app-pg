@@ -1,53 +1,44 @@
 package ru.avers.informica.infcfg;
 
-import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.exception.FilterException;
 import ru.avers.informica.exception.ReportExceprion;
-import ru.avers.informica.filtersinqry.BeanFilter;
-import ru.avers.informica.filtersinqry.IFilter;
-import ru.avers.informica.filtersinqry.IsFilterDate;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Dias
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CounterConfig {
-    private CounterDef m_counter_def;
+    private CounterDef counterDef;
 
     @XmlAttribute(name = "def", required = true)
     @XmlIDREF
     public CounterDef getCounterDef() {
-        return m_counter_def;
+        return counterDef;
     }
 
-    public void setCounterDef(CounterDef p_counter_def) {
-        this.m_counter_def = p_counter_def;
+    public void setCounterDef(CounterDef pCounterDef) {
+        this.counterDef = pCounterDef;
     }
 
     @Override
     public String toString() {
         return new StringBuilder(getClass().getName())
-                .append("{counter_def=").append(m_counter_def)
+                .append("{counter_def=").append(counterDef)
                 .append("}")
                 .toString();
     }
 
-    public boolean isPassed(Date p_dt, Date p_curr_educ_date, Object x_ds_item) throws ReportExceprion, FilterException {
-        if (m_counter_def == null ||
-            m_counter_def.getFilters() == null ||
-            m_counter_def.getFilters().isEmpty()) {
+    public boolean isPassed(Date pDt, Date pCurrEducDate, Object dsItem)
+            throws ReportExceprion, FilterException {
+        if (counterDef == null ||
+            counterDef.getFilters() == null ||
+            counterDef.getFilters().isEmpty()) {
             return true;
         }
         return false;

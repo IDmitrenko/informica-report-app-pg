@@ -12,60 +12,76 @@ import javax.xml.bind.annotation.XmlValue;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ServiceEndpoint {
     
-    private String m_login,
-                   m_password,
-                   m_informica_service_endpoint;
-    private TypeSchemaVersion m_ver;
+    private String login,
+            password,
+                   serviceEndpoint;
+    private TypeSchemaVersion ver;
     
     @XmlAttribute
-    public String getLogin() { return m_login; }
-    public void setLogin(String p_login) { m_login = p_login; }
+    public String getLogin() {
+        return login;
+    }
+    public void setLogin(String pLogin) {
+        login = pLogin;
+    }
     
     @XmlAttribute
-    public String getPassword() { return m_password; }
-    public void setPassword(String p_password) { m_password = p_password; }
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String pPassword) {
+        password = pPassword;
+    }
     
     @XmlAttribute
-    public TypeSchemaVersion getVer() { return m_ver; }
-    public void setVer(TypeSchemaVersion p_val) { m_ver = p_val; }    
+    public TypeSchemaVersion getVer() {
+        return ver;
+    }
+    public void setVer(TypeSchemaVersion pVal) {
+        ver = pVal;
+    }
     
     @XmlValue
-    public String getServiceEndpoint() { return m_informica_service_endpoint; }
-    public void setServiceEndpoint(String p_val) { m_informica_service_endpoint = p_val; }
+    public String getServiceEndpoint() {
+        return serviceEndpoint;
+    }
+    public void setServiceEndpoint(String pVal) {
+        serviceEndpoint = pVal;
+    }
 
     @Override
     public int hashCode() {
         int x_hash = 5;
-        x_hash = 53 * x_hash + (m_login != null ? m_login.hashCode() : 0);
-        x_hash = 53 * x_hash + (m_password != null ? m_password.hashCode() : 0);
-        x_hash = 53 * x_hash + (m_informica_service_endpoint != null ?
-                m_informica_service_endpoint.hashCode() : 0);
-        x_hash = 53 * x_hash + (m_ver != null ? m_ver.hashCode() : 0);
+        x_hash = 53 * x_hash + (login != null ? login.hashCode() : 0);
+        x_hash = 53 * x_hash + (password != null ? password.hashCode() : 0);
+        x_hash = 53 * x_hash + (serviceEndpoint != null ?
+                serviceEndpoint.hashCode() : 0);
+        x_hash = 53 * x_hash + (ver != null ? ver.hashCode() : 0);
         return x_hash;
     }
 
     @Override
-    public boolean equals(Object p_obj) {
-        if (p_obj == null) {
+    public boolean equals(Object pObj) {
+        if (pObj == null) {
             return false;
         }
-        if (getClass() != p_obj.getClass()) {
+        if (getClass() != pObj.getClass()) {
             return false;
         }
-        final ServiceEndpoint x_other = (ServiceEndpoint) p_obj;
-        if((m_login == null) ? (x_other.m_login != null) : !m_login.equals(x_other.m_login)) {
+        final ServiceEndpoint other = (ServiceEndpoint) pObj;
+        if((login == null) ? (other.login != null) : !login.equals(other.login)) {
             return false;
         }
-        if((m_password == null) ? (x_other.m_password != null) :
-                !m_password.equals(x_other.m_password)) {
+        if((password == null) ? (other.password != null) :
+                !password.equals(other.password)) {
             return false;
         }
-        if((m_informica_service_endpoint == null) ?
-                (x_other.m_informica_service_endpoint != null) :
-                !m_informica_service_endpoint.equals(x_other.m_informica_service_endpoint)) {
+        if((serviceEndpoint == null) ?
+                (other.serviceEndpoint != null) :
+                !serviceEndpoint.equals(other.serviceEndpoint)) {
             return false;
         }
-        if((m_ver == null) ? (x_other.getVer() != null) : !m_ver.equals(x_other.m_ver)) {
+        if((ver == null) ? (other.getVer() != null) : !ver.equals(other.ver)) {
             return false;
         }
         return true;

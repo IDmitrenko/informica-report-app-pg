@@ -33,18 +33,22 @@ public enum TypeOvz {
     @XmlEnumValue(IConst.s_ovz_combined)
     combined(IConst.s_ovz_combined);
             
-    private final String m_value;
+    private final String value;
 
-    private TypeOvz(String p_value) {
-        m_value = p_value;
+    private TypeOvz(String pValue) {
+        value = pValue;
     }
 
-    public String value() { return m_value; }
+    public String value() {
+        return value;
+    }
 
-    public static TypeOvz fromValue(String p_val) {
-        for(TypeOvz x_item: TypeOvz.values())
-            if(x_item.m_value.equals(p_val)) return x_item;
-        throw new IllegalArgumentException(p_val);
+    public static TypeOvz fromValue(String pVal) {
+        for(TypeOvz item: TypeOvz.values())
+            if(item.value.equals(pVal)) {
+                return item;
+            }
+        throw new IllegalArgumentException(pVal);
     }
     
 }

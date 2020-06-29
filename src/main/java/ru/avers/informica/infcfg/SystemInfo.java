@@ -50,16 +50,16 @@ public class SystemInfo {
     public String getName() {
         return name;
     }
-    public void setName(String value) {
-        this.name = value;
+    public void setName(String pName) {
+        this.name = pName;
     }
 
     @XmlAttribute(name = "version", required = true)
     public String getVersion() {
         return version;
     }
-    public void setVersion(String value) {
-        this.version = value;
+    public void setVersion(String pVersion) {
+        this.version = pVersion;
     }
 
     @XmlAttribute(name = "own_server", required = false)
@@ -67,32 +67,32 @@ public class SystemInfo {
         return own_server;
     }
 
-    public void setOwn_server(String own_server) {
-        this.own_server = own_server;
+    public void setOwn_server(String pOwn_server) {
+        this.own_server = pOwn_server;
     }
 
     @XmlAttribute(name = "vendor", required = true)
     public String getVendor() {
         return vendor;
     }
-    public void setVendor(String value) {
-        this.vendor = value;
+    public void setVendor(String pVendor) {
+        this.vendor = pVendor;
     }
 
     @XmlAttribute(name = "email", required = true)
     public String getEmail() {
         return email;
     }
-    public void setEmail(String value) {
-        this.email = value;
+    public void setEmail(String pEmail) {
+        this.email = pEmail;
     }
 
     @XmlAttribute(name = "installType", required = true)
     public TypeInstall getInstallType() {
         return installType;
     }
-    public void setInstallType(TypeInstall value) {
-        this.installType = value;
+    public void setInstallType(TypeInstall pInstallType) {
+        this.installType = pInstallType;
     }
 
     @XmlAnyAttribute

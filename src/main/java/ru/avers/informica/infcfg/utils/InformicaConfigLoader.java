@@ -1,7 +1,6 @@
 package ru.avers.informica.infcfg.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import ru.avers.informica.infcfg.Config;
 
 import javax.xml.bind.JAXBContext;
@@ -15,35 +14,35 @@ import java.io.InputStream;
  * @author Dias
  */
 @SuppressWarnings({"BroadCatchBlock", "TooBroadCatch"})
+@Slf4j
 public class InformicaConfigLoader {
-    private static final Logger s_logger = LoggerFactory.getLogger(InformicaConfigLoader.class);
-    final private static JAXBContext s_jaxb_ctx_inf;
+    final private static JAXBContext S_JAXB_CTX_INF;
     static {
-        JAXBContext x_jaxb_ctx_inf = null;
+        JAXBContext jaxbContext = null;
         try {
-            x_jaxb_ctx_inf = JAXBContext.newInstance(Config.class);
-        } catch (Exception p_ex) {
-            s_logger.error("instantiate JAXBContext for " + Config.class.getName(), p_ex);
+            jaxbContext = JAXBContext.newInstance(Config.class);
+        } catch (Exception ex) {
+            log.error("instantiate JAXBContext for " + Config.class.getName(), ex);
         }
-        s_jaxb_ctx_inf = x_jaxb_ctx_inf;
+        S_JAXB_CTX_INF = jaxbContext;
     }  
     
-    public static Config loadInformica(String p_file_name) {
+    public static Config loadInformica(String pFileName) {
         Config configInformica = null;
         try {
-            InputStream is = new FileInputStream(p_file_name);
+            InputStream is = new FileInputStream(pFileName);
             configInformica = ru.avers.informica.utils.xml.CUtil
-                    .<Config>reestablish(is, Config.class, s_jaxb_ctx_inf);
+                    .<Config>reestablish(is, Config.class, S_JAXB_CTX_INF);
             is.close();
         } catch (FileNotFoundException ex) {
-            s_logger.error("Informica config file not found", ex);
+            log.error("Informica config file not found", ex);
         } catch (IOException ex) {
-            s_logger.error("getInformicaConfig", ex);
+            log.error("getInformicaConfig", ex);
         }
         return configInformica;
     }
 
-    public static Config loadConfigInformica(String p_file_name) {
-        return loadInformica(p_file_name);
+    public static Config loadConfigInformica(String pFileName) {
+        return loadInformica(pFileName);
     }
 }

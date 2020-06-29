@@ -11,25 +11,25 @@ import javax.xml.bind.annotation.XmlValue;
  */
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class OvzTypeDef {
-    private String m_key;
-    private TypeOvz m_type_ovz;
+    private String key;
+    private TypeOvz typeOvz;
     
     @XmlAttribute
     public String getKey() {
-        return m_key;
+        return key;
     }
 
-    public void setKey(String p_key) {
-        this.m_key = p_key;
+    public void setKey(String pKey) {
+        this.key = pKey;
     }
 
     @XmlValue
     public TypeOvz getTypeOvz() {
-        return m_type_ovz;
+        return typeOvz;
     }
 
-    public void setTypeOvz(TypeOvz p_type_ovz) {
-        this.m_type_ovz = p_type_ovz;
+    public void setTypeOvz(TypeOvz pTypeOvz) {
+        this.typeOvz = pTypeOvz;
     }
     
 }

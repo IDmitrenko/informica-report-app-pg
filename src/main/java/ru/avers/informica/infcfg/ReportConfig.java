@@ -17,53 +17,59 @@ import java.util.List;
     "schemas"
 })
 public class ReportConfig {
-    private String m_id,
-                   m_name;
-    private List<SchemaConfig> m_schemas;
-    private boolean m_mt, m_is_calc_capacity_on_cntg_data;
+    private String id,
+                   name;
+    private List<SchemaConfig> schemas;
+    private boolean isMt, isCalcCapacityOnCntgData;
 
     @XmlAttribute(name = "mt")
     public boolean isMt() {
-        return m_mt;
+        return isMt;
     }
-    public void setMt(boolean p_val) {
-        m_mt = p_val; }
+    public void setMt(boolean pVal) {
+        isMt = pVal; }
 
     @XmlAttribute(name = "is-calc-capacity-on-cntg-data")
-    public boolean isCalcCapacityOnCntgData() { return m_is_calc_capacity_on_cntg_data;}
-    public void setCalcCapacityOnCntgData(boolean p_val) { m_is_calc_capacity_on_cntg_data = p_val; }
+    public boolean isCalcCapacityOnCntgData() {
+        return isCalcCapacityOnCntgData;
+    }
+    public void setCalcCapacityOnCntgData(boolean pVal) {
+        isCalcCapacityOnCntgData = pVal;
+    }
 
     @XmlAttribute
     public String getId() {
-        return m_id;
+        return id;
     }
 
-    public void setId(String id) {
-        this.m_id = id;
+    public void setId(String pId) {
+        this.id = pId;
     }
 
     @XmlAttribute
     public String getName() {
-        return m_name;
+        return name;
     }
 
-    public void setName(String name) {
-        this.m_name = name;
+    public void setName(String pName) {
+        this.name = pName;
     }
     
     @XmlAttribute(name="schemas-ref")
     @XmlList
     @XmlIDREF
     public List<SchemaConfig> getSchemas() {
-        if (m_schemas == null) m_schemas = new ArrayList<SchemaConfig>();
-        return m_schemas;
+        if (schemas == null) {
+            schemas = new ArrayList<SchemaConfig>();
+        }
+        return schemas;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 61 * hash + (this.m_id != null ? this.m_id.hashCode() : 0);
-        hash = 61 * hash + (this.m_name != null ? this.m_name.hashCode() : 0);
+        hash = 61 * hash + (this.id != null ? this.id.hashCode() : 0);
+        hash = 61 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
 
@@ -76,10 +82,10 @@ public class ReportConfig {
             return false;
         }
         final ReportConfig other = (ReportConfig) obj;
-        if ((this.m_id == null) ? (other.m_id != null) : !this.m_id.equals(other.m_id)) {
+        if ((this.id == null) ? (other.id != null) : !this.id.equals(other.id)) {
             return false;
         }
-        if ((this.m_name == null) ? (other.m_name != null) : !this.m_name.equals(other.m_name)) {
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
             return false;
         }
         return true;

@@ -15,22 +15,22 @@ public enum TypeSchemaVersion {
     @XmlEnumValue(IConst.s_schema_ver_5_0)
     tFiveDotO(IConst.s_schema_ver_5_0);
     
-    private final String m_value;
+    private final String value;
     
-    private TypeSchemaVersion(String p_val) {
-        m_value = p_val; 
+    private TypeSchemaVersion(String pVal) {
+        value = pVal;
     }
     public String value() {
-        return m_value;
+        return value;
     }
 
-    public static TypeSchemaVersion fromValue(String p_val) {
-        for (TypeSchemaVersion x_item: TypeSchemaVersion.values()) {
-            if (x_item.m_value.equals(p_val)) {
-                return x_item;
+    public static TypeSchemaVersion fromValue(String pVal) {
+        for (TypeSchemaVersion item: TypeSchemaVersion.values()) {
+            if (item.value.equals(pVal)) {
+                return item;
             }
         }
-        throw new IllegalArgumentException(p_val);
+        throw new IllegalArgumentException(pVal);
     }
     
 }

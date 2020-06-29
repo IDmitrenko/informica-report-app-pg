@@ -13,18 +13,18 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class CounterDef {
 
-    private String m_id,
-                   m_descr, 
-                   m_name;
-    private List<IFilter> m_filters;
-    private AgeRangeBdt m_age_range;
+    private String id,
+            descr,
+                   name;
+    private List<IFilter> filters;
+    private AgeRangeBdt ageRange;
 
     @Override
     public String toString() {
         return new StringBuilder(getClass().getName())
-                .append("{id=").append(m_id)
-                .append(", name=").append(m_name)
-                .append(", descr=").append(m_descr)
+                .append("{id=").append(id)
+                .append(", name=").append(name)
+                .append(", descr=").append(descr)
                 .append("}")
             .toString();
     }
@@ -32,26 +32,26 @@ public class CounterDef {
     @XmlAttribute
     @XmlID
     public String getId() {
-        return m_id;
+        return id;
     }
-    public void setId(String p_id) {
-        this.m_id = p_id;
+    public void setId(String pId) {
+        this.id = pId;
     }
 
     @XmlAttribute
     public String getDescr() {
-        return m_descr;
+        return descr;
     }
-    public void setDescr(String p_descr) {
-        this.m_descr = p_descr;
+    public void setDescr(String pDescr) {
+        this.descr = pDescr;
     }    
     
     @XmlAttribute
     public String getName() {
-        return m_name;
+        return name;
     }
-    public void setName(String p_name) {
-        this.m_name = p_name;
+    public void setName(String pName) {
+        this.name = pName;
     }    
     
     @XmlElements(value = {
@@ -64,16 +64,18 @@ public class CounterDef {
             @XmlElement(name = "filter-bean", type=BeanFilter.class)
     })
     public List<IFilter> getFilters() {
-        if (m_filters == null) m_filters = new ArrayList<IFilter>();
-        return m_filters;
+        if (filters == null) {
+            filters = new ArrayList<IFilter>();
+        }
+        return filters;
     }
     
     @XmlElement(name = "age-range")
     public AgeRangeBdt getAgeRange() {
-        return m_age_range;
+        return ageRange;
     }    
-    public void setAgeRange(AgeRangeBdt p_age_range) {
-        m_age_range = p_age_range;
+    public void setAgeRange(AgeRangeBdt pAgeRange) {
+        ageRange = pAgeRange;
     }
     
 }

@@ -110,30 +110,36 @@ public enum TypeAgeRange {
     @XmlEnumValue(IConst.s_age_category_y3_to_y7)
     t_y3_to_y7(IConst.s_age_category_y3_to_y7, new CAgeInterval(3, 0, 7, 0));
     
-    private final String m_value;
-    private final CAgeInterval m_age_interval;
+    private final String value;
+    private final CAgeInterval ageInterval;
     
-    private TypeAgeRange(String p_val) { this(p_val, null); }
-    private TypeAgeRange(String p_val, CAgeInterval p_age_interval) {
-        m_value = p_val; 
-        m_age_interval = p_age_interval;
+    private TypeAgeRange(String pVal) {
+        this(pVal, null);
     }
-    public String value() { return m_value; }
-    public CAgeInterval getAgeInterval() { return m_age_interval; }
+    private TypeAgeRange(String pVal, CAgeInterval pAgeInterval) {
+        value = pVal;
+        ageInterval = pAgeInterval;
+    }
+    public String value() {
+        return value;
+    }
+    public CAgeInterval getAgeInterval() {
+        return ageInterval;
+    }
 
-    public static TypeAgeRange fromValue(String p_val) {
-        for(TypeAgeRange x_item: TypeAgeRange.values())
-            if(x_item.m_value.equals(p_val)) return x_item;
-        throw new IllegalArgumentException(p_val);
+    public static TypeAgeRange fromValue(String pVal) {
+        for(TypeAgeRange item: TypeAgeRange.values())
+            if(item.value.equals(pVal)) return item;
+        throw new IllegalArgumentException(pVal);
     }
     
-    public static List<TypeAgeRange> fromAge(CAge p_age) {
-        List<TypeAgeRange> x_categories = new ArrayList<TypeAgeRange>();
-        for(TypeAgeRange x_item: TypeAgeRange.values()) {
-            if (x_item.getAgeInterval().containsLeft(p_age))
-                x_categories.add(x_item);
+    public static List<TypeAgeRange> fromAge(CAge pAge) {
+        List<TypeAgeRange> categories = new ArrayList<TypeAgeRange>();
+        for(TypeAgeRange item: TypeAgeRange.values()) {
+            if (item.getAgeInterval().containsLeft(pAge))
+                categories.add(item);
         }
-        return x_categories;
+        return categories;
     }    
         
 }
