@@ -39,8 +39,8 @@ public class DateElement implements IDateElement, IDTO {
         return year;
     }
     @Override
-    public void setYear(Integer pVal) {
-        year = pVal;
+    public void setYear(Integer pYear) {
+        year = pYear;
     }
     
     @XmlAttribute(name = S_ATTR_MONTH)
@@ -49,8 +49,8 @@ public class DateElement implements IDateElement, IDTO {
         return month;
     }
     @Override
-    public void setMonth(Integer pVal) {
-        month = pVal;
+    public void setMonth(Integer pMonth) {
+        month = pMonth;
     }
     
     @XmlAttribute(name = S_ATTR_DAY)
@@ -59,8 +59,8 @@ public class DateElement implements IDateElement, IDTO {
         return day;
     }
     @Override
-    public void setDay(Integer pVal) {
-        day = pVal;
+    public void setDay(Integer pDay) {
+        day = pDay;
     }
 
     @Override

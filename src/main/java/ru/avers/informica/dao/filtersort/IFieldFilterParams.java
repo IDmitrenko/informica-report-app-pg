@@ -35,12 +35,18 @@ public interface IFieldFilterParams extends IFilterParams {
         @XmlEnumValue("neq")
         notEqual;
         
-        private final boolean m_is_need_param;
+        private final boolean isNeedParam;
         
-        private ComparisonType() { this(true); }
-        private ComparisonType(boolean p_val) { m_is_need_param = p_val; }
+        private ComparisonType() {
+            this(true);
+        }
+        private ComparisonType(boolean pVal) {
+            isNeedParam = pVal;
+        }
         
-        public boolean isNeedParam() { return m_is_need_param; }
+        public boolean isNeedParam() {
+            return isNeedParam;
+        }
     };
 
     String getField();

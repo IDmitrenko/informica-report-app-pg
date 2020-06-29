@@ -10,7 +10,6 @@ import ru.avers.informica.dao.mapper.CommonMapper;
 import ru.avers.informica.dao.mapper.IdMapper;
 import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.dto.informica.CommonInf;
-import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.dto.inqry.AgeDto;
 
 import java.util.Arrays;
@@ -101,7 +100,7 @@ public class CommonDaoImpl implements CommonDao {
             return null;
 
         } catch (Exception ex) {
-            log.error("Ошибка выполнения запроса AllInqry.", ex);
+            log.error("Ошибка выполнения запроса CommonInf.", ex);
             throw ex;
         }
     }

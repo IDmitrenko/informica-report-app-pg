@@ -7,13 +7,13 @@ package ru.avers.informica.dto;
 public interface IDateElement {
         
     Integer getYear();
-    void setYear(Integer p_year);
+    void setYear(Integer pYear);
     
     Integer getMonth();
-    void setMonth(Integer p_month);
+    void setMonth(Integer pMonth);
 
     Integer getDay();
-    void setDay(Integer p_day);
+    void setDay(Integer pDay);
     
-    void set(IDateElement p_val);
+    void set(IDateElement pVal);
 }

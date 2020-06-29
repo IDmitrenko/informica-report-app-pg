@@ -6,7 +6,7 @@ package ru.avers.informica.exception;
  */
 public class FilterException extends Exception {
     public FilterException() { super(); }
-    public FilterException(String p_msg) { super(p_msg); }
-    public FilterException(String p_msg, Throwable p_cause) { super(p_msg, p_cause); }
+    public FilterException(String msg) { super(msg); }
+    public FilterException(String msg, Throwable cause) { super(msg, cause); }
     public FilterException(Throwable cause) { super(cause); }
 }

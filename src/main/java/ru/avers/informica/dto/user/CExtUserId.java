@@ -15,35 +15,47 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "TypeExtUserId", propOrder={"authProviderCode", "userId"})
 public class CExtUserId implements IDTO {
     final static public String
-            s_code_dailymotion = "DAILYMOTION",
-            s_code_google = "GOOGLE",
-            s_code_yandex = "YANDEX",
-            s_code_esia = "ESIA";
+            S_CODE_DAILYMOTION = "DAILYMOTION",
+            S_CODE_GOOGLE = "GOOGLE",
+            S_CODE_YANDEX = "YANDEX",
+            S_CODE_ESIA = "ESIA";
     
     
-    private String m_code_auth_provider, m_user_id;
+    private String authProviderCode, userId;
     
     @XmlAttribute(name="auth-provider-code")
-    public String getAuthProviderCode() { return m_code_auth_provider; }
-    public void setAuthProviderCode(String p_val) { m_code_auth_provider = p_val; }
+    public String getAuthProviderCode() {
+        return authProviderCode;
+    }
+    public void setAuthProviderCode(String pVal) {
+        authProviderCode = pVal;
+    }
     
     @XmlAttribute(name="user-id")
-    public String getUserId() { return m_user_id; }
-    public void setUserId(String p_val) { m_user_id = p_val; }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String pVal) {
+        userId = pVal;
+    }
     
-    public CExtUserId() { this(null, null); }
-    public CExtUserId(String p_auth_provider_code) { this(p_auth_provider_code, null); }
-    public CExtUserId(String p_auth_provider_code, String p_user_id) {
-        m_code_auth_provider = p_auth_provider_code;
-        m_user_id = p_user_id;
+    public CExtUserId() {
+        this(null, null);
+    }
+    public CExtUserId(String pAuthProviderCode) {
+        this(pAuthProviderCode, null);
+    }
+    public CExtUserId(String pAuthProviderCode, String pUserId) {
+        authProviderCode = pAuthProviderCode;
+        userId = pUserId;
     }
     
     @Override
     public String toString() {
         return CExtUserId.class.getName()
                 + " {" 
-                + "auth-provider-code = " + String.valueOf(m_code_auth_provider)
-                + "; user-id = " + String.valueOf(m_user_id)
+                + "auth-provider-code = " + String.valueOf(authProviderCode)
+                + "; user-id = " + String.valueOf(userId)
                 + "}";
     }
     
