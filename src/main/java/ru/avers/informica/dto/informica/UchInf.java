@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.util.TimeZone;
 
 /**
- *
+ * Информация по учреждению и тэг organization
  * @author Dias
  */
 @Getter
