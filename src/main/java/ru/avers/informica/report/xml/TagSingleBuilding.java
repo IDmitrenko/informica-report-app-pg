@@ -9,9 +9,9 @@ import java.util.List;
  * 
  * 				Описание тега building
  * 				Он содержит в себе вложенные теги group
- * 				а также набор атрибутов id, name, fias_house_guid, plain_address, building_type_area, type_building, filial, deprecation
+ * 				а также набор атрибутов id, name, fias_house_guid, plain_address, 
+ * 				building_type_area, type_building, filial, deprecation
  * 				Все атрибуты обязательны, наличие хотя бы одной группы - тоже
- * 			
  * 
  * <p>Java class for tag_single_building complex type.
  * 

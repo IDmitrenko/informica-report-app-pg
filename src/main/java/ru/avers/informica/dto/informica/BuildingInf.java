@@ -53,6 +53,7 @@ public class BuildingInf {
             cabinetLogopedist,      // ... (cabinet_logopedist)
             cabinetDefectologist,   // ... (cabinet_defectologist)
             cabinetPsychologist,    // ... (cabinet_psychologist)
+// TODO этого поля нет в XSD схеме
             statusBuilding;         // статус здания (status_building)
 
 }

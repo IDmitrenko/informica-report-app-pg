@@ -42,5 +42,9 @@ public class GroupInf {
             enrolledGkp,       // ... (enrolled_gkp)
             capacityGkp,       // ... (capacity_gkp)
             programOvz;        // ... (program_ovz)
+//TODO в схеме есть, в полном отчете нет!
+    private String ovzType,     // ... (ovz_type)
+            wellness;           // ... (wellness)
+
 
 }
