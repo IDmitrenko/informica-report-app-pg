@@ -12,10 +12,7 @@ import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.dto.informica.CommonInf;
 import ru.avers.informica.dto.inqry.AgeDto;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Slf4j
@@ -25,6 +22,9 @@ public class CommonDaoImpl implements CommonDao {
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final IdMapper idMapper;
     private final CommonMapper commonMapper;
+
+    private final String strIdTer = "id",
+            strCnt = "cnt";
 
     @Override
     public Map<Integer, Integer> getNoDooCounter(Date currDate,
@@ -47,8 +47,6 @@ public class CommonDaoImpl implements CommonDao {
                             "where sts.cname in (:codes_status)",
                     parameterSource,
                     idMapper);
-            String strIdTer = "id",
-                    strCnt = "cnt";
 
             parameterSource.addValue("dt_curr", currDate);
             parameterSource.addValue("ids_statuses", idsStatus);
@@ -96,11 +94,151 @@ public class CommonDaoImpl implements CommonDao {
                     "group by inq.ter_sp",
                     parameterSource,
                     commonMapper);
-// TODO заполнить Map
-            return null;
+
+            Map<Integer, Integer> noDooMap = new HashMap<Integer, Integer>();
+            if (commonInfs != null) {
+                for (CommonInf commonInf : commonInfs) {
+                    noDooMap.put((Integer) commonInf.getId(), ((Long) commonInf.getCnt()).intValue());
+                }
+            }
+            return noDooMap;
 
         } catch (Exception ex) {
-            log.error("Ошибка выполнения запроса CommonInf.", ex);
+            log.error("Ошибка выполнения запроса CommonInf - NoDooCounter.", ex);
+            throw ex;
+        }
+    }
+
+    @Override
+    public Map<Integer, Integer> getMedicCounter(Date currDate,
+                                                 AgeDto ageFrom,
+                                                 AgeDto ageTo) {
+
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+
+            String codeMedic = InqryStatusCode.CANT_GO_TO_DOO_MEDIC_14;
+            List<String> codesStatus = Arrays.asList(codeMedic);
+
+            parameterSource.addValue("codes_status", codesStatus);
+
+            List<Integer> idsStatus = jdbcTemplate.query("select sts.id as id " +
+                            "from app.statuses sts " +
+                            "where sts.cname in (:codes_status)",
+                    parameterSource,
+                    idMapper);
+
+            parameterSource.addValue("dt_curr", currDate);
+            parameterSource.addValue("ids_statuses", idsStatus);
+            if (ageFrom == null) {
+                parameterSource.addValue("isAgeFrom", false);
+            } else {
+                parameterSource.addValue("isAgeFrom", true);
+                parameterSource.addValue("bdt_from", ageFrom.getBirthDate(currDate));
+            }
+            if (ageTo == null) {
+                parameterSource.addValue("isAgeTo", false);
+            } else {
+                parameterSource.addValue("isAgeTo", true);
+                parameterSource.addValue("bdt_to", ageTo.getBirthDate(currDate));
+            }
+
+            List<CommonInf> commonInfs = jdbcTemplate.query("select inq.ter_sp as " + strIdTer + ", " +
+                            "count(inq.id_app) as " + strCnt + " " +
+                            "from app.status st " +
+                            "inner join app.applications inq on inq.id_app = st.app_id " +
+                            "inner join app.statuses sts on sts.id = st.statuses_id " +
+                            "where ((st.d_status <= :dt_curr and st.d_validity > :dt_curr and " +
+                            "st.statuses_id in (:ids_statuses)) and " +
+                            "(case when (:isAgeFrom)" +
+                            " then inq.d_birth <= :bdt_from" +
+                            " else true" +
+                            " end)) and " +
+                            "(case when (:isAgeTo)" +
+                            " then inq.d_birth > :bdt_to" +
+                            " else true" +
+                            " end) " +
+                            "group by inq.ter_sp",
+                    parameterSource,
+                    commonMapper);
+
+            Map<Integer, Integer> medicMap = new HashMap<Integer, Integer>();
+            if (commonInfs != null) {
+                for (CommonInf commonInf : commonInfs) {
+                    medicMap.put((Integer) commonInf.getId(), ((Long) commonInf.getCnt()).intValue());
+                }
+            }
+            return medicMap;
+
+        } catch (Exception ex) {
+            log.error("Ошибка выполнения запроса CommonInf - MedicCounter.", ex);
+            throw ex;
+        }
+    }
+
+    @Override
+    public Map<Integer, Integer> getFamilyCounter(Date currDate,
+                                                 AgeDto ageFrom,
+                                                 AgeDto ageTo) {
+// TODO продолжить после получения описания данных
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+
+            String codeMedic = InqryStatusCode.CANT_GO_TO_DOO_MEDIC_14;
+            List<String> codesStatus = Arrays.asList(codeMedic);
+
+            parameterSource.addValue("codes_status", codesStatus);
+
+            List<Integer> idsStatus = jdbcTemplate.query("select sts.id as id " +
+                            "from app.statuses sts " +
+                            "where sts.cname in (:codes_status)",
+                    parameterSource,
+                    idMapper);
+
+            parameterSource.addValue("dt_curr", currDate);
+            parameterSource.addValue("ids_statuses", idsStatus);
+            if (ageFrom == null) {
+                parameterSource.addValue("isAgeFrom", false);
+            } else {
+                parameterSource.addValue("isAgeFrom", true);
+                parameterSource.addValue("bdt_from", ageFrom.getBirthDate(currDate));
+            }
+            if (ageTo == null) {
+                parameterSource.addValue("isAgeTo", false);
+            } else {
+                parameterSource.addValue("isAgeTo", true);
+                parameterSource.addValue("bdt_to", ageTo.getBirthDate(currDate));
+            }
+
+            List<CommonInf> commonInfs = jdbcTemplate.query("select inq.ter_sp as " + strIdTer + ", " +
+                            "count(inq.id_app) as " + strCnt + " " +
+                            "from app.status st " +
+                            "inner join app.applications inq on inq.id_app = st.app_id " +
+                            "inner join app.statuses sts on sts.id = st.statuses_id " +
+                            "where ((st.d_status <= :dt_curr and st.d_validity > :dt_curr and " +
+                            "st.statuses_id in (:ids_statuses)) and " +
+                            "(case when (:isAgeFrom)" +
+                            " then inq.d_birth <= :bdt_from" +
+                            " else true" +
+                            " end)) and " +
+                            "(case when (:isAgeTo)" +
+                            " then inq.d_birth > :bdt_to" +
+                            " else true" +
+                            " end) " +
+                            "group by inq.ter_sp",
+                    parameterSource,
+                    commonMapper);
+
+            Map<Integer, Integer> familyMap = new HashMap<Integer, Integer>();
+            if (commonInfs != null) {
+                for (CommonInf commonInf : commonInfs) {
+                    familyMap.put((Integer) commonInf.getId(), ((Long) commonInf.getCnt()).intValue());
+                }
+            }
+            return familyMap;
+
+        } catch (Exception ex) {
+            log.error("Ошибка выполнения запроса CommonInf - FamilyCounter.", ex);
             throw ex;
         }
     }

@@ -25,24 +25,43 @@ public class UchMapper implements RowMapper<UchInf> {
         uchInf.setMunicipObrOktmo(rs.getString("municipObrOktmo"));
         uchInf.setEpguLink(rs.getString("epguLink"));
         uchInf.setRpguLink(rs.getString("rpguLink"));
-        uchInf.setWorkDays(rs.getShort("workDays"));
-        if (rs.getTime("timeFrom") != null) {
-            uchInf.setWorkFrom(rs.getTime("timeFrom").toString());
-        }
-        if (rs.getTime("timeTo") != null) {
-            uchInf.setWorkTo(rs.getTime("timeTo").toString());
-        }
-        uchInf.setMealServingType(rs.getShort("mealServingType"));
+        uchInf.setWorkTime(rs.getString("worktime"));
+        uchInf.setMealServingType(rs.getString("mealServingType"));
         uchInf.setOrgLegalFormName(rs.getString("orgLegalFormName"));
         uchInf.setOrgLegalFormCode(rs.getString("orgLegalFormCode"));
         uchInf.setStatusName(rs.getString("statusName"));
         uchInf.setStatusСode(rs.getString("statusCode"));
-        uchInf.setAddEducation(rs.getString("addEducation"));
-        uchInf.setFeatures(rs.getString("features"));
-        uchInf.setFiasHouseGuid(rs.getString("fiasHouseGuid"));
+        if (rs.getString("addEducation") == null) {
+            uchInf.setAddEducation("Нет");
+        } else {
+            uchInf.setAddEducation(rs.getString("addEducation"));
+        }
+        if (rs.getString("features") == null) {
+            uchInf.setFeatures("Нет");
+        } else {
+            uchInf.setFeatures(rs.getString("features"));
+        }
+        uchInf.setFiasOrgGuid(rs.getString("fiasOrgGuid"));
         uchInf.setAddrKladr(rs.getString("addrKladr"));
         uchInf.setStructureName(rs.getString("structureName"));
         uchInf.setStructureCode(rs.getString("structureCode"));
+        uchInf.setLicense(rs.getString("license"));
+        uchInf.setTypeArea(rs.getString("type_area"));
+        uchInf.setWebsite(rs.getString("website"));
+        uchInf.setEmail(rs.getString("email"));
+        uchInf.setPhone(rs.getString("phone"));
+        uchInf.setNumFilial(rs.getString("num_filial"));
+        uchInf.setNumBuilding(rs.getString("num_building"));
+        uchInf.setNumGroup(rs.getString("num_group"));
+        uchInf.setPartnerDoo(rs.getString("partner_doo"));
+        if (rs.getString("passport") == null) {
+            uchInf.setPassport("Нет");
+        } else {
+            uchInf.setPassport(rs.getString("passport"));
+        }
+        uchInf.setLekoteka(rs.getString("lekoteka"));
+        uchInf.setCentreGame(rs.getString("centre_game"));
+        uchInf.setCommetStatus(rs.getString("commet_status"));
 
         return uchInf;
     }

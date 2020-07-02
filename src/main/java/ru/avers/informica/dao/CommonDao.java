@@ -14,7 +14,7 @@ public interface CommonDao {
      * @param pActiveQueue признак получения места в текущем учебном году (true)
      * @param ageFrom возраст от
      * @param ageTo возраст до
-     * @return список отобранных для отчета учреждений
+     * @return количество отобранных для отчета учреждений по территориям
      */
     Map<Integer, Integer> getNoDooCounter(Date currDate,
                                           Date nextEducDate,
@@ -22,4 +22,25 @@ public interface CommonDao {
                                           AgeDto ageFrom,
                                           AgeDto ageTo);
 
+    /**
+     * Данные о детях, не посещающих ДОО по медицинским показаниям
+     * @param currDate дата построения отчета
+     * @param ageFrom возраст от
+     * @param ageTo возраст до
+     * @return количество отобранных для отчета учреждений по территориям
+     */
+    Map<Integer, Integer> getMedicCounter(Date currDate,
+                                          AgeDto ageFrom,
+                                          AgeDto ageTo);
+
+    /**
+     * Данные о детях, получающих дошкольное образование в семейной форме
+     * @param currDate дата построения отчета
+     * @param ageFrom возраст от
+     * @param ageTo возраст до
+     * @return количество отобранных для отчета учреждений по территориям
+     */
+    Map<Integer, Integer> getFamilyCounter(Date currDate,
+                                          AgeDto ageFrom,
+                                          AgeDto ageTo);
 }
