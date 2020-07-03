@@ -1,5 +1,6 @@
 package ru.avers.informica.dao.impl;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -177,55 +178,44 @@ public class CommonDaoImpl implements CommonDao {
     }
 
     @Override
-    public Map<Integer, Integer> getFamilyCounter(Date currDate,
-                                                 AgeDto ageFrom,
-                                                 AgeDto ageTo) {
-// TODO продолжить после получения описания данных
+    public Map<Integer, Integer> getFamilyCounter(@NonNull Date currDate,
+                                                 @NonNull Integer currEducYear,
+                                                 @NonNull AgeDto ageFrom,
+                                                 @NonNull AgeDto ageTo) {
         try {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
 
-            String codeMedic = InqryStatusCode.CANT_GO_TO_DOO_MEDIC_14;
-            List<String> codesStatus = Arrays.asList(codeMedic);
-
-            parameterSource.addValue("codes_status", codesStatus);
-
-            List<Integer> idsStatus = jdbcTemplate.query("select sts.id as id " +
-                            "from app.statuses sts " +
-                            "where sts.cname in (:codes_status)",
-                    parameterSource,
-                    idMapper);
-
             parameterSource.addValue("dt_curr", currDate);
-            parameterSource.addValue("ids_statuses", idsStatus);
-            if (ageFrom == null) {
-                parameterSource.addValue("isAgeFrom", false);
-            } else {
-                parameterSource.addValue("isAgeFrom", true);
+            parameterSource.addValue("year_educ", currEducYear);
+//            if (ageFrom == null) {
+//                parameterSource.addValue("isAgeFrom", false);
+//            } else {
+//                parameterSource.addValue("isAgeFrom", true);
                 parameterSource.addValue("bdt_from", ageFrom.getBirthDate(currDate));
-            }
-            if (ageTo == null) {
-                parameterSource.addValue("isAgeTo", false);
-            } else {
-                parameterSource.addValue("isAgeTo", true);
+//            }
+//            if (ageTo == null) {
+//                parameterSource.addValue("isAgeTo", false);
+//            } else {
+//                parameterSource.addValue("isAgeTo", true);
                 parameterSource.addValue("bdt_to", ageTo.getBirthDate(currDate));
-            }
+//            }
 
-            List<CommonInf> commonInfs = jdbcTemplate.query("select inq.ter_sp as " + strIdTer + ", " +
-                            "count(inq.id_app) as " + strCnt + " " +
-                            "from app.status st " +
-                            "inner join app.applications inq on inq.id_app = st.app_id " +
-                            "inner join app.statuses sts on sts.id = st.statuses_id " +
-                            "where ((st.d_status <= :dt_curr and st.d_validity > :dt_curr and " +
-                            "st.statuses_id in (:ids_statuses)) and " +
-                            "(case when (:isAgeFrom)" +
-                            " then inq.d_birth <= :bdt_from" +
-                            " else true" +
-                            " end)) and " +
-                            "(case when (:isAgeTo)" +
-                            " then inq.d_birth > :bdt_to" +
-                            " else true" +
-                            " end) " +
-                            "group by inq.ter_sp",
+            List<CommonInf> commonInfs = jdbcTemplate.query("select u.uch_ter_sp as " + strIdTer + ", " +
+                            "(select count(sp.out_id_pupil) " +
+                            " from school_pupil(u.domen_uch, :dt_curr, 1, 2, 3) sp " +
+                            " inner join public.pupil p on p.pupil_id = sp.out_id_pupil " +
+                            " inner join public.classes cl on (cl.uch = sp.out_uch and " +
+                            "       cl.year_class = :year_educ and " +
+                            "       cl.class_num = sp.out_class_num and " +
+                            "       cl.stream_let = sp.out_stream_let) " +
+                            " where cl.family_group = '+' and " +
+                            "       p.d_birth <= :bdt_from and " +
+                            "       p.d_birth > :bdt_to and " +
+                            "       (sp.out_d_leave is null or sp.out_d_leave > :dt_curr)" +
+                            ") as " + strCnt + " " +
+                            "from public.uch u " +
+                            "left join public.municip m on m.m_id = u.uch_ter_sp " +
+                            "where u.hidden = '-'",
                     parameterSource,
                     commonMapper);
 

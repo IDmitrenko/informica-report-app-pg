@@ -36,11 +36,13 @@ public interface CommonDao {
     /**
      * Данные о детях, получающих дошкольное образование в семейной форме
      * @param currDate дата построения отчета
+     * @param currEducYear  текущий учебный год
      * @param ageFrom возраст от
      * @param ageTo возраст до
      * @return количество отобранных для отчета учреждений по территориям
      */
     Map<Integer, Integer> getFamilyCounter(Date currDate,
+                                          Integer currEducYear,
                                           AgeDto ageFrom,
                                           AgeDto ageTo);
 }

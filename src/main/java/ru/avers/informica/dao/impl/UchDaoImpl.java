@@ -173,6 +173,12 @@ public class UchDaoImpl implements UchDao {
                     age3, age7);
 
             // Данные о детях, получающих дошкольное образование в семейной форме
+            Map<Integer, Integer> family_0_3 = commonDao.getFamilyCounter(currDate,
+                    DateUtil.getYearPart(currEducDate),
+                    age0, age3);
+            Map<Integer, Integer> family_3_7 = commonDao.getFamilyCounter(currDate,
+                    DateUtil.getYearPart(currEducDate),
+                    age3, age7);
 
 
             for (UchInf uchInf : allUch) {
@@ -196,7 +202,12 @@ public class UchDaoImpl implements UchDao {
                 if (medic_3_7.containsKey(idTerUch)) {
                     uchInf.setMedic_3_7(medic_3_7.get(idTerUch));
                 }
-                // TODO семейная форма
+                if (family_0_3.containsKey(idTerUch)) {
+                    uchInf.setFamily_0_3(family_0_3.get(idTerUch));
+                }
+                if (family_3_7.containsKey(idTerUch)) {
+                    uchInf.setFamily_3_7(family_3_7.get(idTerUch));
+                }
             }
             return allUch;
 
