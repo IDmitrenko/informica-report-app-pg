@@ -50,7 +50,7 @@ public class UchDaoImpl implements UchDao {
                                      "' ' || coalesce(u.co_name, '') as chief, " +
                             "u.code_oktmo as municipObrOktmo, " +
                             "mc.epgu_link as epguLink, " +
-                            "mc.epgu_link as rpguLink, " +
+                            "mc.rpgu_link as rpguLink, " +
 // сделать обработку: Пятидневка, с 07:30 по 18:00
                             "coalesce(fw.nm || ', ', '') || 'с ' || " +
                                      "coalesce(to_char(u.work_from, 'HH24:MI'), '') || ' по ' || " +
@@ -61,9 +61,9 @@ public class UchDaoImpl implements UchDao {
                             "coalesce (u.phone, '') || ', ' || coalesce (u.phone2, '') || " +
                                       "', ' || coalesce (u.fax, '') as phone, " +
                             "sbs.cname as orgLegalFormName, " +
-                            "sbs.sr as orgLegalFormCode, " +
+                            "sbfs.spare_01 as orgLegalFormCode, " +
                             "sts.cname as statusName, " +
-                            "sts.sr as statusCode, " +
+                            "stsf.spare_01 as statusCode, " +
                             "(select string_agg(c.name || '  (' || sb.cname || ')', '; ' order by c.name) as educNapr " +
                             " from public.circ c " +
                             " left outer join public.spr_b sb on sb.sp = c.circle_sp " +
@@ -85,7 +85,7 @@ public class UchDaoImpl implements UchDao {
                             "u.addr_fias as fiasOrgGuid, " +
                             "u.address as addrKladr, " +
                             "sbu.cname as structureName, " +
-                            "sbu.sr as structureCode, " +
+                            "sbfu.spare_01 as structureCode, " +
                             "case when " +
                             " (select count(und.id_norm_docs)" +
                             "  from uch_norm_docs und " +
@@ -132,8 +132,11 @@ public class UchDaoImpl implements UchDao {
                     "left join public.spr_b sbt on sbt.sp = u.uch_ter_csp " +
                     "left join public.municip mc on mc.m_id = u.uch_ter_csp " +
                     "left join public.spr_b sbs on sbs.sp = u.org_form_csp " +
+                    "left join public.spr_b_fspeo sbfs on sbfs.id = u.org_form_csp " +
                     "left join public.spr_b sts on sts.sp = u.org_status_csp " +
+                    "left join public.spr_b_fspeo stsf on stsf.id = u.org_status_csp " +
                     "left join public.spr_b sbu on sbu.sp = u.uch_struct_csp " +
+                    "left join public.spr_b_fspeo sbfu on sbfu.id = u.uch_struct_csp " +
                     "left join app.fspeo_worktime fw on fw.sr = u.work_days " +
                     "left join app.fspeo_meal_serving_type fms on fms.sr = u.meal_serving " +
                     "where u.hidden = '-'",

@@ -45,7 +45,7 @@ public class CommonDaoImpl implements CommonDao {
 
             List<Integer> idsStatus = jdbcTemplate.query("select sts.id as id " +
                             "from app.statuses sts " +
-                            "where sts.cname in (:codes_status)",
+                            "where sts.code in (:codes_status)",
                     parameterSource,
                     idMapper);
 
@@ -125,7 +125,7 @@ public class CommonDaoImpl implements CommonDao {
 
             List<Integer> idsStatus = jdbcTemplate.query("select sts.id as id " +
                             "from app.statuses sts " +
-                            "where sts.cname in (:codes_status)",
+                            "where sts.code in (:codes_status)",
                     parameterSource,
                     idMapper);
 

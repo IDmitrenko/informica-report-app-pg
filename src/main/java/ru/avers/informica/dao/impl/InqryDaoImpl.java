@@ -40,19 +40,19 @@ public class InqryDaoImpl implements InqryDao {
 
             Integer id_refusing = jdbcTemplate.queryForObject("select sts.id as id " +
                             "from app.statuses sts " +
-                            "where sts.cname = :code_cname_refusing",
+                            "where sts.code = :code_cname_refusing",
                     parameterSource,
                     idMapper);
 
             Integer id_didnt_arrive = jdbcTemplate.queryForObject("select sts.id as id " +
                             "from app.statuses sts " +
-                            "where sts.cname = :code_cname_didnt_arrive",
+                            "where sts.code = :code_cname_didnt_arrive",
                     parameterSource,
                     idMapper);
 
             Integer id_archive_status = jdbcTemplate.queryForObject("select sts.id as id " +
                             "from app.statuses sts " +
-                            "where sts.cname = :code_cname_archive_status",
+                            "where sts.code = :code_cname_archive_status",
                     parameterSource,
                     idMapper);
 
@@ -69,11 +69,11 @@ public class InqryDaoImpl implements InqryDao {
                             "a.d_birth as dtBirth, " +
                             "qi.d_enter as enterQueueDt, " +
                             "qi.d_reg as regDt, " +
-                            "sb.cname as grpTypeCode, " +
+                            "sbf.spare_01 as grpTypeCode, " +
                             "a.health_csp as healthCsp, " +
-                            "sbn.cname as healthNeedsCode, " +
-                            "sba.cname as healthNeedsRootCode, " +
-                            "sts.cname as statusCode, " +
+                            "sbfh.spare_01 as healthNeedsCode, " +
+                            "sbfa.spare_01 as healthNeedsRootCode, " +
+                            "sts.code as statusCode, " +
                             "st.d_status as statusSetDate, " +
                             "a.statement_type as typeInqry, " +
                             "b.prty as uch_prty, " +
@@ -96,9 +96,10 @@ public class InqryDaoImpl implements InqryDao {
                     "inner join app.statuses sts on sts.id = st.statuses_id " +
                     "inner join app.buildings b on b.app_id = a.id_app " +
                     "inner join app.grp_time gt on gt.app_id = a.id_app " +
-                    "left  join public.spr_b sb on sb.sp = gt.grp_time_csp " +
-                    "left  join public.spr_b sbn on sbn.sp = a.health_csp " +
-                    "left  join public.spr_b sba on sba.sp = sbn.spra_id " +
+                    "left  join public.spr_b_fspeo sbf on sbf.id = gt.grp_time_csp " +
+                    "left  join public.spr_b_fspeo sbfh on sbfh.id = a.health_csp " +
+//TODO  заменить при добавлении поля
+                    "left  join public.spr_b_fspeo sbfa on sbfa.id = sbfh.id " + // parent_id
                     "where st.d_status <= :dt_curr and st.d_validity > :dt_curr and " +
                           "(sts.id <> :id_archive_status or " +
                           " qi.d_reg >= :rf_from and qi.d_reg < :dt_curr)" +
