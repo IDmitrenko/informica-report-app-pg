@@ -143,75 +143,78 @@ public class UchDaoImpl implements UchDao {
                     parameterSource,
                     uchMapper);
 
-            // Муниципальные показатели
-            AgeDto age0 = new AgeDto((short)0, (short)0, (short)0);
-            AgeDto age3 = new AgeDto((short)3, (short)0, (short)0);
-            AgeDto age7 = new AgeDto((short)7, (short)0, (short)0);
+            if (repForUchFilter != null) {
+                // Муниципальные показатели
+                AgeDto age0 = new AgeDto((short) 0, (short) 0, (short) 0);
+                AgeDto age3 = new AgeDto((short) 3, (short) 0, (short) 0);
+                AgeDto age7 = new AgeDto((short) 7, (short) 0, (short) 0);
 
-            // Данные о детях, стоящих на учете в связи с отсутствием ДОО, передаются
-            // в тэге noDooAct для детей, желающих получить место в текущем учебном году
-            Map<Integer, Integer> noDooAct_0_3 = commonDao.getNoDooCounter(currDate,
-                    DateUtil.adjustDate(currEducDate, 1),
-                    true,
-                    age0, age3);
-            Map<Integer, Integer> noDooAct_3_7 = commonDao.getNoDooCounter(currDate,
-                    DateUtil.adjustDate(currEducDate, 1),
-                    true,
-                    age3, age7);
+                // Данные о детях, стоящих на учете в связи с отсутствием ДОО, передаются
+                // в тэге noDooAct для детей, желающих получить место в текущем учебном году
+                Map<Integer, Integer> noDooAct_0_3 = commonDao.getNoDooCounter(currDate,
+                        DateUtil.adjustDate(currEducDate, 1),
+                        true,
+                        age0, age3);
+                Map<Integer, Integer> noDooAct_3_7 = commonDao.getNoDooCounter(currDate,
+                        DateUtil.adjustDate(currEducDate, 1),
+                        true,
+                        age3, age7);
 
-            // или в тэге nooDooDef для детей, желающих получить место в последующие годы.
-            Map<Integer, Integer> noDooDef_0_3 = commonDao.getNoDooCounter(currDate,
-                    DateUtil.adjustDate(currEducDate, 1),
-                    false,
-                    age0, age3);
-            Map<Integer, Integer> noDooDef_3_7 = commonDao.getNoDooCounter(currDate,
-                    DateUtil.adjustDate(currEducDate, 1),
-                    false,
-                    age3, age7);
+                // или в тэге nooDooDef для детей, желающих получить место в последующие годы.
+                Map<Integer, Integer> noDooDef_0_3 = commonDao.getNoDooCounter(currDate,
+                        DateUtil.adjustDate(currEducDate, 1),
+                        false,
+                        age0, age3);
+                Map<Integer, Integer> noDooDef_3_7 = commonDao.getNoDooCounter(currDate,
+                        DateUtil.adjustDate(currEducDate, 1),
+                        false,
+                        age3, age7);
 
-            // Данные о детях, не посещающих ДОО по медицинским показаниям
-            Map<Integer, Integer> medic_0_3 = commonDao.getMedicCounter(currDate,
-                    age0, age3);
-            Map<Integer, Integer> medic_3_7 = commonDao.getMedicCounter(currDate,
-                    age3, age7);
+                // Данные о детях, не посещающих ДОО по медицинским показаниям
+                Map<Integer, Integer> medic_0_3 = commonDao.getMedicCounter(currDate,
+                        age0, age3);
+                Map<Integer, Integer> medic_3_7 = commonDao.getMedicCounter(currDate,
+                        age3, age7);
 
-            // Данные о детях, получающих дошкольное образование в семейной форме
-            Map<Integer, Integer> family_0_3 = commonDao.getFamilyCounter(currDate,
-                    DateUtil.getYearPart(currEducDate),
-                    age0, age3);
-            Map<Integer, Integer> family_3_7 = commonDao.getFamilyCounter(currDate,
-                    DateUtil.getYearPart(currEducDate),
-                    age3, age7);
+                // Данные о детях, получающих дошкольное образование в семейной форме
+                Map<Integer, Integer> family_0_3 = commonDao.getFamilyCounter(currDate,
+                        DateUtil.getYearPart(currEducDate),
+                        age0, age3);
+                Map<Integer, Integer> family_3_7 = commonDao.getFamilyCounter(currDate,
+                        DateUtil.getYearPart(currEducDate),
+                        age3, age7);
 
 
-            for (UchInf uchInf : allUch) {
-                String oktmo = uchInf.getMunicipObrOktmo();
-                Integer idTerUch = uchInf.getIdTer();
-                if (noDooAct_0_3.containsKey(idTerUch)) {
-                    uchInf.setNoDooAct_0_3(noDooAct_0_3.get(idTerUch));
-                }
-                if (noDooAct_3_7.containsKey(idTerUch)) {
-                    uchInf.setNoDooAct_3_7(noDooAct_3_7.get(idTerUch));
-                }
-                if (noDooDef_0_3.containsKey(idTerUch)) {
-                    uchInf.setNoDooDef_0_3(noDooDef_0_3.get(idTerUch));
-                }
-                if (noDooDef_3_7.containsKey(idTerUch)) {
-                    uchInf.setNoDooDef_3_7(noDooDef_3_7.get(idTerUch));
-                }
-                if (medic_0_3.containsKey(idTerUch)) {
-                    uchInf.setMedic_0_3(medic_0_3.get(idTerUch));
-                }
-                if (medic_3_7.containsKey(idTerUch)) {
-                    uchInf.setMedic_3_7(medic_3_7.get(idTerUch));
-                }
-                if (family_0_3.containsKey(idTerUch)) {
-                    uchInf.setFamily_0_3(family_0_3.get(idTerUch));
-                }
-                if (family_3_7.containsKey(idTerUch)) {
-                    uchInf.setFamily_3_7(family_3_7.get(idTerUch));
+                for (UchInf uchInf : allUch) {
+                    String oktmo = uchInf.getMunicipObrOktmo();
+                    Integer idTerUch = uchInf.getIdTer();
+                    if (noDooAct_0_3.containsKey(idTerUch)) {
+                        uchInf.setNoDooAct_0_3(noDooAct_0_3.get(idTerUch));
+                    }
+                    if (noDooAct_3_7.containsKey(idTerUch)) {
+                        uchInf.setNoDooAct_3_7(noDooAct_3_7.get(idTerUch));
+                    }
+                    if (noDooDef_0_3.containsKey(idTerUch)) {
+                        uchInf.setNoDooDef_0_3(noDooDef_0_3.get(idTerUch));
+                    }
+                    if (noDooDef_3_7.containsKey(idTerUch)) {
+                        uchInf.setNoDooDef_3_7(noDooDef_3_7.get(idTerUch));
+                    }
+                    if (medic_0_3.containsKey(idTerUch)) {
+                        uchInf.setMedic_0_3(medic_0_3.get(idTerUch));
+                    }
+                    if (medic_3_7.containsKey(idTerUch)) {
+                        uchInf.setMedic_3_7(medic_3_7.get(idTerUch));
+                    }
+                    if (family_0_3.containsKey(idTerUch)) {
+                        uchInf.setFamily_0_3(family_0_3.get(idTerUch));
+                    }
+                    if (family_3_7.containsKey(idTerUch)) {
+                        uchInf.setFamily_3_7(family_3_7.get(idTerUch));
+                    }
                 }
             }
+
             return allUch;
 
         } catch (Exception ex) {

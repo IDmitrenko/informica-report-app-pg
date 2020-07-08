@@ -60,11 +60,8 @@ public class DataSourceUch {
         // 1 - repForUchFilter - null,
         // 2 - currDate - текущая дата со временем
         // 3 - 01.09.2020 00:00:00
-/*
-        List<UchInf> validateUch = uchDao.getUchsInformica(repForUchFilter,
-                currDate, DateUtil.adjustDate(currEducDate, 1));
-*/
-        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter, currDate, currEducDate);
+        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter,
+                currDate, currEducDate);
         log.info("Найдено {} uch-source", validateUch.size());
 
         StringBuilder uchMessage = new StringBuilder();
@@ -91,13 +88,13 @@ public class DataSourceUch {
                 CHelper.setFilterFieldType(uchFilters, UchInf.class);
             }
             List<UchInf> uchInfs = uchDao.getUchInformica(uchFilters,
-                    currDate, DateUtil.adjustDate(currEducDate, 1));
+                    currDate, currEducDate);
             for (UchInf uchInf : uchInfs) {
                 if (!notValidUchIds.contains(uchInf.getId()))
                     uchInfSchemas.add(new UchInfSchema(uchInf, schemaConfig));
             }
         }
-        return new Pair<Collection<UchInfSchema>, String>(uchInfSchemas, uchMessage.toString());
+        return new Pair<Collection<UchInfSchema>, String>(uchInfSchemas, notValidUchMessage);
     }
 
     static private String checkReportRequiredFields(UchInf uchInf) {

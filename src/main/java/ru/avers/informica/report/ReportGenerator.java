@@ -15,6 +15,7 @@ import ru.avers.informica.exception.ReportExceprion;
 import ru.avers.informica.filtersinqry.FilterChain;
 import ru.avers.informica.infcfg.*;
 import ru.avers.informica.report.source.DataSourceUch;
+import ru.avers.informica.report.source.Pair;
 import ru.avers.informica.report.xml.*;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.DateUtil;
@@ -70,9 +71,10 @@ public class ReportGenerator {
         TagReports tagReports = new TagReports();
         tagReports.setParent_Pay(parentPayBuider());
 
+        Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch.getUchInfSchemas();
         Map<Integer, List<InqryInf>> inqryByUchMap = allInqry.stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch()));
-        for (DataSourceUch.UchInfSchema uchInfSchema : sourceUch.getUchInfSchemas().getFirst()) {
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             //Учреждение
             UchInf uchInf = uchInfSchema.getUchInf();
             //Счетчики учреждения
@@ -80,20 +82,21 @@ public class ReportGenerator {
             //Заявления текущего учреждения
             List<InqryInf> inqryInfs = inqryByUchMap.get(uchInf.getId());
             //Пройтись по каждому заявлению и посчитать счетчики
-            for (InqryInf inqryInf : inqryInfs) {
-                //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
-                for (CounterConfig counter : inqryCounters) {
-                    if (counter.isPassed(currDate, currEducDate, inqryInf)) {
-                        Collection<TypeAgeRange> ageRanges =
-                                counter.getCounterDef().getAgeRange().getAgeRanges(currDate, inqryInf);
-                        if (ageRanges != null && !ageRanges.isEmpty()) {
-                            // Посчитать элемент
+            if (inqryInfs != null && inqryCounters != null) {
+                for (InqryInf inqryInf : inqryInfs) {
+                    //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
+                    for (CounterConfig counter : inqryCounters) {
+                        if (counter.isPassed(currDate, currEducDate, inqryInf)) {
+                            Collection<TypeAgeRange> ageRanges =
+                                    counter.getCounterDef().getAgeRange().getAgeRanges(currDate, inqryInf);
+                            if (ageRanges != null && !ageRanges.isEmpty()) {
+                                // Посчитать элемент
 //TODO                            x_counter.count(p_countable, ageRanges);
+                            }
                         }
                     }
                 }
             }
-
         }
 
 /* продолжить...

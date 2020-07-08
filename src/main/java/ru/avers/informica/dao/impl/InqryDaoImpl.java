@@ -63,7 +63,7 @@ public class InqryDaoImpl implements InqryDao {
             parameterSource.addValue("rf_from", beginCurrYear);
 
             List<InqryInf> allInqry = jdbcTemplate.query("select a.id_app as id, " +
-                            "b.uch_buildings_id as uch_id, " +
+                            "ub.uch as uch_id, " +
                             "a.num as num, " +
                             "a.d_plan as dtPlan, " +
                             "a.d_birth as dtBirth, " +
@@ -95,6 +95,7 @@ public class InqryDaoImpl implements InqryDao {
                     "inner join app.status st on st.app_id = a.id_app " +
                     "inner join app.statuses sts on sts.id = st.statuses_id " +
                     "inner join app.buildings b on b.app_id = a.id_app " +
+                    "inner join public.uch_buildings ub on ub.id_uch_buildings = b.uch_buildings_id " +
                     "inner join app.grp_time gt on gt.app_id = a.id_app " +
                     "left  join public.spr_b_fspeo sbf on sbf.id = gt.grp_time_csp " +
                     "left  join public.spr_b_fspeo sbfh on sbfh.id = a.health_csp " +
