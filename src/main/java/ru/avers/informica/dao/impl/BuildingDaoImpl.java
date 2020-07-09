@@ -45,7 +45,11 @@ public class BuildingDaoImpl implements BuildingDao {
                             "else 0 " +
                             "end as filial, " +
                             "ub.depreciation as depreciation, " +
-                            "case when c.ftype_sp = 2250004 " +
+                            "case when " +
+                            " (select c.ftype_sp " +
+                            "  from cabinets c " +
+                            "  where c.building_id = ub.id_uch_buildings " +
+                            "        and c.ftype_sp = 2250004 limit 1) = 2250004 " +
                             "then 1 " +
                             "else 0 " +
                             "end as pool, " +
@@ -145,38 +149,64 @@ public class BuildingDaoImpl implements BuildingDao {
                             "then 0 " +
                             "else ubo.p1 " +
                             "end as oda_territory, " +
-                            "case when c.ftype_sp = 2250001 " +
+                            "case when " +
+                            " (select c.ftype_sp " +
+                            "  from cabinets c " +
+                            "  where c.building_id = ub.id_uch_buildings " +
+                            "        and c.ftype_sp in (2250047, 2250001) limit 1) in (2250047, 2250001) " +
                             "then 1 " +
                             "else 0 " +
                             "end as meeting_room, " +
-                            "case when c.ftype_sp = 2250062 " +
+                            "case when " +
+                            " (select c.ftype_sp " +
+                            "  from cabinets c " +
+                            "  where c.building_id = ub.id_uch_buildings " +
+                            "        and c.ftype_sp in (2250062, 2250002) limit 1) in (2250062, 2250002) " +
                             "then 1 " +
                             "else 0 " +
                             "end as sport_gym, " +
-                            "case when c.ftype_sp = 2250012 " +
+                            "case when " +
+                            " (select c.ftype_sp " +
+                            "  from cabinets c " +
+                            "  where c.building_id = ub.id_uch_buildings " +
+                            "    and c.ftype_sp in (2250012, 2250015, 2250063) limit 1) in (2250012, 2250015, 2250063) " +
                             "then 1 " +
                             "else 0 " +
                             "end as cabinet_med, " +
-                            "case when c.ftype_sp = 2250058 " +
+                            "case when " +
+                            " (select c.ftype_sp " +
+                            "  from cabinets c " +
+                            "  where c.building_id = ub.id_uch_buildings " +
+                            "    and c.ftype_sp = 2250058 limit 1) = 2250058 " +
                             "then 1 " +
                             "else 0 " +
                             "end as cabinet_logopedist, " +
-                            "case when c.ftype_sp = 2250023 " +
+                            "case when " +
+                            " (select c.ftype_sp " +
+                            "  from cabinets c " +
+                            "  where c.building_id = ub.id_uch_buildings " +
+                            "    and c.ftype_sp = 2250023 limit 1) = 2250023 " +
                             "then 1 " +
                             "else 0 " +
                             "end as cabinet_defectologist, " +
-                            "case when c.ftype_sp = 2250010 " +
+                            "case when " +
+                            " (select c.ftype_sp " +
+                            "  from cabinets c " +
+                            "  where c.building_id = ub.id_uch_buildings " +
+                            "    and c.ftype_sp = 2250010 limit 1) = 2250010 " +
                             "then 1 " +
                             "else 0 " +
                             "end as cabinet_psychologist, " +
-                            "case when ub.status_csp in (0, 4950000) " +
+                            "case when (ub.status_csp = 0 or ub.status_csp is null) " +
+                            "then (case when (u.org_status_csp = 4950000) " +
+                            "      then 1 else 0 end) " +
+                            "when ub.status_csp = 4950000 " +
                             "then 1 " +
                             "else 0 " +
                             "end as status_building " +
                     "from public.uch_buildings ub " +
                     "left join public.spr_b sb on sb.sp = ub.building_type_sp " +
                     "left join public.uch_buildings_ovz ubo on ubo.bld_id = ub.id_uch_buildings " +
-                    "left join public.cabinets c on c.building_id = ub.id_uch_buildings " +
                     "left join public.uch u on u.domen_uch = ub.uch " +
                     "where u.domen_uch = :idUch",
                     parameterSource,

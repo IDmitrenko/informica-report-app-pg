@@ -140,6 +140,7 @@ public class UchDaoImpl implements UchDao {
                     "left join app.fspeo_worktime fw on fw.sr = u.work_days " +
                     "left join app.fspeo_meal_serving_type fms on fms.sr = u.meal_serving " +
                     "where u.hidden = '-'",
+//                         " and u.domen_uch = 1151",
                     parameterSource,
                     uchMapper);
 
