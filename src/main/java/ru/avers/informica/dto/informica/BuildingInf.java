@@ -15,45 +15,74 @@ public class BuildingInf {
     private int id;            // id здания
 
     private String idCode,     // код здания (id)
+            uchCode,           // код учреждения (000)
             name,              // наименование (name)
             fiasHouseGuid,     // юридический адрес через код здания ФИАС (fias_house_guid)
             plainAddress,      // юридический адрес по правилам КЛАДР (plain_address)
             buildingTypeArea,  // тип местности (1 - город, 2 - сельская) (building_type_area)
             typeBuilding,      // код типа собственности (type_building)
             filial,            // признак филиала (filial)
-            depreciation,      // ... (depreciation)
-            pool,              // ... (pool)
-            earEquipment,      // ... (ear_equipment)
-            earPath,           // ... (ear_path)
-            earCommunication,  // ... (ear_communication)
-            earWashroom,       // ... (ear_washroom)
-            earRoom,           // ... (ear_room)
-            earWay,            // ... (ear_way)
-            earEntrance,       // ... (ear_entrance)
-            earTerritory,      // ... (ear_territory)
-            visionEquipment,      // ... (vision_equipment)
-            visionPath,           // ... (vision_path)
-            visionCommunication,  // ... (vision_communication)
-            visionWashroom,       // ... (vision_washroom)
-            visionRoom,           // ... (vision_room)
-            visionWay,            // ... (vision_way)
-            visionEntrance,       // ... (vision_entrance)
-            visionTerritory,      // ... (vision_territory)
-            odaEquipment,      // ... (oda_equipment)
-            odaPath,           // ... (oda_path)
-            odaCommunication,  // ... (oda_communication)
-            odaWashroom,       // ... (oda_washroom)
-            odaRoom,           // ... (oda_room)
-            odaWay,            // ... (oda_way)
-            odaEntrance,       // ... (oda_entrance)
-            odaTerritory,      // ... (oda_territory)
-            meetingRoom,       // ... (meeting_room)
-            sportGym,          // ... (sport_gym)
-            cabinetMed,             // ... (cabinet_med)
-            cabinetLogopedist,      // ... (cabinet_logopedist)
-            cabinetDefectologist,   // ... (cabinet_defectologist)
-            cabinetPsychologist,    // ... (cabinet_psychologist)
+            depreciation,      // процент износа здания (depreciation)
+            pool,              // наличие бассейна (pool)
+            earEquipment,      // Имеется в наличии специальное оборудование для организации
+                               // образовательной среды для детей с нарушениями слуха (ear_equipment)
+            earPath,           // Пути движения к объекту (от остановки транспорта)
+                               // оборудованы для детей с нарушениями слуха (ear_path)
+            earCommunication,  // Система информации и связи (на всех зонах) оборудована
+                               // для детей с нарушениями слуха (ear_communication)
+            earWashroom,       // Санитарно-гигиенические помещения оборудованы для
+                               // детей с нарушениями слуха" (ear_washroom)
+            earRoom,           // Зона целевого назначения здания (дошкольная группа,физкультурный зал,
+                               // музыкальный зал, бассейн и т.п.) оборудована для детей
+                               // с нарушениями слуха (ear_room)
+            earWay,            // Путь (пути) движения внутри здания (в т.ч. пути эвакуации)
+                               // оборудованы для детей с нарушениями слуха (ear_way)
+            earEntrance,       // Входы (выходы) в здание оборудованы для детей с
+                               // нарушениями слуха (ear_entrance)
+            earTerritory,      // Территория, прилегающая к зданию, оборудована для
+                               // детей с нарушениями слуха (ear_territory)
+            visionEquipment,      // Имеется в наличии специальное оборудование для организации
+                                  // образовательной среды для детей с нарушениями зрения (vision_equipment)
+            visionPath,           // Пути движения к объекту (от остановки транспорта) оборудованы
+                                  // для детей с нарушениями зрения (vision_path)
+            visionCommunication,  // Система информации и связи (на всех зонах) оборудована для детей
+                                  // с нарушениями зрения (vision_communication)
+            visionWashroom,       // Санитарно-гигиенические помещения оборудованы для детей с
+                                  // нарушениями зрения (vision_washroom)
+            visionRoom,           // Зона целевого назначения здания (дошкольная группа,физкультурный зал,
+                                  // музыкальный зал, бассейн и т.п.) оборудована для детей с
+                                  // нарушениями зрения (vision_room)
+            visionWay,            // Путь (пути) движения внутри здания (в т.ч. пути эвакуации)
+                                  // оборудованы для детей с нарушениями зрения (vision_way)
+            visionEntrance,       // Входы (выходы) в здание оборудованы для детей с
+                                  // нарушениями зрения (vision_entrance)
+            visionTerritory,      // Территория, прилегающая к зданию, оборудована для детей
+                                  // с нарушениями зрения (vision_territory)
+            odaEquipment,      // Имеется в наличии специальное оборудование для организации
+                               // образовательной среды для детей с нарушениями
+                               // опорнодвигательного аппарата (oda_equipment)
+            odaPath,           // Пути движения к объекту (от остановки транспорта) оборудованы для детей
+                               // с нарушениями опорно-двигательного аппарата (oda_path)
+            odaCommunication,  // Система информации и связи (на всех зонах) оборудована для детей
+                               // с нарушениями опорно-двигательного аппарата (oda_communication)
+            odaWashroom,       // Санитарно-гигиенические помещения оборудованы для детей
+                               // с нарушениями опорно-двигательного аппарата (oda_washroom)
+            odaRoom,           // Зона целевого назначения здания (дошкольная группа,физкультурный зал,
+                               // музыкальный зал, бассейн и т.п.) оборудована для детей
+                               // с нарушениями опорно-двигательного аппарата (oda_room)
+            odaWay,            // Путь (пути) движения внутри здания (в т.ч. пути эвакуации) оборудованы для
+                               // детей с нарушениями опорно-двигательного аппарата (oda_way)
+            odaEntrance,       // Входы (выходы) в здание оборудованы для детей с нарушениями
+                               // опорно-двигательного аппарата (oda_entrance)
+            odaTerritory,      // Территория, прилегающая к зданию, оборудована для детей
+                               // с нарушениями опорно-двигательного аппарата (oda_territory)
+            meetingRoom,       // Наличие музыкального (актового) зала (meeting_room)
+            sportGym,          // Наличие спортивного зала (sport_gym)
+            cabinetMed,             // Наличие медицинского кабинета (cabinet_med)
+            cabinetLogopedist,      // Наличие кабинета логопеда (cabinet_logopedist)
+            cabinetDefectologist,   // Наличие кабинета дефектолога (cabinet_defectologist)
+            cabinetPsychologist,    // Наличие кабинета психолога (cabinet_psychologist)
 // TODO этого поля нет в XSD схеме
-            statusBuilding;         // статус здания (status_building)
+            statusBuilding;         // статус функционирования здания (status_building)
 
 }

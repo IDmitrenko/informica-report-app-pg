@@ -3,6 +3,7 @@ package ru.avers.informica.dao.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import ru.avers.informica.dao.impl.BuildingDaoImpl;
 import ru.avers.informica.dto.informica.UchInf;
 
 import java.sql.ResultSet;
@@ -12,10 +13,12 @@ import java.sql.SQLException;
 @RequiredArgsConstructor
 public class UchMapper implements RowMapper<UchInf> {
 
+    private final BuildingDaoImpl buildingDao;
+
     @Override
     public UchInf mapRow(ResultSet rs, int rowNum) throws SQLException {
         UchInf uchInf = new UchInf();
-        uchInf.setId(rs.getInt("id"));
+        uchInf.setId(rs.getLong("id"));
         uchInf.setCode(rs.getString("code"));
         uchInf.setName(rs.getString("name"));
         uchInf.setShortName(rs.getString("shortName"));
@@ -62,6 +65,7 @@ public class UchMapper implements RowMapper<UchInf> {
         uchInf.setLekoteka(rs.getString("lekoteka"));
         uchInf.setCentreGame(rs.getString("centre_game"));
         uchInf.setCommetStatus(rs.getString("commet_status"));
+        uchInf.setBuildingInfs(buildingDao.getBuildingsUch(uchInf.getId()));
 
         return uchInf;
     }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -14,7 +15,7 @@ import java.util.TimeZone;
 @Setter
 @NoArgsConstructor
 public class UchInf {
-    private int id;               // id учреждения
+    private Long id;               // id учреждения
 
     private String code,          // код учреждения (code)
             name,          // наименование учреждения (name)
@@ -62,5 +63,7 @@ public class UchInf {
             medic_3_7,          //
             family_0_3,         //
             family_3_7;         //
-            
+
+    private List<BuildingInf> buildingInfs;  // список зданий учреждения
+
 }

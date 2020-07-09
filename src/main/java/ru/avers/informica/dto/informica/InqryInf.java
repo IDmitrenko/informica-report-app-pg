@@ -61,7 +61,7 @@ public class InqryInf implements IInformicaChildCountable {
     
     private boolean fromPortal,
                     haveRefusedStatus;       // true - не явился или отказ (определяется подзапросом)
-    
+
     @Override
     public Integer getIdUch() {
         return idUch;

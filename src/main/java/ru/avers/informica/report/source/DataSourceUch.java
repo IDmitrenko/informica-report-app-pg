@@ -55,7 +55,7 @@ public class DataSourceUch {
         // проверить учреждения на заполнение обязательных полей
         //  считать UchInf
         List<IFieldFilterParams> repForUchFilter = null;
-        Set<Integer> notValidUchIds = new HashSet<Integer>();  // id не прошедших проверку учреждений
+        Set<Long> notValidUchIds = new HashSet<Long>();  // id не прошедших проверку учреждений
         // сначала считываем все учреждения
         // 1 - repForUchFilter - null,
         // 2 - currDate - текущая дата со временем
