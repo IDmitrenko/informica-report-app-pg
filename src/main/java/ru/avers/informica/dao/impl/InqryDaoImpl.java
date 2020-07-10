@@ -72,7 +72,7 @@ public class InqryDaoImpl implements InqryDao {
                             "sbf.spare_01 as grpTypeCode, " +
                             "a.health_csp as healthCsp, " +
                             "sbfh.spare_01 as healthNeedsCode, " +
-                            "sbfa.spare_01 as healthNeedsRootCode, " +
+//                            "sbfa.spare_01 as healthNeedsRootCode, " +
                             "sts.code as statusCode, " +
                             "st.d_status as statusSetDate, " +
                             "a.statement_type as typeInqry, " +
@@ -99,8 +99,8 @@ public class InqryDaoImpl implements InqryDao {
                     "inner join app.grp_time gt on gt.app_id = a.id_app " +
                     "left  join public.spr_b_fspeo sbf on sbf.id = gt.grp_time_csp " +
                     "left  join public.spr_b_fspeo sbfh on sbfh.id = a.health_csp " +
-//TODO  заменить при добавлении поля
-                    "left  join public.spr_b_fspeo sbfa on sbfa.id = sbfh.id " + // parent_id
+//отказались от использования родительских кодов по состоянию здоровья из-за их отсутствия в справочнике
+//                    "left  join public.spr_b_fspeo sbfa on sbfa.id = sbfh.id " + // parent_id
                     "where st.d_status <= :dt_curr and st.d_validity > :dt_curr and " +
                           "(sts.id <> :id_archive_status or " +
                           " qi.d_reg >= :rf_from and qi.d_reg < :dt_curr)" +

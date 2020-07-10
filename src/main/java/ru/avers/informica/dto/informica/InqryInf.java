@@ -48,12 +48,13 @@ public class InqryInf implements IInformicaChildCountable {
                                   // ===== рабочий вариант - Время пребывания в группе =====
                                   // app.grp_time.grp_time_csp (app_id) -> public.spr_b.sp (cname) ?? Нет кода в справочнике
 
-                   healthNeedsCode, // Old - InqryChldInUch.id_health_needs   CDict08TypeClass.Code
+                   healthNeedsCode; // Old - InqryChldInUch.id_health_needs   CDict08TypeClass.Code
                                     // New - applications.health_csp - ссылка на spr_b (?? поле для кода)
                                     // Подтвержденная потребность по здоровью
+/* Отказались от использования родительских кодов в конфиге
                    healthNeedsRootCode;  // Old - CDict08TypeClass.id_parent   CDict08TypeClass.Code
                                          // New - spr_b.spra_id    spr_b.sp (?? поле для кода)
-
+*/
     private Collection<String> lgots,
                                lgotsType,
                                grpTimes;     // Old - (LIST)InqryDouGrpTime.id__dou_grp_time  CDict85DouGrpTime.Code

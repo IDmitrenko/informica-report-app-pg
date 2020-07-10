@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
+import ru.avers.informica.dao.MunicipalityDao;
+import ru.avers.informica.dto.informica.MunicipalityInf;
 import ru.avers.informica.old.dao.ApplicationsDao;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dao.UchDao;
@@ -31,6 +33,7 @@ public class ReportGenerator {
     private final ApplicationsDao applicationDao;
     private final InqryDao inqryDao;
     private final UchDao uchDao;
+    private final MunicipalityDao municipalityDao;
     private final FilterChain filterChain;
 
     public PushDataRequest generateReport(CProfile cProfile)
@@ -72,6 +75,9 @@ public class ReportGenerator {
         tagReports.setParent_Pay(parentPayBuider());
 
         Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch.getUchInfSchemas();
+
+        List<MunicipalityInf> municipalityInfs = municipalityDao.getMunicipalitys();
+
         Map<Integer, List<InqryInf>> inqryByUchMap = allInqry.stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch()));
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
@@ -98,6 +104,27 @@ public class ReportGenerator {
                 }
             }
         }
+/* Пример построения отчета CReportDataAdapter
+    private IReport createReport(IPushDataRequest p_request, Pair<UchInf, SchemaConfig> p_uch_inf_schema)
+                    throws CBaseInqryDbBLException {
+        UchInf x_uch_inf = p_uch_inf_schema.getFirst();
+        SchemaConfig x_schema = p_uch_inf_schema.getSecond();
+        IReport x_report = p_request.createReport();
+        // Установить информацию об муниципалитете и организации
+        x_report.fillData(x_uch_inf);
+        // init counters
+        addCounters(x_report, x_schema.getSource().getInqryCounters());
+        addCounters(x_report, x_schema.getSource().getEnrolledCounters());
+        addCounters(x_report, x_schema.getSource().getCapacityCounters());
+        return x_report;
+    }
+
+    private void addCounters(IReport p_report, List<CounterConfig> p_counters_config) {
+        for (CounterConfig x_counter_config : p_counters_config) {
+            p_report.initCounter(x_counter_config, IDataAdapter.DataMode.Detail.equals(m_mode));
+        }
+    }
+*/
 
 /* продолжить...
         List<TagMunicipality> municipality = new ArrayList<>();

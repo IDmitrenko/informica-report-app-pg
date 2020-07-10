@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MinicipalityInf {
+public class MunicipalityInf {
 
     private String Oktmo,   // ОКТМО муниципалитета (oktmo)
             epguLink,       // ссылка на ЕПГУ (epgu_link)
@@ -21,12 +21,16 @@ public class MinicipalityInf {
             siteMouo,       // сайт  (site_mouo)
             emailMouo,      // электронная почта (email_mouo)
             phonesMouo,     // телефон (phones_mouo)
-            regulation,     // ... (regulation)
-            fixArea,        // ... (fix_area)
-            timeMouo,       // ... (time_mouo)
-            maxDoo,         // ... (max_doo)
-            numAdvisoryCentr,         // ... (num_advisory_centr)
-            numEarlyAssistance;       // ... (num_early_assistance)
+            regulation,     // Ссылка на порядок оказания услуги (regulation)
+            fixArea,        // Ссылка на документ о закреплении территорий (fix_area)
+            timeMouo,       // Режим работы МОУО (time_mouo)
+            maxDoo,         // Максимальное число ДОО, которое можно указать при выборе
+                            // желаемых для зачисления ДОО (max_doo)
+            numAdvisoryCentr,         // Количество консультационных пунктов, расположенных
+                                      // на территории МО (num_advisory_centr)
+            numEarlyAssistance;       // Количество организаций в сфере образования,
+                                      // оказывающих услуги ранней помощи, расположенных
+                                      // на территории МО (num_early_assistance)
 
     private Integer idTer,      // id муниципалитета
             noDooAct_0_3,       //

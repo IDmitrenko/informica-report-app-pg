@@ -24,7 +24,7 @@ public class InqryMapper implements RowMapper<InqryInf> {
         inqryInf.setRegDt(rs.getTimestamp("regDt"));
         inqryInf.setGrpTypeCode(rs.getString("grpTypeCode"));
         inqryInf.setHealthNeedsCode(rs.getString("healthNeedsCode"));
-        inqryInf.setHealthNeedsRootCode(rs.getString("healthNeedsRootCode"));
+//        inqryInf.setHealthNeedsRootCode(rs.getString("healthNeedsRootCode"));
         inqryInf.setStatusCode(rs.getString("statusCode"));
         inqryInf.setStatusSetDate(rs.getTimestamp("statusSetDate"));
         inqryInf.setTypeCode(String.valueOf(rs.getShort("typeInqry")));
