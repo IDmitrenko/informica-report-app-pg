@@ -76,7 +76,28 @@ public class ReportGenerator {
 
         Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch.getUchInfSchemas();
 
-        List<MunicipalityInf> municipalityInfs = municipalityDao.getMunicipalitys();
+        List<MunicipalityInf> allMunicipalityInfs = municipalityDao.getMunicipalitys();
+// отобрать муниципалитеты для которых есть учреждения
+        List<Integer> noValidMunicipalitys = new ArrayList<>();
+        municip:
+        for (MunicipalityInf municipalityInf : allMunicipalityInfs) {
+            for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+                if (municipalityInf.getIdTer().equals(uchInfSchema.getUchInf().getIdTer())) {
+                    continue municip;
+                }
+            }
+            noValidMunicipalitys.add(municipalityInf.getIdTer());
+        }
+        List<MunicipalityInf> municipalityInfs = new ArrayList<>();
+        for (MunicipalityInf municipalityInf : allMunicipalityInfs) {
+            if ((noValidMunicipalitys != null &&
+                    !noValidMunicipalitys.contains(municipalityInf.getIdTer())) ||
+                    noValidMunicipalitys == null) {
+                municipalityInfs.add(municipalityInf);
+            }
+        }
+        allMunicipalityInfs = null;
+        noValidMunicipalitys = null;
 
         Map<Integer, List<InqryInf>> inqryByUchMap = allInqry.stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch()));
