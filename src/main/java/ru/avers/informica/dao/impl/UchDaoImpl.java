@@ -11,12 +11,10 @@ import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.dao.mapper.IdMapper;
 import ru.avers.informica.dao.mapper.UchMapper;
 import ru.avers.informica.dto.informica.UchInf;
-import ru.avers.informica.dto.inqry.AgeDto;
 import ru.avers.informica.utils.DateUtil;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @Slf4j
@@ -24,19 +22,16 @@ import java.util.Map;
 public class UchDaoImpl implements UchDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final IdMapper idMapper;
     private final UchMapper uchMapper;
-    private final CommonDao commonDao;
 
     @Override
     public List<UchInf> getUchInformica(List<IFieldFilterParams> repForUchFilter,
-                                        Date currDate, Date currEducDate) {
+                                        Date currEducDate) {
 
         try {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
 
             Integer currEducYear = DateUtil.getYearPart(currEducDate);
-
 
             parameterSource.addValue("currEducYear", currEducYear);
 
@@ -47,19 +42,19 @@ public class UchDaoImpl implements UchDao {
                             "sbt.sp as idTer, " +
                             "sbt.cname as terName, " +
                             "coalesce(u.cf_name, '') || ' ' || coalesce(u.ci_name, '') || " +
-                                     "' ' || coalesce(u.co_name, '') as chief, " +
+                            "' ' || coalesce(u.co_name, '') as chief, " +
                             "u.code_oktmo as municipObrOktmo, " +
                             "mc.epgu_link as epguLink, " +
                             "mc.rpgu_link as rpguLink, " +
 // сделать обработку: Пятидневка, с 07:30 по 18:00
                             "coalesce(fw.nm || ', ', '') || 'с ' || " +
-                                     "coalesce(to_char(u.work_from, 'HH24:MI'), '') || ' по ' || " +
-                                     "coalesce(to_char(u.work_to, 'HH24:MI'), '') as worktime, " +
+                            "coalesce(to_char(u.work_from, 'HH24:MI'), '') || ' по ' || " +
+                            "coalesce(to_char(u.work_to, 'HH24:MI'), '') as worktime, " +
                             "fms.nm as mealServingType, " +
                             "u.site as website, " +
                             "u.mail as email, " +
                             "coalesce (u.phone, '') || ', ' || coalesce (u.phone2, '') || " +
-                                      "', ' || coalesce (u.fax, '') as phone, " +
+                            "', ' || coalesce (u.fax, '') as phone, " +
                             "sbs.cname as orgLegalFormName, " +
                             "sbfs.spare_01 as orgLegalFormCode, " +
                             "sts.cname as statusName, " +
@@ -118,103 +113,32 @@ public class UchDaoImpl implements UchDao {
                             "case " +
                             "when sts.sr in ('2','3') " +
                             "then 'Планируемая дата окончания работ: ' || " +
-                                  "coalesce(to_char(u.d_overhaul_end, 'DD.MM.YYYY'), '') " +
+                            "coalesce(to_char(u.d_overhaul_end, 'DD.MM.YYYY'), '') " +
                             "when sts.sr in ('4','5') " +
                             "then coalesce(u.close_reason, '') || " +
-                                  "', планируемая дата открытия: ' || " +
-                                  "coalesce(to_char(u.d_opening, 'DD.MM.YYYY'), '') " +
+                            "', планируемая дата открытия: ' || " +
+                            "coalesce(to_char(u.d_opening, 'DD.MM.YYYY'), '') " +
                             "when sts.sr = '6' " +
                             "then 'Планируемая дата открытия: ' || " +
-                                  "coalesce(to_char(u.d_opening , 'DD.MM.YYYY'), '') " +
+                            "coalesce(to_char(u.d_opening , 'DD.MM.YYYY'), '') " +
                             "else 'Нет' " +
                             "end as commet_status " +
-                    "from public.uch u " +
-                    "left join public.spr_b sbt on sbt.sp = u.uch_ter_csp " +
-                    "left join public.municip mc on mc.m_id = u.uch_ter_csp " +
-                    "left join public.spr_b sbs on sbs.sp = u.org_form_csp " +
-                    "left join public.spr_b_fspeo sbfs on sbfs.id = u.org_form_csp " +
-                    "left join public.spr_b sts on sts.sp = u.org_status_csp " +
-                    "left join public.spr_b_fspeo stsf on stsf.id = u.org_status_csp " +
-                    "left join public.spr_b sbu on sbu.sp = u.uch_struct_csp " +
-                    "left join public.spr_b_fspeo sbfu on sbfu.id = u.uch_struct_csp " +
-                    "left join app.fspeo_worktime fw on fw.sr = u.work_days " +
-                    "left join app.fspeo_meal_serving_type fms on fms.sr = u.meal_serving " +
-                    "where u.hidden = '-'",
+                            "from public.uch u " +
+                            "left join public.spr_b sbt on sbt.sp = u.uch_ter_csp " +
+                            "left join public.municip mc on mc.m_id = u.uch_ter_csp " +
+                            "left join public.spr_b sbs on sbs.sp = u.org_form_csp " +
+                            "left join public.spr_b_fspeo sbfs on sbfs.id = u.org_form_csp " +
+                            "left join public.spr_b sts on sts.sp = u.org_status_csp " +
+                            "left join public.spr_b_fspeo stsf on stsf.id = u.org_status_csp " +
+                            "left join public.spr_b sbu on sbu.sp = u.uch_struct_csp " +
+                            "left join public.spr_b_fspeo sbfu on sbfu.id = u.uch_struct_csp " +
+                            "left join app.fspeo_worktime fw on fw.sr = u.work_days " +
+                            "left join app.fspeo_meal_serving_type fms on fms.sr = u.meal_serving " +
+                            "where u.hidden = '-'",
+// TODO repForUchFilter
 //                         " and u.domen_uch = 1151",
                     parameterSource,
                     uchMapper);
-
-            if (repForUchFilter != null) {
-                // Муниципальные показатели
-                AgeDto age0 = new AgeDto((short) 0, (short) 0, (short) 0);
-                AgeDto age3 = new AgeDto((short) 3, (short) 0, (short) 0);
-                AgeDto age7 = new AgeDto((short) 7, (short) 0, (short) 0);
-
-                // Данные о детях, стоящих на учете в связи с отсутствием ДОО, передаются
-                // в тэге noDooAct для детей, желающих получить место в текущем учебном году
-                Map<Integer, Integer> noDooAct_0_3 = commonDao.getNoDooCounter(currDate,
-                        DateUtil.adjustDate(currEducDate, 1),
-                        true,
-                        age0, age3);
-                Map<Integer, Integer> noDooAct_3_7 = commonDao.getNoDooCounter(currDate,
-                        DateUtil.adjustDate(currEducDate, 1),
-                        true,
-                        age3, age7);
-
-                // или в тэге nooDooDef для детей, желающих получить место в последующие годы.
-                Map<Integer, Integer> noDooDef_0_3 = commonDao.getNoDooCounter(currDate,
-                        DateUtil.adjustDate(currEducDate, 1),
-                        false,
-                        age0, age3);
-                Map<Integer, Integer> noDooDef_3_7 = commonDao.getNoDooCounter(currDate,
-                        DateUtil.adjustDate(currEducDate, 1),
-                        false,
-                        age3, age7);
-
-                // Данные о детях, не посещающих ДОО по медицинским показаниям
-                Map<Integer, Integer> medic_0_3 = commonDao.getMedicCounter(currDate,
-                        age0, age3);
-                Map<Integer, Integer> medic_3_7 = commonDao.getMedicCounter(currDate,
-                        age3, age7);
-
-                // Данные о детях, получающих дошкольное образование в семейной форме
-                Map<Integer, Integer> family_0_3 = commonDao.getFamilyCounter(currDate,
-                        DateUtil.getYearPart(currEducDate),
-                        age0, age3);
-                Map<Integer, Integer> family_3_7 = commonDao.getFamilyCounter(currDate,
-                        DateUtil.getYearPart(currEducDate),
-                        age3, age7);
-
-
-                for (UchInf uchInf : allUch) {
-                    String oktmo = uchInf.getMunicipObrOktmo();
-                    Integer idTerUch = uchInf.getIdTer();
-                    if (noDooAct_0_3.containsKey(idTerUch)) {
-                        uchInf.setNoDooAct_0_3(noDooAct_0_3.get(idTerUch));
-                    }
-                    if (noDooAct_3_7.containsKey(idTerUch)) {
-                        uchInf.setNoDooAct_3_7(noDooAct_3_7.get(idTerUch));
-                    }
-                    if (noDooDef_0_3.containsKey(idTerUch)) {
-                        uchInf.setNoDooDef_0_3(noDooDef_0_3.get(idTerUch));
-                    }
-                    if (noDooDef_3_7.containsKey(idTerUch)) {
-                        uchInf.setNoDooDef_3_7(noDooDef_3_7.get(idTerUch));
-                    }
-                    if (medic_0_3.containsKey(idTerUch)) {
-                        uchInf.setMedic_0_3(medic_0_3.get(idTerUch));
-                    }
-                    if (medic_3_7.containsKey(idTerUch)) {
-                        uchInf.setMedic_3_7(medic_3_7.get(idTerUch));
-                    }
-                    if (family_0_3.containsKey(idTerUch)) {
-                        uchInf.setFamily_0_3(family_0_3.get(idTerUch));
-                    }
-                    if (family_3_7.containsKey(idTerUch)) {
-                        uchInf.setFamily_3_7(family_3_7.get(idTerUch));
-                    }
-                }
-            }
 
             return allUch;
 

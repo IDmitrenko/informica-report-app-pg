@@ -4,21 +4,24 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
-import ru.avers.informica.dao.MunicipalityDao;
-import ru.avers.informica.dto.informica.MunicipalityInf;
-import ru.avers.informica.old.dao.ApplicationsDao;
 import ru.avers.informica.dao.InqryDao;
+import ru.avers.informica.dao.MunicipalityDao;
 import ru.avers.informica.dao.UchDao;
 import ru.avers.informica.dto.informica.InqryInf;
+import ru.avers.informica.dto.informica.MunicipalityInf;
 import ru.avers.informica.dto.informica.UchInf;
 import ru.avers.informica.exception.FilterException;
 import ru.avers.informica.exception.FspeoException;
 import ru.avers.informica.exception.ReportExceprion;
 import ru.avers.informica.filtersinqry.FilterChain;
 import ru.avers.informica.infcfg.*;
+import ru.avers.informica.old.dao.ApplicationsDao;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.source.Pair;
-import ru.avers.informica.report.xml.*;
+import ru.avers.informica.report.xml.PushDataRequest;
+import ru.avers.informica.report.xml.TagParentPay;
+import ru.avers.informica.report.xml.TagReports;
+import ru.avers.informica.report.xml.TagSystem;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.DateUtil;
 
@@ -57,8 +60,6 @@ public class ReportGenerator {
         beginCurrYear.set(Calendar.DAY_OF_MONTH, 1);
         beginCurrYear.set(Calendar.MONTH, Calendar.JANUARY);
 
-//        List<ApplicationsEntity> allApplications = applicationDao.getAllApplications();
-//        log.info("Found {} applications", allApplications.size());
 //  считать InqryInf
         List<InqryInf> allInqry = inqryDao.getAllInqry(currDate,
                 currEducDate,
@@ -68,15 +69,14 @@ public class ReportGenerator {
         final ReportConfig reportConfig = configInformica.getReport(Config.S_INFORMICA_REPORT);
         List<SchemaConfig> schemaConfigs = reportConfig.getSchemas();
         // Собрать базовую информацию по учреждениям и их схемы показателей
-        DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs, currDate, currEducDate);
-
+        DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs, currEducDate);
 
         TagReports tagReports = new TagReports();
         tagReports.setParent_Pay(parentPayBuider());
 
         Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch.getUchInfSchemas();
 
-        List<MunicipalityInf> allMunicipalityInfs = municipalityDao.getMunicipalitys();
+        List<MunicipalityInf> allMunicipalityInfs = municipalityDao.getMunicipalitys(currDate, currEducDate);
 // отобрать муниципалитеты для которых есть учреждения
         List<Integer> noValidMunicipalitys = new ArrayList<>();
         municip:

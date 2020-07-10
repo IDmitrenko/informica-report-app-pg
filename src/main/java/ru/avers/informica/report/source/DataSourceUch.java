@@ -21,17 +21,14 @@ import java.util.*;
 public class DataSourceUch {
 
     private final List<SchemaConfig> schemaConfigs;
-    private final Date currDate,
-                       currEducDate;
+    private final Date currEducDate;
     private final UchDao uchDao;
 
     public DataSourceUch(UchDao pUchDao,
                 List<SchemaConfig> pSchemas,
-                Date pRepDate,
                 Date pCurrEducYear) {
         uchDao = pUchDao;
         schemaConfigs = pSchemas;
-        currDate = pRepDate;
         currEducDate = pCurrEducYear;
     }
     
@@ -58,10 +55,8 @@ public class DataSourceUch {
         Set<Long> notValidUchIds = new HashSet<Long>();  // id не прошедших проверку учреждений
         // сначала считываем все учреждения
         // 1 - repForUchFilter - null,
-        // 2 - currDate - текущая дата со временем
-        // 3 - 01.09.2020 00:00:00
-        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter,
-                currDate, currEducDate);
+        // 2 - 01.09.2020 00:00:00 - датаначала учебного года
+        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter, currEducDate);
         log.info("Найдено {} uch-source", validateUch.size());
 
         StringBuilder uchMessage = new StringBuilder();
@@ -87,8 +82,7 @@ public class DataSourceUch {
             if (uchFilters != null) {
                 CHelper.setFilterFieldType(uchFilters, UchInf.class);
             }
-            List<UchInf> uchInfs = uchDao.getUchInformica(uchFilters,
-                    currDate, currEducDate);
+            List<UchInf> uchInfs = uchDao.getUchInformica(uchFilters, currEducDate);
             for (UchInf uchInf : uchInfs) {
                 if (!notValidUchIds.contains(uchInf.getId()))
                     uchInfSchemas.add(new UchInfSchema(uchInf, schemaConfig));

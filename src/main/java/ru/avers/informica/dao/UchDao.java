@@ -11,12 +11,10 @@ public interface UchDao {
     /**
      * Отбор учреждений для отчета
      * @param repForUchFilter список условий для фильтрации записей
-     * @param currDate дата построения отчета
      * @param currEducDate дата начала текущего учебного года
      * @return список отобранных для отчета учреждений
      */
     List<UchInf> getUchInformica(List<IFieldFilterParams> repForUchFilter,
-                                  Date currDate,
                                   Date currEducDate);
 
 }

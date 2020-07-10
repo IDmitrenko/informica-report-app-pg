@@ -54,15 +54,7 @@ public class UchInf {
             commetStatus,   // комментарий к статусу организации
             passport;       // паспорт доступности (passport)
 
-    private Integer idTer,
-            noDooAct_0_3,       //
-            noDooAct_3_7,       //
-            noDooDef_0_3,       //
-            noDooDef_3_7,       // для учреждения, чтобы потом
-            medic_0_3,          //  перенести в municipality
-            medic_3_7,          //
-            family_0_3,         //
-            family_3_7;         //
+    private Integer idTer;
 
     private List<BuildingInf> buildingInfs;  // список зданий учреждения
 
