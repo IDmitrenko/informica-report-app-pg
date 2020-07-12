@@ -1,13 +1,25 @@
 package ru.avers.informica.infcfg;
 
+import ru.avers.informica.dto.informica.InqryInf;
+import ru.avers.informica.dto.informica.InqryTransferInf;
 import ru.avers.informica.exception.FilterException;
 import ru.avers.informica.exception.ReportExceprion;
+import ru.avers.informica.filtersinqry.BeanFilter;
+import ru.avers.informica.filtersinqry.IFilter;
+import ru.avers.informica.filtersinqry.IncrementByPriorities;
+import ru.avers.informica.filtersinqry.IsFilterDate;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlIDREF;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Dias
@@ -37,65 +49,55 @@ public class CounterConfig {
     public boolean isPassed(Date pDt, Date pCurrEducDate, Object dsItem)
             throws ReportExceprion, FilterException {
         if (counterDef == null ||
-            counterDef.getFilters() == null ||
-            counterDef.getFilters().isEmpty()) {
+                counterDef.getFilters() == null ||
+                counterDef.getFilters().isEmpty()) {
             return true;
         }
-        return false;
-    }
 
-/* TODO продолжить - это isPassed
-        if (!hasIncrementByPriority(m_counter_def.getFilters())) {
-            if (x_ds_item instanceof InqryInf
-                    && ((InqryInf) x_ds_item).getPriorityCount().shortValue() != ((InqryInf) x_ds_item).getMinPriority().shortValue()) {
+        if (!hasIncrementByPriority(counterDef.getFilters())) {
+            if (dsItem instanceof InqryInf
+                    && ((InqryInf) dsItem).getPriorityCount().shortValue() != ((InqryInf) dsItem).getMinPriority().shortValue()) {
                 return false;
             }
         }
 
         // Для проверки фильтра по условию ИЛИ (нужно прогнать по всем фильтрам)
         boolean isAllOrBeanFilter = true;
-        if (x_ds_item instanceof InqryTransfer) {
-            ((InqryTransfer) x_ds_item).setCount(0);
+
+        if (dsItem instanceof InqryTransferInf) {
+            ((InqryTransferInf) dsItem).setCount(0);
         }
-        for (IFilter x_filter : m_counter_def.getFilters()) {
+        for (IFilter x_filter : counterDef.getFilters()) {
             if (x_filter instanceof IsFilterDate) {
                 IsFilterDate x_date_filter = (IsFilterDate) x_filter;
                 if (x_date_filter.isEducDate())
-                    x_date_filter.setRepDate(p_curr_educ_date);
+                    x_date_filter.setRepDate(pCurrEducDate);
                 else
-                    x_date_filter.setRepDate(p_dt);
+                    x_date_filter.setRepDate(pDt);
             }
             if (x_filter instanceof BeanFilter) {
-                try {
-                    if (x_filter.isPassed(x_ds_item)) {
-                        if (x_ds_item instanceof InqryTransfer) {
-                            if (isAllOrBeanFilter && ((BeanFilter) x_filter).getUseOR()) {
-                                ((InqryTransfer) x_ds_item)
-                                        .setCount(((InqryTransfer) x_ds_item).getCount() + 1);
-                            } else {
-                                ((InqryTransfer) x_ds_item).setCount(1);
-                                isAllOrBeanFilter = false;
-                            }
-                        }
-                    } else {
-                        if (!((BeanFilter) x_filter).getUseOR()) {
-                            return false;
+                if (x_filter.isPassed(dsItem)) {
+                    if (dsItem instanceof InqryTransferInf) {
+                        if (isAllOrBeanFilter && ((BeanFilter) x_filter).getUseOR()) {
+                            ((InqryTransferInf) dsItem)
+                                    .setCount(((InqryTransferInf) dsItem).getCount() + 1);
+                        } else {
+                            ((InqryTransferInf) dsItem).setCount(1);
+                            isAllOrBeanFilter = false;
                         }
                     }
-                } catch (ReportExceprion ex) {
-                    throw new ReportExceprion(ex.getMessage(), ex);
+                } else {
+                    if (!((BeanFilter) x_filter).getUseOR()) {
+                        return false;
+                    }
                 }
 
             } else {
                 isAllOrBeanFilter = false;
                 String x_field = x_filter.getField();
-                Object x_value = getBeanValue(x_field, x_ds_item);
-                try {
-                    if (!x_filter.isPassed(x_value)) {
-                        return false;
-                    }
-                } catch (ReportExceprion ex) {
-                    throw new ReportExceprion(ex.getMessage(), ex);
+                Object x_value = getBeanValue(x_field, dsItem);
+                if (!x_filter.isPassed(x_value)) {
+                    return false;
                 }
             }
         }
@@ -156,6 +158,4 @@ public class CounterConfig {
             throw new IntrospectionException(p_prop);
         return x_found.getReadMethod().invoke(p_bean, (Object[]) null);
     }
-*/
-
 }

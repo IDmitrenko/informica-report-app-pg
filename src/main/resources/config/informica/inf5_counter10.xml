@@ -20,51 +20,51 @@
     <counters-def>
         <!-- 10 -->
         <counter-def id="counter-10-v4" name="10">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02"/>
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <!--<filter field="statusCode" cmp="in" value="02"/>-->
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <filter-codes-list field="lgotsType" cmp="any" value="1"/>
-            <age-range def="range-1"/>
-        </counter-def>
+            <!-- <filter-codes-list field="lgotsType" cmp="any" value="1"/>-->
+             <age-range def="range-1"/>
+         </counter-def>
 
-    </counters-def>
+     </counters-def>
 
 
-    <age-ranges-def>
-        <age-range-def id="range-16">
-            <range>от 2 месяцев до 6 месяцев</range>
-            <range>от 6 месяцев до 1 года</range>
-            <range>от 1 года до 1,5 года</range>
-            <range>от 1,5 до 2 лет</range>
-            <range>от 2 до 2,5 лет</range>
-            <range>от 2,5 до 3 лет</range>
-            <range>от 3 до 3,5 лет</range>
-            <range>от 3,5 до 4 лет</range>
-            <range>от 4 до 4,5 лет</range>
-            <range>от 4,5 до 5 лет</range>
-            <range>от 5 до 5,5 лет</range>
-            <range>от 5,5 до 6 лет</range>
-            <range>от 6 до 6,5 лет</range>
-            <range>от 6,5 до 7 лет</range>
-            <range>от 7 до 7,5 лет</range>
-            <range>от 7,5 лет и старше</range>
-        </age-range-def>
-        <age-range-def id="range-8">
-            <range>от 2 месяцев до 1 года</range>
-            <range>от 1 года до 2 лет</range>
-            <range>от 2 до 3 лет</range>
-            <range>от 3 до 4 лет</range>
-            <range>от 4 до 5 лет</range>
-            <range>от 5 до 6 лет</range>
-            <range>от 6 до 7 лет</range>
-            <range>от 7 лет и старше</range>
-        </age-range-def>
-        <age-range-def id="range-1">
-            <range>Все</range>
-        </age-range-def>
-    </age-ranges-def>
-    <orientation-def>
-        <!--Общеразвивающая-->
+     <age-ranges-def>
+         <age-range-def id="range-16">
+             <range>от 2 месяцев до 6 месяцев</range>
+             <range>от 6 месяцев до 1 года</range>
+             <range>от 1 года до 1,5 года</range>
+             <range>от 1,5 до 2 лет</range>
+             <range>от 2 до 2,5 лет</range>
+             <range>от 2,5 до 3 лет</range>
+             <range>от 3 до 3,5 лет</range>
+             <range>от 3,5 до 4 лет</range>
+             <range>от 4 до 4,5 лет</range>
+             <range>от 4,5 до 5 лет</range>
+             <range>от 5 до 5,5 лет</range>
+             <range>от 5,5 до 6 лет</range>
+             <range>от 6 до 6,5 лет</range>
+             <range>от 6,5 до 7 лет</range>
+             <range>от 7 до 7,5 лет</range>
+             <range>от 7,5 лет и старше</range>
+         </age-range-def>
+         <age-range-def id="range-8">
+             <range>от 2 месяцев до 1 года</range>
+             <range>от 1 года до 2 лет</range>
+             <range>от 2 до 3 лет</range>
+             <range>от 3 до 4 лет</range>
+             <range>от 4 до 5 лет</range>
+             <range>от 5 до 6 лет</range>
+             <range>от 6 до 7 лет</range>
+             <range>от 7 лет и старше</range>
+         </age-range-def>
+         <age-range-def id="range-1">
+             <range>Все</range>
+         </age-range-def>
+     </age-ranges-def>
+     <orientation-def>
+         <!--Общеразвивающая-->
         <item key="01.01" orientation="1"/>
         <!--Общеразвивающая - Комбинированная-->
         <item key="01.02" orientation="3" ovzType="2"/>

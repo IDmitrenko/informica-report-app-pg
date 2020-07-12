@@ -99,8 +99,9 @@ public class ReportGenerator {
         allMunicipalityInfs = null;
         noValidMunicipalitys = null;
 
-        Map<Integer, List<InqryInf>> inqryByUchMap = allInqry.stream()
-                .collect(Collectors.groupingBy(inqry -> inqry.getIdUch()));
+        Map<Long, List<InqryInf>> inqryByUchMap = allInqry.stream()
+                .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
+        Map<String, Counter> counterMap = new HashMap<>();
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             //Учреждение
             UchInf uchInf = uchInfSchema.getUchInf();
@@ -109,21 +110,27 @@ public class ReportGenerator {
             //Заявления текущего учреждения
             List<InqryInf> inqryInfs = inqryByUchMap.get(uchInf.getId());
             //Пройтись по каждому заявлению и посчитать счетчики
+
             if (inqryInfs != null && inqryCounters != null) {
                 for (InqryInf inqryInf : inqryInfs) {
                     //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
-                    for (CounterConfig counter : inqryCounters) {
-                        if (counter.isPassed(currDate, currEducDate, inqryInf)) {
+                    for (CounterConfig counterConfig : inqryCounters) {
+                        if (counterConfig.isPassed(currDate, currEducDate, inqryInf)) {
                             Collection<TypeAgeRange> ageRanges =
-                                    counter.getCounterDef().getAgeRange().getAgeRanges(currDate, inqryInf);
+                                    counterConfig.getCounterDef().getAgeRange().getAgeRanges(currDate, inqryInf);
                             if (ageRanges != null && !ageRanges.isEmpty()) {
                                 // Посчитать элемент
-//TODO                            x_counter.count(p_countable, ageRanges);
+                                Counter counter = counterMap.computeIfAbsent(counterConfig.getCounterDef().getId(),
+                                        counterId -> new Counter(counterConfig.getCounterDef()));
+                                counter.count(inqryInf, ageRanges);
                             }
                         }
                     }
                 }
             }
+        }
+        if (counterMap.size() > 0) {
+            log.info("Counters: {}", counterMap);
         }
 /* Пример построения отчета CReportDataAdapter
     private IReport createReport(IPushDataRequest p_request, Pair<UchInf, SchemaConfig> p_uch_inf_schema)

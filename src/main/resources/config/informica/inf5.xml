@@ -84,6 +84,7 @@
     <schema-informica id="schema_uch">
         <source-uch>
             <!--
+            В параметре field нужно указать имя поля как в БД
             <filter field="orgLegalFormCode" cmp="in" value="01 02 07 08" />
             -->
             <!--

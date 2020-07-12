@@ -2,7 +2,9 @@ package ru.avers.informica.report;
 
 import ru.avers.informica.dto.CAge;
 import ru.avers.informica.dto.CAgeInterval;
+import ru.avers.informica.dto.informica.IInformicaChildCountable;
 import ru.avers.informica.dto.informica.IInformicaCountable;
+import ru.avers.informica.exception.FspeoException;
 import ru.avers.informica.infcfg.CounterDef;
 import ru.avers.informica.infcfg.TypeAgeRange;
 
@@ -234,14 +236,16 @@ public class Counter {
         }
     }
 
-/* TODO понять что в новой БД вместо Prll4stgAges
+
     public void count(IInformicaCountable p_countable, Collection<TypeAgeRange> p_age_ranges) throws FspeoException {
         if (p_countable instanceof IInformicaChildCountable) {
             for (TypeAgeRange x_age_range : p_age_ranges) {
                 AgeItem x_age_item = findAgeItem(x_age_range);
                 x_age_item.count(p_countable);
             }
-        } else if (p_countable instanceof IInformicaVacantCountable) {
+        }
+        /* TODO понять что в новой БД вместо Prll4stgAges */
+        /*else if (p_countable instanceof IInformicaVacantCountable) {
             // Задача 11821, пункт 26
             // Например, в группе от 2 до 4 лет шесть свободных мест: пишем 2 места для детей 2-х лет,
             // два для трех лет, 2 для четырех лет. Если место одно,
@@ -251,8 +255,10 @@ public class Counter {
                 Counter.AgeItem x_age_item = findAgeItem(x_age_range);
                 x_age_item.count(x_split_capacity.get(x_age_range));
             }
-        } else throw new FspeoException("Неизвестный тип элемента для подсчета: " + p_countable.getClass().getName());
+        } */else throw new FspeoException("Неизвестный тип элемента для подсчета: " + p_countable.getClass().getName());
     }
+    /* TODO понять что в новой БД вместо Prll4stgAges */
+    /*
     private Map<TypeAgeRange, CapacityItem> splitCapacity(Collection<TypeAgeRange> p_age_ranges, IInformicaVacantCountable p_capacity) {
         // "Если место одно, привязываемся к крайнему наименьшему диапазону: одно место для детей 2-3 лет."
         // Упорядочить p_age_ranges так, чтоб первым с списке был наименьший диапазон
@@ -274,6 +280,5 @@ public class Counter {
                 x_res.put(x_age_range, new CapacityItem(x_count, p_capacity));
         }
         return x_res;
-    }
-*/
+    }*/
 }
