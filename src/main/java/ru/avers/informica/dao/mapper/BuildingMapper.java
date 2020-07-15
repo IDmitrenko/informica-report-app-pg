@@ -3,7 +3,9 @@ package ru.avers.informica.dao.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import ru.avers.informica.dao.impl.GroupDaoImpl;
 import ru.avers.informica.dto.informica.BuildingInf;
+import ru.avers.informica.report.ReportSetting;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,6 +13,9 @@ import java.sql.SQLException;
 @Component
 @RequiredArgsConstructor
 public class BuildingMapper implements RowMapper<BuildingInf> {
+
+    private final GroupDaoImpl groupDao;
+    private final ReportSetting reportSetting;
 
     @Override
     public BuildingInf mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -57,7 +62,7 @@ public class BuildingMapper implements RowMapper<BuildingInf> {
         buildingInf.setCabinetDefectologist(rs.getString("cabinet_defectologist"));
         buildingInf.setCabinetPsychologist(rs.getString("cabinet_psychologist"));
         buildingInf.setStatusBuilding(rs.getString("status_building"));
-
+        buildingInf.setGroupInfs(groupDao.getGroupsBuildingUch(buildingInf.getId(), reportSetting.getCurrEducYear()));
         return buildingInf;
     }
 }

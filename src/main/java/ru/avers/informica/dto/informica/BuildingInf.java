@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Информация для тэга building
  * @author Dias
@@ -84,5 +86,7 @@ public class BuildingInf {
             cabinetPsychologist,    // Наличие кабинета психолога (cabinet_psychologist)
 // TODO этого поля нет в XSD схеме
             statusBuilding;         // статус функционирования здания (status_building)
+
+    private List<GroupInf> groupInfs;  // список групп(классов) в здании учреждения
 
 }

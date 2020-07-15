@@ -5,29 +5,40 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.dao.BuildingDao;
-import ru.avers.informica.dao.mapper.BuildingMapper;
-import ru.avers.informica.dto.informica.BuildingInf;
+import ru.avers.informica.dao.GroupDao;
+import ru.avers.informica.dao.mapper.GroupMapper;
+import ru.avers.informica.dto.informica.GroupInf;
+import ru.avers.informica.utils.DateUtil;
 
+import java.util.Date;
 import java.util.List;
 
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class BuildingDaoImpl implements BuildingDao {
+public class GroupDaoImpl implements GroupDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
-    private final BuildingMapper buildingMapper;
+    private final GroupMapper groupMapper;
 
     @Override
-    public List<BuildingInf> getBuildingsUch(Long idUch) {
+    public List<GroupInf> getGroupsBuildingUch(Integer idBuilding,
+                                               Integer currEducYear) {
 
         try {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+            parameterSource.addValue("currEducYear", currEducYear);
+            parameterSource.addValue("idBuilding", idBuilding);
 
-            parameterSource.addValue("idUch", idUch);
+            List<GroupInf> allGroupsBuildingUch = jdbcTemplate.query("select cl.id_classes as id " +
+                            "from public.classes cl " +
+                            "left join public.uch_buildings ub on ub.id_uch_buildings = cl.building_id " +
+                            "where ub.id_uch_buildings = :idBuilding and " +
+                            "      cl.year_class = :currEducYear",
+                    parameterSource,
+                    groupMapper);
 
-            List<BuildingInf> allBuildingsUch = jdbcTemplate.query("select ub.id_uch_buildings as id, " +
+/*
                             "u.comp_code as code, " +
                             "ub.b_name as name, " +
                             "case when ub.houseguid = '' " +
@@ -204,18 +215,12 @@ public class BuildingDaoImpl implements BuildingDao {
                             "then 1 " +
                             "else 0 " +
                             "end as status_building " +
-                    "from public.uch_buildings ub " +
-                    "left join public.spr_b sb on sb.sp = ub.building_type_sp " +
-                    "left join public.uch_buildings_ovz ubo on ubo.bld_id = ub.id_uch_buildings " +
-                    "left join public.uch u on u.domen_uch = ub.uch " +
-                    "where u.domen_uch = :idUch",
-                    parameterSource,
-                    buildingMapper);
+*/
 
-            return allBuildingsUch;
+            return allGroupsBuildingUch;
 
         } catch (Exception ex) {
-            log.error("Ошибка выполнения запроса BuildingsUch с idUch = {}", idUch, ex);
+            log.error("Ошибка выполнения запроса GroupsBuildingUch с idBuilding = {}", idBuilding, ex);
             throw ex;
         }
     }

@@ -8,7 +8,7 @@ public interface BuildingDao {
     /**
      * Отбор зданий учреждения для отчета
      * @param idUch id учреждения
-     * @return список отобранных для отчета учреждений
+     * @return список отобранных для отчета зданий учреждения
      */
     List<BuildingInf> getBuildingsUch(Long idUch);
 

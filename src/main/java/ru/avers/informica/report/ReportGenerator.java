@@ -38,6 +38,7 @@ public class ReportGenerator {
     private final UchDao uchDao;
     private final MunicipalityDao municipalityDao;
     private final FilterChain filterChain;
+    private final ReportSetting reportSetting;
 
     public PushDataRequest generateReport(CProfile cProfile)
             throws FilterException, ReportExceprion, FspeoException {
@@ -51,32 +52,30 @@ public class ReportGenerator {
 
     private TagReports reportBuilder(CProfile cProfile, Config configInformica) throws FilterException, ReportExceprion, FspeoException {
 
-        final Date currDate = DateUtil.getCurrentDate(false);
-        final Date currEducDate = DateUtil.getCurrEducDate(currDate,
-                cProfile.getMisc().getInqryEducYearBegin().getMonth(),
-                cProfile.getMisc().getInqryEducYearBegin().getDay());
         final Calendar beginCurrYear = GregorianCalendar.getInstance(); // Начало текущего календарного года
         DateUtil.clearCalendarTimePart(beginCurrYear);
         beginCurrYear.set(Calendar.DAY_OF_MONTH, 1);
         beginCurrYear.set(Calendar.MONTH, Calendar.JANUARY);
 
 //  считать InqryInf
-        List<InqryInf> allInqry = inqryDao.getAllInqry(currDate,
-                currEducDate,
+        List<InqryInf> allInqry = inqryDao.getAllInqry(reportSetting.getCurrDate(),
+                reportSetting.getCurrEducDate(),
                 beginCurrYear.getTime());
         log.info("Найдено {} inqry-source", allInqry.size());
 
         final ReportConfig reportConfig = configInformica.getReport(Config.S_INFORMICA_REPORT);
         List<SchemaConfig> schemaConfigs = reportConfig.getSchemas();
         // Собрать базовую информацию по учреждениям и их схемы показателей
-        DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs, currEducDate);
+        DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs,
+                reportSetting.getCurrEducDate());
 
         TagReports tagReports = new TagReports();
         tagReports.setParent_Pay(parentPayBuider());
 
         Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch.getUchInfSchemas();
 
-        List<MunicipalityInf> allMunicipalityInfs = municipalityDao.getMunicipalitys(currDate, currEducDate);
+        List<MunicipalityInf> allMunicipalityInfs = municipalityDao
+                .getMunicipalitys(reportSetting.getCurrDate(), reportSetting.getCurrEducDate());
 // отобрать муниципалитеты для которых есть учреждения
         List<Integer> noValidMunicipalitys = new ArrayList<>();
         municip:
@@ -115,9 +114,11 @@ public class ReportGenerator {
                 for (InqryInf inqryInf : inqryInfs) {
                     //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
                     for (CounterConfig counterConfig : inqryCounters) {
-                        if (counterConfig.isPassed(currDate, currEducDate, inqryInf)) {
+                        if (counterConfig.isPassed(reportSetting.getCurrDate(),
+                                reportSetting.getCurrEducDate(), inqryInf)) {
                             Collection<TypeAgeRange> ageRanges =
-                                    counterConfig.getCounterDef().getAgeRange().getAgeRanges(currDate, inqryInf);
+                                    counterConfig.getCounterDef().getAgeRange()
+                                            .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
                             if (ageRanges != null && !ageRanges.isEmpty()) {
                                 // Посчитать элемент
                                 Counter counter = counterMap.computeIfAbsent(counterConfig.getCounterDef().getId(),
