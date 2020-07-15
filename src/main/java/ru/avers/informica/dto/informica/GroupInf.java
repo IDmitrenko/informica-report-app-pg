@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 /**
  * Информация для тэга group
  * @author Dias
@@ -16,8 +18,6 @@ public class GroupInf {
 
     private String idCode,     // код группы (id)
             name,              // наименование (name)
-            ageFrom,           // возраст от (age_from)
-            ageTO,             // возраст до (age_to)
             orientation,       // ... (orientation)
             worktimeGroup,     // ... (worktime_group)
             activity,          // ... (activity)
@@ -46,5 +46,12 @@ public class GroupInf {
     private String ovzType,     // ... (ovz_type)
             wellness;           // ... (wellness)
 
+    private Short ageFromYears, // количество лет ...(age_from_years)
+            ageFromMonths,      // количество месяцев ...(age_from_months)
+            ageToYears,         // количество лет ...(age_to_years)
+            ageToMonths;        // количество месяцев ...(age_to_months)
+
+    private BigDecimal ageFrom, // возраст от (age_from)
+            ageTO;              // возраст до (age_to)
 
 }

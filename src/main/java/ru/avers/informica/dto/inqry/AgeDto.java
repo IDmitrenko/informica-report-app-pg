@@ -2,6 +2,8 @@ package ru.avers.informica.dto.inqry;
 
 import ru.avers.informica.dto.IDTO;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -98,8 +100,24 @@ public class AgeDto implements IDTO {
         Integer x_age_months = 12 * ageYearsDelta - bdtCalendar.get(Calendar.MONTH) +
                 dtCalendar.get(Calendar.MONTH) - ageMonthsDelta;
         return new AgeDto(ageYears.shortValue(), x_age_months.shortValue(), ageDays.shortValue());
-    }       
-    
+    }
+
+    /**
+     * Вычислить количество лет с месяцами в десятичной системе с одним знаком после запятой
+     * @param pYear количество лет
+     * @param pMonth количество месяцев
+     * @return количество лет с учетом месяцев
+     */
+    public static BigDecimal calcAge(Short pYear, Short pMonth) {
+        if (pYear == null && pMonth == null) {
+            return new BigDecimal("0.1");
+        }
+        short year = pYear == null ? 0 : pYear;
+        short month = pMonth == null ? 0 : pMonth;
+        return new BigDecimal(year*12 + month)
+                .divide(new BigDecimal("12"), 1, RoundingMode.HALF_UP);
+    }
+
     public Integer compactAge() {
         return 10000 * getYears() + 100 * getMonths() + getDays();
     }        

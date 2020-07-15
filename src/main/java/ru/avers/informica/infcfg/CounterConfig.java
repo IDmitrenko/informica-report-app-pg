@@ -56,7 +56,8 @@ public class CounterConfig {
 
         if (!hasIncrementByPriority(counterDef.getFilters())) {
             if (dsItem instanceof InqryInf
-                    && ((InqryInf) dsItem).getPriorityCount().shortValue() != ((InqryInf) dsItem).getMinPriority().shortValue()) {
+                    && ((InqryInf) dsItem).getPriorityCount().shortValue() !=
+                    ((InqryInf) dsItem).getMinPriority().shortValue()) {
                 return false;
             }
         }

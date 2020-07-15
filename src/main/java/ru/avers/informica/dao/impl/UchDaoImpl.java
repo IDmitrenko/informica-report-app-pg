@@ -132,23 +132,24 @@ public class UchDaoImpl implements UchDao {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
             Integer currEducYear = DateUtil.getYearPart(currEducDate);
             parameterSource.addValue("currEducYear", currEducYear);
-            for (IFieldFilterParams iFieldFilterParams : repForUchFilter) {
-                switch (iFieldFilterParams.getComparison()){
-                    case in:
-                        sql += " and " + iFieldFilterParams.getField() +
-                                " in (" + iFieldFilterParams.getValue().toString().replace(" ","") +
-                                " )";
-                    case equal:
-                    case notEqual:
-                    case greater:
-                    case greaterOrEqual:
-                    case less:
-                    case lessOrEqual:
-                    case notIn:
+            if (repForUchFilter != null) {
+                for (IFieldFilterParams iFieldFilterParams : repForUchFilter) {
+                    switch (iFieldFilterParams.getComparison()) {
+                        case in:
+                            sql += " and " + iFieldFilterParams.getField() +
+                                    " in (" + iFieldFilterParams.getValue().toString()
+                                    .replace(" ", "") + " )";
+                        case equal:
+                        case notEqual:
+                        case greater:
+                        case greaterOrEqual:
+                        case less:
+                        case lessOrEqual:
+                        case notIn:
+                    }
                 }
             }
             List<UchInf> allUch = jdbcTemplate.query(sql,
-// TODO repForUchFilter
 //                         " and u.domen_uch = 1151",
                     parameterSource,
                     uchMapper);
