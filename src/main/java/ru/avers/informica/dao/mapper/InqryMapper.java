@@ -31,6 +31,7 @@ public class InqryMapper implements RowMapper<InqryInf> {
         inqryInf.setPriorityCount(rs.getShort("uch_prty"));
         inqryInf.setMinPriority(rs.getShort("uch_minprty"));
         inqryInf.setHaveRefusedStatus(rs.getBoolean("haveRefusedStatus"));
+        inqryInf.setFromPortal(rs.getBoolean("from_portal"));
         return inqryInf;
     }
 }
