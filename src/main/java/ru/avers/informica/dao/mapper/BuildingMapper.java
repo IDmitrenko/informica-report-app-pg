@@ -63,7 +63,7 @@ public class BuildingMapper implements RowMapper<BuildingInf> {
         buildingInf.setCabinetPsychologist(rs.getString("cabinet_psychologist"));
         buildingInf.setStatusBuilding(rs.getString("status_building"));
         buildingInf.setGroupInfs(groupDao.getGroupsBuildingUch(buildingInf.getId(),
-                reportSetting.getCurrEducYear()));
+                reportSetting.getCurrEducYear(), buildingInf.getIdCode()));
         return buildingInf;
     }
 }
