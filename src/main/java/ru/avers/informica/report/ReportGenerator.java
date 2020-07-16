@@ -50,17 +50,13 @@ public class ReportGenerator {
         return request;
     }
 
-    private TagReports reportBuilder(CProfile cProfile, Config configInformica) throws FilterException, ReportExceprion, FspeoException {
-
-        final Calendar beginCurrYear = GregorianCalendar.getInstance(); // Начало текущего календарного года
-        DateUtil.clearCalendarTimePart(beginCurrYear);
-        beginCurrYear.set(Calendar.DAY_OF_MONTH, 1);
-        beginCurrYear.set(Calendar.MONTH, Calendar.JANUARY);
+    private TagReports reportBuilder(CProfile cProfile, Config configInformica)
+            throws FilterException, ReportExceprion, FspeoException {
 
 //  считать InqryInf
         List<InqryInf> allInqry = inqryDao.getAllInqry(reportSetting.getCurrDate(),
                 reportSetting.getCurrEducDate(),
-                beginCurrYear.getTime());
+                reportSetting.getBeginCurrYear().getTime());
         log.info("Найдено {} inqry-source", allInqry.size());
 
         final ReportConfig reportConfig = configInformica.getReport(Config.S_INFORMICA_REPORT);
