@@ -9,12 +9,14 @@ public interface GroupDao {
     /**
      * Отбор групп(классов) учреждения по зданиям учреждения для отчета
      * @param idBuilding id здания учреждения
-     * @param currEducYear текущий учебный год
+     * @param currEducDate дата начала текущего учебного года
+     * @param currDate текущая дата
      * @param idCodeBuilding код здания
      * @return список отобранных для отчета групп в здании учреждения
      */
     List<GroupInf> getGroupsBuildingUch(Integer idBuilding,
-                                        Integer currEducYear,
+                                        Date currEducDate,
+                                        Date currDate,
                                         String idCodeBuilding);
 
 }

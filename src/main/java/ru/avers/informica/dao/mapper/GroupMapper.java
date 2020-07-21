@@ -29,6 +29,7 @@ public class GroupMapper implements RowMapper<GroupInf> {
         groupInf.setWorktimeGroup(rs.getString("worktime_group"));
         groupInf.setActivity(rs.getString("activity"));
         groupInf.setCapacity(rs.getString("capacity"));
+        groupInf.setEnrolled(rs.getString("enrolled"));
 
         return groupInf;
     }
