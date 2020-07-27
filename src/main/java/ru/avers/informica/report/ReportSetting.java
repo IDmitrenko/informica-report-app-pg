@@ -2,6 +2,7 @@ package ru.avers.informica.report;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
@@ -16,6 +17,7 @@ import java.util.GregorianCalendar;
 
 @Component
 @Getter
+@Setter
 @Slf4j
 @RequiredArgsConstructor
 public class ReportSetting {
@@ -23,11 +25,12 @@ public class ReportSetting {
     private final ServletContext context;
     private final CHelper cHelper;
 
-    private Date currDate;
-    private Date currEducDate;
-    private Calendar beginCurrYear;
-    private Integer currEducYear;
-    private CProfile cProfile;
+    private Date currDate;              // текущая дата
+    private Date currEducDate;          // дата начала текущего учебного года
+    private Calendar beginCurrYear;     // дата начала текущего года
+    private Integer currEducYear;       // текущий учебный год
+    private CProfile cProfile;          // config.xml отчета
+    private boolean isFirstOccurrence;      // признак первого вхождения
 
     @PostConstruct
     public void init() {
@@ -43,6 +46,7 @@ public class ReportSetting {
         beginCurrYear.set(Calendar.DAY_OF_MONTH, 1);
         beginCurrYear.set(Calendar.MONTH, Calendar.JANUARY);
         currEducYear = DateUtil.getYearPart(currEducDate);
+        isFirstOccurrence = true;
     }
 
 }

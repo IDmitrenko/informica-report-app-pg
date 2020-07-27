@@ -1,15 +1,13 @@
 package ru.avers.informica.report.source;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.UchDao;
 import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.dto.informica.UchInf;
 import ru.avers.informica.infcfg.SchemaConfig;
 import ru.avers.informica.infcfg.SourceUch;
+import ru.avers.informica.report.ReportSetting;
 import ru.avers.informica.utils.CUtil;
-import ru.avers.informica.utils.DateUtil;
 
 import java.util.*;
 
@@ -23,13 +21,16 @@ public class DataSourceUch {
     private final List<SchemaConfig> schemaConfigs;
     private final Date currEducDate;
     private final UchDao uchDao;
+    private final ReportSetting reportSetting;
 
     public DataSourceUch(UchDao pUchDao,
-                List<SchemaConfig> pSchemas,
-                Date pCurrEducYear) {
+                         List<SchemaConfig> pSchemas,
+                         Date pCurrEducYear,
+                         ReportSetting pReportSetting) {
         uchDao = pUchDao;
         schemaConfigs = pSchemas;
         currEducDate = pCurrEducYear;
+        reportSetting = pReportSetting;
     }
     
     public static class UchInfSchema extends Pair<UchInf, SchemaConfig> {
@@ -52,12 +53,16 @@ public class DataSourceUch {
         // проверить учреждения на заполнение обязательных полей
         //  считать UchInf
         List<IFieldFilterParams> repForUchFilter = null;
+        reportSetting.setFirstOccurrence(true);
         Set<Long> notValidUchIds = new HashSet<Long>();  // id не прошедших проверку учреждений
         // сначала считываем все учреждения
         // 1 - repForUchFilter - null,
-        // 2 - 01.09.2020 00:00:00 - датаначала учебного года
+        // 2 - 01.09.2020 00:00:00 - дата начала учебного года
+
+        //System.out.println("1-ый этап - Начало  " + new Date());
         List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter, currEducDate);
         log.info("Найдено {} uch-source", validateUch.size());
+        //System.out.println("1-ый этап - Конец  " + new Date());
 
         StringBuilder uchMessage = new StringBuilder();
         String notValidUchMessage = "";
@@ -82,7 +87,12 @@ public class DataSourceUch {
             if (uchFilters != null) {
                 CHelper.setFilterFieldType(uchFilters, UchInf.class);
             }
+            reportSetting.setFirstOccurrence(false);
+
+            //System.out.println("2-ой этап - Начало  " + new Date());
             List<UchInf> uchInfs = uchDao.getUchInformica(uchFilters, currEducDate);
+            //System.out.println("2-ой этап - Конец  " + new Date());
+
             for (UchInf uchInf : uchInfs) {
                 if (!notValidUchIds.contains(uchInf.getId()))
                     uchInfSchemas.add(new UchInfSchema(uchInf, schemaConfig));

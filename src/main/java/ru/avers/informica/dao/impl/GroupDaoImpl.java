@@ -127,15 +127,24 @@ public class GroupDaoImpl implements GroupDao {
                             "end as status_building " +
 */
 // обьединить записи с одинаковыми id
-            if (allGroupsBuildingUch.size() > 1) {
-                int idPrev = 0;
+            if (allGroupsBuildingUch.size() > 0) {
                 List<GroupInf> groupInfs = new ArrayList<>();
+                groupInfs.add(allGroupsBuildingUch.get(0));
                 for (GroupInf groupInf : allGroupsBuildingUch) {
-                    if (idPrev > 0 && idPrev == groupInf.getId()) {
+                    GroupInf groupInfPrev = groupInfs.get(groupInfs.size() - 1);
+                    if (groupInf.getId() == groupInfPrev.getId()) {
+                        if (groupInf.getAgeFrom().compareTo(groupInfPrev.getAgeFrom()) == -1) {
+                            groupInfPrev.setAgeFrom(groupInf.getAgeFrom());
+                        }
+                        if (groupInf.getAgeTO().compareTo(groupInfPrev.getAgeTO()) == 1) {
+                            groupInfPrev.setAgeTO(groupInf.getAgeTO());
+                        }
 
+                    } else {
+                        groupInfs.add(groupInf);
                     }
-                    idPrev = groupInf.getId();
                 }
+                allGroupsBuildingUch = groupInfs;
             }
 
             return allGroupsBuildingUch;

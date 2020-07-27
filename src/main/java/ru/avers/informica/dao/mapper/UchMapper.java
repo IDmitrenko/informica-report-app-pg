@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.impl.BuildingDaoImpl;
 import ru.avers.informica.dto.informica.UchInf;
+import ru.avers.informica.report.ReportSetting;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 public class UchMapper implements RowMapper<UchInf> {
 
     private final BuildingDaoImpl buildingDao;
+    private final ReportSetting reportSetting;
 
     @Override
     public UchInf mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -65,7 +67,9 @@ public class UchMapper implements RowMapper<UchInf> {
         uchInf.setLekoteka(rs.getString("lekoteka"));
         uchInf.setCentreGame(rs.getString("centre_game"));
         uchInf.setCommetStatus(rs.getString("commet_status"));
-        uchInf.setBuildingInfs(buildingDao.getBuildingsUch(uchInf.getId()));
+        if (!reportSetting.isFirstOccurrence()) {
+            uchInf.setBuildingInfs(buildingDao.getBuildingsUch(uchInf.getId()));
+        }
 
         return uchInf;
     }

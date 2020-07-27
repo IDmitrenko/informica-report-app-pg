@@ -63,15 +63,17 @@ public class ReportGenerator {
         List<SchemaConfig> schemaConfigs = reportConfig.getSchemas();
         // Собрать базовую информацию по учреждениям и их схемы показателей
         DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs,
-                reportSetting.getCurrEducDate());
+                reportSetting.getCurrEducDate(), reportSetting);
 
         TagReports tagReports = new TagReports();
         tagReports.setParent_Pay(parentPayBuider());
 
-        Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch.getUchInfSchemas();
+        Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch
+                .getUchInfSchemas();
 
         List<MunicipalityInf> allMunicipalityInfs = municipalityDao
-                .getMunicipalitys(reportSetting.getCurrDate(), reportSetting.getCurrEducDate());
+                .getMunicipalitys(reportSetting.getCurrDate(),
+                        reportSetting.getCurrEducDate());
 // отобрать муниципалитеты для которых есть учреждения
         List<Integer> noValidMunicipalitys = new ArrayList<>();
         municip:
