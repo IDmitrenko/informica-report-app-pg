@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class GroupInf {
     private int id;            // id группы
+    private int idUch;         // id учреждения
+    private int idBuilding;    // id здания
 
     private String idCode,     // код группы (id)
             name,              // наименование (name)
@@ -25,8 +27,12 @@ public class GroupInf {
             enrolled,          // Фактическая наполняемость группы (enrolled)
             subgroup,          // Количество подгрупп (subgroup)
             ovzDeti,           // Количество детей с ОВЗ в группе (ovz_deti)
+// потребуется дополнительная обработка, будет поставлена отдельная задача
             freeSpace,         // Количество свободных мест в группе (free_space)
+// потребуется дополнительная обработка, необходимо вычислять по формуле
+// "free_space = capacity - enrolled - transfer_space - add_cont"
             addCont,           // Количество мест, на которые направлены дети (add_cont)
+// потребуется дополнительная обработка, поставлена задача 23229
             transferSpace,     // Количество мест для перевода детей (transfer_space)
             partnerGroup,      // Получение образования в другой ДОО (partner_group)
             partner,           // Иное место получения образования (partner)
