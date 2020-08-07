@@ -55,10 +55,8 @@ public class GroupInf {
                                // режимом пребывания (capacity_gkp)
             programOvz;        // В группе осуществляется реализация адаптированной основной
                                // общеобразовательной программы дошкольного образования (program_ovz)
-//TODO в схеме есть, в полном отчете нет!
     private String ovzType,     // Тип группы с ОВЗ сводный (ovz_type)
             wellness;           // Профиль оздоровительной группы (wellness)
-//TODO - добавленные Вовой
     private String ovzTypeDop,  // Тип группы с ОВЗ (ovz_type_dop)
             ovzTypeNew;         // Дополнительный тип группы с ОВЗ (ovz_type_new)
 

@@ -55,30 +55,37 @@ public class GroupMapper implements RowMapper<GroupInf> {
                     case "02.02":
                     case "04.05":
                         groupInf.setOvzType("1");
+                        groupInf.setOvzTypeNew("1");
                         break;
                     case "02.01":
                     case "04.02":
                         groupInf.setOvzType("2");
+                        groupInf.setOvzTypeNew("5");
                         break;
                     case "02.04":
                     case "04.03":
                         groupInf.setOvzType("3");
+                        groupInf.setOvzTypeNew("3");
                         break;
                     case "02.07":
                     case "04.08":
                         groupInf.setOvzType("4");
+                        groupInf.setOvzTypeNew("9");
                         break;
                     case "02.03":
                     case "04.06":
                         groupInf.setOvzType("5");
+                        groupInf.setOvzTypeNew("7");
                         break;
                     case "02.05":
                     case "04.07":
                         groupInf.setOvzType("6");
+                        groupInf.setOvzTypeNew("6");
                         break;
                     case "02.08":
                     case "04.10":
                         groupInf.setOvzType("7");
+                        groupInf.setOvzTypeNew("10");
                         break;
                     case "02.06":
                     case "02.09":
@@ -90,6 +97,37 @@ public class GroupMapper implements RowMapper<GroupInf> {
                     case "04.12":
                     case "04.13":
                         groupInf.setOvzType("8");
+                        groupInf.setOvzTypeNew("11");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            for (int i = 0; i < classType.length; i++) {
+                switch (classType[i]) {
+                    case "03.01":
+                        groupInf.setWellness("1");
+                        break;
+                    case "03.02":
+                        groupInf.setWellness("4");
+                        break;
+                    case "03.03":
+                        groupInf.setWellness("2");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+        if (rs.getString("ovz_type_dop") != null) {
+            String[] classTypeOVZ = rs.getString("ovz_type_dop").split(" ");
+            for (int i = 0; i < classTypeOVZ.length; i++) {
+                switch (classTypeOVZ[i]) {
+                    case "2":
+                    case "3":
+                        groupInf.setOvzTypeDop("0");
                         break;
 
                     default:

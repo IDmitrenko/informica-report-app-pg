@@ -134,8 +134,12 @@ public class GroupDaoImpl implements GroupDao {
             "end as program_ovz, " +
             "(select string_agg(v08.code, ' ' order by v08.code) as class_type " +
             " from app.v_dict_08_type_class v08 " +
-            " inner join class_types ct on (v08.id = ct.class_type_csp) " +
-            " where ct.classes_id = cl.id_classes) as ovz_type " +
+            " inner join class_types ct on v08.id = ct.class_type_csp " +
+            " where ct.classes_id = cl.id_classes) as ovz_type, " +
+            "(select string_agg(v08.sr, ' ' order by v08.sr) as class_type_ovz " +
+            " from app.v_dict_08_type_class v08 " +
+            " inner join class_types ct on v08.id = ct.class_type_csp " +
+            " where ct.classes_id = cl.id_classes) as ovz_type_dop " +
             "from public.classes cl " +
             "inner join public.uch_buildings ub on ub.id_uch_buildings = cl.building_id " +
             "inner join public.group_years gy on gy.uch = cl.uch " +
