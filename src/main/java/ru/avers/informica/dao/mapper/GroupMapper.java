@@ -28,6 +28,7 @@ public class GroupMapper implements RowMapper<GroupInf> {
         groupInf.setAgeFrom(AgeDto.calcAge(groupInf.getAgeFromYears(), groupInf.getAgeFromMonths()));
         groupInf.setAgeTO(AgeDto.calcAge(groupInf.getAgeToYears(), groupInf.getAgeToMonths()));
         groupInf.setOrientation(rs.getString("orientation"));
+        groupInf.setIdHealthCsp(rs.getInt("idHealthCsp"));
         groupInf.setWorktimeGroup(rs.getString("worktime_group"));
         groupInf.setActivity(rs.getString("activity"));
         groupInf.setCapacity(rs.getString("capacity"));

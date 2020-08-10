@@ -28,9 +28,12 @@ public class GroupDaoImpl implements GroupDao {
 
    Для поля add_cont :
    1) Запрос по заявлениям может возвращать дубли,
-      так как в заявлении могут быть выбраны несколько режимов посещения.
+      так как в заявлении могут быть выбраны несколько режимов посещения. (grp_time)
+      (app.applications.id_app -> app.grp_time.app_id
+       app.grp_time.grp_time_csp -> app.v_dict_85_dou_grp_time.code  [sr])
    2) Запрос по группам может возвращать дубли,
       так как в группах могут быть указаны несколько направленностей.
+      (public.class_types.class_type_csp -> app.v_dict_08_type_class.code [sr] )
  */
     private String sql = "select cl.uch as idUch, cl.building_id as idBuilding, " +
             "cl.id_classes as id, " +
@@ -47,6 +50,7 @@ public class GroupDaoImpl implements GroupDao {
             "then '3' " +
             "else v08.sr " +
             "end as orientation, " +
+            "v08.id as idHealthCsp, " +
             "v85.sr as worktime_group, " +
             "v93.sr as activity, " +
             "(select sum(ct1.plan_quantity) " +

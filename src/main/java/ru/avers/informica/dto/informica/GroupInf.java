@@ -17,6 +17,7 @@ public class GroupInf {
     private int id;            // id группы
     private int idUch;         // id учреждения
     private int idBuilding;    // id здания
+    private int idHealthCsp;   // id направленности группы V08
 
     private String idCode,     // код группы (id)
             name,              // наименование (name)

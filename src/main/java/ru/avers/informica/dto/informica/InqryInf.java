@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -27,8 +28,7 @@ public class InqryInf implements IInformicaChildCountable {
     private Short minPriority = 0;    // min prty  buildings.prty
 
 //    private Short typeCode;         // new - applications.statement_type (smallint - 1,2)
-//                                    // тип заявления (Прием, перевод)
-    private String typeCode;          // new - applications.statement_type (smallint - 1,2) ?? нужен код
+    private String typeCode;          // тип заявления (Прием, перевод)
                                       // Old - InqryChldInUch.id_type_inqry  CDict75InqryType.Code
 
     private Date inUchDt,        // желаемая дата зачисления applications.d_plan
@@ -40,28 +40,31 @@ public class InqryInf implements IInformicaChildCountable {
     
     private String num,           // номер заявления applications.num
                    statusCode,    // Old - InqryStatus.id_status   CDict76InqryStatus.Code
-                                  // New - Status.statuses_id  statuses. ?? нужен код
-
+                                  // New - Status.statuses_id  statuses.code
+/*                   // старый вариант
                    grpTypeCode,   // Old - InqryChldInUch.id_dou_grp_time  CDict85DouGrpTime.Code
-                                  // New - applications.grp_time_csp - ссылка на spr_b (?? поле для кода)
+                                  // New - applications.grp_time.grp_time_csp - ссылка на spr_b_fspeo.spare_01
                                   // этот вариант теперь не используется
                                   // ===== рабочий вариант - Время пребывания в группе =====
-                                  // app.grp_time.grp_time_csp (app_id) -> public.spr_b.sp (cname) ?? Нет кода в справочнике
-
+                                  // app.grp_time.grp_time_csp (app_id) -> public.spr_b_fspeo.spare_01
+*/
                    healthNeedsCode; // Old - InqryChldInUch.id_health_needs   CDict08TypeClass.Code
-                                    // New - applications.health_csp - ссылка на spr_b (?? поле для кода)
+                                    // New - applications.health_csp - ссылка на spr_b_fspeo.spare_01
                                     // Подтвержденная потребность по здоровью
 /* Отказались от использования родительских кодов в конфиге
                    healthNeedsRootCode;  // Old - CDict08TypeClass.id_parent   CDict08TypeClass.Code
                                          // New - spr_b.spra_id    spr_b.sp (?? поле для кода)
 */
-    private Collection<String> lgots,
-                               lgotsType,
-                               grpTimes;     // Old - (LIST)InqryDouGrpTime.id__dou_grp_time  CDict85DouGrpTime.Code
-                                             // New - (LIST)Grp_time.grp_time_csp - ссылка на spr_b (?? поле для кода)
+    private List<Collection<String>> inqryLgots;   // информация по кодам и типам льгот для заявления
+    private Collection<String> lgots,       //app.applications.id_app -> app.benefits.app_id ->           | code
+                               lgotsType,   // app.benefits.benefit_csp -> app.v_dict_81_inqry_child_lgot | typ
+    // Информация по режиму посещения
+                               grpTimes;    // Old - (LIST)InqryDouGrpTime.id__dou_grp_time  CDict85DouGrpTime.Code
+                                            //app.applications.id_app -> app.grp_time.app_id   ->
+                                            // app.grp_time.grp_time_csp -> app.v_dict_85_dou_grp_time.code
     
     private boolean fromPortal,
-                    haveRefusedStatus;       // true - не явился или отказ (определяется подзапросом)
+                    haveRefusedStatus;      // true - не явился или отказ (определяется подзапросом)
 
     @Override
     public Integer getIdUch() {

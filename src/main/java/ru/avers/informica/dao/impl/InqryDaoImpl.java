@@ -83,7 +83,7 @@ public class InqryDaoImpl implements InqryDao {
                             "a.d_birth as dtBirth, " +
                             "qi.d_enter as enterQueueDt, " +
                             "qi.d_reg as regDt, " +
-                            "sbf.spare_01 as grpTypeCode, " +
+// старый вариант             "sbf.spare_01 as grpTypeCode, " +
                             "a.health_csp as healthCsp, " +
                             "sbfh.spare_01 as healthNeedsCode, " +
 //                            "sbfa.spare_01 as healthNeedsRootCode, " +
@@ -114,8 +114,8 @@ public class InqryDaoImpl implements InqryDao {
                     "inner join app.statuses sts on sts.id = st.statuses_id " +
                     "inner join app.buildings b on b.app_id = a.id_app " +
                     "inner join public.uch_buildings ub on ub.id_uch_buildings = b.uch_buildings_id " +
-                    "inner join app.grp_time gt on gt.app_id = a.id_app " +
-                    "left  join public.spr_b_fspeo sbf on sbf.id = gt.grp_time_csp " +
+//                    "inner join app.grp_time gt on gt.app_id = a.id_app " +
+//                    "left  join public.spr_b_fspeo sbf on sbf.id = gt.grp_time_csp " +
                     "left  join public.spr_b_fspeo sbfh on sbfh.id = a.health_csp " +
                     "left  join app.es es on es.app_id = a.id_app " +
 //отказались от использования родительских кодов по состоянию здоровья из-за их отсутствия в справочнике
