@@ -3,6 +3,7 @@ package ru.avers.informica.dao.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import ru.avers.informica.dao.impl.GroupHealthDaoImpl;
 import ru.avers.informica.dto.informica.GroupInf;
 import ru.avers.informica.dto.inqry.AgeDto;
 
@@ -12,6 +13,8 @@ import java.sql.SQLException;
 @Component
 @RequiredArgsConstructor
 public class GroupMapper implements RowMapper<GroupInf> {
+
+    private final GroupHealthDaoImpl groupHealthDao;
 
     @Override
     public GroupInf mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -28,8 +31,10 @@ public class GroupMapper implements RowMapper<GroupInf> {
         groupInf.setAgeFrom(AgeDto.calcAge(groupInf.getAgeFromYears(), groupInf.getAgeFromMonths()));
         groupInf.setAgeTO(AgeDto.calcAge(groupInf.getAgeToYears(), groupInf.getAgeToMonths()));
         groupInf.setOrientation(rs.getString("orientation"));
-        groupInf.setIdHealthCsp(rs.getInt("idHealthCsp"));
+//        groupInf.setIdHealthCsp(rs.getInt("idHealthCsp"));
+        groupInf.setIdHealthCsp(groupHealthDao.getGroupHealths(groupInf.getId()));
         groupInf.setWorktimeGroup(rs.getString("worktime_group"));
+        groupInf.setIdWorkTimeCsp(rs.getInt("idWorkTimeCsp"));
         groupInf.setActivity(rs.getString("activity"));
         groupInf.setCapacity(rs.getString("capacity"));
         groupInf.setEnrolled(rs.getString("enrolled"));

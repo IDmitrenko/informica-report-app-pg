@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 /**
  * Информация для тэга group
@@ -17,7 +18,8 @@ public class GroupInf {
     private int id;            // id группы
     private int idUch;         // id учреждения
     private int idBuilding;    // id здания
-    private int idHealthCsp;   // id направленности группы V08
+    private Collection<Integer> idHealthCsp;   // id направленностей группы class_types.class_type_csp
+    private int idWorkTimeCsp; // id режима посещения группы
 
     private String idCode,     // код группы (id)
             name,              // наименование (name)

@@ -7,10 +7,7 @@ import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dao.MunicipalityDao;
 import ru.avers.informica.dao.UchDao;
-import ru.avers.informica.dto.informica.InqryEnrolmentInf;
-import ru.avers.informica.dto.informica.InqryInf;
-import ru.avers.informica.dto.informica.MunicipalityInf;
-import ru.avers.informica.dto.informica.UchInf;
+import ru.avers.informica.dto.informica.*;
 import ru.avers.informica.exception.FilterException;
 import ru.avers.informica.exception.FspeoException;
 import ru.avers.informica.exception.ReportExceprion;
@@ -26,7 +23,11 @@ import ru.avers.informica.report.xml.TagSystem;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.DateUtil;
 
+import java.sql.Time;
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Component
@@ -76,13 +77,30 @@ public class ReportGenerator {
         Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch
                 .getUchInfSchemas();
 
+// рассчитать показатель add_cont
+        calculateIndicatorAddCont(allInqryEnrolments, uchInfSchemas);
+
+// Отладочный вывод
+        int countEnrolment = 0;
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+            for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
+                for (GroupInf groupInf : buildingInf.getGroupInfs()) {
+                    if (groupInf.getAddCont() != null) {
+                        countEnrolment += Integer.parseInt(groupInf.getAddCont());
+                    }
+                }
+            }
+        }
+        log.info("Распределено {} inqry-enrolment", countEnrolment);
+
         List<MunicipalityInf> allMunicipalityInfs = municipalityDao
                 .getMunicipalitys(reportSetting.getCurrDate(),
                         reportSetting.getCurrEducDate());
-// отобрать муниципалитеты для которых есть учреждения
+        // отобрать муниципалитеты для которых есть учреждения
         List<Integer> noValidMunicipalitys = new ArrayList<>();
         municip:
-        for (MunicipalityInf municipalityInf : allMunicipalityInfs) {
+        for (
+                MunicipalityInf municipalityInf : allMunicipalityInfs) {
             for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
                 if (municipalityInf.getIdTer().equals(uchInfSchema.getUchInf().getIdTer())) {
                     continue municip;
@@ -90,21 +108,25 @@ public class ReportGenerator {
             }
             noValidMunicipalitys.add(municipalityInf.getIdTer());
         }
+
         List<MunicipalityInf> municipalityInfs = new ArrayList<>();
-        for (MunicipalityInf municipalityInf : allMunicipalityInfs) {
+        for (
+                MunicipalityInf municipalityInf : allMunicipalityInfs) {
             if ((noValidMunicipalitys != null &&
                     !noValidMunicipalitys.contains(municipalityInf.getIdTer())) ||
                     noValidMunicipalitys == null) {
                 municipalityInfs.add(municipalityInf);
             }
         }
+
         allMunicipalityInfs = null;
         noValidMunicipalitys = null;
 
         Map<Long, List<InqryInf>> inqryByUchMap = allInqry.stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
         Map<String, Counter> counterMap = new HashMap<>();
-        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+        for (
+                DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             //Учреждение
             UchInf uchInf = uchInfSchema.getUchInf();
             //Счетчики учреждения
@@ -200,6 +222,100 @@ public class ReportGenerator {
         }
 */
         return null;
+    }
+
+    private void calculateIndicatorAddCont(List<InqryEnrolmentInf> allInqryEnrolments,
+                                           Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
+        int countNotDistributed = 0;
+        boolean isDistributed;
+        inqryEnrolment:
+        for (InqryEnrolmentInf ie : allInqryEnrolments) {
+            isDistributed = false;
+            for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+                if (ie.getIdUch() == uchInfSchema.getUchInf().getId().intValue()) {
+                    for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
+                        for (GroupInf groupInf : buildingInf.getGroupInfs()) {
+// попадает ли ребенок в возрастной интервал группы
+                            if (childInAgeGroup(ie, groupInf)) {
+// Совпадает ли направленность группы
+                                if (groupInf.getIdHealthCsp().contains(ie.getIdHealthCsp())) {
+// Проверяем если есть в заявлении режим посещения группы
+                                    if (((ie.getIdGrpTimesCsp().size() > 0) &&
+                                            ie.getIdGrpTimesCsp().contains(groupInf.getIdWorkTimeCsp())) ||
+                                            ie.getIdGrpTimesCsp().size() == 0) {
+// Определяем свободные места в подходящей группе
+                                        int freeSpace = Integer.parseInt(groupInf.getCapacity()) -
+                                                Integer.parseInt(groupInf.getEnrolled());
+                                        if (groupInf.getAddCont() != null) {
+                                            freeSpace += Integer.parseInt(groupInf.getAddCont());
+                                        }
+                                        if (freeSpace > 0) {
+// Ребенок по этому заявлению идет в эту группу
+                                            int addCont = 1;
+                                            if (groupInf.getAddCont() != null) {
+                                                addCont += Integer.parseInt(groupInf.getAddCont());
+                                            }
+                                            groupInf.setAddCont(Integer.toString(addCont));
+                                            isDistributed = true;
+                                            continue inqryEnrolment;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!isDistributed) {
+// распределяем в первую попавшуюся по характеристикам группу
+                        for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
+                            for (GroupInf groupInf : buildingInf.getGroupInfs()) {
+// попадает ли ребенок в возрастной интервал группы
+                                if (childInAgeGroup(ie, groupInf)) {
+// Совпадает ли направленность группы
+                                    if (groupInf.getIdHealthCsp().contains(ie.getIdHealthCsp())) {
+// Проверяем если есть в заявлении режим посещения группы
+                                        if (((ie.getIdGrpTimesCsp().size() > 0) &&
+                                                ie.getIdGrpTimesCsp().contains(groupInf.getIdWorkTimeCsp())) ||
+                                                ie.getIdGrpTimesCsp().size() == 0) {
+// Ребенок по этому заявлению идет в эту группу
+                                            int addCont = 1;
+                                            if (groupInf.getAddCont() != null) {
+                                                addCont += Integer.parseInt(groupInf.getAddCont());
+                                            }
+                                            groupInf.setAddCont(Integer.toString(addCont));
+                                            isDistributed = true;
+                                            continue inqryEnrolment;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!isDistributed) {
+// не нашли группы подходящей по характеристикам
+                        countNotDistributed++;
+/*
+ TODO
+ */
+                    }
+                }
+            }
+
+        }
+        log.info("Не распределено {} inqry-enrolment", countNotDistributed);
+    }
+
+    private boolean childInAgeGroup(InqryEnrolmentInf ie, GroupInf groupInf) {
+        int diffYears = DateUtil.getYearPart(reportSetting.getCurrDate()) - DateUtil.getYearPart(ie.getBDt());
+        int monthDiff = DateUtil.getMonthPart(reportSetting.getCurrDate()) - DateUtil.getMonthPart(ie.getBDt());
+        int totalMonths = diffYears * 12 + monthDiff;
+
+        int fromMonth = groupInf.getAgeFromYears().intValue() * 12 + groupInf.getAgeFromMonths().intValue();
+        int toMonth = groupInf.getAgeToYears().intValue() * 12 + groupInf.getAgeToMonths().intValue();
+        if (totalMonths >= fromMonth && totalMonths <= toMonth) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private TagParentPay parentPayBuider() {

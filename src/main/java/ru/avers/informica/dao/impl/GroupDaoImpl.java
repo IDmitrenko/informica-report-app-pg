@@ -51,8 +51,9 @@ public class GroupDaoImpl implements GroupDao {
             "then '3' " +
             "else v08.sr " +
             "end as orientation, " +
-            "v08.id as idHealthCsp, " +
+//            "v08.id as idHealthCsp, " +  // заменил одиночную на коллекцию
             "v85.sr as worktime_group, " +
+            "cl.work_time_csp as idWorkTimeCsp, " +
             "v93.sr as activity, " +
             "(select sum(ct1.plan_quantity) " +
             " from public.class_types ct1 " +
@@ -80,7 +81,7 @@ public class GroupDaoImpl implements GroupDao {
 */
             "(select count(sp.out_id_pupil) " +
             " from school_pupil(cl.uch, current_date, 1, 2, 3) sp " +
-            " inner join inclass ic on (ic.id_inclass = sp.out_id_inclass) " +
+            " inner join inclass ic on ic.id_inclass = sp.out_id_inclass " +
             " where sp.out_class_num = cl.class_num and sp.out_stream_let = cl.stream_let and " +
             "       (sp.OUT_D_LEAVE is null or sp.OUT_D_LEAVE > :currDate) and " +
             "       (ic.d_up between :dateFromInterval and :dateToInterval)" +

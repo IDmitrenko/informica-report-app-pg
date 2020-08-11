@@ -25,6 +25,10 @@ public class DateUtil {
     static public int getYearPart(Date pDate) {
         return getPartFromDate(pDate, Calendar.YEAR);
     }
+
+    static public int getMonthPart(Date pDate) {
+        return getPartFromDate(pDate, Calendar.MONTH);
+    }
     
     static private int getPartFromDate(Date pDate, int pPart) {
         Calendar calendar = GregorianCalendar.getInstance();
