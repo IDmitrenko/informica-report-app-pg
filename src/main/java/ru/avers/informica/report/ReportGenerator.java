@@ -7,6 +7,7 @@ import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dao.MunicipalityDao;
 import ru.avers.informica.dao.UchDao;
+import ru.avers.informica.dto.informica.InqryEnrolmentInf;
 import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.dto.informica.MunicipalityInf;
 import ru.avers.informica.dto.informica.UchInf;
@@ -58,6 +59,10 @@ public class ReportGenerator {
                 reportSetting.getCurrEducDate(),
                 reportSetting.getBeginCurrYear().getTime());
         log.info("Найдено {} inqry-source", allInqry.size());
+
+//  считать InqryEnrolmentInf для подсчета add_cont
+        List<InqryEnrolmentInf> allInqryEnrolments = inqryDao.getIngryEnrolment();
+        log.info("Найдено {} inqry-enrolment", allInqryEnrolments.size());
 
         final ReportConfig reportConfig = configInformica.getReport(Config.S_INFORMICA_REPORT);
         List<SchemaConfig> schemaConfigs = reportConfig.getSchemas();

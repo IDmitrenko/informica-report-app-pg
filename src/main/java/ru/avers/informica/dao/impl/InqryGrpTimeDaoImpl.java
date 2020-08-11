@@ -53,4 +53,35 @@ public class InqryGrpTimeDaoImpl implements InqryGrpTimeDao {
         }
     }
 
+    @Override
+    public Collection<Integer> getGrpTimeIdsInqry(Integer idApplications) {
+
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+
+            parameterSource.addValue("idApplications", idApplications);
+
+
+            List<InqryGrpTimeInf> inqryGrpTimeInfs = jdbcTemplate
+                    .query("select :idApplications as id, " +
+                                    "gt.grp_time_csp as idGrpTimeCsp, " +
+                                    "v85.code as grpTimeCode " +
+                                    "from app.grp_time gt " +
+                                    "inner join app.v_dict_85_dou_grp_time v85 on v85.id = gt.grp_time_csp " +
+                                    "where gt.app_id = :idApplications",
+                            parameterSource,
+                            inqryGrpTimesMapper);
+
+            Collection<Integer> inqryGrpTimeIds = new HashSet<>();
+            for (InqryGrpTimeInf igt : inqryGrpTimeInfs) {
+                inqryGrpTimeIds.add(igt.getIdGrpTime());
+            }
+            return inqryGrpTimeIds;
+
+        } catch (Exception ex) {
+            log.error("Ошибка выполнения запроса GrpTimesInqry с idApplications = {}", idApplications, ex);
+            throw ex;
+        }
+    }
+
 }

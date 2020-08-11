@@ -11,4 +11,6 @@ public interface InqryGrpTimeDao {
      */
     Collection<String> getGrpTimesInqry(Integer idApplications);
 
+    Collection<Integer> getGrpTimeIdsInqry(Integer idApplications);
+
 }

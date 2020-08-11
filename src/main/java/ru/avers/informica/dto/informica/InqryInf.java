@@ -37,7 +37,10 @@ public class InqryInf implements IInformicaChildCountable {
                                  // Дата первого статуса "Принято" заявления
                  bDt,            // applications.d_birth (DATE) - Дата рождения ребенка
                  statusSetDate;  // InqryStatus.dt -> status.d_status - (CDATETIME) Дата присвоения статуса
-    
+/* TODO  нужно реализовать из аудита
+    private Date prevInUchDt;   // желаемая дата зачисления на начало текущего учебного года
+
+ */
     private String num,           // номер заявления applications.num
                    statusCode,    // Old - InqryStatus.id_status   CDict76InqryStatus.Code
                                   // New - Status.statuses_id  statuses.code
@@ -55,6 +58,9 @@ public class InqryInf implements IInformicaChildCountable {
                    healthNeedsRootCode;  // Old - CDict08TypeClass.id_parent   CDict08TypeClass.Code
                                          // New - spr_b.spra_id    spr_b.sp (?? поле для кода)
 */
+/* TODO нужно реализовать из аудита
+    private String prevHealthNeedsCode;     // направленность на начало текущего учебного года
+ */
     private List<Collection<String>> inqryLgots;   // информация по кодам и типам льгот для заявления
     private Collection<String> lgots,       //app.applications.id_app -> app.benefits.app_id ->           | code
                                lgotsType,   // app.benefits.benefit_csp -> app.v_dict_81_inqry_child_lgot | typ

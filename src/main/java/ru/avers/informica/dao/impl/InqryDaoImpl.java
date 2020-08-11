@@ -7,9 +7,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dao.mapper.IdMapper;
+import ru.avers.informica.dao.mapper.InqryEnrolmentMapper;
 import ru.avers.informica.dao.mapper.InqryMapper;
 import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.dto.dictcode.InqrySysInteraction;
+import ru.avers.informica.dto.informica.InqryEnrolmentInf;
 import ru.avers.informica.dto.informica.InqryInf;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class InqryDaoImpl implements InqryDao {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
     private final InqryMapper inqryMapper;
+    private final InqryEnrolmentMapper inqryEnrolmentMapper;
     private final IdMapper idMapper;
 
     @Override
@@ -136,4 +139,41 @@ public class InqryDaoImpl implements InqryDao {
         }
     }
 
+    @Override
+    public List<InqryEnrolmentInf> getIngryEnrolment() {
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+
+            String code_arrived = InqryStatusCode.HAS_ARRIVED_04;
+            String code_sent_to = InqryStatusCode.SENT_TO_DOO_12;
+
+            List<String> enrolment_codes = Arrays.asList(code_arrived, code_sent_to);
+            parameterSource.addValue("enrolment_codes", enrolment_codes);
+
+            List<InqryEnrolmentInf> allInqryEnrolments = jdbcTemplate
+                    .query("select a.id_app as id, " +
+                            "u.domen_uch as uch_id, " +
+                            "u.comp_code as uch_code, " +
+                            "a.d_birth as dtBirth, " +
+                            "a.health_csp as healthCsp, " +
+                            "sts.code as statusCode " +
+                            "from app.applications a " +
+                            "inner join app.status st on st.app_id = a.id_app " +
+                            "inner join app.statuses sts on sts.id = st.statuses_id " +
+                            "inner join app.buildings b on b.app_id = a.id_app " +
+                            "inner join public.uch_buildings ub on ub.id_uch_buildings = b.uch_buildings_id " +
+                            "inner join public.uch u on u.domen_uch = ub.uch " +
+                            "where sts.code in (:enrolment_codes) and " +
+                            "      st.d_validity = '9999-12-31 00:00:00' " +
+                            "order by uch_id",
+                    parameterSource,
+                    inqryEnrolmentMapper);
+
+            return allInqryEnrolments;
+
+        } catch (Exception ex) {
+            log.error("Ошибка выполнения запроса IngryEnrolment.", ex);
+            throw ex;
+        }
+    }
 }

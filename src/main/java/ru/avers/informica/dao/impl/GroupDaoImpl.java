@@ -31,6 +31,7 @@ public class GroupDaoImpl implements GroupDao {
       так как в заявлении могут быть выбраны несколько режимов посещения. (grp_time)
       (app.applications.id_app -> app.grp_time.app_id
        app.grp_time.grp_time_csp -> app.v_dict_85_dou_grp_time.code  [sr])
+   == не будет - так как я буду для заявления формировать HashSet ссылок на режим посещения == InqryEnrolmentInf
    2) Запрос по группам может возвращать дубли,
       так как в группах могут быть указаны несколько направленностей.
       (public.class_types.class_type_csp -> app.v_dict_08_type_class.code [sr] )
