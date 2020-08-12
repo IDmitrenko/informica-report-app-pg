@@ -26,17 +26,17 @@ public class GroupInf {
             orientation,       // Направленность группы (orientation)
             worktimeGroup,     // Режим работы группы (worktime_group)
             activity,          // Вид деятельности (activity)
-            capacity,          // Нормативная емкость группы (capacity)
-            enrolled,          // Фактическая наполняемость группы (enrolled)
+//            capacity,          // Нормативная емкость группы (capacity)
+//            enrolled,          // Фактическая наполняемость группы (enrolled)
             subgroup,          // Количество подгрупп (subgroup)
             ovzDeti,           // Количество детей с ОВЗ в группе (ovz_deti)
 // потребуется дополнительная обработка, будет поставлена отдельная задача
-            freeSpace,         // Количество свободных мест в группе (free_space)
+//            freeSpace,         // Количество свободных мест в группе (free_space)
 // потребуется дополнительная обработка, необходимо вычислять по формуле
 // "free_space = capacity - enrolled - transfer_space - add_cont"
-            addCont,           // Количество мест, на которые направлены дети (add_cont)
+//            addCont,           // Количество мест, на которые направлены дети (add_cont)
 // потребуется дополнительная обработка, поставлена задача 23229
-            transferSpace,     // Количество мест для перевода детей (transfer_space)
+//            transferSpace,     // Количество мест для перевода детей (transfer_space)
             partnerGroup,      // Получение образования в другой ДОО (partner_group)
             partner,           // Иное место получения образования (partner)
             days,              // Число дней, проведенных воспитанниками в группе в текущем месяце (days)
@@ -67,6 +67,12 @@ public class GroupInf {
             ageFromMonths,      // количество месяцев - Возрастной диапазон группы (от) (age_from_months)
             ageToYears,         // количество лет - Возрастной диапазон группы (до) (age_to_years)
             ageToMonths;        // количество месяцев - Возрастной диапазон группы (до) (age_to_months)
+
+    private short capacity,     // Нормативная емкость группы (capacity)
+            enrolled,           // Фактическая наполняемость группы (enrolled)
+            transferSpace,      // Количество мест для перевода детей (transfer_space)
+            freeSpace,          // Количество свободных мест в группе (free_space)
+            addCont;            // Количество мест, на которые направлены дети (add_cont)
 
     private BigDecimal ageFrom, // возраст от (age_from)
             ageTO;              // возраст до (age_to)

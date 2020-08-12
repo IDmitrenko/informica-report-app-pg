@@ -36,10 +36,10 @@ public class GroupMapper implements RowMapper<GroupInf> {
         groupInf.setWorktimeGroup(rs.getString("worktime_group"));
         groupInf.setIdWorkTimeCsp(rs.getInt("idWorkTimeCsp"));
         groupInf.setActivity(rs.getString("activity"));
-        groupInf.setCapacity(rs.getString("capacity"));
-        groupInf.setEnrolled(rs.getString("enrolled"));
+        groupInf.setCapacity(rs.getShort("capacity"));
+        groupInf.setEnrolled(rs.getShort("enrolled"));
         groupInf.setSubgroup(rs.getString("subgroup"));
-        groupInf.setTransferSpace(rs.getString("transfer_space"));
+        groupInf.setTransferSpace(rs.getShort("transfer_space"));
         groupInf.setPartnerGroup(rs.getString("partner_group"));
         groupInf.setPartner(rs.getString("partner"));
         groupInf.setDays(rs.getString("days"));

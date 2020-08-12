@@ -85,13 +85,14 @@ public class ReportGenerator {
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
                 for (GroupInf groupInf : buildingInf.getGroupInfs()) {
-                    if (groupInf.getAddCont() != null) {
-                        countEnrolment += Integer.parseInt(groupInf.getAddCont());
-                    }
+                    countEnrolment += groupInf.getAddCont();
                 }
             }
         }
         log.info("Распределено {} inqry-enrolment", countEnrolment);
+
+// рассчитать показатель free_space
+        calculateIndicatorFreeSpace(uchInfSchemas);
 
         List<MunicipalityInf> allMunicipalityInfs = municipalityDao
                 .getMunicipalitys(reportSetting.getCurrDate(),
@@ -224,6 +225,18 @@ public class ReportGenerator {
         return null;
     }
 
+    private void calculateIndicatorFreeSpace(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+            for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
+                for (GroupInf groupInf : buildingInf.getGroupInfs()) {
+                    int freeSpace = groupInf.getCapacity() - groupInf.getEnrolled() -
+                            groupInf.getTransferSpace() - groupInf.getAddCont();
+                    groupInf.setFreeSpace((short) freeSpace);
+                }
+            }
+        }
+    }
+
     private void calculateIndicatorAddCont(List<InqryEnrolmentInf> allInqryEnrolments,
                                            Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
         int countNotDistributed = 0;
@@ -244,18 +257,26 @@ public class ReportGenerator {
                                             ie.getIdGrpTimesCsp().contains(groupInf.getIdWorkTimeCsp())) ||
                                             ie.getIdGrpTimesCsp().size() == 0) {
 // Определяем свободные места в подходящей группе
+/*
                                         int freeSpace = Integer.parseInt(groupInf.getCapacity()) -
                                                 Integer.parseInt(groupInf.getEnrolled());
                                         if (groupInf.getAddCont() != null) {
-                                            freeSpace += Integer.parseInt(groupInf.getAddCont());
+                                            freeSpace -= Integer.parseInt(groupInf.getAddCont());
                                         }
+*/
+                                        int freeSpace = groupInf.getCapacity() -
+                                                groupInf.getEnrolled() - groupInf.getAddCont();
                                         if (freeSpace > 0) {
 // Ребенок по этому заявлению идет в эту группу
-                                            int addCont = 1;
+                                            short addCont = 1;
+/*
                                             if (groupInf.getAddCont() != null) {
                                                 addCont += Integer.parseInt(groupInf.getAddCont());
                                             }
                                             groupInf.setAddCont(Integer.toString(addCont));
+*/
+                                            addCont += groupInf.getAddCont();
+                                            groupInf.setAddCont(addCont);
                                             isDistributed = true;
                                             continue inqryEnrolment;
                                         }
@@ -277,11 +298,15 @@ public class ReportGenerator {
                                                 ie.getIdGrpTimesCsp().contains(groupInf.getIdWorkTimeCsp())) ||
                                                 ie.getIdGrpTimesCsp().size() == 0) {
 // Ребенок по этому заявлению идет в эту группу
-                                            int addCont = 1;
+                                            short addCont = 1;
+/*
                                             if (groupInf.getAddCont() != null) {
                                                 addCont += Integer.parseInt(groupInf.getAddCont());
                                             }
                                             groupInf.setAddCont(Integer.toString(addCont));
+*/
+                                            addCont += groupInf.getAddCont();
+                                            groupInf.setAddCont(addCont);
                                             isDistributed = true;
                                             continue inqryEnrolment;
                                         }
