@@ -68,7 +68,7 @@ public class GroupInf {
             ageToYears,         // количество лет - Возрастной диапазон группы (до) (age_to_years)
             ageToMonths;        // количество месяцев - Возрастной диапазон группы (до) (age_to_months)
 
-    private short capacity,     // Нормативная емкость группы (capacity)
+    private int capacity,     // Нормативная емкость группы (capacity)
             enrolled,           // Фактическая наполняемость группы (enrolled)
             transferSpace,      // Количество мест для перевода детей (transfer_space)
             freeSpace,          // Количество свободных мест в группе (free_space)

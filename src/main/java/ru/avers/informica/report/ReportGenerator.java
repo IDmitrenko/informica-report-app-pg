@@ -80,7 +80,7 @@ public class ReportGenerator {
 // рассчитать показатель add_cont
         calculateIndicatorAddCont(allInqryEnrolments, uchInfSchemas);
 
-// Отладочный вывод
+// Отладочный вывод TODO убрать по завершении отладки
         int countEnrolment = 0;
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
@@ -268,7 +268,7 @@ public class ReportGenerator {
                                                 groupInf.getEnrolled() - groupInf.getAddCont();
                                         if (freeSpace > 0) {
 // Ребенок по этому заявлению идет в эту группу
-                                            short addCont = 1;
+                                            int addCont = 1;
 /*
                                             if (groupInf.getAddCont() != null) {
                                                 addCont += Integer.parseInt(groupInf.getAddCont());
@@ -298,7 +298,7 @@ public class ReportGenerator {
                                                 ie.getIdGrpTimesCsp().contains(groupInf.getIdWorkTimeCsp())) ||
                                                 ie.getIdGrpTimesCsp().size() == 0) {
 // Ребенок по этому заявлению идет в эту группу
-                                            short addCont = 1;
+                                            int addCont = 1;
 /*
                                             if (groupInf.getAddCont() != null) {
                                                 addCont += Integer.parseInt(groupInf.getAddCont());

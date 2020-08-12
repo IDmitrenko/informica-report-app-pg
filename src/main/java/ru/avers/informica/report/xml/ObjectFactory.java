@@ -205,11 +205,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link CritNpa }
+     * Create an instance of {@link CritPay }
      * 
      */
-    public CritNpa createCrit_Npa() {
-        return new CritNpa();
+    public CritPay createCrit_Npa() {
+        return new CritPay();
     }
 
 }

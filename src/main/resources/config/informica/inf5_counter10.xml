@@ -21,9 +21,9 @@
         <!-- 10 -->
         <counter-def id="counter-10-v4" name="10">
             <filter field="typeCode" cmp="eq" value="1"/>
-            <!--<filter field="statusCode" cmp="in" value="02"/>-->
+            <filter field="statusCode" cmp="in" value="02"/>
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <!-- <filter-codes-list field="lgotsType" cmp="any" value="1"/>-->
+            <filter-codes-list field="lgotsType" cmp="any" value="1"/>
              <age-range def="range-1"/>
          </counter-def>
 

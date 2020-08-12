@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.*;
 public class TagParentPay {
 
     @XmlElement(name = "crit_pay")
-    protected CritNpa crit_Pay;
+    protected CritPay crit_Pay;
     @XmlElement(required = true)
     protected Founders founders;
     @XmlElement(name = "max_pay", required = true)
