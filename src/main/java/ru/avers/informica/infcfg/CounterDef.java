@@ -15,7 +15,7 @@ public class CounterDef {
 
     private String id,
             descr,
-                   name;
+            name;
     private List<IFilter> filters;
     private AgeRangeBdt ageRange;
 
@@ -60,8 +60,8 @@ public class CounterDef {
         @XmlElement(name = "filter-year", type= FilterYear.class),
         @XmlElement(name = "filter", type= GenericFilter.class),
         @XmlElement(name = "filter-codes-list", type= CodesCollectionFilter.class),
-            @XmlElement(name = "increment-by-priorities", type=IncrementByPriorities.class),
-            @XmlElement(name = "filter-bean", type=BeanFilter.class)
+        @XmlElement(name = "increment-by-priorities", type=IncrementByPriorities.class),
+        @XmlElement(name = "filter-bean", type=BeanFilter.class)
     })
     public List<IFilter> getFilters() {
         if (filters == null) {

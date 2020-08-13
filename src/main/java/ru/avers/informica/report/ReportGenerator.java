@@ -100,8 +100,7 @@ public class ReportGenerator {
         // отобрать муниципалитеты для которых есть учреждения
         List<Integer> noValidMunicipalitys = new ArrayList<>();
         municip:
-        for (
-                MunicipalityInf municipalityInf : allMunicipalityInfs) {
+        for (MunicipalityInf municipalityInf : allMunicipalityInfs) {
             for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
                 if (municipalityInf.getIdTer().equals(uchInfSchema.getUchInf().getIdTer())) {
                     continue municip;
@@ -111,8 +110,7 @@ public class ReportGenerator {
         }
 
         List<MunicipalityInf> municipalityInfs = new ArrayList<>();
-        for (
-                MunicipalityInf municipalityInf : allMunicipalityInfs) {
+        for (MunicipalityInf municipalityInf : allMunicipalityInfs) {
             if ((noValidMunicipalitys != null &&
                     !noValidMunicipalitys.contains(municipalityInf.getIdTer())) ||
                     noValidMunicipalitys == null) {

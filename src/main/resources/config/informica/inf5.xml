@@ -6,90 +6,10 @@
     <system name="ИС «Комплектование ДОО»" vendor="Общество с ограниченной ответственностью центр информационных технологий «Аверс»" version="33.00" email="" installType="Муниципальная" own_server="4"/>
 
     <report-informica id="informica" name="Информика" is-calc-capacity-on-cntg-data="true" schemas-ref="schema_uch"/>
-    <report-informica id="informica-for-ver4" name="Информика для версии 4" mt="false" is-calc-capacity-on-cntg-data="true" schemas-ref="schema_uch_for_ver4"/>
-
-    <schema-informica id="schema_uch_for_ver4">
-        <source-uch>
-
-
-            <source-transfer>
-                <!-- показатели 5-й версии  [5v] -->
-                <counter def="counter-20.5"/>
-                <counter def="counter-20.6"/>
-                <counter def="counter-20.7"/>
-                <counter def="counter-20.8"/>
-            </source-transfer>
-
-            <source-enrolled>
-                <counter def="counter-22.1"/>
-                <counter def="counter-22.2"/>
-                <counter def="counter-22.3"/>
-                <counter def="counter-22.4"/>
-                <counter def="counter-22.5"/>
-                <counter def="counter-22.6"/>
-                <counter def="counter-22.7"/>
-                <counter def="counter-22.8"/>
-                <counter def="counter-30"/>
-                <counter def="counter-30.1"/>
-                <counter def="counter-30.2"/>
-                <counter def="counter-21-v4"/>
-                <counter def="counter-25-v4"/>
-
-                <!-- показатели 5-й версии  [5v] -->
-                <counter def="counter-22.1.1"/>
-                <counter def="counter-22.1.2"/>
-                <counter def="counter-22.3.1"/>
-                <counter def="counter-22.3.2"/>
-                <counter def="counter-22.5.1"/>
-                <counter def="counter-22.5.2"/>
-                <counter def="counter-22.8.1"/>
-                <counter def="counter-22.8.2"/>
-                <counter def="counter-29.1"/>
-                <counter def="counter-32.1.enr"/>
-                <counter def="counter-29.2"/>
-                <counter def="counter-29.3"/>
-            </source-enrolled>
-
-            <source-inqry>
-                <counter def="counter-9-v4"/>
-                <counter def="counter-9.1-v4"/>
-                <counter def="counter-12-v4"/>
-                <counter def="counter-14-v4"/>
-                <counter def="counter-20.2-v4"/>
-                <counter def="counter-7.4-v4"/>
-                <counter def="counter-20-v4"/>
-                <counter def="counter-20.3-v4"/>
-                <counter def="counter-10-v4"/>
-                <counter def="counter-11-v4"/>
-                <counter def="counter-13-v4"/>
-                <counter def="counter-15-v4"/>
-                <counter def="counter-16-v4"/>
-                <counter def="counter-17-v4"/>
-                <counter def="counter-17.1-v4"/>
-                <counter def="counter-7.5"/>
-                <counter def="counter-7.6"/>
-
-                <!-- показатели 5-й версии  [5v] -->
-                <counter def="counter-7.7"/>
-                <counter def="counter-10.1"/>
-                <counter def="counter-18.4"/>
-                <counter def="counter-18.5"/>
-                <counter def="counter-32.1.inq"/>
-                <counter def="counter-32.2"/>
-            </source-inqry>
-
-        </source-uch>
-    </schema-informica>
 
     <schema-informica id="schema_uch">
         <source-uch>
-            <!--
-            В параметре field нужно указать имя поля как в БД
-            <filter field="orgLegalFormCode" cmp="in" value="01 02 07 08" />
-            -->
-            <!--
-            <filter field="code" cmp="le" value="005" />
-            -->
+
             <source-inqry>
                 <counter def="counter-1"/>
                 <counter def="counter-1.1"/>
@@ -108,29 +28,50 @@
                 <counter def="counter-7.2"/>
                 <counter def="counter-7.3"/>
                 <counter def="counter-7.4"/>
+                <counter def="counter-7.4-v4"/>
+                <counter def="counter-7.5"/>
+                <counter def="counter-7.6"/>
+                <counter def="counter-7.7"/>
                 <counter def="counter-8"/>
                 <counter def="counter-9"/>
+                <counter def="counter-9-v4"/>
                 <counter def="counter-9.1"/>
+                <counter def="counter-9.1-v4"/>
                 <counter def="counter-10"/>
+                <counter def="counter-10-v4"/>
+                <counter def="counter-10.1"/>
                 <counter def="counter-11"/>
+                <counter def="counter-11-v4"/>
                 <counter def="counter-12"/>
+                <counter def="counter-12-v4"/>
                 <counter def="counter-12.1"/>
                 <counter def="counter-13"/>
+                <counter def="counter-13-v4"/>
                 <counter def="counter-13.1"/>
                 <counter def="counter-14"/>
+                <counter def="counter-14-v4"/>
                 <counter def="counter-15"/>
+                <counter def="counter-15-v4"/>
                 <counter def="counter-16"/>
+                <counter def="counter-16-v4"/>
                 <counter def="counter-17"/>
+                <counter def="counter-17-v4"/>
                 <counter def="counter-17.1"/>
+                <counter def="counter-17.1-v4"/>
                 <counter def="counter-18"/>
                 <counter def="counter-18.1"/>
                 <counter def="counter-18.2"/>
                 <counter def="counter-18.3"/>
+                <counter def="counter-18.4"/>
+                <counter def="counter-18.5"/>
                 <counter def="counter-19.3"/>
                 <counter def="counter-20"/>
+                <counter def="counter-20-v4"/>
                 <counter def="counter-20.1"/>
                 <counter def="counter-20.2"/>
+                <counter def="counter-20.2-v4"/>
                 <counter def="counter-20.3"/>
+                <counter def="counter-20.3-v4"/>
                 <counter def="counter-20.4"/>
                 <counter def="counter-30.inq.act"/>
                 <counter def="counter-30.inq.sent"/>
@@ -138,26 +79,55 @@
                 <counter def="counter-30.1.inq.sent"/>
                 <counter def="counter-30.2.inq.act"/>
                 <counter def="counter-30.2.inq.sent"/>
+                <counter def="counter-32.1.inq"/>
+                <counter def="counter-32.2"/>
                 <counter def="counter-33"/>
             </source-inqry>
+
             <source-enrolled>
                 <counter def="counter-19"/>
                 <counter def="counter-19.1"/>
                 <counter def="counter-19.2"/>
                 <counter def="counter-21"/>
+                <counter def="counter-21-v4"/>
                 <counter def="counter-22"/>
+                <counter def="counter-22.1"/>
+                <counter def="counter-22.1.1"/>
+                <counter def="counter-22.1.2"/>
+                <counter def="counter-22.2"/>
+                <counter def="counter-22.3"/>
+                <counter def="counter-22.3.1"/>
+                <counter def="counter-22.3.2"/>
+                <counter def="counter-22.4"/>
+                <counter def="counter-22.5"/>
+                <counter def="counter-22.5.1"/>
+                <counter def="counter-22.5.2"/>
+                <counter def="counter-22.6"/>
+                <counter def="counter-22.7"/>
+                <counter def="counter-22.8"/>
+                <counter def="counter-22.8.1"/>
+                <counter def="counter-22.8.2"/>
                 <counter def="counter-23"/>
                 <counter def="counter-24"/>
                 <counter def="counter-25"/>
+                <counter def="counter-25-v4"/>
                 <counter def="counter-26"/>
                 <counter def="counter-27"/>
                 <counter def="counter-28"/>
                 <counter def="counter-29"/>
+                <counter def="counter-29.1"/>
+                <counter def="counter-29.2"/>
+                <counter def="counter-29.3"/>
                 <counter def="counter-30.enr"/>
+                <counter def="counter-30"/>
                 <counter def="counter-30.1.enr"/>
+                <counter def="counter-30.1"/>
                 <counter def="counter-30.2.enr"/>
+                <counter def="counter-30.2"/>
                 <counter def="counter-32"/>
+                <counter def="counter-32.1.enr"/>
             </source-enrolled>
+
             <source-capacity>
                 <counter def="counter-31"/>
                 <counter def="counter-31.1"/>
@@ -165,8 +135,17 @@
                 <counter def="counter-31.3"/>
                 <counter def="counter-31.4"/>
             </source-capacity>
+
+            <source-transfer>
+                <counter def="counter-20.5"/>
+                <counter def="counter-20.6"/>
+                <counter def="counter-20.7"/>
+                <counter def="counter-20.8"/>
+            </source-transfer>
+
         </source-uch>
     </schema-informica>
+
     <counters-def>
         <!-- 1 -->
         <counter-def id="counter-1" name="1">
