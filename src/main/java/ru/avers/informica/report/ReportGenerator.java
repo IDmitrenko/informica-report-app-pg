@@ -89,7 +89,7 @@ public class ReportGenerator {
                 }
             }
         }
-        log.info("Распределено {} inqry-enrolment", countEnrolment);
+        log.info("Распределено в итоге {} inqry-enrolment", countEnrolment);
 
 // рассчитать показатель free_space
         calculateIndicatorFreeSpace(uchInfSchemas);
@@ -126,8 +126,7 @@ public class ReportGenerator {
         Map<Long, List<InqryInf>> inqryByUchMap = allInqry.stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
         Map<String, Counter> counterMap = new HashMap<>();
-        for (
-                DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             //Учреждение
             UchInf uchInf = uchInfSchema.getUchInf();
             //Счетчики учреждения
@@ -240,7 +239,9 @@ public class ReportGenerator {
     private void calculateIndicatorAddCont(List<InqryEnrolmentInf> allInqryEnrolments,
                                            Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
         int countNotDistributed = 0;
+        int countEnrolment = 0;
         boolean isDistributed;
+        List<InqryEnrolmentInf> enrolmentsNotDistributed = new ArrayList<>();
         inqryEnrolment:
         for (InqryEnrolmentInf ie : allInqryEnrolments) {
             isDistributed = false;
@@ -278,6 +279,7 @@ public class ReportGenerator {
                                             addCont += groupInf.getAddCont();
                                             groupInf.setAddCont(addCont);
                                             isDistributed = true;
+                                            countEnrolment++;
                                             continue inqryEnrolment;
                                         }
                                     }
@@ -308,6 +310,7 @@ public class ReportGenerator {
                                             addCont += groupInf.getAddCont();
                                             groupInf.setAddCont(addCont);
                                             isDistributed = true;
+                                            countEnrolment++;
                                             continue inqryEnrolment;
                                         }
                                     }
@@ -318,15 +321,73 @@ public class ReportGenerator {
                     if (!isDistributed) {
 // не нашли группы подходящей по характеристикам
                         countNotDistributed++;
-/*
- TODO
- */
+                        enrolmentsNotDistributed.add(ie);
                     }
                 }
             }
 
         }
-        log.info("Не распределено {} inqry-enrolment", countNotDistributed);
+        log.info("Распределено в подходящие группы {} inqry-enrolment", countEnrolment);
+/*
+ Распределяем путевки для которых не нашлось групп, подходящих по характеристикам
+ Когда нет группы, подходящей по характеристикам,
+ оставшиеся путёвки необходимо распределять равномерно по всем группам.
+ Например, если осталось 9 нераспределённых путёвок,
+ для которых ни одна группа не подходит по характеристикам,
+ а групп в организации всего 3,
+ то необходимо распределить по 3 путёвки в каждую группу, соответственно.
+ */
+        if (countNotDistributed > 0) {
+            log.info("Не распределено {} inqry-enrolment", countNotDistributed);
+            int countDistributedNot = 0;
+// не распределенные путевки по учреждениям
+            Map<Integer, List<InqryEnrolmentInf>> inqryEnrolmentByUchMap = enrolmentsNotDistributed.stream()
+                    .collect(Collectors.groupingBy(enrolment -> enrolment.getIdUch()));
+/*
+            int inqryUchNotDistributed = 0;
+            for (InqryEnrolmentInf iei : enrolmentsNotDistributed) {
+                if (iei.getIdUch() == 1161) {
+                    inqryUchNotDistributed++;
+                }
+            }
+*/
+            for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+                List<InqryEnrolmentInf> inqrysUchEnrolment = inqryEnrolmentByUchMap
+                        .get(uchInfSchema.getUchInf().getId().intValue());
+                if (inqrysUchEnrolment != null) {
+// у нас есть учреждение и все его не распределенные заявления
+// количество не распределенных заявлений
+                    int countInqrysUchNotDistributed = inqrysUchEnrolment.size();
+// считаем количество групп учреждения
+                    int countGroups = 0;
+                    for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
+                        countGroups += buildingInf.getGroupInfs().size();
+                    }
+// определяем начальное количество заявлений для распределения в группу
+                    int countInqrysGroupNotDistributed = 0;
+                    countInqrysGroupNotDistributed = (int) Math
+                            .ceil((double) countInqrysUchNotDistributed / countGroups);
+
+                    if (countInqrysGroupNotDistributed > 0) {
+                        outer:
+                        for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
+                            for (GroupInf groupInf : buildingInf.getGroupInfs()) {
+                                if (countInqrysUchNotDistributed > countInqrysGroupNotDistributed) {
+                                    groupInf.setAddCont(groupInf.getAddCont() + countInqrysGroupNotDistributed);
+                                    countInqrysUchNotDistributed -= countInqrysGroupNotDistributed;
+                                    countDistributedNot += countInqrysGroupNotDistributed;
+                                } else {
+                                    groupInf.setAddCont(groupInf.getAddCont() + countInqrysUchNotDistributed);
+                                    countDistributedNot += countInqrysUchNotDistributed;
+                                    break  outer;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            log.info("Распределено равномерно по группам не подходящих {} inqry-enrolment", countDistributedNot);
+        }
     }
 
     private boolean childInAgeGroup(InqryEnrolmentInf ie, GroupInf groupInf) {
