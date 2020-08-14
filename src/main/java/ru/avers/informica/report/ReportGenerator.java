@@ -16,10 +16,7 @@ import ru.avers.informica.infcfg.*;
 import ru.avers.informica.old.dao.ApplicationsDao;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.source.Pair;
-import ru.avers.informica.report.xml.PushDataRequest;
-import ru.avers.informica.report.xml.TagParentPay;
-import ru.avers.informica.report.xml.TagReports;
-import ru.avers.informica.report.xml.TagSystem;
+import ru.avers.informica.report.xml.*;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.DateUtil;
 
@@ -71,9 +68,6 @@ public class ReportGenerator {
         DataSourceUch sourceUch = new DataSourceUch(uchDao, schemaConfigs,
                 reportSetting.getCurrEducDate(), reportSetting);
 
-        TagReports tagReports = new TagReports();
-        tagReports.setParent_Pay(parentPayBuider());
-
         Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas = sourceUch
                 .getUchInfSchemas();
 
@@ -123,10 +117,11 @@ public class ReportGenerator {
 
         Map<Long, List<InqryInf>> inqryByUchMap = allInqry.stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
-        Map<String, Counter> counterMap = new HashMap<>();
+        Map<Long, Map<String, Counter>> counterMap = new HashMap<>();
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             //Учреждение
             UchInf uchInf = uchInfSchema.getUchInf();
+            counterMap.put(uchInf.getId(), new HashMap<>());
             //Счетчики учреждения
             List<CounterConfig> inqryCounters = uchInfSchema.getSchema().getSource().getInqryCounters();
             //Заявления текущего учреждения
@@ -144,7 +139,8 @@ public class ReportGenerator {
                                             .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
                             if (ageRanges != null && !ageRanges.isEmpty()) {
                                 // Посчитать элемент
-                                Counter counter = counterMap.computeIfAbsent(counterConfig.getCounterDef().getId(),
+                                Counter counter = counterMap.get(uchInf.getId())
+                                        .computeIfAbsent(counterConfig.getCounterDef().getId(),
                                         counterId -> new Counter(counterConfig.getCounterDef()));
                                 counter.count(inqryInf, ageRanges);
                             }
@@ -156,6 +152,20 @@ public class ReportGenerator {
         if (counterMap.size() > 0) {
             log.info("Counters: {}", counterMap);
         }
+
+// Формирование выходного XML-файла
+        TagReports tagReports = new TagReports();
+        for (MunicipalityInf municipalityInf : municipalityInfs) {
+            TagMunicipality municipality = new TagMunicipality();
+
+            municipalityBuilder(municipalityInf, municipality,
+                    uchInfSchemas.getFirst(), counterMap);
+
+            tagReports.getMunicipality().add(municipality);
+        }
+        tagReports.setParent_Pay(parentPayBuider());
+
+
 /* Пример построения отчета CReportDataAdapter
     private IReport createReport(IPushDataRequest p_request, Pair<UchInf, SchemaConfig> p_uch_inf_schema)
                     throws CBaseInqryDbBLException {
@@ -220,6 +230,76 @@ public class ReportGenerator {
         }
 */
         return null;
+    }
+
+    private void municipalityBuilder(MunicipalityInf municipalityInf,
+                                     TagMunicipality municipality,
+                                     Collection<DataSourceUch.UchInfSchema> uchInfSchemas,
+                                     Map<Long, Map<String, Counter>> counterMap) {
+        municipality.setRegulation(municipalityInf.getRegulation());
+        municipality.setOktmo(municipalityInf.getOktmo());
+        municipality.setNum_Early_Assistance(municipalityInf.getNumEarlyAssistance());
+        municipality.setNum_Advisory_Centr(municipalityInf.getNumAdvisoryCentr());
+        municipality.setMax_Doo(municipalityInf.getMaxDoo());
+        municipality.setFix_Area(municipalityInf.getFixArea());
+        municipality.setTime_Mouo(municipalityInf.getTimeMouo());
+        municipality.setPhones_Mouo(municipalityInf.getPhonesMouo());
+        municipality.setEmail_Mouo(municipalityInf.getEmailMouo());
+        municipality.setSite_Mouo(municipalityInf.getSiteMouo());
+        municipality.setAddress_Mouo(municipalityInf.getAddressMouo());
+        municipality.setName_Mouo(municipalityInf.getNameMouo());
+        municipality.setRpgu_Link(municipalityInf.getRpguLink());
+        municipality.setEpgu_Link(municipalityInf.getEpguLink());
+        municipality.setCommon(commonBuilder(municipalityInf));
+        municipality.setOrganizations(organizatiosBuilder(municipalityInf,
+                uchInfSchemas, counterMap));
+    }
+
+    private TagCommon commonBuilder(MunicipalityInf municipalityInf) {
+        TagCommon common = new TagCommon();
+
+        common.setNo_Doo_Act(noDooActBuilder(municipalityInf));
+        common.setNo_Doo_Def(noDooDefBuilder(municipalityInf));
+        common.setMedic(medicBuilder(municipalityInf));
+        common.setFamily(familyBuilder(municipalityInf));
+
+        return common;
+    }
+
+    private TagCommonAged noDooActBuilder(MunicipalityInf municipalityInf) {
+        TagCommonAged commonAged = new TagCommonAged();
+
+        commonAged.setAge_0_3(municipalityInf.getNoDooAct_0_3());
+        commonAged.setAge_3_7(municipalityInf.getNoDooAct_3_7());
+
+        return commonAged;
+    }
+
+    private TagCommonAged noDooDefBuilder(MunicipalityInf municipalityInf) {
+        TagCommonAged commonAged = new TagCommonAged();
+
+        commonAged.setAge_0_3(municipalityInf.getNoDooDef_0_3());
+        commonAged.setAge_3_7(municipalityInf.getNoDooDef_3_7());
+
+        return commonAged;
+    }
+
+    private TagCommonAged medicBuilder(MunicipalityInf municipalityInf) {
+        TagCommonAged commonAged = new TagCommonAged();
+
+        commonAged.setAge_0_3(municipalityInf.getMedic_0_3());
+        commonAged.setAge_3_7(municipalityInf.getMedic_3_7());
+
+        return commonAged;
+    }
+
+    private TagCommonAged familyBuilder(MunicipalityInf municipalityInf) {
+        TagCommonAged commonAged = new TagCommonAged();
+
+        commonAged.setAge_0_3(municipalityInf.getFamily_0_3());
+        commonAged.setAge_3_7(municipalityInf.getFamily_3_7());
+
+        return commonAged;
     }
 
     private void calculateIndicatorFreeSpace(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
@@ -377,7 +457,7 @@ public class ReportGenerator {
                                 } else {
                                     groupInf.setAddCont(groupInf.getAddCont() + countInqrysUchNotDistributed);
                                     countDistributedNot += countInqrysUchNotDistributed;
-                                    break  outer;
+                                    break outer;
                                 }
                             }
                         }
@@ -400,6 +480,101 @@ public class ReportGenerator {
         } else {
             return false;
         }
+    }
+
+    private TagOrganizations organizatiosBuilder(MunicipalityInf municipalityInf,
+                                                 Collection<DataSourceUch.UchInfSchema> uchInfSchemas,
+                                                 Map<Long, Map<String, Counter>> counterMap) {
+        TagOrganizations organizations = new TagOrganizations();
+
+/* то же самое stream
+        Collection<DataSourceUch.UchInfSchema> uchInfSchemasTer = new ArrayList<DataSourceUch.UchInfSchema>();
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas) {
+            if (uchInfSchema.getUchInf().getIdTer() == municipalityInf.getIdTer()) {
+                uchInfSchemasTer.add(uchInfSchema);
+            }
+        }
+*/
+        List<DataSourceUch.UchInfSchema> uchInfSchemasTer = uchInfSchemas
+                .stream().filter(s -> s.getUchInf().getIdTer().equals(municipalityInf.getIdTer()))
+                .collect(Collectors.toList());
+
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemasTer) {
+            TagSingleOrganization organization = new TagSingleOrganization();
+
+            Map<String, Counter> countersUch = counterMap.get(uchInfSchema.getUchInf().getId());
+
+            organizationBuilder(organization, uchInfSchema.getUchInf(), countersUch);
+
+            organizations.getOrganization().add(organization);
+        }
+
+        return organizations;
+    }
+
+    private TagSingleOrganization organizationBuilder(TagSingleOrganization organization,
+                                                      UchInf uchInf,
+                                                      Map<String, Counter> countersUch) {
+
+        organization.setCode(uchInf.getCode());
+        organization.setName(uchInf.getName());
+        organization.setType(uchInf.getOrgLegalFormCode());
+        organization.setStatus(uchInf.getStatusСode());
+        organization.setStructure(uchInf.getStructureCode());
+        organization.setLicense(uchInf.getLicense());
+        organization.setType_Area(uchInf.getTypeArea());
+        organization.setDirector(uchInf.getChief());
+        organization.setWorktime(uchInf.getWorkTime());
+        organization.setMeal_Serving_Type(uchInf.getMealServingType());
+        organization.setFias_Org_Guid(uchInf.getFiasOrgGuid());
+        organization.setOrg_Address(uchInf.getAddrKladr());
+        organization.setWebsite(uchInf.getWebsite());
+        organization.setEmail(uchInf.getEmail());
+        organization.setPhone(uchInf.getPhone());
+        organization.setAdditional_Education(uchInf.getAddEducation());
+        organization.setFeature(uchInf.getFeatures());
+        organization.setNum_Filial(uchInf.getNumFilial());
+        organization.setNum_Building(uchInf.getNumBuilding());
+        organization.setNum_Group(uchInf.getNumGroup());
+        organization.setPartner_Doo(uchInf.getPartnerDoo());
+        organization.setPassport(uchInf.getPassport());
+        organization.setLekoteka(uchInf.getLekoteka());
+        organization.setCentre_Game(uchInf.getCentreGame());
+        organization.setCommet_Status(uchInf.getCommetStatus());
+
+        organization.setBuildings(buildingsBuilder(uchInf));
+
+        if (countersUch != null) {
+            organization.setInd_1(ind_1Builder(countersUch));
+            organization.setInd_1_1(ind_1_1Builder(countersUch));
+
+
+        }
+
+        return organization;
+    }
+
+    private TagBuildings buildingsBuilder(UchInf uchInf) {
+
+        TagBuildings buildings = new TagBuildings();
+
+        for (BuildingInf building : uchInf.getBuildingInfs()) {
+            TagSingleBuilding sb = new TagSingleBuilding();
+
+            sb.setId(building.getIdCode());
+            sb.setName(building.getName());
+            sb.setFias_House_Guid(building.getFiasHouseGuid());
+            sb.setPlain_Address(building.getPlainAddress());
+            sb.setBuilding_Type_Area(building.getBuildingTypeArea());
+            sb.setType_Building(building.getTypeBuilding());
+            sb.setFilial(building.getFilial());
+            sb.setDepreciation(building.getDepreciation());
+            sb.
+
+            buildings.getBuilding().add(sb);
+        }
+
+        return buildings;
     }
 
     private TagParentPay parentPayBuider() {

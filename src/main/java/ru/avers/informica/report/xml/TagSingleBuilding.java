@@ -39,7 +39,7 @@ public class TagSingleBuilding {
     @XmlAttribute(name = "filial", required = true)
     protected String filial;
     @XmlAttribute(name = "depreciation", required = true)
-    protected int depreciation;
+    protected String depreciation;
     @XmlAttribute(name = "cabinet_psychologist")
     protected String cabinet_Psychologist;
     @XmlAttribute(name = "cabinet_defectologist")
@@ -166,11 +166,11 @@ public class TagSingleBuilding {
         this.filial = value;
     }
 
-    public int getDepreciation() {
+    public String getDepreciation() {
         return depreciation;
     }
 
-    public void setDepreciation(int value) {
+    public void setDepreciation(String value) {
         this.depreciation = value;
     }
 

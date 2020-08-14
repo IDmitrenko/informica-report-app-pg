@@ -344,11 +344,11 @@ public class TagSingleOrganization {
     @XmlAttribute(name = "feature", required = true)
     protected String feature;
     @XmlAttribute(name = "num_filial", required = true)
-    protected BigInteger num_Filial;
+    protected String num_Filial;
     @XmlAttribute(name = "num_building", required = true)
-    protected BigInteger num_Building;
+    protected String num_Building;
     @XmlAttribute(name = "num_group", required = true)
-    protected BigInteger num_Group;
+    protected String num_Group;
     @XmlAttribute(name = "partner_doo", required = true)
     protected String partner_Doo;
     @XmlAttribute(name = "commet_status")
@@ -1280,27 +1280,27 @@ public class TagSingleOrganization {
         this.feature = value;
     }
 
-    public BigInteger getNum_Filial() {
+    public String getNum_Filial() {
         return num_Filial;
     }
 
-    public void setNum_Filial(BigInteger value) {
+    public void setNum_Filial(String value) {
         this.num_Filial = value;
     }
 
-    public BigInteger getNum_Building() {
+    public String getNum_Building() {
         return num_Building;
     }
 
-    public void setNum_Building(BigInteger value) {
+    public void setNum_Building(String value) {
         this.num_Building = value;
     }
 
-    public BigInteger getNum_Group() {
+    public String getNum_Group() {
         return num_Group;
     }
 
-    public void setNum_Group(BigInteger value) {
+    public void setNum_Group(String value) {
         this.num_Group = value;
     }
 

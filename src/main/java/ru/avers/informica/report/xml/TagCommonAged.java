@@ -26,8 +26,8 @@ import java.math.BigInteger;
 public class TagCommonAged {
 
     @XmlAttribute(name = "age_0_3", required = true)
-    protected BigInteger age_0_3;
+    protected Integer age_0_3;
     @XmlAttribute(name = "age_3_7", required = true)
-    protected BigInteger age_3_7;
+    protected Integer age_3_7;
 
 }
