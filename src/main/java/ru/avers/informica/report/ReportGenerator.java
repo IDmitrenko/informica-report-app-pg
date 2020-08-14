@@ -2,7 +2,9 @@ package ru.avers.informica.report;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ReflectionUtils;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dao.MunicipalityDao;
@@ -17,6 +19,7 @@ import ru.avers.informica.old.dao.ApplicationsDao;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.source.Pair;
 import ru.avers.informica.report.xml.*;
+import ru.avers.informica.utils.BeanUtil;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.DateUtil;
 
@@ -26,6 +29,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -141,7 +145,7 @@ public class ReportGenerator {
                                 // Посчитать элемент
                                 Counter counter = counterMap.get(uchInf.getId())
                                         .computeIfAbsent(counterConfig.getCounterDef().getId(),
-                                        counterId -> new Counter(counterConfig.getCounterDef()));
+                                                counterId -> new Counter(counterConfig.getCounterDef()));
                                 counter.count(inqryInf, ageRanges);
                             }
                         }
@@ -500,11 +504,11 @@ public class ReportGenerator {
                 .collect(Collectors.toList());
 
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemasTer) {
-            TagSingleOrganization organization = new TagSingleOrganization();
 
             Map<String, Counter> countersUch = counterMap.get(uchInfSchema.getUchInf().getId());
 
-            organizationBuilder(organization, uchInfSchema.getUchInf(), countersUch);
+            TagSingleOrganization organization = organizationBuilder(uchInfSchema.getUchInf(),
+                    countersUch);
 
             organizations.getOrganization().add(organization);
         }
@@ -512,9 +516,9 @@ public class ReportGenerator {
         return organizations;
     }
 
-    private TagSingleOrganization organizationBuilder(TagSingleOrganization organization,
-                                                      UchInf uchInf,
+    private TagSingleOrganization organizationBuilder(UchInf uchInf,
                                                       Map<String, Counter> countersUch) {
+        TagSingleOrganization organization = new TagSingleOrganization();
 
         organization.setCode(uchInf.getCode());
         organization.setName(uchInf.getName());
@@ -544,6 +548,21 @@ public class ReportGenerator {
 
         organization.setBuildings(buildingsBuilder(uchInf));
 
+        Map<String, IndicatorType> map = Stream.of(new Object[][]{
+                {"ind_1", IndicatorType.AGE1},
+                {"ind_1_1", IndicatorType.AGE16}
+        }).collect(Collectors.toMap(data -> (String) data[0], data -> (IndicatorType) data[1]));
+
+        for (Map.Entry<String, IndicatorType> entry : map.entrySet()) {
+            switch (entry.getValue()){
+                case AGE1:
+                    age1Builder(entry.getKey(), countersUch, organization);
+                case AGE16:
+                    age16Builder(entry.getKey(), countersUch, organization);
+            }
+        }
+
+
         if (countersUch != null) {
             organization.setInd_1(ind_1Builder(countersUch));
             organization.setInd_1_1(ind_1_1Builder(countersUch));
@@ -552,6 +571,14 @@ public class ReportGenerator {
         }
 
         return organization;
+    }
+
+    private void age1Builder(String key, Map<String, Counter> countersUch, TagSingleOrganization organization) {
+        Counter counter = countersUch.get(key);
+        TagAge1 age1 = new TagAge1();
+        age1.setAll(counter.);
+        ReflectionUtils.setField();
+
     }
 
     private TagBuildings buildingsBuilder(UchInf uchInf) {
@@ -569,12 +596,97 @@ public class ReportGenerator {
             sb.setType_Building(building.getTypeBuilding());
             sb.setFilial(building.getFilial());
             sb.setDepreciation(building.getDepreciation());
-            sb.
+            sb.setPool(building.getPool());
+            sb.setEar_Equipment(building.getEarEquipment());
+            sb.setEar_Path(building.getEarPath());
+            sb.setEar_Communication(building.getEarCommunication());
+            sb.setEar_Washroom(building.getEarWashroom());
+            sb.setEar_Room(building.getEarRoom());
+            sb.setEar_Way(building.getEarWay());
+            sb.setEar_Entrance(building.getEarEntrance());
+            sb.setEar_Territory(building.getEarTerritory());
+            sb.setVision_Equipment(building.getVisionEquipment());
+            sb.setVision_Path(building.getVisionPath());
+            sb.setVision_Communication(building.getVisionCommunication());
+            sb.setVision_Washroom(building.getVisionWashroom());
+            sb.setVision_Room(building.getVisionRoom());
+            sb.setVision_Way(building.getVisionWay());
+            sb.setVision_Entrance(building.getVisionEntrance());
+            sb.setVision_Territory(building.getVisionTerritory());
+            sb.setOda_Equipment(building.getOdaEquipment());
+            sb.setOda_Path(building.getOdaPath());
+            sb.setOda_Communication(building.getOdaCommunication());
+            sb.setOda_Washroom(building.getOdaWashroom());
+            sb.setOda_Room(building.getOdaRoom());
+            sb.setOda_Way(building.getOdaWay());
+            sb.setOda_Entrance(building.getOdaEntrance());
+            sb.setOda_Territory(building.getOdaTerritory());
+            sb.setMeeting_Room(building.getMeetingRoom());
+            sb.setSport_Gym(building.getSportGym());
+            sb.setCabinet_Med(building.getCabinetMed());
+            sb.setCabinet_Logopedist(building.getCabinetLogopedist());
+            sb.setCabinet_Defectologist(building.getCabinetDefectologist());
+            sb.setCabinet_Psychologist(building.getCabinetPsychologist());
+            sb.setStatus_building(building.getStatusBuilding());
+
+            for (GroupInf group : building.getGroupInfs()) {
+
+                TagSingleGroup sg = groupBuilder(group);
+
+                sb.getGroup().add(sg);
+            }
 
             buildings.getBuilding().add(sb);
         }
 
         return buildings;
+    }
+
+    private TagSingleGroup groupBuilder(GroupInf group) {
+        TagSingleGroup sg = new TagSingleGroup();
+
+        sg.setId(group.getIdCode());
+        sg.setName(group.getName());
+        sg.setAge_From(group.getAgeFrom().toString());
+        sg.setAge_To(group.getAgeTO().toString());
+        sg.setOrientation(group.getOrientation());
+        sg.setWorktime_Group(group.getWorktimeGroup());
+        sg.setActivity(group.getActivity());
+        sg.setCapacity(group.getCapacity());
+        sg.setEnrolled(group.getEnrolled());
+        sg.setSubgroup(group.getSubgroup());
+        sg.setOvz_Deti(group.getOvzDeti());
+        sg.setFree_Space(group.getFreeSpace());
+        sg.setAdd_Cont(group.getAddCont());
+        sg.setTransfer_Space(group.getTransferSpace());
+        sg.setPartner_Group(group.getPartnerGroup());
+        sg.setPartner(group.getPartner());
+        sg.setDays(group.getDays());
+        sg.setEducator(group.getEducator());
+        sg.setInvalid(group.getInvalid());
+        sg.setSize(group.getSize());
+        sg.setProgram(group.getProgram());
+        sg.setReduction_Other(group.getReductionOther());
+        sg.setReduction_School(group.getReductionSchool());
+        sg.setAdd_Cont_Ovz(group.getAddContOvz());
+        sg.setAdd_Cont_Gkp(group.getAddContGkp());
+        sg.setEnrolled_Gkp(group.getEnrolledGkp());
+        sg.setCapacity_Gkp(group.getCapacityGkp());
+        sg.setProgram_Ovz(group.getProgramOvz());
+        if (group.getOvzType() != null) {
+            sg.setOvz_Type(group.getOvzType());
+        }
+        if (group.getOvzTypeDop() != null) {
+            sg.setOvz_Type_Dop(group.getOvzTypeDop());
+        }
+        if (group.getOvzTypeNew() != null) {
+            sg.setOvz_Type_New(group.getOvzTypeNew());
+        }
+        if (group.getWellness() != null) {
+            sg.setWellness(group.getWellness());
+        }
+
+        return sg;
     }
 
     private TagParentPay parentPayBuider() {

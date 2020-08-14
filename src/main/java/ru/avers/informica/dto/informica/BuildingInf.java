@@ -84,7 +84,7 @@ public class BuildingInf {
             cabinetLogopedist,      // Наличие кабинета логопеда (cabinet_logopedist)
             cabinetDefectologist,   // Наличие кабинета дефектолога (cabinet_defectologist)
             cabinetPsychologist,    // Наличие кабинета психолога (cabinet_psychologist)
-// TODO этого поля нет в XSD схеме
+// этого поля нет в XSD схеме
             statusBuilding;         // статус функционирования здания (status_building)
 
     private List<GroupInf> groupInfs;  // список групп(классов) в здании учреждения

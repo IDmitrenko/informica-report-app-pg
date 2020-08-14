@@ -102,6 +102,8 @@ public class TagSingleBuilding {
     protected String ear_Path;
     @XmlAttribute(name = "ear_equipment")
     protected String ear_Equipment;
+    @XmlAttribute(name = "status_building")
+    protected String status_building;
 
     public List<TagSingleGroup> getGroup() {
         if (group == null) {
@@ -546,4 +548,11 @@ public class TagSingleBuilding {
         this.ear_Equipment = value;
     }
 
+    public String getStatus_building() {
+        return status_building;
+    }
+
+    public void setStatus_building(String status_building) {
+        this.status_building = status_building;
+    }
 }

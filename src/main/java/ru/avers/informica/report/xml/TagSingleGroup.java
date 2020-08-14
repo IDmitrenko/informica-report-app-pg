@@ -32,25 +32,29 @@ public class TagSingleGroup {
     @XmlAttribute(name = "activity", required = true)
     protected String activity;
     @XmlAttribute(name = "capacity", required = true)
-    protected BigInteger capacity;
+    protected Integer capacity;
     @XmlAttribute(name = "enrolled", required = true)
-    protected BigInteger enrolled;
+    protected Integer enrolled;
     @XmlAttribute(name = "subgroup", required = true)
     protected String subgroup;
     @XmlAttribute(name = "ovz_deti", required = true)
-    protected BigInteger ovz_Deti;
+    protected Integer ovz_Deti;
     @XmlAttribute(name = "free_space", required = true)
-    protected BigInteger free_Space;
+    protected Integer free_Space;
     @XmlAttribute(name = "add_cont", required = true)
-    protected BigInteger add_Cont;
+    protected Integer add_Cont;
     @XmlAttribute(name = "transfer_space", required = true)
-    protected BigInteger transfer_Space;
+    protected Integer transfer_Space;
     @XmlAttribute(name = "partner_group", required = true)
     protected String partner_Group;
     @XmlAttribute(name = "partner", required = true)
     protected String partner;
     @XmlAttribute(name = "ovz_type")
     protected String ovz_Type;
+    @XmlAttribute(name = "ovz_type_dop")
+    protected String ovz_Type_Dop;
+    @XmlAttribute(name = "ovz_type_new")
+    protected String ovz_Type_New;
     @XmlAttribute(name = "wellness")
     protected String wellness;
     @XmlAttribute(name = "program")
@@ -134,19 +138,19 @@ public class TagSingleGroup {
         this.activity = value;
     }
 
-    public BigInteger getCapacity() {
+    public Integer getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(BigInteger value) {
+    public void setCapacity(Integer value) {
         this.capacity = value;
     }
 
-    public BigInteger getEnrolled() {
+    public Integer getEnrolled() {
         return enrolled;
     }
 
-    public void setEnrolled(BigInteger value) {
+    public void setEnrolled(Integer value) {
         this.enrolled = value;
     }
 
@@ -158,35 +162,35 @@ public class TagSingleGroup {
         this.subgroup = value;
     }
 
-    public BigInteger getOvz_Deti() {
+    public Integer getOvz_Deti() {
         return ovz_Deti;
     }
 
-    public void setOvz_Deti(BigInteger value) {
+    public void setOvz_Deti(Integer value) {
         this.ovz_Deti = value;
     }
 
-    public BigInteger getFree_Space() {
+    public Integer getFree_Space() {
         return free_Space;
     }
 
-    public void setFree_Space(BigInteger value) {
+    public void setFree_Space(Integer value) {
         this.free_Space = value;
     }
 
-    public BigInteger getAdd_Cont() {
+    public Integer getAdd_Cont() {
         return add_Cont;
     }
 
-    public void setAdd_Cont(BigInteger value) {
+    public void setAdd_Cont(Integer value) {
         this.add_Cont = value;
     }
 
-    public BigInteger getTransfer_Space() {
+    public Integer getTransfer_Space() {
         return transfer_Space;
     }
 
-    public void setTransfer_Space(BigInteger value) {
+    public void setTransfer_Space(Integer value) {
         this.transfer_Space = value;
     }
 
@@ -212,6 +216,22 @@ public class TagSingleGroup {
 
     public void setOvz_Type(String value) {
         this.ovz_Type = value;
+    }
+
+    public String getOvz_Type_Dop() {
+        return ovz_Type_Dop;
+    }
+
+    public void setOvz_Type_Dop(String ovz_Type_Dop) {
+        this.ovz_Type_Dop = ovz_Type_Dop;
+    }
+
+    public String getOvz_Type_New() {
+        return ovz_Type_New;
+    }
+
+    public void setOvz_Type_New(String ovz_Type_New) {
+        this.ovz_Type_New = ovz_Type_New;
     }
 
     public String getWellness() {
