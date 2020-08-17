@@ -13,17 +13,13 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class TagSingleOrganizationBuilder {
+public class AgeTransformer {
 
-    public TagSingleOrganization buildOrganization() {
-        return null;
-    }
-
-    static private TagAge16 transformToAge16(List<Counter.AgeItem> ageList, TagAge16 current) {
-        TagAge16 result = (current == null ? new TagAge16() : current);
-
-        if (ageList == null || ageList.isEmpty()) return result;
-
+    public TagAge16 transformToAge16(List<Counter.AgeItem> ageList) {
+        TagAge16 result = new TagAge16();
+        if (ageList == null) {
+            return result;
+        }
         for (Counter.AgeItem item : ageList) {
             TypeAgeRange category = item.getCategory();
             int value = item.getValue();
@@ -47,11 +43,11 @@ public class TagSingleOrganizationBuilder {
         return result;
     }
 
-    static private TagAge8 transformToAge_8(List<Counter.AgeItem> ageList, TagAge8 current) {
-        TagAge8 result = (current == null ? new TagAge8() : current);
-
-        if (ageList == null || ageList.isEmpty()) return result;
-
+    public TagAge8 transformToAge8(List<Counter.AgeItem> ageList) {
+        TagAge8 result = new TagAge8();
+        if (ageList == null) {
+            return result;
+        }
         for (Counter.AgeItem item : ageList) {
             TypeAgeRange category = item.getCategory();
             int value = item.getValue();

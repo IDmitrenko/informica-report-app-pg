@@ -42,6 +42,12 @@ public class InqryCountersProvider {
             List<InqryInf> inqryInfs = inqryByUchMap.get(uchInf.getId());
             //Пройтись по каждому заявлению и посчитать счетчики
 
+            //Инициализация счетчиков значениями по умолчанию
+            for (CounterConfig counterConfig : inqryCounters) {
+                Counter counter = counterMap.get(uchInf.getId())
+                        .computeIfAbsent(counterConfig.getCounterDef().getId(),
+                                counterId -> new Counter(counterConfig.getCounterDef()));
+            }
             if (inqryInfs != null && inqryCounters != null) {
                 for (InqryInf inqryInf : inqryInfs) {
                     //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
@@ -53,9 +59,7 @@ public class InqryCountersProvider {
                                             .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
                             if (ageRanges != null && !ageRanges.isEmpty()) {
                                 // Посчитать элемент
-                                Counter counter = counterMap.get(uchInf.getId())
-                                        .computeIfAbsent(counterConfig.getCounterDef().getId(),
-                                                counterId -> new Counter(counterConfig.getCounterDef()));
+                                Counter counter = counterMap.get(uchInf.getId()).get(counterConfig.getCounterDef().getId());
                                 counter.count(inqryInf, ageRanges);
                             }
                         }
