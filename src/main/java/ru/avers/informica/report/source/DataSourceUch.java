@@ -1,54 +1,51 @@
 package ru.avers.informica.report.source;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.UchDao;
 import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.dto.informica.UchInf;
+import ru.avers.informica.infcfg.Config;
+import ru.avers.informica.infcfg.ReportConfig;
 import ru.avers.informica.infcfg.SchemaConfig;
 import ru.avers.informica.infcfg.SourceUch;
 import ru.avers.informica.report.ReportSetting;
+import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.CUtil;
 
 import java.util.*;
 
 /**
- *
  * @author Dias
  */
 @Slf4j
+@Component
+@RequiredArgsConstructor
 public class DataSourceUch {
 
-    private final List<SchemaConfig> schemaConfigs;
-    private final Date currEducDate;
     private final UchDao uchDao;
     private final ReportSetting reportSetting;
 
-    public DataSourceUch(UchDao pUchDao,
-                         List<SchemaConfig> pSchemas,
-                         Date pCurrEducYear,
-                         ReportSetting pReportSetting) {
-        uchDao = pUchDao;
-        schemaConfigs = pSchemas;
-        currEducDate = pCurrEducYear;
-        reportSetting = pReportSetting;
-    }
-    
     public static class UchInfSchema extends Pair<UchInf, SchemaConfig> {
 
         public UchInfSchema(UchInf pUchInf, SchemaConfig pSchemaConfig) {
             super(pUchInf, pSchemaConfig);
-        }                
-        
+        }
+
         public UchInf getUchInf() {
             return getFirst();
         }
 
         public SchemaConfig getSchema() {
             return getSecond();
-        }                        
+        }
     }
-    
+
     public Pair<Collection<UchInfSchema>, String> getUchInfSchemas() {
+        final ReportConfig reportConfig = CHelper.getInformicaConfig().getReport(Config.S_INFORMICA_REPORT);
+        List<SchemaConfig> schemaConfigs = reportConfig.getSchemas();
+
         Collection<UchInfSchema> uchInfSchemas = new ArrayList<UchInfSchema>();
         // проверить учреждения на заполнение обязательных полей
         //  считать UchInf
@@ -60,7 +57,7 @@ public class DataSourceUch {
         // 2 - 01.09.2020 00:00:00 - дата начала учебного года
 
         //System.out.println("1-ый этап - Начало  " + new Date());
-        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter, currEducDate);
+        List<UchInf> validateUch = uchDao.getUchInformica(repForUchFilter, reportSetting.getCurrEducDate());
         log.info("Найдено {} uch-source", validateUch.size());
         //System.out.println("1-ый этап - Конец  " + new Date());
 
@@ -90,7 +87,7 @@ public class DataSourceUch {
             reportSetting.setFirstOccurrence(false);
 
             //System.out.println("2-ой этап - Начало  " + new Date());
-            List<UchInf> uchInfs = uchDao.getUchInformica(uchFilters, currEducDate);
+            List<UchInf> uchInfs = uchDao.getUchInformica(uchFilters, reportSetting.getCurrEducDate());
             //System.out.println("2-ой этап - Конец  " + new Date());
 
             for (UchInf uchInf : uchInfs) {

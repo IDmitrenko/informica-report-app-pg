@@ -3,18 +3,28 @@ package ru.avers.informica.utils;
 //import org.json.simple.JSONObject;
 //import org.json.simple.parser.JSONParser;
 //import org.json.simple.parser.ParseException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
 import ru.avers.informica.common.config.utils.ConfigLoader;
+import ru.avers.informica.dao.filtersort.IFieldFilterParams;
+import ru.avers.informica.dto.informica.UchInf;
+import ru.avers.informica.filtersinqry.GenericFilter;
 import ru.avers.informica.infcfg.Config;
 import ru.avers.informica.infcfg.utils.InformicaConfigLoader;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.util.List;
 
 /**
  *
  * @author Dias
  */
 
-@Component
+@Slf4j
 public class CHelper {
 // TODO продолжить ...
 /*1
@@ -200,6 +210,38 @@ public class CHelper {
         return InformicaConfigLoader
                 .loadConfigInformica(getSettingsFilename(S_RELATIVE_INFORMICA_CONFIG_FILENAME));
     }
+
+    static public void setFilterFieldType(List<IFieldFilterParams> pFilters, Class<UchInf> pClass) {
+        for (IFieldFilterParams filter : pFilters) {
+            if (filter instanceof GenericFilter)
+                ((GenericFilter)filter).setFieldType(getFieldType(filter.getField(), pClass));
+        }
+    }
+
+    static public Class<?> getFieldType(String pFieldName, Class<UchInf> pClass) {
+        try {
+            BeanInfo beanInfo = Introspector.getBeanInfo(pClass);
+            PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor propDescr : descriptors) {
+                if (propDescr.getName().equals(pFieldName)) {
+                    return propDescr.getPropertyType();
+                }
+            }
+        } catch (IntrospectionException ex) {
+            log.debug("getFieldType", ex);
+        }
+        return null;
+    }
+
+    static public IFieldFilterParams createUchIdFilter(Integer pIdUch) {
+        GenericFilter filter = new GenericFilter();
+        filter.setField("id");
+        filter.setComparison(IFieldFilterParams.ComparisonType.equal);
+        filter.setStringValue(String.valueOf(pIdUch));
+        filter.setFieldType(Integer.class);
+        return filter;
+    }
+
     //===================================================================================================
     
 }

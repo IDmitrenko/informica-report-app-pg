@@ -21,10 +21,7 @@ import java.util.GregorianCalendar;
 @Slf4j
 @RequiredArgsConstructor
 public class ReportSetting {
-
     private final ServletContext context;
-    private final CHelper cHelper;
-
     private Date currDate;              // текущая дата
     private Date currEducDate;          // дата начала текущего учебного года
     private Calendar beginCurrYear;     // дата начала текущего года
@@ -35,8 +32,8 @@ public class ReportSetting {
     @PostConstruct
     public void init() {
         String absolutePath = context.getClassLoader().getResource("config").getPath();
-        cHelper.setAppHomeFolder(absolutePath);
-        cProfile = cHelper.getConfigProfile();
+        CHelper.setAppHomeFolder(absolutePath);
+        cProfile = CHelper.getConfigProfile();
         currDate = DateUtil.getCurrentDate(false);
         currEducDate = DateUtil.getCurrEducDate(currDate,
                 cProfile.getMisc().getInqryEducYearBegin().getMonth(),

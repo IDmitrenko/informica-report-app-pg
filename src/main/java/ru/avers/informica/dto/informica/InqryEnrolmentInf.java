@@ -14,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class InqryEnrolmentInf {
+public class InqryEnrolmentInf implements Application{
     private int id,             // id applications (заявления)
                 idUch;          // id (InqryUch.id_uch - ссылка на таблицу Uch
                                 // id = buildings.uch_buildings_id
