@@ -23,33 +23,33 @@
 
     <counters-def>
         <!-- 1 -->
-        <counter-def id="counter-1" name="1">
+        <counter-def id="counter-1" name="ind_1">
             <filter-date field="regDt" cmp="ge" day="1" month="0"/>
             <filter-date field="regDt" cmp="le"/>
             <age-range def="range-1"/>
         </counter-def>
         <!-- 1.1 -->
-        <counter-def id="counter-1.1" name="1.1">
+        <counter-def id="counter-1.1" name="ind_1_1">
             <filter-date field="regDt" cmp="ge" day="1" month="0"/>
             <filter-date field="regDt" cmp="le"/>
             <age-range def="range-16"/>
         </counter-def>
         <!-- 2 -->
-        <counter-def id="counter-2" name="2">
+        <counter-def id="counter-2" name="ind_2_1">
             <filter-date field="regDt" cmp="ge" day="1" month="0"/>
             <filter-date field="regDt" cmp="le"/>
             <filter field="fromPortal" cmp="eq" value="true"/>
             <age-range def="range-16"/>
         </counter-def>
         <!-- 3 -->
-        <counter-def id="counter-3" name="3">
+        <counter-def id="counter-3" name="ind_3_1">
             <filter-date field="regDt" cmp="ge" day="1" month="0"/>
             <filter-date field="regDt" cmp="le"/>
             <filter field="fromPortal" cmp="eq" value="false"/>
             <age-range def="range-16"/>
         </counter-def>
         <!-- 10 -->
-        <counter-def id="counter-10" name="10">
+        <counter-def id="counter-10" name="ind_10">
             <filter field="typeCode" cmp="eq" value="1"/>
             <filter field="statusCode" cmp="in" value="02 04 06 12"/>
             <filter-date field="inUchDt" cmp="le" educDate="true"/>

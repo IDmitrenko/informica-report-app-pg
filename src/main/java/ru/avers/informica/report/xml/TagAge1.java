@@ -18,13 +18,13 @@ import java.math.BigInteger;
 public class TagAge1 {
 
     @XmlAttribute(name = "all", required = true)
-    protected BigInteger all;
+    protected Integer all;
 
-    public BigInteger getAll() {
+    public Integer getAll() {
         return all;
     }
 
-    public void setAll(BigInteger value) {
+    public void setAll(Integer value) {
         this.all = value;
     }
 

@@ -2,6 +2,7 @@ package ru.avers.informica.filtersinqry;
 
 import ru.avers.informica.dao.filtersort.IFieldFilterParams;
 import ru.avers.informica.exception.FilterException;
+import ru.avers.informica.utils.BeanUtil;
 import ru.avers.informica.utils.CUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -95,8 +96,8 @@ public class BeanFilter implements IFieldFilterParams, IFilter<Object> {
         Object a = null;
         Object b = null;
         try {
-            a = BeanUtils.getBeanValue(getField(), item);
-            b = BeanUtils.getBeanValue(getValue().toString(), item);
+            a = BeanUtil.getBeanValue(getField(), item);
+            b = BeanUtil.getBeanValue(getValue().toString(), item);
         } catch (Exception e) {
             throw new FilterException(e);
         }

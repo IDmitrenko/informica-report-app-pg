@@ -38,6 +38,7 @@ public class GroupMapper implements RowMapper<GroupInf> {
         groupInf.setActivity(rs.getString("activity"));
         groupInf.setCapacity(rs.getInt("capacity"));
         groupInf.setEnrolled(rs.getInt("enrolled"));
+        groupInf.setAddCont(0);
         groupInf.setSubgroup(rs.getString("subgroup"));
         groupInf.setTransferSpace(rs.getInt("transfer_space"));
         groupInf.setPartnerGroup(rs.getString("partner_group"));

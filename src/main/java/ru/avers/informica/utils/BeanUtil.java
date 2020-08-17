@@ -13,6 +13,9 @@ import java.lang.reflect.InvocationTargetException;
 public class BeanUtil {
 
     public static <T> Object getBeanValue(String pProp, T pBean) throws BeanUtilException {
+        if (pProp == null) {
+            return null;
+        }
         try {                                                
             if (!pProp.contains(".")) {
                 return invokeGetter(pProp, pBean);

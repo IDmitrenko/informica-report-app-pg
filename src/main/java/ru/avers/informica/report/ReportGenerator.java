@@ -2,7 +2,7 @@ package ru.avers.informica.report;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ReflectionUtils;
 import ru.avers.informica.common.config.CProfile;
@@ -23,6 +23,8 @@ import ru.avers.informica.utils.BeanUtil;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.DateUtil;
 
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
 import java.sql.Time;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
@@ -44,7 +46,7 @@ public class ReportGenerator {
     private final ReportSetting reportSetting;
 
     public PushDataRequest generateReport(CProfile cProfile)
-            throws FilterException, ReportExceprion, FspeoException {
+            throws FilterException, ReportExceprion, FspeoException, InvocationTargetException, IllegalAccessException {
         Config configInformica = cHelper.getInformicaConfig();
         PushDataRequest request = new PushDataRequest();
         request.setSystem(buildSystemInfo(configInformica));
@@ -54,7 +56,7 @@ public class ReportGenerator {
     }
 
     private TagReports reportBuilder(CProfile cProfile, Config configInformica)
-            throws FilterException, ReportExceprion, FspeoException {
+            throws FilterException, ReportExceprion, FspeoException, InvocationTargetException, IllegalAccessException {
 
 //  считать InqryInf
         List<InqryInf> allInqry = inqryDao.getAllInqry(reportSetting.getCurrDate(),
@@ -83,7 +85,9 @@ public class ReportGenerator {
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
                 for (GroupInf groupInf : buildingInf.getGroupInfs()) {
-                    countEnrolment += groupInf.getAddCont();
+                    if (groupInf.getAddCont() != null) {
+                        countEnrolment += groupInf.getAddCont();
+                    }
                 }
             }
         }
@@ -239,7 +243,7 @@ public class ReportGenerator {
     private void municipalityBuilder(MunicipalityInf municipalityInf,
                                      TagMunicipality municipality,
                                      Collection<DataSourceUch.UchInfSchema> uchInfSchemas,
-                                     Map<Long, Map<String, Counter>> counterMap) {
+                                     Map<Long, Map<String, Counter>> counterMap) throws InvocationTargetException, IllegalAccessException {
         municipality.setRegulation(municipalityInf.getRegulation());
         municipality.setOktmo(municipalityInf.getOktmo());
         municipality.setNum_Early_Assistance(municipalityInf.getNumEarlyAssistance());
@@ -307,12 +311,13 @@ public class ReportGenerator {
     }
 
     private void calculateIndicatorFreeSpace(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
+        int freeSpace = 0;
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
                 for (GroupInf groupInf : buildingInf.getGroupInfs()) {
-                    int freeSpace = groupInf.getCapacity() - groupInf.getEnrolled() -
+                    freeSpace = groupInf.getCapacity() - groupInf.getEnrolled() -
                             groupInf.getTransferSpace() - groupInf.getAddCont();
-                    groupInf.setFreeSpace((short) freeSpace);
+                    groupInf.setFreeSpace(freeSpace);
                 }
             }
         }
@@ -322,6 +327,7 @@ public class ReportGenerator {
                                            Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
         int countNotDistributed = 0;
         int countEnrolment = 0;
+        int freeSpace = 0;
         boolean isDistributed;
         List<InqryEnrolmentInf> enrolmentsNotDistributed = new ArrayList<>();
         inqryEnrolment:
@@ -347,8 +353,13 @@ public class ReportGenerator {
                                             freeSpace -= Integer.parseInt(groupInf.getAddCont());
                                         }
 */
-                                        int freeSpace = groupInf.getCapacity() -
-                                                groupInf.getEnrolled() - groupInf.getAddCont();
+                                        if (groupInf.getAddCont() == null) {
+                                            freeSpace = groupInf.getCapacity() -
+                                                    groupInf.getEnrolled();
+                                        } else {
+                                            freeSpace = groupInf.getCapacity() -
+                                                    groupInf.getEnrolled() - groupInf.getAddCont();
+                                        }
                                         if (freeSpace > 0) {
 // Ребенок по этому заявлению идет в эту группу
                                             int addCont = 1;
@@ -358,7 +369,9 @@ public class ReportGenerator {
                                             }
                                             groupInf.setAddCont(Integer.toString(addCont));
 */
-                                            addCont += groupInf.getAddCont();
+                                            if (groupInf.getAddCont() != null) {
+                                                addCont += groupInf.getAddCont();
+                                            }
                                             groupInf.setAddCont(addCont);
                                             isDistributed = true;
                                             countEnrolment++;
@@ -389,7 +402,9 @@ public class ReportGenerator {
                                             }
                                             groupInf.setAddCont(Integer.toString(addCont));
 */
-                                            addCont += groupInf.getAddCont();
+                                            if (groupInf.getAddCont() != null) {
+                                                addCont += groupInf.getAddCont();
+                                            }
                                             groupInf.setAddCont(addCont);
                                             isDistributed = true;
                                             countEnrolment++;
@@ -442,6 +457,7 @@ public class ReportGenerator {
                     int countInqrysUchNotDistributed = inqrysUchEnrolment.size();
 // считаем количество групп учреждения
                     int countGroups = 0;
+                    int currAddCont = 0;
                     for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
                         countGroups += buildingInf.getGroupInfs().size();
                     }
@@ -454,12 +470,17 @@ public class ReportGenerator {
                         outer:
                         for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {
                             for (GroupInf groupInf : buildingInf.getGroupInfs()) {
+                                if (groupInf.getAddCont() != null) {
+                                    currAddCont = groupInf.getAddCont();
+                                } else {
+                                    currAddCont = 0;
+                                }
                                 if (countInqrysUchNotDistributed > countInqrysGroupNotDistributed) {
-                                    groupInf.setAddCont(groupInf.getAddCont() + countInqrysGroupNotDistributed);
+                                    groupInf.setAddCont(currAddCont + countInqrysGroupNotDistributed);
                                     countInqrysUchNotDistributed -= countInqrysGroupNotDistributed;
                                     countDistributedNot += countInqrysGroupNotDistributed;
                                 } else {
-                                    groupInf.setAddCont(groupInf.getAddCont() + countInqrysUchNotDistributed);
+                                    groupInf.setAddCont(currAddCont + countInqrysUchNotDistributed);
                                     countDistributedNot += countInqrysUchNotDistributed;
                                     break outer;
                                 }
@@ -488,7 +509,7 @@ public class ReportGenerator {
 
     private TagOrganizations organizatiosBuilder(MunicipalityInf municipalityInf,
                                                  Collection<DataSourceUch.UchInfSchema> uchInfSchemas,
-                                                 Map<Long, Map<String, Counter>> counterMap) {
+                                                 Map<Long, Map<String, Counter>> counterMap) throws InvocationTargetException, IllegalAccessException {
         TagOrganizations organizations = new TagOrganizations();
 
 /* то же самое stream
@@ -517,7 +538,7 @@ public class ReportGenerator {
     }
 
     private TagSingleOrganization organizationBuilder(UchInf uchInf,
-                                                      Map<String, Counter> countersUch) {
+                                                      Map<String, Counter> countersUch) throws InvocationTargetException, IllegalAccessException {
         TagSingleOrganization organization = new TagSingleOrganization();
 
         organization.setCode(uchInf.getCode());
@@ -548,37 +569,61 @@ public class ReportGenerator {
 
         organization.setBuildings(buildingsBuilder(uchInf));
 
+        //TODO Когда будут добавляться enrolled  счетчики надо учесть что ключи будут одинаковые!!!
         Map<String, IndicatorType> map = Stream.of(new Object[][]{
-                {"ind_1", IndicatorType.AGE1},
-                {"ind_1_1", IndicatorType.AGE16}
+                {"counter-1", IndicatorType.AGE1},
+                {"counter-1.1", IndicatorType.AGE16},
+                {"counter-2", IndicatorType.AGE16},
+                {"counter-3", IndicatorType.AGE16},
+                {"counter-10", IndicatorType.AGE1}
+                //TODO добавить остальные индикаторы
         }).collect(Collectors.toMap(data -> (String) data[0], data -> (IndicatorType) data[1]));
 
         for (Map.Entry<String, IndicatorType> entry : map.entrySet()) {
-            switch (entry.getValue()){
+            switch (entry.getValue()) {
                 case AGE1:
                     age1Builder(entry.getKey(), countersUch, organization);
+                    break;
                 case AGE16:
                     age16Builder(entry.getKey(), countersUch, organization);
+                    break;
+                case AGE8:
+                case AGE8SPECIAL:
+
             }
         }
 
-
+/* Заготовка моего варианта в лоб
         if (countersUch != null) {
             organization.setInd_1(ind_1Builder(countersUch));
             organization.setInd_1_1(ind_1_1Builder(countersUch));
 
 
         }
+*/
 
         return organization;
     }
 
-    private void age1Builder(String key, Map<String, Counter> countersUch, TagSingleOrganization organization) {
+    private void age16Builder(String key, Map<String, Counter> countersUch, TagSingleOrganization organization) throws InvocationTargetException, IllegalAccessException {
+        Counter counter = countersUch.get(key);
+        TagAge16 age16 = new TagAge16();
+        //заполнить age16
+        BeanUtils.setProperty(organization, counter.getId(), age16);
+    }
+
+    private void age1Builder(String key, Map<String, Counter> countersUch,
+                             TagSingleOrganization organization) throws InvocationTargetException, IllegalAccessException {
         Counter counter = countersUch.get(key);
         TagAge1 age1 = new TagAge1();
-        age1.setAll(counter.);
-        ReflectionUtils.setField();
-
+        if(counter.getAge() == null){
+            age1.setAll(0);
+        }else {
+            age1.setAll(counter.getAge().get(0).getValue());
+        }
+        //counter.getId() это ind_1_1 например
+        //counter.getId() это имя поля в классе TagSingleOrganization
+        BeanUtils.setProperty(organization, counter.getId(), age1);
     }
 
     private TagBuildings buildingsBuilder(UchInf uchInf) {
