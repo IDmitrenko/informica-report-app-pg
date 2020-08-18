@@ -155,8 +155,8 @@
         </counter-def>
         <!-- 1.1 -->
         <counter-def id="counter-1.1" name="1.1">
-            <filter-date field="regDt" cmp="ge" day="1" month="0"/>
-            <filter-date field="regDt" cmp="le"/>
+            <filter-date field="regDt" cmp="ge" day="1" month="0"/>  <!-- 01.01. текущего года  -->
+            <filter-date field="regDt" cmp="le"/>                    <!-- текущая дата -->
             <age-range def="range-16"/>
         </counter-def>
         <!-- 2 -->

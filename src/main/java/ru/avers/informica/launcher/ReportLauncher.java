@@ -40,6 +40,7 @@ public class ReportLauncher {
         }
         try {
             PushDataRequest report = reportGenerator.generateReport(reportSetting.getCProfile());
+        // ? Формирование XML-файла
 
         } catch (Exception ex) {
             String x_str = "Ошибка при построении отчета";

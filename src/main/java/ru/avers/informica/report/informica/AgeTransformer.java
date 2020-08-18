@@ -6,9 +6,7 @@ import ru.avers.informica.infcfg.TypeAgeRange;
 import ru.avers.informica.report.Counter;
 import ru.avers.informica.report.xml.TagAge16;
 import ru.avers.informica.report.xml.TagAge8;
-import ru.avers.informica.report.xml.TagSingleOrganization;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Component

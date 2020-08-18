@@ -28,7 +28,9 @@ public class InqryCountersProvider {
     private final ReportDataProvider reportDataProvider;
     private final ReportSetting reportSetting;
 
-    public Map<Long, Map<String, Counter>> provideCounters(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) throws ReportExceprion, FilterException, FspeoException {
+    public Map<Long, Map<String, Counter>> provideCounters(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas)
+            throws ReportExceprion, FilterException, FspeoException {
+        // Map по всем учреждениям - учреждения и его заявления
         Map<Long, List<InqryInf>> inqryByUchMap = reportDataProvider.getAllInqry().stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
         Map<Long, Map<String, Counter>> counterMap = new HashMap<>();
@@ -59,7 +61,8 @@ public class InqryCountersProvider {
                                             .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
                             if (ageRanges != null && !ageRanges.isEmpty()) {
                                 // Посчитать элемент
-                                Counter counter = counterMap.get(uchInf.getId()).get(counterConfig.getCounterDef().getId());
+                                Counter counter = counterMap.get(uchInf.getId())
+                                        .get(counterConfig.getCounterDef().getId());
                                 counter.count(inqryInf, ageRanges);
                             }
                         }

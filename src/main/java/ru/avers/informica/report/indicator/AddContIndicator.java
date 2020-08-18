@@ -199,7 +199,7 @@ public class AddContIndicator implements Indicator {
     }
 
     private void logCountEnrolment(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) {
-        // Отладочный вывод TODO убрать по завершении отладки
+        // Отладочный вывод
         int countEnrolment = 0;
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
             for (BuildingInf buildingInf : uchInfSchema.getUchInf().getBuildingInfs()) {

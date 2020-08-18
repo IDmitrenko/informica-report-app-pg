@@ -2,20 +2,11 @@ package ru.avers.informica.report;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ReflectionUtils;
 import ru.avers.informica.common.config.CProfile;
-import ru.avers.informica.dao.InqryDao;
-import ru.avers.informica.dao.MunicipalityDao;
-import ru.avers.informica.dao.UchDao;
-import ru.avers.informica.dto.informica.*;
-import ru.avers.informica.exception.FilterException;
-import ru.avers.informica.exception.FspeoException;
-import ru.avers.informica.exception.ReportExceprion;
-import ru.avers.informica.filtersinqry.FilterChain;
-import ru.avers.informica.infcfg.*;
-import ru.avers.informica.old.dao.ApplicationsDao;
+import ru.avers.informica.dto.informica.MunicipalityInf;
+import ru.avers.informica.infcfg.Config;
+import ru.avers.informica.infcfg.TypeSchemaVersion;
 import ru.avers.informica.report.builder.MunicipalityBuilder;
 import ru.avers.informica.report.indicator.ReportIndicators;
 import ru.avers.informica.report.provider.InqryCountersProvider;
@@ -23,34 +14,25 @@ import ru.avers.informica.report.provider.ReportDataProvider;
 import ru.avers.informica.report.provider.ValidMunicipalityProvider;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.source.Pair;
-import ru.avers.informica.report.xml.*;
-import ru.avers.informica.utils.BeanUtil;
+import ru.avers.informica.report.xml.PushDataRequest;
+import ru.avers.informica.report.xml.TagParentPay;
+import ru.avers.informica.report.xml.TagReports;
+import ru.avers.informica.report.xml.TagSystem;
 import ru.avers.informica.utils.CHelper;
-import ru.avers.informica.utils.DateUtil;
 
-import java.lang.reflect.InvocationTargetException;
-import java.math.BigInteger;
-import java.sql.Time;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Collection;
+import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class ReportGenerator {
-    private final ApplicationsDao applicationDao;
-    private final UchDao uchDao;
-    private final FilterChain filterChain;
-    private final ReportSetting reportSetting;
     private final DataSourceUch sourceUch;
     private final ReportDataProvider reportDataProvider;
     private final ReportIndicators reportIndicators;
     private final ValidMunicipalityProvider validMunicipalityProvider;
     private final MunicipalityBuilder municipalityBuilder;
+    private final InqryCountersProvider counterProvider;
 
 
     public synchronized PushDataRequest generateReport(CProfile cProfile)
@@ -73,9 +55,14 @@ public class ReportGenerator {
         reportIndicators.calculateAllIndicators(uchInfSchemas);
         // Формирование выходного XML-файла
         TagReports tagReports = new TagReports();
+        // считаем счетчики для всех учреждений (пока только Inqry)
+        Map<Long, Map<String, Counter>> counterMap = counterProvider.provideCounters(uchInfSchemas);
+        //Заносим информацию в выходной XML по municipality
         for (MunicipalityInf municipalityInf : validMunicipalityProvider.validMunicipalities(uchInfSchemas)) {
-            tagReports.getMunicipality().add(municipalityBuilder.build(municipalityInf, uchInfSchemas));
+            tagReports.getMunicipality().add(municipalityBuilder.build(municipalityInf,
+                    uchInfSchemas, counterMap));
         }
+        //Заносим информацию по второму тэгу parent_pay
         tagReports.setParent_Pay(parentPayBuider());
         return tagReports;
     }

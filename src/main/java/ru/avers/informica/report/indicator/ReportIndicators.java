@@ -2,8 +2,6 @@ package ru.avers.informica.report.indicator;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.dto.informica.InqryEnrolmentInf;
-import ru.avers.informica.report.provider.ReportDataProvider;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.source.Pair;
 

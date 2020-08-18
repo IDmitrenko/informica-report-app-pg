@@ -19,11 +19,9 @@ public class ReportDataProvider {
     private List<InqryInf> inqries;
     private List<InqryEnrolmentInf> allInqryEnrolments;
 
-    public List<InqryEnrolmentInf> getAllInqryEnrolments() {
-        return allInqryEnrolments;
-    }
-
     public void loadData() {
+
+        //  считать InqryInf
         inqries = inqryDao.getAllInqry(reportSetting.getCurrDate(),
                 reportSetting.getCurrEducDate(),
                 reportSetting.getBeginCurrYear().getTime());
@@ -34,9 +32,12 @@ public class ReportDataProvider {
         log.info("Найдено {} inqry-enrolment", allInqryEnrolments.size());
     }
 
-    //  считать InqryInf
     public List<InqryInf> getAllInqry() {
         return inqries;
+    }
+
+    public List<InqryEnrolmentInf> getAllInqryEnrolments() {
+        return allInqryEnrolments;
     }
 
 

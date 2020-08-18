@@ -2,7 +2,6 @@ package ru.avers.informica.report.builder;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dto.informica.MunicipalityInf;
 import ru.avers.informica.dto.informica.UchInf;
@@ -13,17 +12,14 @@ import ru.avers.informica.report.builder.age.Age16builder;
 import ru.avers.informica.report.builder.age.Age1Builder;
 import ru.avers.informica.report.builder.age.Age8Builder;
 import ru.avers.informica.report.source.DataSourceUch;
-import ru.avers.informica.report.xml.TagAge1;
-import ru.avers.informica.report.xml.TagAge16;
 import ru.avers.informica.report.xml.TagOrganizations;
 import ru.avers.informica.report.xml.TagSingleOrganization;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -50,6 +46,18 @@ public class OrganizationBuilder {
         List<DataSourceUch.UchInfSchema> uchInfSchemasTer = uchInfSchemas
                 .stream().filter(s -> s.getUchInf().getIdTer().equals(municipalityInf.getIdTer()))
                 .collect(Collectors.toList());
+/*
+        // список id учреждений текущего муниципалитета
+        Set<Long> idUchTer = uchInfSchemasTer.stream()
+                .map(u -> u.getUchInf().getId())
+                .collect(Collectors.toSet());
+        // список коунтеров учреждений текущего муниципалитета
+        Map<Long, Map<String, Counter>> counterMapTer = counterMap.entrySet().stream()
+                .filter(map -> uchInfSchemasTer.stream()
+                        .map(u -> u.getUchInf().getId())
+                        .collect(Collectors.toSet()).contains(map.getKey()))
+                .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+*/
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemasTer) {
             Map<String, Counter> countersUch = counterMap.get(uchInfSchema.getUchInf().getId());
             TagSingleOrganization organization = organizationBuilder(uchInfSchema.getUchInf(),

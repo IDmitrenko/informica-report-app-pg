@@ -4,9 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dto.informica.MunicipalityInf;
-import ru.avers.informica.exception.FilterException;
-import ru.avers.informica.exception.FspeoException;
-import ru.avers.informica.exception.ReportExceprion;
 import ru.avers.informica.report.Counter;
 import ru.avers.informica.report.provider.InqryCountersProvider;
 import ru.avers.informica.report.source.DataSourceUch;
@@ -15,7 +12,6 @@ import ru.avers.informica.report.xml.TagCommon;
 import ru.avers.informica.report.xml.TagCommonAged;
 import ru.avers.informica.report.xml.TagMunicipality;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
 
@@ -26,9 +22,11 @@ public class MunicipalityBuilder {
     private final InqryCountersProvider counterProvider;
     private final OrganizationBuilder organizationBuilder;
 
-    public TagMunicipality build(MunicipalityInf municipalityInf, Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas) throws Exception {
+    public TagMunicipality build(MunicipalityInf municipalityInf,
+                                 Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas,
+                                 Map<Long, Map<String, Counter>> counterMap)
+            throws Exception {
         TagMunicipality municipality = new TagMunicipality();
-        Map<Long, Map<String, Counter>> counterMap = counterProvider.provideCounters(uchInfSchemas);
         municipality.setRegulation(municipalityInf.getRegulation());
         municipality.setOktmo(municipalityInf.getOktmo());
         municipality.setNum_Early_Assistance(municipalityInf.getNumEarlyAssistance());
