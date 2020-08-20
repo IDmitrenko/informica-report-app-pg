@@ -49,13 +49,15 @@ public class ReportSetting {
         isFirstOccurrence = true;
     }
 
-
     //TODO Когда будут добавляться enrolled  счетчики надо учесть что ключи будут одинаковые!!!
     Map<String, IndicatorType> counterNameToAgeType = Stream.of(new Object[][]{
             {"counter-1", IndicatorType.AGE1},
             {"counter-1.1", IndicatorType.AGE16},
             {"counter-2", IndicatorType.AGE16},
             {"counter-3", IndicatorType.AGE16},
+            {"counter-5", IndicatorType.AGE16},
+            {"counter-6", IndicatorType.AGE16},
+            {"counter-7", IndicatorType.AGE16},
             {"counter-10", IndicatorType.AGE1}
             //TODO добавить остальные индикаторы
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (IndicatorType) data[1]));

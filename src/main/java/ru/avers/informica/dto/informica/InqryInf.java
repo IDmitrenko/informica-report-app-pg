@@ -41,8 +41,8 @@ public class InqryInf implements IInformicaChildCountable, Application {
 
      */
     private String num,           // номер заявления applications.num
-            statusCode,    // Old - InqryStatus.id_status   CDict76InqryStatus.Code
-    // New - Status.statuses_id  statuses.code
+            statusCode,           // Old - InqryStatus.id_status   CDict76InqryStatus.Code
+                                  // New - Status.statuses_id  statuses.code
 /*                   // старый вариант
                    grpTypeCode,   // Old - InqryChldInUch.id_dou_grp_time  CDict85DouGrpTime.Code
                                   // New - applications.grp_time.grp_time_csp - ссылка на spr_b_fspeo.spare_01

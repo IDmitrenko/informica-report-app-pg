@@ -185,7 +185,7 @@ public class CHelper {
     }
 */
     final private static String S_RELATIVE_SETTINGS_FILENAME = "/settings/config.xml";
-    final private static String S_RELATIVE_INFORMICA_CONFIG_FILENAME = "/informica/inf5_counter10.xml";
+    final private static String S_RELATIVE_INFORMICA_CONFIG_FILENAME = "/informica/inf5_yes.xml";
 
     private static String appHomeFolder;
 

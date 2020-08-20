@@ -11,19 +11,13 @@
         <source-uch>
 
             <source-inqry>
-                <counter def="counter-1"/>
-                <counter def="counter-1.1"/>
-                <counter def="counter-2"/>
-                <counter def="counter-3"/>
                 <counter def="counter-4"/>
                 <counter def="counter-4.prev_inuch_dt"/>
                 <counter def="counter-4.1"/>
                 <counter def="counter-4.1.prev_inuch_dt"/>
                 <counter def="counter-4.2"/>
                 <counter def="counter-4.2.prev_inuch_dt"/>
-                <counter def="counter-5"/>
-                <counter def="counter-6"/>
-                <counter def="counter-7"/>
+
                 <counter def="counter-7.1"/>
                 <counter def="counter-7.2"/>
                 <counter def="counter-7.3"/>
@@ -37,7 +31,6 @@
                 <counter def="counter-9-v4"/>
                 <counter def="counter-9.1"/>
                 <counter def="counter-9.1-v4"/>
-                <counter def="counter-10"/>
                 <counter def="counter-10-v4"/>
                 <counter def="counter-10.1"/>
                 <counter def="counter-11"/>
@@ -147,44 +140,18 @@
     </schema-informica>
 
     <counters-def>
-        <!-- 1 -->
-        <counter-def id="counter-1" name="1">
-            <filter-date field="regDt" cmp="ge" day="1" month="0"/>
-            <filter-date field="regDt" cmp="le"/>
-            <age-range def="range-1"/>
-        </counter-def>
-        <!-- 1.1 -->
-        <counter-def id="counter-1.1" name="1.1">
-            <filter-date field="regDt" cmp="ge" day="1" month="0"/>  <!-- 01.01. текущего года  -->
-            <filter-date field="regDt" cmp="le"/>                    <!-- текущая дата -->
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 2 -->
-        <counter-def id="counter-2" name="2">
-            <filter-date field="regDt" cmp="ge" day="1" month="0"/>
-            <filter-date field="regDt" cmp="le"/>
-            <filter field="fromPortal" cmp="eq" value="true"/>
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 3 -->
-        <counter-def id="counter-3" name="3">
-            <filter-date field="regDt" cmp="ge" day="1" month="0"/>
-            <filter-date field="regDt" cmp="le"/>
-            <filter field="fromPortal" cmp="eq" value="false"/>
-            <age-range def="range-16"/>
-        </counter-def>
         <!-- 4 -->
         <counter-def id="counter-4" name="4">
             <filter-date field="regDt" cmp="ge" educDate="true"/>
             <filter-date field="regDt" cmp="le"/>
-            <filter-date field="inUchDt" cmp="ge" educDate="true"/>
+            <filter-date field="inUchDt" cmp="ge" educDate="true"/>  <!-- applications.d_plan  -->
             <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
             <age-range def="range-16"/>
         </counter-def>
         <!-- 4 учесть детей, которым в текущем учебном году была изменена дата зачисления на текущий учебный год -->
         <counter-def id="counter-4.prev_inuch_dt" name="4">
             <filter-date field="regDt" cmp="lt" educDate="true"/>
-            <filter-date field="prevInUchDt" cmp="ge" educDate="true" yearOffset="1"/>
+            <filter-date field="prevInUchDt" cmp="ge" educDate="true" yearOffset="1"/> <!-- AUD_INQRYCHLDINUCH.inuch_dt ??? -->
             <filter-date field="inUchDt" cmp="ge" educDate="true"/>
             <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
             <age-range def="range-16"/>
@@ -225,29 +192,7 @@
             <filter field="healthNeedsRootCode" cmp="eq" value="03"/>
             <age-range def="range-16"/>
         </counter-def>
-        <!-- 5 -->
-        <counter-def id="counter-5" name="5">
-            <filter-date field="regDt" cmp="ge" educDate="true"/>
-            <filter-date field="regDt" cmp="le"/>
-            <filter-date field="inUchDt" cmp="ge" educDate="true"/>
-            <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
-            <filter field="typeCode" cmp="eq" value="02"/>
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 6 -->
-        <counter-def id="counter-6" name="6">
-            <filter-date field="regDt" cmp="ge" day="1" month="0"/>
-            <filter-date field="regDt" cmp="le"/>
-            <filter field="grpTypeCode" cmp="eq" value="01"/>
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 7 -->
-        <counter-def id="counter-7" name="7">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-date field="inUchDt" cmp="gt" educDate="true"/>
-            <age-range def="range-16" calcDay="1" calcMonth="8"/>
-        </counter-def>
+
         <!-- 7.1 -->
         <counter-def id="counter-7.1" name="7.1">
             <filter field="typeCode" cmp="eq" value="01"/>
@@ -300,14 +245,6 @@
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <filter-codes-list field="lgots" cmp="is not empty"/>
             <age-range def="range-16"/>
-        </counter-def>
-        <!-- 10 -->
-        <counter-def id="counter-10" name="10">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <filter-codes-list field="lgotsType" cmp="any" value="1"/>
-            <age-range def="range-1"/>
         </counter-def>
         <!-- 11 -->
         <counter-def id="counter-11" name="11">
@@ -367,9 +304,7 @@
             <filter field="typeCode" cmp="eq" value="99"/>
             <filter field="statusCode" cmp="in" value="02 04 06 12"/>
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <!--
-<Согласие на зачисление в группу по присмотру и уходу />
-            -->
+            <!-- <Согласие на зачисление в группу по присмотру и уходу /> -->
             <age-range def="range-16"/>
         </counter-def>
         <!-- 16 -->

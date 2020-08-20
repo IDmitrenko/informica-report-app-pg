@@ -15,6 +15,9 @@
                 <counter def="counter-1.1"/>
                 <counter def="counter-2"/>
                 <counter def="counter-3"/>
+                <counter def="counter-5"/>
+                <counter def="counter-6"/>
+                <counter def="counter-7"/>
                 <counter def="counter-10"/>
             </source-inqry>
 
@@ -22,6 +25,7 @@
     </schema-informica>
 
     <counters-def>
+        <!-- Важно : typeCode нужно задавать 1 или 2 (ранее было 01 или 02)-->
         <!-- 1 -->
         <counter-def id="counter-1" name="ind_1">
             <filter-date field="regDt" cmp="ge" day="1" month="0"/>
@@ -47,6 +51,34 @@
             <filter-date field="regDt" cmp="le"/>
             <filter field="fromPortal" cmp="eq" value="false"/>
             <age-range def="range-16"/>
+        </counter-def>
+        <!-- 5 -->
+        <counter-def id="counter-5" name="ind_5">
+            <filter-date field="regDt" cmp="ge" educDate="true"/>
+            <filter-date field="regDt" cmp="le"/>
+            <filter-date field="inUchDt" cmp="ge" educDate="true"/>
+            <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
+            <filter field="typeCode" cmp="eq" value="02"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 6 -->
+        <counter-def id="counter-6" name="ind_6">
+            <filter-date field="regDt" cmp="ge" day="1" month="0"/>
+            <filter-date field="regDt" cmp="le"/>
+            <!-- было <filter field="grpTypeCode" cmp="eq" value="01"/> -->
+            <filter-codes-list field="grpTimes" cmp="eq" value="01"/>
+            <!-- должно быть время пребывания только 01 -->
+            <!-- eq - в заявлении должны быть все перечисленные значения cmp="eq" value="01 04" -->
+            <!-- any - любое из перечисленных значений должно быть в заявлении cmp="any" value="01 04" -->
+            <!-- none - любое из перечисленных значений не должно быть в заявлении cmp="none" value="01 04" -->
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 7 -->
+        <counter-def id="counter-7" name="ind_7">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
+            <filter-date field="inUchDt" cmp="gt" educDate="true"/>
+            <age-range def="range-16" calcDay="1" calcMonth="8"/>
         </counter-def>
         <!-- 10 -->
         <counter-def id="counter-10" name="ind_10">
