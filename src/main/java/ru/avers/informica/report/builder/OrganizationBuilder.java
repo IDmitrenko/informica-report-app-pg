@@ -73,9 +73,9 @@ public class OrganizationBuilder {
 
         organization.setCode(uchInf.getCode());
         organization.setName(uchInf.getName());
-        organization.setType(uchInf.getOrgLegalFormCode());
-        organization.setStatus(uchInf.getStatusСode());
-        organization.setStructure(uchInf.getStructureCode());
+        organization.setType(uchInf.getOrgLegalFormCode().replaceAll("^0",""));
+        organization.setStatus(uchInf.getStatusСode().replaceAll("^0",""));
+        organization.setStructure(uchInf.getStructureCode().replaceAll("^0",""));
         organization.setLicense(uchInf.getLicense());
         organization.setType_Area(uchInf.getTypeArea());
         organization.setDirector(uchInf.getChief());

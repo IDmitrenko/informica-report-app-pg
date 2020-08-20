@@ -41,7 +41,7 @@ public class ReportLauncher {
         try {
             PushDataRequest report = reportGenerator.generateReport(reportSetting.getCProfile());
         // ? Формирование XML-файла
-
+            debug = "1";
         } catch (Exception ex) {
             String x_str = "Ошибка при построении отчета";
             log.error(x_str, ex);
@@ -50,7 +50,7 @@ public class ReportLauncher {
                             .getReportInformica().getStateName());
         }
 
-        debug = "1";
+        debug = "2";
     }
 
     private void logStart(String launchSite) {

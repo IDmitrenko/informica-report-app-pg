@@ -40,10 +40,36 @@ public class GroupDaoImpl implements GroupDao {
             "cl.id_classes as id, " +
             ":idCodeBuilding as idCodeBuilding, " +
             "(get_group_name(cl.class_num) || ' ' || cl.stream_let) as  name, " +
+/* Вариант когда записи из-за group_years нужно обьединять в разновозрастных группах
             "gy.from_y as age_from_years, " +
             "gy.from_m as age_from_months, " +
             "gy.to_y as age_to_years, " +
             "gy.to_m as age_to_months, " +
+*/
+            "(select coalesce(gyf.from_y) || ' ' || coalesce(gyf.from_m) as fym " +
+            " from group_years gyf " +
+            " where gyf.uch = cl.uch and gyf.year_class = cl.year_class and " +
+            "       gyf.grp_age_csp = cl.grp_age_csp and " +
+            "       gyf.class_type_csp in (select ct1.class_type_csp " +
+            "                             from class_types ct1 " +
+            "                             where ct1.classes_id = cl.id_classes) and " +
+            "       gyf.work_time_csp = cl.work_time_csp and " +
+            "       (coalesce(gyf.from_y, 0) + coalesce(gyf.from_m, 0) + " +
+            "        coalesce(gyf.from_d, 0) + coalesce(gyf.to_y, 0) + " +
+            "        coalesce(gyf.to_m, 0) + coalesce(gyf.to_d, 0) > 0) " +
+            " order by gyf.from_y, gyf.from_m asc limit 1), " +
+            "(select coalesce(gyt.to_y) || ' ' || coalesce(gyt.to_m) as tym " +
+            " from group_years gyt " +
+            " where gyt.uch = cl.uch and gyt.year_class = cl.year_class and " +
+            "       gyt.grp_age_csp = cl.grp_age_csp and " +
+            "       gyt.class_type_csp in (select ct1.class_type_csp " +
+            "                             from class_types ct1 " +
+            "                             where ct1.classes_id = cl.id_classes) and " +
+            "       gyt.work_time_csp = cl.work_time_csp and " +
+            "       (coalesce(gyt.from_y, 0) + coalesce(gyt.from_m, 0) + " +
+            "        coalesce(gyt.from_d, 0) + coalesce(gyt.to_y, 0) + " +
+            "        coalesce(gyt.to_m, 0) + coalesce(gyt.to_d, 0) > 0) " +
+            " order by gyt.to_y, gyt.to_m desc limit 1), " +
             "case when " +
             " (select count(ct.classes_id)" +
             "  from class_types ct " +
@@ -83,7 +109,7 @@ public class GroupDaoImpl implements GroupDao {
             " from school_pupil(cl.uch, current_date, 1, 2, 3) sp " +
             " inner join inclass ic on ic.id_inclass = sp.out_id_inclass " +
             " where sp.out_class_num = cl.class_num and sp.out_stream_let = cl.stream_let and " +
-            "       (sp.OUT_D_LEAVE is null or sp.OUT_D_LEAVE > :currDate) and " +
+            "       (sp.out_d_leave is null or sp.out_d_leave > :currDate) and " +
             "       (ic.d_up between :dateFromInterval and :dateToInterval)" +
             ") as enrolled, " +
             "case when cl.subgroups_count is null " +
@@ -148,7 +174,9 @@ public class GroupDaoImpl implements GroupDao {
             " where ct.classes_id = cl.id_classes) as ovz_type_dop " +
             "from public.classes cl " +
             "inner join public.uch_buildings ub on ub.id_uch_buildings = cl.building_id " +
+/* Вариант когда записи из-за group_years нужно обьединять в разновозрастных группах
             "inner join public.group_years gy on gy.uch = cl.uch " +
+*/
             "inner join public.class_types ct on ct.classes_id = cl.id_classes " +
             "inner join app.v_dict_08_type_class v08 on v08.id = ct.class_type_csp " +
             "inner join app.v_dict_85_dou_grp_time v85 on v85.id = cl.work_time_csp " +
@@ -156,8 +184,9 @@ public class GroupDaoImpl implements GroupDao {
             "left join f5_att f5a on f5a.classes_id = cl.id_classes " +
             "left join f5_classes f5c on f5c.classes_id = cl.id_classes " +
             "where ub.id_uch_buildings = :idBuilding and " +
-            "      cl.year_class = :currEducYear and " +
-            "      cl.year_class = gy.year_class and " +
+            "      cl.year_class = :currEducYear";
+/* Вариант когда записи из-за group_years нужно обьединять в разновозрастных группах
+          + "  and cl.year_class = gy.year_class and " +
             "      cl.grp_age_csp = gy.grp_age_csp and " +
             "      cl.work_time_csp = gy.work_time_csp and " +
             "      gy.class_type_csp in (select ct1.class_type_csp " +
@@ -166,6 +195,7 @@ public class GroupDaoImpl implements GroupDao {
             "      (coalesce (gy.from_y, 0) + coalesce (gy.from_m, 0) + " +
             "       coalesce (gy.from_d, 0) + coalesce (gy.to_y, 0) + " +
             "       coalesce (gy.to_m, 0) + coalesce (gy.to_d, 0) > 0)";
+*/
 
     @Override
     public List<GroupInf> getGroupsBuildingUch(Integer idBuilding,
@@ -190,6 +220,7 @@ public class GroupDaoImpl implements GroupDao {
                     groupMapper);
 
 // обьединить записи с одинаковыми id (id_uch_buildings = 126  (22 группы схлопываются в 13))
+/* Вариант когда записи из-за group_years нужно обьединять в разновозрастных группах */
             if (allGroupsBuildingUch.size() > 0) {
                 List<GroupInf> groupInfs = new ArrayList<>();
                 groupInfs.add(allGroupsBuildingUch.get(0));

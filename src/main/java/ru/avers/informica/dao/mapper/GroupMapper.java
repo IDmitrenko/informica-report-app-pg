@@ -3,7 +3,7 @@ package ru.avers.informica.dao.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
-import ru.avers.informica.dao.impl.GroupHealthDaoImpl;
+import ru.avers.informica.dao.impl.GroupActionsDaoImpl;
 import ru.avers.informica.dto.informica.GroupInf;
 import ru.avers.informica.dto.inqry.AgeDto;
 
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 @RequiredArgsConstructor
 public class GroupMapper implements RowMapper<GroupInf> {
 
-    private final GroupHealthDaoImpl groupHealthDao;
+    private final GroupActionsDaoImpl groupActionsDao;
 
     @Override
     public GroupInf mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -24,15 +24,26 @@ public class GroupMapper implements RowMapper<GroupInf> {
         groupInf.setIdBuilding(rs.getInt("idBuilding"));
         groupInf.setIdCode(rs.getString("idCodeBuilding") + "-" + groupInf.getId());
         groupInf.setName(rs.getString("name"));
+/* Вариант когда записи из-за group_years нужно обьединять в разновозрастных группах
         groupInf.setAgeFromYears(rs.getShort("age_from_years"));
         groupInf.setAgeFromMonths(rs.getShort("age_from_months"));
         groupInf.setAgeToYears(rs.getShort("age_to_years"));
         groupInf.setAgeToMonths(rs.getShort("age_to_months"));
+*/
+        groupInf.setFym(rs.getString("fym"));
+        groupInf.setTym(rs.getString("tym"));
+        String[] groupYears = groupInf.getFym().split(" ");
+        groupInf.setAgeFromYears(Short.valueOf(groupYears[0]));
+        groupInf.setAgeFromMonths(Short.valueOf(groupYears[1]));
+        groupYears = groupInf.getTym().split(" ");
+        groupInf.setAgeToYears(Short.valueOf(groupYears[0]));
+        groupInf.setAgeToMonths(Short.valueOf(groupYears[1]));
         groupInf.setAgeFrom(AgeDto.calcAge(groupInf.getAgeFromYears(), groupInf.getAgeFromMonths()));
         groupInf.setAgeTO(AgeDto.calcAge(groupInf.getAgeToYears(), groupInf.getAgeToMonths()));
+
         groupInf.setOrientation(rs.getString("orientation"));
 //        groupInf.setIdHealthCsp(rs.getInt("idHealthCsp"));
-        groupInf.setIdHealthCsp(groupHealthDao.getGroupHealths(groupInf.getId()));
+        groupInf.setIdHealthCsp(groupActionsDao.getGroupHealths(groupInf.getId()));
         groupInf.setWorktimeGroup(rs.getString("worktime_group"));
         groupInf.setIdWorkTimeCsp(rs.getInt("idWorkTimeCsp"));
         groupInf.setActivity(rs.getString("activity"));
@@ -141,6 +152,38 @@ public class GroupMapper implements RowMapper<GroupInf> {
                         break;
                 }
             }
+        }
+        switch (groupInf.getOrientation()) {
+            case "3":
+                switch ((groupInf.getIdHealthCsp().size() > 1) ? 1 :
+                        (groupInf.getIdHealthCsp().size() == 1) ? 2 : 3) {
+                    case 1:   // больше одной направленности
+                        groupInf.setSubtract(groupActionsDao
+                                .getCombinedGroupSubtract(groupInf.getId(), groupInf.getIdHealthCsp()));
+                        break;
+                    case 2:   // одна направленность
+                        Integer subtract = groupActionsDao
+                                .getCombinedGroupSubtract(groupInf.getId(), groupInf.getIdHealthCsp());
+                        if (subtract == 0) {
+                            groupInf.setSubtract(groupInf.getEnrolled());
+                        } else {
+                            groupInf.setSubtract(0);
+                        }
+                        break;
+                    case 3:   // ни одной направленности
+                        groupInf.setSubtract(groupInf.getEnrolled());
+                        break;
+                }
+                groupInf.setOvzDeti(groupInf.getEnrolled() - groupInf.getSubtract());
+                break;
+            case "2":
+                groupInf.setOvzDeti(groupInf.getEnrolled());
+                groupInf.setSubtract(0);
+                break;
+            default:
+                groupInf.setOvzDeti(0);
+                groupInf.setSubtract(groupInf.getEnrolled());
+                break;
         }
 
         return groupInf;
