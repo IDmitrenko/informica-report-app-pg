@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.common.config.CProfile;
+import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.DateUtil;
 
@@ -30,7 +31,9 @@ public class ReportSetting {
     private Calendar beginCurrYear;     // дата начала текущего года
     private Integer currEducYear;       // текущий учебный год
     private CProfile cProfile;          // config.xml отчета
-    private boolean isFirstOccurrence;      // признак первого вхождения
+    private boolean isFirstOccurrence;  // признак первого вхождения
+    private String statusCodeInd8;      // код статуса заявления для ind_8
+    private int shiftYear;              // сдвиг для года от текущей даты для работы с ind_8
 
     @PostConstruct
     public void init() {
@@ -47,6 +50,8 @@ public class ReportSetting {
         beginCurrYear.set(Calendar.MONTH, Calendar.JANUARY);
         currEducYear = DateUtil.getYearPart(currEducDate);
         isFirstOccurrence = true;
+        statusCodeInd8 = InqryStatusCode.SENT_TO_DOO_12;
+        shiftYear = -2;
     }
 
     //TODO Когда будут добавляться enrolled  счетчики надо учесть что ключи будут одинаковые!!!
@@ -58,6 +63,14 @@ public class ReportSetting {
             {"counter-5", IndicatorType.AGE16},
             {"counter-6", IndicatorType.AGE16},
             {"counter-7", IndicatorType.AGE16},
+            {"counter-7.1", IndicatorType.AGE16},
+            {"counter-7.2", IndicatorType.AGE16},
+            {"counter-7.3", IndicatorType.AGE16},
+            {"counter-7.4", IndicatorType.AGE16},
+            {"counter-7.5", IndicatorType.AGE16},
+            {"counter-7.6", IndicatorType.AGE16},
+            {"counter-7.7", IndicatorType.AGE16},
+            {"counter-8", IndicatorType.AGE8SPECIAL},
             {"counter-10", IndicatorType.AGE1}
             //TODO добавить остальные индикаторы
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (IndicatorType) data[1]));
