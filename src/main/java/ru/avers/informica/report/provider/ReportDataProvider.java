@@ -33,12 +33,9 @@ public class ReportDataProvider {
         allInqryEnrolments = inqryDao.getIngryEnrolment();
         log.info("Найдено {} inqry-enrolment", allInqryEnrolments.size());
 
-        // считать InqryInd8Inf для подсчета ind_8 TODO
-/*
-        inqriesInd8 = inqryDao.getInqryInd8(reportSetting.getCurrDate(),
-                reportSetting.getStatusCodeInd8(),
-                reportSetting.getShiftYear());
-*/
+        // считать InqryInd8Inf для подсчета ind_8
+        inqriesInd8 = inqryDao.getInqryInd8();
+        log.info("Найдено {} inqry-ind8", inqriesInd8.size());
     }
 
     public List<InqryInf> getAllInqry() {
@@ -49,5 +46,8 @@ public class ReportDataProvider {
         return allInqryEnrolments;
     }
 
+    public List<InqryInd8Inf> getInqriesInd8() {
+        return inqriesInd8;
+    }
 
 }

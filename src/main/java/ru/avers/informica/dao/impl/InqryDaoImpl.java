@@ -8,11 +8,16 @@ import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dao.mapper.IdMapper;
 import ru.avers.informica.dao.mapper.InqryEnrolmentMapper;
+import ru.avers.informica.dao.mapper.InqryInd8Mapper;
 import ru.avers.informica.dao.mapper.InqryMapper;
 import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.dto.dictcode.InqrySysInteraction;
+import ru.avers.informica.dto.dictcode.TypeClassCode;
 import ru.avers.informica.dto.informica.InqryEnrolmentInf;
+import ru.avers.informica.dto.informica.InqryInd8Inf;
 import ru.avers.informica.dto.informica.InqryInf;
+import ru.avers.informica.report.ReportSetting;
+import ru.avers.informica.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +33,8 @@ public class InqryDaoImpl implements InqryDao {
     private final InqryMapper inqryMapper;
     private final InqryEnrolmentMapper inqryEnrolmentMapper;
     private final IdMapper idMapper;
+    private final ReportSetting reportSetting;
+    private final InqryInd8Mapper inqryInd8Mapper;
 
     @Override
     public List<InqryInf> getAllInqry(Date currDate, Date currEducDate, Date beginCurrYear) {
@@ -176,4 +183,59 @@ public class InqryDaoImpl implements InqryDao {
             throw ex;
         }
     }
+
+    @Override
+    public List<InqryInd8Inf> getInqryInd8() {
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+            Date currDate = reportSetting.getCurrDate();
+            String code_sent_to = reportSetting.getStatusCodeInd8();
+            int shift_year = reportSetting.getShiftYear();
+            Date dateFromInterval = (shift_year == 0 ? currDate :
+                    DateUtil.adjustDate(currDate, shift_year));
+// для сравнения с ручным запросом так как current_date работает с временем 00:00:00
+//            dateFromInterval = DateUtil.clearDateTimePart(dateFromInterval);
+            List<String> codesOvz = TypeClassCode.getCodesOvz();
+
+            parameterSource.addValue("sent_to_doo_code", code_sent_to);
+            parameterSource.addValue("currDate", currDate);
+            parameterSource.addValue("dateFromInterval", dateFromInterval);
+            parameterSource.addValue("listCodesOvz", codesOvz);
+
+            List<InqryInd8Inf> allInqrysInd8 = jdbcTemplate
+                    .query("select a.id_app as id, " +
+                                    "a.d_plan as wishDt, " +
+                                    "a.d_birth as birthDt, " +
+                                    "st.uch as idUch, " +
+                                    "st.d_status as stsDt, " +
+                                    "case when exists(select bl.id_benefits " +
+                                    "                 from app.benefits bl " +
+                                    "                 where bl.app_id = a.id_app) " +
+                                    "then false " +
+                                    "else true " +
+                                    "end as lgot, " +
+                                    "case when v08.code in (:listCodesOvz)" +
+                                    "then true " +
+                                    "else false " +
+                                    "end as ovz " +
+                                    "from app.applications a " +
+                                    "inner join app.status st on st.app_id = a.id_app " +
+                                    "inner join app.statuses sts on sts.id = st.statuses_id " +
+                                    "left join app.v_dict_08_type_class as v08 on v08.id = st.health_csp " +
+                                    "where st.d_status <= :currDate and " +
+                                    "      st.d_status >= :dateFromInterval and " +
+                                    "      sts.code = :sent_to_doo_code " +
+                                    "order by id",
+                            parameterSource,
+                            inqryInd8Mapper);
+
+            return allInqrysInd8;
+
+        } catch (Exception ex) {
+            log.error("Ошибка выполнения запроса IngryInd8.", ex);
+            throw ex;
+        }
+    }
+
+
 }
