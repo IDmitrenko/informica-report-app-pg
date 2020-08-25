@@ -57,6 +57,9 @@ public class ReportGenerator {
         TagReports tagReports = new TagReports();
         // считаем счетчики для всех учреждений (пока только Inqry)
         Map<Long, Map<String, Counter>> counterMap = counterProvider.provideCounters(uchInfSchemas);
+        // считаем специфические показатели - 8, 8.1, 8.2, 8.3
+        counterMap = counterProvider.provideCounters8(uchInfSchemas, counterMap);
+
         //Заносим информацию в выходной XML по municipality
         for (MunicipalityInf municipalityInf : validMunicipalityProvider.validMunicipalities(uchInfSchemas)) {
             tagReports.getMunicipality().add(municipalityBuilder.build(municipalityInf,

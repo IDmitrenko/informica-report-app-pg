@@ -25,7 +25,6 @@
                 <counter def="counter-7.5"/>
                 <counter def="counter-7.6"/>
                 <counter def="counter-7.7"/>
-                <counter def="counter-8"/>
                 <counter def="counter-10"/>
             </source-inqry>
 
@@ -141,12 +140,6 @@
             <filter field="statusCode" cmp="in" value="04 12"/>
             <filter-date field="inUchDt" cmp="le" educDate="true" yearOffset="1"/>
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
-        </counter-def>
-        <!-- 8 -->
-        <counter-def id="counter-8" name="ind_8">
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <age-range def="range-16"/>
         </counter-def>
         <!-- 10 -->
         <counter-def id="counter-10" name="ind_10">

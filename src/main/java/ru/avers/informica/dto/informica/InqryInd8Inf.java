@@ -28,8 +28,8 @@ public class InqryInd8Inf implements IDTO, Application {
     private boolean lgot,       // признак льготы
             ovz;                // признак группы с ОВЗ
 
-// TODO
 // 1) делается Map на учреждения и его заявления (основная)
 // 2) делается Map на заявление и его учреждения со статусами ... (для logger)(В одном заявлении несколько учреждений)
+// TODO
 // !!! расчет показателей 8, 8.1, 8.2, 8.3 - метод processForInd_8 в классе CTagSingleOrganizationBuilder
 }
