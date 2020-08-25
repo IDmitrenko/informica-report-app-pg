@@ -3,9 +3,11 @@ package ru.avers.informica.report.informica;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.infcfg.TypeAgeRange;
+import ru.avers.informica.report.AgeItemSpecial;
 import ru.avers.informica.report.Counter;
 import ru.avers.informica.report.xml.TagAge16;
 import ru.avers.informica.report.xml.TagAge8;
+import ru.avers.informica.report.xml.TagAge8Special;
 
 import java.util.List;
 
@@ -49,6 +51,26 @@ public class AgeTransformer {
         for (Counter.AgeItem item : ageList) {
             TypeAgeRange category = item.getCategory();
             int value = item.getValue();
+            if (TypeAgeRange.t_m2_to_y1.equals(category)) result.setY_0_1(value);
+            else if (TypeAgeRange.t_y1_to_y2.equals(category)) result.setY_1_2(value);
+            else if (TypeAgeRange.t_y2_to_y3.equals(category)) result.setY_2_3(value);
+            else if (TypeAgeRange.t_y3_to_y4.equals(category)) result.setY_3_4(value);
+            else if (TypeAgeRange.t_y4_to_y5.equals(category)) result.setY_4_5(value);
+            else if (TypeAgeRange.t_y5_to_y6.equals(category)) result.setY_5_6(value);
+            else if (TypeAgeRange.t_y6_to_y7.equals(category)) result.setY_6_7(value);
+            else if (TypeAgeRange.t_y7_plus.equals(category)) result.setY_7_E(value);
+        }
+        return result;
+    }
+
+    public TagAge8Special transformToAge8Special(List<AgeItemSpecial> ageList) {
+        TagAge8Special result = new TagAge8Special();
+        if (ageList == null) {
+            return result;
+        }
+        for (AgeItemSpecial item : ageList) {
+            TypeAgeRange category = item.getCategory();
+            String value = item.getValue();
             if (TypeAgeRange.t_m2_to_y1.equals(category)) result.setY_0_1(value);
             else if (TypeAgeRange.t_y1_to_y2.equals(category)) result.setY_1_2(value);
             else if (TypeAgeRange.t_y2_to_y3.equals(category)) result.setY_2_3(value);

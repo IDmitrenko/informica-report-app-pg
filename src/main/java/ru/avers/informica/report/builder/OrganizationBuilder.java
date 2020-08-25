@@ -6,11 +6,13 @@ import org.springframework.stereotype.Component;
 import ru.avers.informica.dto.informica.MunicipalityInf;
 import ru.avers.informica.dto.informica.UchInf;
 import ru.avers.informica.report.Counter;
+import ru.avers.informica.report.CounterSpecial;
 import ru.avers.informica.report.IndicatorType;
 import ru.avers.informica.report.ReportSetting;
 import ru.avers.informica.report.builder.age.Age16builder;
 import ru.avers.informica.report.builder.age.Age1Builder;
 import ru.avers.informica.report.builder.age.Age8Builder;
+import ru.avers.informica.report.builder.age.Age8SpecialBuilder;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.xml.TagOrganizations;
 import ru.avers.informica.report.xml.TagSingleOrganization;
@@ -28,12 +30,14 @@ public class OrganizationBuilder {
     private final BuildingsBuilder buildingsBuilder;
     private final Age16builder age16builder;
     private final Age8Builder age8Builder;
+    private final Age8SpecialBuilder age8SpecialBuilder;
     private final Age1Builder age1Builder;
     private final ReportSetting reportSetting;
 
     public TagOrganizations build(MunicipalityInf municipalityInf,
                                   Collection<DataSourceUch.UchInfSchema> uchInfSchemas,
-                                  Map<Long, Map<String, Counter>> counterMap) throws Exception {
+                                  Map<Long, Map<String, Counter>> counterMap,
+                                  Map<Long, Map<String, CounterSpecial>> counterMapSpecial) throws Exception {
         TagOrganizations organizations = new TagOrganizations();
 /* то же самое stream
         Collection<DataSourceUch.UchInfSchema> uchInfSchemasTer = new ArrayList<DataSourceUch.UchInfSchema>();
@@ -60,15 +64,17 @@ public class OrganizationBuilder {
 */
         for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemasTer) {
             Map<String, Counter> countersUch = counterMap.get(uchInfSchema.getUchInf().getId());
+            Map<String, CounterSpecial> countersUchSpecial = counterMapSpecial.get(uchInfSchema.getUchInf().getId());
             TagSingleOrganization organization = organizationBuilder(uchInfSchema.getUchInf(),
-                    countersUch);
+                    countersUch, countersUchSpecial);
             organizations.getOrganization().add(organization);
         }
         return organizations;
     }
 
     private TagSingleOrganization organizationBuilder(UchInf uchInf,
-                                                      Map<String, Counter> countersUch) throws Exception {
+                                                      Map<String, Counter> countersUch,
+                                                      Map<String, CounterSpecial> countersUchSpecial) throws Exception {
         TagSingleOrganization organization = new TagSingleOrganization();
 
         organization.setCode(uchInf.getCode());
@@ -106,9 +112,10 @@ public class OrganizationBuilder {
                     age16builder.build(entry.getKey(), countersUch, organization);
                     break;
                 case AGE8:
-                case AGE8SPECIAL:
                     age8Builder.build(entry.getKey(), countersUch, organization);
                     break;
+                case AGE8SPECIAL:
+                    age8SpecialBuilder.build(entry.getKey(), countersUchSpecial, organization);
             }
         }
         return organization;

@@ -58,12 +58,13 @@ public class ReportGenerator {
         // считаем счетчики для всех учреждений (пока только Inqry)
         Map<Long, Map<String, Counter>> counterMap = counterProvider.provideCounters(uchInfSchemas);
         // считаем специфические показатели - 8, 8.1, 8.2, 8.3
-        counterMap = counterProvider.provideCounters8(uchInfSchemas, counterMap);
+        Map<Long, Map<String, CounterSpecial>> counterMapSpecial = counterProvider
+                .provideCounters8(uchInfSchemas);
 
         //Заносим информацию в выходной XML по municipality
         for (MunicipalityInf municipalityInf : validMunicipalityProvider.validMunicipalities(uchInfSchemas)) {
             tagReports.getMunicipality().add(municipalityBuilder.build(municipalityInf,
-                    uchInfSchemas, counterMap));
+                    uchInfSchemas, counterMap, counterMapSpecial));
         }
         //Заносим информацию по второму тэгу parent_pay
         tagReports.setParent_Pay(parentPayBuider());

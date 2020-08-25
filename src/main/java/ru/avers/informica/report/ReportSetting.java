@@ -71,8 +71,17 @@ public class ReportSetting {
             {"counter-7.6", IndicatorType.AGE16},
             {"counter-7.7", IndicatorType.AGE16},
             {"counter-8", IndicatorType.AGE8SPECIAL},
+            {"counter-8.1", IndicatorType.AGE8SPECIAL},
+            {"counter-8.2", IndicatorType.AGE8SPECIAL},
+            {"counter-8.3", IndicatorType.AGE8SPECIAL},
             {"counter-10", IndicatorType.AGE1}
             //TODO добавить остальные индикаторы
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (IndicatorType) data[1]));
 
+    Map<String, String> counterName = Stream.of(new Object[][] {
+            {"counter-8", "ind_8"},
+            {"counter-8.1", "ind_8_1"},
+            {"counter-8.2", "ind_8_2"},
+            {"counter-8.3", "ind_8_3"}
+            }).collect(Collectors.toMap(name -> (String) name[0], name -> (String) name[1]));
 }

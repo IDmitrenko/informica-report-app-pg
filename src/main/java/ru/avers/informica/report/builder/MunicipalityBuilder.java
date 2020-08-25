@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dto.informica.MunicipalityInf;
 import ru.avers.informica.report.Counter;
+import ru.avers.informica.report.CounterSpecial;
 import ru.avers.informica.report.provider.InqryCountersProvider;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.source.Pair;
@@ -24,7 +25,8 @@ public class MunicipalityBuilder {
 
     public TagMunicipality build(MunicipalityInf municipalityInf,
                                  Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas,
-                                 Map<Long, Map<String, Counter>> counterMap)
+                                 Map<Long, Map<String, Counter>> counterMap,
+                                 Map<Long, Map<String, CounterSpecial>> counterMapSpecial)
             throws Exception {
         TagMunicipality municipality = new TagMunicipality();
         municipality.setRegulation(municipalityInf.getRegulation());
@@ -43,7 +45,7 @@ public class MunicipalityBuilder {
         municipality.setEpgu_Link(municipalityInf.getEpguLink());
         municipality.setCommon(commonBuilder(municipalityInf));
         municipality.setOrganizations(organizationBuilder.build(municipalityInf,
-                uchInfSchemas.getFirst(), counterMap));
+                uchInfSchemas.getFirst(), counterMap, counterMapSpecial));
         return municipality;
     }
 
