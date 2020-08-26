@@ -211,8 +211,8 @@ public class InqryDaoImpl implements InqryDao {
                                     "case when exists(select bl.id_benefits " +
                                     "                 from app.benefits bl " +
                                     "                 where bl.app_id = a.id_app) " +
-                                    "then false " +
-                                    "else true " +
+                                    "then true " +
+                                    "else false " +
                                     "end as lgot, " +
                                     "case when v08.code in (:listCodesOvz)" +
                                     "then true " +

@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class InqryInd8Inf implements IDTO, Application {
 
-//    final static public double s_norm_coeff_days2months = 30.4;
+    final static public double s_norm_coeff_days2months = 30.4;
 
 //    private String uchCode;  был код учреждения
     private Integer idInqry,    // id заявления

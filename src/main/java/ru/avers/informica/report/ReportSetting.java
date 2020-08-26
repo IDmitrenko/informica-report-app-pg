@@ -34,6 +34,7 @@ public class ReportSetting {
     private boolean isFirstOccurrence;  // признак первого вхождения
     private String statusCodeInd8;      // код статуса заявления для ind_8
     private int shiftYear;              // сдвиг для года от текущей даты для работы с ind_8
+    private final String emptyValueAge8Special = "-";  // Значение по умолчанию для Age8Special
 
     @PostConstruct
     public void init() {

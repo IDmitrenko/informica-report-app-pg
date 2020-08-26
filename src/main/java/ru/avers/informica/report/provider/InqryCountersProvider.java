@@ -15,13 +15,13 @@ import ru.avers.informica.exception.FspeoException;
 import ru.avers.informica.exception.ReportExceprion;
 import ru.avers.informica.infcfg.CounterConfig;
 import ru.avers.informica.infcfg.TypeAgeRange;
-import ru.avers.informica.report.Counter;
-import ru.avers.informica.report.CounterSpecial;
-import ru.avers.informica.report.IndicatorType;
-import ru.avers.informica.report.ReportSetting;
+import ru.avers.informica.report.*;
+import ru.avers.informica.report.builder.OrganizationBuilder;
 import ru.avers.informica.report.source.DataSourceUch;
 import ru.avers.informica.report.source.Pair;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -101,77 +101,63 @@ public class InqryCountersProvider {
             for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
                 //Учреждение
                 UchInf uchInf = uchInfSchema.getUchInf();
-                counterMapSpecial.put(uchInf.getId(), new HashMap<>());
-                //Счетчики учреждения counterName8
-
                 //Заявления текущего учреждения
                 List<InqryInd8Inf> inqryInd8UchInfs = inqryByUchMap.get(uchInf.getId());
+                //Счетчики учреждения counterName8
                 //Инициализация счетчиков значениями по умолчанию
                 // нужно проинициализировать показатели типа AGE8SPECIAL (8, 8.1, 8.2, 8.3) в counterMap
+                // формируем Map<String, CounterSpecial>
+                Map<String, CounterSpecial> counterSpecialMapUch = new HashMap<>();
                 for (Map.Entry<String, IndicatorType> entryType : counterName8.entrySet()) {
-//TODO
-// в Map<Long, Map<String, CounterSpecial>> counterMapSpecial  нужно проинициализировать Map<String, CounterSpecial>
-
+                    // ищем id для коунтера специального показателя
+                    String idCounter = null;
+                    for (Map.Entry<String, String> entryId : reportSetting.getCounterName().entrySet()) {
+                        if (entryId.getKey().equals(entryType.getKey())) {
+                            idCounter = entryId.getValue();
+                            break;
+                        }
+                    }
+                    if (idCounter != null) {
+                        CounterSpecial counterSpecial = createEmptyCounterSpecial(idCounter);
+                        counterSpecialMapUch.put(entryType.getKey(), counterSpecial);
+                    }
                 }
+                counterMapSpecial.put(uchInf.getId(), counterSpecialMapUch);
                 //Пройтись по каждому заявлению и посчитать счетчики
-                processForInd8(reportSetting.getCurrDate(), inqryInd8UchInfs);
+                processForInd8(reportSetting.getCurrDate(), inqryInd8UchInfs, counterSpecialMapUch);
 
-/*
-                for (Map.Entry<Long, Map<String, Counter>> entry : counterMap.entrySet()) {
-//            System.out.println("Key: " + entry.getKey() + " Value: " + entry.getValue());
-                    Map<String, Counter> entryCounter = entry.getValue();
-                    for (Map.Entry<String, IndicatorType> entryType : counterName8.entrySet()) {
-                        // ищем id для коунтера
-                        String idCounter = null;
-                        for (Map.Entry<String, String> entryId : reportSetting.getCounterName().entrySet()) {
-                            if (entryId.getKey().equals(entryType.getKey())) {
-                                idCounter = entryId.getValue();
-                                break;
-                            }
-                        }
-                        if (idCounter != null) {
-                            Counter counter = new Counter();
-                            counter.setId(idCounter);
-                            AgeItemSpecial
-                            counter.getAge().add()
-                            entryCounter.put(entryType.getKey(), counter);
-                        }
-                    }
-                }
-*/
-
-/*
-                for (CounterConfig counterConfig : inqryCounters) {
-                    Counter counter = counterMap.get(uchInf.getId())
-                            .computeIfAbsent(counterConfig.getCounterDef().getId(),
-                                    counterId -> new Counter(counterConfig.getCounterDef()));
-                }
-                if (inqryInd8UchInfs != null && inqryCounters != null) {
-                    for (InqryInd8Inf inqryInd8Inf : inqryInd8UchInfs) {
-                        //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
-                        for (CounterConfig counterConfig : inqryCounters) {
-                            if (counterConfig.isPassed(reportSetting.getCurrDate(),
-                                    reportSetting.getCurrEducDate(), inqryInd8Inf)) {
-                                Collection<TypeAgeRange> ageRanges =
-                                        counterConfig.getCounterDef().getAgeRange()
-                                                .getAgeRanges(reportSetting.getCurrDate(), inqryInd8Inf);
-                                if (ageRanges != null && !ageRanges.isEmpty()) {
-                                    // Посчитать элемент
-                                    Counter counter = counterMap.get(uchInf.getId())
-                                            .get(counterConfig.getCounterDef().getId());
-                                    counter.count(inqryInd8Inf, ageRanges);
-                                }
-                            }
-                        }
-                    }
-                }
-*/
             }
             if (counterMapSpecial.size() > 0) {
                 log.info("Counters Special: {}", counterMapSpecial);
             }
         }
         return counterMapSpecial;
+    }
+
+    private CounterSpecial createEmptyCounterSpecial(String idCounter) {
+        CounterSpecial counterSpecial = new CounterSpecial();
+        counterSpecial.setId(idCounter);
+        for (TypeAgeRange agerange : getTypeAge8SpecialRange()) {
+            AgeItemSpecial ageItemSpecial = new AgeItemSpecial();
+            ageItemSpecial.setCategory(agerange);
+            ageItemSpecial.setValue(reportSetting.getEmptyValueAge8Special());
+            counterSpecial.getAgeItemSpecials().add(ageItemSpecial);
+        }
+        return counterSpecial;
+    }
+
+    private List<TypeAgeRange> getTypeAge8SpecialRange() {
+        List<TypeAgeRange> typeAge8SpecialRanges = new ArrayList<>();
+        typeAge8SpecialRanges.add(TypeAgeRange.t_m2_to_y1);
+        typeAge8SpecialRanges.add(TypeAgeRange.t_y1_to_y2);
+        typeAge8SpecialRanges.add(TypeAgeRange.t_y2_to_y3);
+        typeAge8SpecialRanges.add(TypeAgeRange.t_y3_to_y4);
+        typeAge8SpecialRanges.add(TypeAgeRange.t_y4_to_y5);
+        typeAge8SpecialRanges.add(TypeAgeRange.t_y5_to_y6);
+        typeAge8SpecialRanges.add(TypeAgeRange.t_y6_to_y7);
+        typeAge8SpecialRanges.add(TypeAgeRange.t_y7_plus);
+
+        return typeAge8SpecialRanges;
     }
 
     private void countPeriodLength(List<InqryInd8Inf> inqryInd8Infs) {
@@ -200,8 +186,9 @@ public class InqryCountersProvider {
         }
     }
 
-    private void processForInd8(Date currDate, List<InqryInd8Inf> inqryInd8Infs) {
-        if (currDate == null || inqryInd8Infs.isEmpty()) {
+    private void processForInd8(Date currDate, List<InqryInd8Inf> inqryInd8Infs,
+                                Map<String, CounterSpecial> counterSpecialMapUch) {
+        if (currDate == null || inqryInd8Infs == null || inqryInd8Infs.isEmpty()) {
             return;
         }
         int[] i_8 = {0, 0, 0, 0, 0, 0, 0, 0},
@@ -243,9 +230,53 @@ public class InqryCountersProvider {
         log.debug("Данные по казателям 8 : \r\n8:\r\n{}\r\n{}\r\n8.1:\r\n{}\r\n{}\r\n" +
                         "8.2:\r\n{}\r\n{}\r\n8.3:\r\n{}\r\n{}",
                 i_8, i_8_cnt, i_8_1, i_8_1_cnt, i_8_2, i_8_2_cnt, i_8_3, i_8_3_cnt);
-        // нужно преобразовать и записать в TagSingleOrganization
+        // нужно преобразовать и записать в CounterSpecial
+        for (Map.Entry<String, CounterSpecial> entryCounter8 : counterSpecialMapUch.entrySet()) {
+            CounterSpecial counterSpecial = entryCounter8.getValue();
+            if (entryCounter8.getKey().equals("counter-8")) {
+                counterSpecialMapUch.put(entryCounter8.getKey(),
+                        initInProcessForInd_8(i_8, i_8_cnt, counterSpecial));
+            } else if (entryCounter8.getKey().equals("counter-8.1")) {
+                counterSpecialMapUch.put(entryCounter8.getKey(),
+                        initInProcessForInd_8(i_8_1, i_8_1_cnt, counterSpecial));
+            } else if (entryCounter8.getKey().equals("counter-8.2")) {
+                counterSpecialMapUch.put(entryCounter8.getKey(),
+                        initInProcessForInd_8(i_8_2, i_8_2_cnt, counterSpecial));
+            } else if (entryCounter8.getKey().equals("counter-8.3")) {
+                counterSpecialMapUch.put(entryCounter8.getKey(),
+                        initInProcessForInd_8(i_8_3, i_8_3_cnt, counterSpecial));
+            }
+        }
 
+    }
 
+    private CounterSpecial initInProcessForInd_8(int[] totalPeriod,
+                                                        int[] count,
+                                                        CounterSpecial counterSpecial) {
+        for (int i = 0; i < 7; i++) {
+            counterSpecial.getAgeItemSpecials().get(i)
+                    .setValue(getValueInProcessForInd_8(totalPeriod[i], count[i]));
+        }
+
+        return counterSpecial;
+    }
+
+    private String getValueInProcessForInd_8(int totalPeriod, int count) {
+        String rezult = reportSetting.getEmptyValueAge8Special();
+        if (count != 0) {
+            double d = (double) totalPeriod / (count * InqryInd8Inf.s_norm_coeff_days2months);
+            rezult = df.format(d);
+        }
+
+        return rezult;
+    }
+
+    private final static DecimalFormat df;
+    static {
+        df = new DecimalFormat("#0.0");
+        DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
+        dfs.setDecimalSeparator('.');
+        df.setDecimalFormatSymbols(dfs);
     }
 
     private static Integer calcIndexInProcessForInd_8(Date currDate,
