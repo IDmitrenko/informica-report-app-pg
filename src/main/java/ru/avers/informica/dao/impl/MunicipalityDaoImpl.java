@@ -104,27 +104,43 @@ public class MunicipalityDaoImpl implements MunicipalityDao {
                     Integer idTer = municipalityInf.getIdTer();
                     if (noDooAct_0_3.containsKey(idTer)) {
                         municipalityInf.setNoDooAct_0_3(noDooAct_0_3.get(idTer));
+                    } else {
+                        municipalityInf.setNoDooAct_0_3(0);
                     }
                     if (noDooAct_3_7.containsKey(idTer)) {
                         municipalityInf.setNoDooAct_3_7(noDooAct_3_7.get(idTer));
+                    } else {
+                        municipalityInf.setNoDooAct_3_7(0);
                     }
                     if (noDooDef_0_3.containsKey(idTer)) {
                         municipalityInf.setNoDooDef_0_3(noDooDef_0_3.get(idTer));
+                    } else {
+                        municipalityInf.setNoDooDef_0_3(0);
                     }
                     if (noDooDef_3_7.containsKey(idTer)) {
                         municipalityInf.setNoDooDef_3_7(noDooDef_3_7.get(idTer));
+                    } else {
+                        municipalityInf.setNoDooDef_3_7(0);
                     }
                     if (medic_0_3.containsKey(idTer)) {
                         municipalityInf.setMedic_0_3(medic_0_3.get(idTer));
+                    } else {
+                        municipalityInf.setMedic_0_3(0);
                     }
                     if (medic_3_7.containsKey(idTer)) {
                         municipalityInf.setMedic_3_7(medic_3_7.get(idTer));
+                    } else {
+                        municipalityInf.setMedic_3_7(0);
                     }
                     if (family_0_3.containsKey(idTer)) {
                         municipalityInf.setFamily_0_3(family_0_3.get(idTer));
+                    } else {
+                        municipalityInf.setFamily_0_3(0);
                     }
                     if (family_3_7.containsKey(idTer)) {
                         municipalityInf.setFamily_3_7(family_3_7.get(idTer));
+                    } else {
+                        municipalityInf.setFamily_3_7(0);
                     }
                 }
 

@@ -35,9 +35,13 @@ public class ReportSetting {
     private String statusCodeInd8;      // код статуса заявления для ind_8
     private int shiftYear;              // сдвиг для года от текущей даты для работы с ind_8
     private final String emptyValueAge8Special = "-";  // Значение по умолчанию для Age8Special
+    private String webappPath;          // корень web-приложения
+    private String tempPath;            // путь к директории временных файлов
 
     @PostConstruct
     public void init() {
+//        webappPath = context.getRealPath("/");
+        tempPath = context.getClassLoader().getResource("temp").getPath();
         String absolutePath = context.getClassLoader().getResource("config").getPath();
         CHelper.setAppHomeFolder(absolutePath);
         cProfile = CHelper.getConfigProfile();

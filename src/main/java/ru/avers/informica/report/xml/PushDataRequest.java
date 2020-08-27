@@ -26,8 +26,6 @@ import java.io.OutputStream;
 @Getter
 public class PushDataRequest implements IDTO {
 
-    protected TypeSchemaVersion schemaVersion;
-
     public PushDataRequest() {
     }
 
@@ -36,6 +34,8 @@ public class PushDataRequest implements IDTO {
     }
 
     @XmlElement(name = "schema_version", required = true, defaultValue = "5.0")
+    protected TypeSchemaVersion schemaVersion;
+/*
     public TypeSchemaVersion getSchemaVersion() {
         return schemaVersion;
     }
@@ -43,7 +43,7 @@ public class PushDataRequest implements IDTO {
     public void setSchemaVersion(TypeSchemaVersion typeSchemaVersion) {
         this.schemaVersion = typeSchemaVersion;
     }
-
+*/
     @XmlElement(required = true)
     protected TagSystem system;
     @XmlElement(required = true)
