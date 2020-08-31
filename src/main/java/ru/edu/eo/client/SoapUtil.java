@@ -109,10 +109,7 @@ public class SoapUtil {
         x_cnn.close();  
         return x_rv;
     }
-    
-    
-    
-    
+
     static public Map.Entry<SOAPMessage, String> createSOAPMessageEnc(InputStream p_is, boolean p_is_write_xml_decl)
                                         throws ParserConfigurationException, SAXException, IOException, SOAPException {
         Map.Entry<SOAPMessage, String> x_rv = null;

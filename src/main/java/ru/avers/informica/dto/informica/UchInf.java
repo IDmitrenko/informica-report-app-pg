@@ -58,4 +58,6 @@ public class UchInf {
 
     private List<BuildingInf> buildingInfs;  // список зданий учреждения
 
+    private SpecialistsInf specialistsInf;   // специалисты учреждения
+
 }

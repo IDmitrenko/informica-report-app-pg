@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.impl.BuildingDaoImpl;
+import ru.avers.informica.dao.impl.SpecialistsDaoImpl;
 import ru.avers.informica.dto.informica.UchInf;
 import ru.avers.informica.report.ReportSetting;
 
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 public class UchMapper implements RowMapper<UchInf> {
 
     private final BuildingDaoImpl buildingDao;
+    private final SpecialistsDaoImpl specialistsDao;
     private final ReportSetting reportSetting;
 
     @Override
@@ -71,6 +73,9 @@ public class UchMapper implements RowMapper<UchInf> {
             uchInf.setBuildingInfs(buildingDao.getBuildingsUch(uchInf.getId()));
         }
 
+        if (!reportSetting.isFirstOccurrence()) {
+            uchInf.setSpecialistsInf(specialistsDao.getSpecialistsUch(uchInf.getId()));
+        }
         return uchInf;
     }
 }

@@ -106,7 +106,7 @@ public class GroupDaoImpl implements GroupDao {
             ") as enrolled " +
 */
             "(select count(sp.out_id_pupil) " +
-            " from school_pupil(cl.uch, current_date, 1, 2, 3) sp " +
+            " from school_pupil(cl.uch, :currDate, 1, 2, 3) sp " +
             " inner join inclass ic on ic.id_inclass = sp.out_id_inclass " +
             " where sp.out_class_num = cl.class_num and sp.out_stream_let = cl.stream_let and " +
             "       (sp.out_d_leave is null or sp.out_d_leave > :currDate) and " +
