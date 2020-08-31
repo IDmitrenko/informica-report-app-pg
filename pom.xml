@@ -94,6 +94,12 @@
             <artifactId>jaxws-api</artifactId>
             <version>2.3.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-ri</artifactId>
+            <version>2.3.0</version>
+            <type>pom</type>
+        </dependency>
     </dependencies>
 
     <build>
@@ -102,6 +108,32 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--<plugin>-->
+                <!--&lt;!&ndash;<groupId>org.jvnet.jax-ws-commons</groupId>&ndash;&gt;-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>jaxws-maven-plugin</artifactId>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<goals>-->
+                            <!--<goal>wsimport</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--<wsdlDirectory>src\main\resources\eotv3.dev.informika.ru_8080\services</wsdlDirectory>-->
+                            <!--<wsdlFiles>-->
+                                <!--<wsdlFile>pushData.wsdl</wsdlFile>-->
+                            <!--</wsdlFiles>-->
+                            <!--<packageName>ru.edu.eo</packageName>-->
+                            <!--&lt;!&ndash;<wsdlLocation>http://eotv3.dev.informika.ru:8080/services/pushData?wsdl</wsdlLocation>&ndash;&gt;-->
+                        <!--</configuration>-->
+                        <!--<id>wsimport-generate-pushData</id>-->
+                        <!--<phase>generate-sources</phase>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+                <!--<configuration>-->
+                    <!--<extension>true</extension>-->
+                    <!--<catalog>${basedir}/src/jax-ws-catalog.xml</catalog>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 

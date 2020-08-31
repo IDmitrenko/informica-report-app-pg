@@ -12,6 +12,8 @@ import ru.avers.informica.report.ReportSetting;
 import ru.avers.informica.report.xml.PushDataRequest;
 import ru.avers.informica.utils.CHelper;
 import ru.avers.informica.utils.xml.CUtil;
+import ru.edu.eo.ResponsePushData;
+import ru.edu.eo.client.Dispatcher;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -124,18 +126,18 @@ public class ReportLauncher {
                         }
                     }
                 });
-                // передача результата через web-service
-/*
-                ResponsePushData responsePushData = org.avers.informica.ws.client.Dispatcher.pushDataEx(
-                        org.avers.informica.ws.client.Dispatcher.getService(null,
+                // передача результата через web-client
+
+                ResponsePushData responsePushData = ru.edu.eo.client.Dispatcher.pushDataEx(
+                        ru.edu.eo.client.Dispatcher.getService(null,
                                 handlerChain, null, null),
                         reportVer5Bytes,
-                        login,
-                        password,
+                        "login",
+                        "password",
                         IConst.s_schema_ver_2_0,
-                        ProcessMode.pushZipData,
+                        Dispatcher.ProcessMode.pushZipData,
                         Dispatcher.PushDataType.ToZipAndBase64);
-*/
+
 
             } catch (Exception ex) {
                 log.error("Ошибка сохранения отчета в файл.", ex);
