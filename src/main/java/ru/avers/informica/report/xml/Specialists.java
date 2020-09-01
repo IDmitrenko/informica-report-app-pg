@@ -68,6 +68,8 @@ public class Specialists {
     protected String num_F_Ophthalmologist;
     @XmlAttribute(name = "num_s_audiologist")
     protected String num_S_Audiologist;
+    @XmlAttribute(name = "num_f_audiologist")
+    protected String num_F_Audiologist;
 
     public String getNum_S_Psychologist() {
         if (num_S_Psychologist == null) {
@@ -391,6 +393,18 @@ public class Specialists {
 
     public void setNum_S_Audiologist(String value) {
         this.num_S_Audiologist = value;
+    }
+
+    public String getNum_F_Audiologist() {
+        if (num_F_Audiologist == null) {
+            return "0";
+        } else {
+            return num_F_Audiologist;
+        }
+    }
+
+    public void setNum_F_Audiologist(String value) {
+        this.num_F_Audiologist = value;
     }
 
 }

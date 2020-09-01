@@ -7,6 +7,7 @@ import ru.avers.informica.dao.impl.GroupActionsDaoImpl;
 import ru.avers.informica.dto.informica.GroupInf;
 import ru.avers.informica.dto.inqry.AgeDto;
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -19,6 +20,8 @@ public class GroupMapper implements RowMapper<GroupInf> {
     @Override
     public GroupInf mapRow(ResultSet rs, int rowNum) throws SQLException {
         GroupInf groupInf = new GroupInf();
+        String[] groupYears;
+
         groupInf.setId(rs.getInt("id"));
         groupInf.setIdUch(rs.getInt("idUch"));
         groupInf.setIdBuilding(rs.getInt("idBuilding"));
@@ -32,13 +35,19 @@ public class GroupMapper implements RowMapper<GroupInf> {
 */
         groupInf.setFym(rs.getString("fym"));
         groupInf.setTym(rs.getString("tym"));
-        String[] groupYears = groupInf.getFym().split(" ");
+        if (groupInf.getFym() == null) {
+            groupInf.setFym("0 2");
+        }
+        groupYears = groupInf.getFym().split(" ");
         groupInf.setAgeFromYears(Short.valueOf(groupYears[0]));
         groupInf.setAgeFromMonths(Short.valueOf(groupYears[1]));
+        groupInf.setAgeFrom(AgeDto.calcAge(groupInf.getAgeFromYears(), groupInf.getAgeFromMonths()));
+        if (groupInf.getTym() == null) {
+            groupInf.setTym("8 0");
+        }
         groupYears = groupInf.getTym().split(" ");
         groupInf.setAgeToYears(Short.valueOf(groupYears[0]));
         groupInf.setAgeToMonths(Short.valueOf(groupYears[1]));
-        groupInf.setAgeFrom(AgeDto.calcAge(groupInf.getAgeFromYears(), groupInf.getAgeFromMonths()));
         groupInf.setAgeTO(AgeDto.calcAge(groupInf.getAgeToYears(), groupInf.getAgeToMonths()));
 
         groupInf.setOrientation(rs.getString("orientation"));

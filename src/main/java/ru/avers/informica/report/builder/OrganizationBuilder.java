@@ -32,6 +32,7 @@ public class OrganizationBuilder {
     private final Age8Builder age8Builder;
     private final Age8SpecialBuilder age8SpecialBuilder;
     private final Age1Builder age1Builder;
+    private final SpecialistsBuilder specialistsBuilder;
     private final ReportSetting reportSetting;
 
     public TagOrganizations build(MunicipalityInf municipalityInf,
@@ -118,6 +119,8 @@ public class OrganizationBuilder {
                     age8SpecialBuilder.build(entry.getKey(), countersUchSpecial, organization);
             }
         }
+        organization.setSpecialists(specialistsBuilder.build(uchInf));
+
         return organization;
     }
 }
