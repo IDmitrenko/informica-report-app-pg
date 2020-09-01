@@ -13,6 +13,7 @@ import java.math.BigInteger;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "tag_single_organization", propOrder = {
     "buildings",
+    "specialists",
     "ind_1",
     "ind_1_1",
     "ind_2_1",
@@ -108,13 +109,14 @@ import java.math.BigInteger;
     "ind_32_2",
     "ind_33",
     "advisory_Centr",
-    "early_Assistant",
-    "specialists"
+    "early_Assistant"
 })
 public class TagSingleOrganization {
 
     @XmlElement(required = true)
     protected TagBuildings buildings;
+    @XmlElement(required = true)
+    protected Specialists specialists;
     @XmlElement(required = true)
     protected TagAge1 ind_1;
     @XmlElement(required = true)
@@ -307,8 +309,6 @@ public class TagSingleOrganization {
     protected AdvisoryCentr advisory_Centr;
     @XmlElement(name = "early_assistant", required = true)
     protected EarlyAssistant early_Assistant;
-    @XmlElement(required = true)
-    protected Specialists specialists;
     @XmlAttribute(name = "code", required = true)
     protected String code;
     @XmlAttribute(name = "name", required = true)

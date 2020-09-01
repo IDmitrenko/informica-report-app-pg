@@ -104,6 +104,7 @@ public class OrganizationBuilder {
         organization.setCentre_Game(uchInf.getCentreGame());
         organization.setCommet_Status(uchInf.getCommetStatus());
         organization.setBuildings(buildingsBuilder.build(uchInf));
+        organization.setSpecialists(specialistsBuilder.build(uchInf));
         for (Map.Entry<String, IndicatorType> entry : reportSetting.getCounterNameToAgeType().entrySet()) {
             switch (entry.getValue()) {
                 case AGE1:
@@ -119,7 +120,6 @@ public class OrganizationBuilder {
                     age8SpecialBuilder.build(entry.getKey(), countersUchSpecial, organization);
             }
         }
-        organization.setSpecialists(specialistsBuilder.build(uchInf));
 
         return organization;
     }
