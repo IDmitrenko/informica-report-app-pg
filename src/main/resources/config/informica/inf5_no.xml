@@ -18,16 +18,6 @@
                 <counter def="counter-4.2"/>
                 <counter def="counter-4.2.prev_inuch_dt"/>
 
-                <counter def="counter-14"/>
-                <counter def="counter-14-v4"/>
-                <counter def="counter-15"/>
-                <counter def="counter-15-v4"/>
-                <counter def="counter-16"/>
-                <counter def="counter-16-v4"/>
-                <counter def="counter-17"/>
-                <counter def="counter-17-v4"/>
-                <counter def="counter-17.1"/>
-                <counter def="counter-17.1-v4"/>
                 <counter def="counter-18"/>
                 <counter def="counter-18.1"/>
                 <counter def="counter-18.2"/>
@@ -170,47 +160,6 @@
             <age-range def="range-16"/>
         </counter-def>
 
-        <!-- 14 -->
-        <counter-def id="counter-14" name="14">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <filter field="healthNeedsRootCode" cmp="eq" value="03"/>
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 15 -->
-        <counter-def id="counter-15" name="15">
-            <filter field="typeCode" cmp="eq" value="99"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <!-- <Согласие на зачисление в группу по присмотру и уходу /> -->
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 16 -->
-        <counter-def id="counter-16" name="16">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-codes-list field="grpTimes" cmp="any" value="05"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 17 -->
-        <counter-def id="counter-17" name="17">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-codes-list field="grpTimes" cmp="eq" value="04"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <age-range def="range-16"/>
-        </counter-def>
-        <!-- 17.1 -->
-        <counter-def id="counter-17.1" name="17.1">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
-            <filter-codes-list field="grpTimes" cmp="neq" value="04"/>
-            <filter-codes-list field="grpTimes" cmp="any" value="04"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <age-range def="range-16"/>
-        </counter-def>
         <!-- 18 -->
         <counter-def id="counter-18" name="18">
             <filter field="typeCode" cmp="eq" value="01"/>
@@ -492,15 +441,6 @@
 
         <!-- Далее настройки расчёта показателей ТОЛЬКО ДЛЯ 4.0 версии отчёта -->
 
-        <!-- 14 -->
-        <counter-def id="counter-14-v4" name="14">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <filter field="healthNeedsRootCode" cmp="eq" value="03"/>
-            <age-range def="range-16"/>
-        </counter-def>
-
         <!-- 20.2 -->
         <counter-def id="counter-20.2-v4" name="20.2">
             <filter field="typeCode" cmp="eq" value="02"/>
@@ -524,42 +464,6 @@
             <filter field="statusCode" cmp="in" value="02"/>
             <filter-date field="inUchDt" cmp="gt" educDate="true"/>
             <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
-            <age-range def="range-16"/>
-        </counter-def>
-
-        <!-- 15 -->
-        <counter-def id="counter-15-v4" name="15">
-            <filter field="typeCode" cmp="eq" value="99"/>
-            <filter field="statusCode" cmp="in" value="02"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <age-range def="range-16"/>
-        </counter-def>
-
-        <!-- 16 -->
-        <counter-def id="counter-16-v4" name="16">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02"/>
-            <filter-codes-list field="grpTimes" cmp="any" value="05"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <age-range def="range-16"/>
-        </counter-def>
-
-        <!-- 17 -->
-        <counter-def id="counter-17-v4" name="17">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02"/>
-            <filter-codes-list field="grpTimes" cmp="eq" value="04"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
-            <age-range def="range-16"/>
-        </counter-def>
-
-        <!-- 17.1 -->
-        <counter-def id="counter-17.1-v4" name="17.1">
-            <filter field="typeCode" cmp="eq" value="01"/>
-            <filter field="statusCode" cmp="in" value="02"/>
-            <filter-codes-list field="grpTimes" cmp="neq" value="04"/>
-            <filter-codes-list field="grpTimes" cmp="any" value="04"/>
-            <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <age-range def="range-16"/>
         </counter-def>
 

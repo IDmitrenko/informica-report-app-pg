@@ -87,7 +87,12 @@ public class ReportSetting {
             {"counter-12", IndicatorType.AGE16},
             {"counter-12.1", IndicatorType.AGE16},
             {"counter-13", IndicatorType.AGE16},
-            {"counter-13.1", IndicatorType.AGE16}
+            {"counter-13.1", IndicatorType.AGE16},
+            {"counter-14", IndicatorType.AGE16},
+            {"counter-15", IndicatorType.AGE16},
+            {"counter-16", IndicatorType.AGE16},
+            {"counter-17", IndicatorType.AGE16},
+            {"counter-17.1", IndicatorType.AGE16}
             //TODO добавить остальные индикаторы
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (IndicatorType) data[1]));
 

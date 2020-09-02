@@ -34,6 +34,11 @@
                 <counter def="counter-12.1"/>
                 <counter def="counter-13"/>
                 <counter def="counter-13.1"/>
+                <counter def="counter-14"/>
+                <counter def="counter-15"/>
+                <counter def="counter-16"/>
+                <counter def="counter-17"/>
+                <counter def="counter-17.1"/>
 
             </source-inqry>
 
@@ -85,6 +90,7 @@
             <filter-codes-list field="grpTimes" cmp="eq" value="01"/>
             <!-- должно быть время пребывания только 01 -->
             <!-- eq - в заявлении должны быть все перечисленные значения cmp="eq" value="01 04" -->
+            <!-- neq - в заявлении не должны быть все перечисленные значения cmp="neq" value="01 04" -->
             <!-- any - любое из перечисленных значений должно быть в заявлении cmp="any" value="01 04" -->
             <!-- none - любое из перечисленных значений не должно быть в заявлении cmp="none" value="01 04" -->
             <age-range def="range-16"/>
@@ -223,6 +229,50 @@
             <filter field="healthNeedsCode" cmp="eq" value="02.01 02.02 02.03 02.04 02.05 02.06 02.07 02.08 02.09 02.10 02.11 04.02 04.03 04.04 04.05 04.06 04.07 04.08 04.09 04.10 04.11 04.12 04.13"/>
             <!-- <Согласие на общеразвивающую группу cmp="eq">
                  На данный момент показатель не работает -->
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 14 -->
+        <counter-def id="counter-14" name="ind_14">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter field="healthNeedsCode" cmp="in" value="03.01 03.02 03.03"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 15 -->
+        <counter-def id="counter-15" name="ind_15">
+            <filter field="typeCode" cmp="eq" value="9"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <!-- <Согласие на зачисление в группу по присмотру и уходу />
+                 На данный момент показатель не работает -->
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 16 -->
+        <counter-def id="counter-16" name="ind_16">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-codes-list field="grpTimes" cmp="any" value="05"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 17 -->
+        <counter-def id="counter-17" name="ind_17">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-codes-list field="grpTimes" cmp="eq" value="04"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 17.1 -->
+        <counter-def id="counter-17.1" name="ind_17_1">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-codes-list field="grpTimes" cmp="neq" value="04"/>
+            <filter-codes-list field="grpTimes" cmp="any" value="04"/>
+            <!-- Есть сомнения в работоспособности данного показателя
+                 Два взаимоисключающих условия -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <age-range def="range-16"/>
         </counter-def>
 
