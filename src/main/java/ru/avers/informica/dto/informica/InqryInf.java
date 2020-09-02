@@ -61,8 +61,8 @@ public class InqryInf implements IInformicaChildCountable, Application {
     private String prevHealthNeedsCode;     // направленность на начало текущего учебного года
  */
     private List<Collection<String>> inqryLgots;   // информация по кодам и типам льгот для заявления
-    private Collection<String> lgots,       //app.applications.id_app -> app.benefits.app_id ->           | code
-            lgotsType,   // app.benefits.benefit_csp -> app.v_dict_81_inqry_child_lgot | typ
+    private Collection<String> lgots,       //app.applications.id_app -> app.benefits.app_id ->  | code
+            lgotsType,   // app.benefits.benefit_csp -> app.v_dict_81_inqry_child_lgot           | typ
     // Информация по режиму посещения
     grpTimes;    // Old - (LIST)InqryDouGrpTime.id__dou_grp_time  CDict85DouGrpTime.Code
     //app.applications.id_app -> app.grp_time.app_id   ->

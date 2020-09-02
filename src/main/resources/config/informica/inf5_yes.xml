@@ -25,7 +25,16 @@
                 <counter def="counter-7.5"/>
                 <counter def="counter-7.6"/>
                 <counter def="counter-7.7"/>
+                <counter def="counter-9"/>
+                <counter def="counter-9.1"/>
                 <counter def="counter-10"/>
+                <counter def="counter-10.1"/>
+                <counter def="counter-11"/>
+                <counter def="counter-12"/>
+                <counter def="counter-12.1"/>
+                <counter def="counter-13"/>
+                <counter def="counter-13.1"/>
+
             </source-inqry>
 
         </source-uch>
@@ -141,16 +150,83 @@
             <filter-date field="inUchDt" cmp="le" educDate="true" yearOffset="1"/>
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
         </counter-def>
+        <!-- 9 -->
+        <counter-def id="counter-9" name="ind_9">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter-codes-list field="lgots" cmp="is not empty"/>
+            <age-range def="range-16" calcDay="1" calcMonth="8"/>
+        </counter-def>
+        <!-- 9.1 -->
+        <counter-def id="counter-9.1" name="ind_9_1">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter-codes-list field="lgots" cmp="is not empty"/>
+            <age-range def="range-16"/>
+        </counter-def>
         <!-- 10 -->
         <counter-def id="counter-10" name="ind_10">
             <filter field="typeCode" cmp="eq" value="1"/>
-            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
+            <filter field="statusCode" cmp="in" value="02"/>
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <filter-codes-list field="lgotsType" cmp="any" value="1"/>
-             <age-range def="range-1"/>
-         </counter-def>
+            <age-range def="range-1"/>
+        </counter-def>
+        <!-- 10.1 -->
+        <counter-def id="counter-10.1" name="ind_10_1">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter-codes-list field="lgots" cmp="any" value="10 27"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 11 -->
+        <counter-def id="counter-11" name="ind_11">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter-codes-list field="lgotsType" cmp="none" value="1"/>
+            <filter-codes-list field="lgots" cmp="is not empty"/>
+            <age-range def="range-1"/>
+        </counter-def>
+        <!-- 12 -->
+        <counter-def id="counter-12" name="ind_12">
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter field="healthNeedsCode" cmp="in" value="02.01 02.02 02.03 02.04 02.05 02.06 02.07 02.08 02.09 02.10 02.11 04.02 04.03 04.04 04.05 04.06 04.07 04.08 04.09 04.10 04.11 04.12 04.13"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 12.1 -->
+        <counter-def id="counter-12.1" name="ind_12_1">
+            <filter field="statusCode" cmp="in" value="04 06 12"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter field="healthNeedsCode" cmp="in" value="02.01 02.02 02.03 02.04 02.05 02.06 02.07 02.08 02.09 02.10 02.11 04.02 04.03 04.04 04.05 04.06 04.07 04.08 04.09 04.10 04.11 04.12 04.13"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 13 -->
+        <counter-def id="counter-13" name="ind_13">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter field="healthNeedsCode" cmp="eq" value="99.99"/>
+            <!-- <Согласие на общеразвивающую группу cmp="eq">
+                 На данный момент показатель не работает -->
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 13.1 -->
+        <counter-def id="counter-13.1" name="ind_13_1">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="04 06 12"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <filter field="healthNeedsCode" cmp="eq" value="02.01 02.02 02.03 02.04 02.05 02.06 02.07 02.08 02.09 02.10 02.11 04.02 04.03 04.04 04.05 04.06 04.07 04.08 04.09 04.10 04.11 04.12 04.13"/>
+            <!-- <Согласие на общеразвивающую группу cmp="eq">
+                 На данный момент показатель не работает -->
+            <age-range def="range-16"/>
+        </counter-def>
 
-     </counters-def>
+    </counters-def>
 
 
      <age-ranges-def>
