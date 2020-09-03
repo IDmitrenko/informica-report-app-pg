@@ -15,6 +15,7 @@
                 <counter def="counter-1.1"/>
                 <counter def="counter-2"/>
                 <counter def="counter-3"/>
+
                 <counter def="counter-5"/>
                 <counter def="counter-6"/>
                 <counter def="counter-7"/>
@@ -45,6 +46,13 @@
                 <counter def="counter-18.3"/>
                 <counter def="counter-18.4"/>
                 <counter def="counter-18.5"/>
+
+                <counter def="counter-19.3"/>
+                <counter def="counter-20"/>
+                <counter def="counter-20.1"/>
+                <counter def="counter-20.2"/>
+                <counter def="counter-20.3"/>
+                <counter def="counter-20.4"/>
 
             </source-inqry>
 
@@ -79,6 +87,7 @@
             <filter field="fromPortal" cmp="eq" value="false"/>
             <age-range def="range-16"/>
         </counter-def>
+
         <!-- 5 -->
         <counter-def id="counter-5" name="ind_5">
             <filter-date field="regDt" cmp="ge" educDate="true"/>
@@ -162,6 +171,7 @@
             <filter-date field="inUchDt" cmp="le" educDate="true" yearOffset="1"/>
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
         </counter-def>
+
         <!-- 9 -->
         <counter-def id="counter-9" name="ind_9">
             <filter field="typeCode" cmp="eq" value="1"/>
@@ -325,6 +335,52 @@
             <filter field="statusCode" cmp="in" value="02 06"/>
             <filter-date field="inUchDt" cmp="le"/>
             <increment-by-priorities value="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+
+        <!-- 19.3 -->
+        <counter-def id="counter-19.3" name="ind_19_3">
+            <filter field="statusCode" cmp="in" value="04 12"/>
+            <!--  (Убран статус 06 "Принято решение о выдаче путёвки" 19.07.2016 А.В.Гиль)-->
+            <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 20 -->
+        <counter-def id="counter-20" name="ind_20">
+            <filter field="typeCode" cmp="eq" value="2"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 20.1 -->
+        <counter-def id="counter-20.1" name="ind_20_1">
+            <filter field="typeCode" cmp="eq" value="2"/>
+            <filter field="statusCode" cmp="in" value="04 12"/>
+            <!-- Удалён статус 06 т.к. [20.1] <= [19.3] Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 20.2 -->
+        <counter-def id="counter-20.2" name="ind_20_2">
+            <filter field="typeCode" cmp="eq" value="2"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter field="healthNeedsCode" cmp="in" value="02.01 02.02 02.03 02.04 02.05 02.06 02.07 02.08 02.09 02.10 02.11 04.02 04.03 04.04 04.05 04.06 04.07 04.08 04.09 04.10 04.11 04.12 04.13"/>
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 20.3 -->
+        <counter-def id="counter-20.3" name="ind_20_3">
+            <filter field="typeCode" cmp="eq" value="2"/>
+            <filter field="statusCode" cmp="in" value="02"/>
+            <filter-date field="inUchDt" cmp="gt" educDate="true"/>
+            <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 20.4 -->
+        <counter-def id="counter-20.4" name="ind_20_4">
+            <filter field="typeCode" cmp="eq" value="2"/>
+            <filter field="statusCode" cmp="in" value="02 04 06 12"/>
+            <filter-date field="inUchDt" cmp="ge" educDate="true" yearOffset="1"/>
             <age-range def="range-16"/>
         </counter-def>
 
