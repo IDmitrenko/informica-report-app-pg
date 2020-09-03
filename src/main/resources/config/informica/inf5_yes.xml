@@ -39,6 +39,12 @@
                 <counter def="counter-16"/>
                 <counter def="counter-17"/>
                 <counter def="counter-17.1"/>
+                <counter def="counter-18"/>
+                <counter def="counter-18.1"/>
+                <counter def="counter-18.2"/>
+                <counter def="counter-18.3"/>
+                <counter def="counter-18.4"/>
+                <counter def="counter-18.5"/>
 
             </source-inqry>
 
@@ -273,6 +279,52 @@
             <!-- Есть сомнения в работоспособности данного показателя
                  Два взаимоисключающих условия -->
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 18 -->
+        <counter-def id="counter-18" name="ind_18">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <!-- Добавлен статус 06 (удалён из 18.3 и 19.3) Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16" calcDay="1" calcMonth="8"/>
+        </counter-def>
+        <!-- 18.1 -->
+        <counter-def id="counter-18.1" name="ind_18_1">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <!-- Добавлен статус 06 (удалён из 18.3 и 19.3) Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 18.2 -->
+        <counter-def id="counter-18.2" name="ind_18_2">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <!-- Добавлен статус 06 (удалён из 18.3 и 19.3) Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16" calcDay="1" calcMonth="0" calcYearInc="1"/>
+        </counter-def>
+        <!-- 18.3 -->
+        <counter-def id="counter-18.3" name="ind_18_3">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="04 12"/>
+            <!-- Удалён статус 06 (перенесён в 18.1) Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 18.4 -->
+        <counter-def id="counter-18.4" name="ind_18_4">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <filter-date field="inUchDt" cmp="le"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 18.5 -->
+        <counter-def id="counter-18.5" name="ind_18_5">
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <filter-date field="inUchDt" cmp="le"/>
+            <increment-by-priorities value="true"/>
             <age-range def="range-16"/>
         </counter-def>
 
