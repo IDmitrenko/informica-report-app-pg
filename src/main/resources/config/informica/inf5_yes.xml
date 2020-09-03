@@ -54,6 +54,13 @@
                 <counter def="counter-20.3"/>
                 <counter def="counter-20.4"/>
 
+                <counter def="counter-30.inq.act"/>
+                <counter def="counter-30.inq.sent"/>
+                <counter def="counter-30.1.inq.act"/>
+                <counter def="counter-30.1.inq.sent"/>
+                <counter def="counter-30.2.inq.act"/>
+                <counter def="counter-30.2.inq.sent"/>
+
             </source-inqry>
 
         </source-uch>
@@ -171,7 +178,7 @@
             <filter-date field="inUchDt" cmp="le" educDate="true" yearOffset="1"/>
             <age-range def="range-16" calcDay="1" calcMonth="8"/>
         </counter-def>
-
+        <!-- ind_8, ind_8_1, ind_8_2, ind_8_3  считаются по внутреннему алгоритму -->
         <!-- 9 -->
         <counter-def id="counter-9" name="ind_9">
             <filter field="typeCode" cmp="eq" value="1"/>
@@ -338,7 +345,7 @@
             <age-range def="range-16"/>
         </counter-def>
 
-        <!-- 19.3 -->
+        <!-- 19.3  TODO - считается по внутреннему алгоритму -->
         <counter-def id="counter-19.3" name="ind_19_3">
             <filter field="statusCode" cmp="in" value="04 12"/>
             <!--  (Убран статус 06 "Принято решение о выдаче путёвки" 19.07.2016 А.В.Гиль)-->
@@ -352,7 +359,7 @@
             <filter-date field="inUchDt" cmp="le" educDate="true"/>
             <age-range def="range-16"/>
         </counter-def>
-        <!-- 20.1 -->
+        <!-- 20.1  TODO - считается по внутреннему алгоритму -->
         <counter-def id="counter-20.1" name="ind_20_1">
             <filter field="typeCode" cmp="eq" value="2"/>
             <filter field="statusCode" cmp="in" value="04 12"/>
@@ -382,6 +389,50 @@
             <filter field="statusCode" cmp="in" value="02 04 06 12"/>
             <filter-date field="inUchDt" cmp="ge" educDate="true" yearOffset="1"/>
             <age-range def="range-16"/>
+        </counter-def>
+
+        <!-- 29.1  TODO - считается по внутреннему алгоритму -->
+
+        <!-- 30 TODO - нужно разобраться
+        1) с отбором
+        2) проверить обьединение информации по name -->
+        <counter-def id="counter-30.inq.act" name="ind_30">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <!-- Cтатус 06 перенесён из counter-30.1.inq.sent т.к. 30=30.1 Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16" calcDay="1" calcMonth="8"/>
+        </counter-def>
+        <counter-def id="counter-30.inq.sent" name="ind_30">
+            <filter field="statusCode" cmp="in" value="04 12"/>
+            <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
+            <age-range def="range-16" calcDay="1" calcMonth="8"/>
+        </counter-def>
+        <!-- 30.1 -->
+        <counter-def id="counter-30.1.inq.act" name="ind_30_1">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <!-- Cтатус 06 перенесён из counter-30.1.inq.sent Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <counter-def id="counter-30.1.inq.sent" name="ind_30_1">
+            <filter field="statusCode" cmp="in" value="04 12"/>
+            <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 30.2 -->
+        <counter-def id="counter-30.2.inq.act" name="ind_30_2">
+            <filter field="typeCode" cmp="eq" value="1"/>
+            <filter field="statusCode" cmp="in" value="02 06"/>
+            <!-- Cтатус 06 перенесён из counter-30.1.inq.sent Задача #17719 -->
+            <filter-date field="inUchDt" cmp="le" educDate="true"/>
+            <age-range def="range-16" calcDay="1" calcMonth="0" calcYearInc="1"/>
+        </counter-def>
+        <counter-def id="counter-30.2.inq.sent" name="ind_30_2">
+            <filter field="statusCode" cmp="in" value="04 12"/>
+            <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
+            <age-range def="range-16" calcDay="1" calcMonth="0" calcYearInc="1"/>
         </counter-def>
 
     </counters-def>

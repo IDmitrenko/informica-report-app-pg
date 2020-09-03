@@ -60,6 +60,7 @@ public class ReportSetting {
     }
 
     //TODO Когда будут добавляться enrolled  счетчики надо учесть что ключи будут одинаковые!!!
+    // Ключи будут разные !!!
     Map<String, IndicatorType> counterNameToAgeType = Stream.of(new Object[][]{
             {"counter-1", IndicatorType.AGE1},
             {"counter-1.1", IndicatorType.AGE16},
@@ -105,7 +106,15 @@ public class ReportSetting {
             {"counter-20.1", IndicatorType.AGE16},
             {"counter-20.2", IndicatorType.AGE16},
             {"counter-20.3", IndicatorType.AGE16},
-            {"counter-20.4", IndicatorType.AGE16}
+            {"counter-20.4", IndicatorType.AGE16},
+
+            {"counter-30.inq.act", IndicatorType.AGE16},
+            {"counter-30.inq.sent", IndicatorType.AGE16},
+            {"counter-30.1.inq.act", IndicatorType.AGE16},
+            {"counter-30.1.inq.sent", IndicatorType.AGE16},
+            {"counter-30.2.inq.act", IndicatorType.AGE16},
+            {"counter-30.2.inq.sent", IndicatorType.AGE16}
+
             //TODO добавить остальные индикаторы
     }).collect(Collectors.toMap(data -> (String) data[0], data -> (IndicatorType) data[1]));
 
