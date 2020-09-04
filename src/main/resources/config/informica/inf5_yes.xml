@@ -15,6 +15,9 @@
                 <counter def="counter-1.1"/>
                 <counter def="counter-2"/>
                 <counter def="counter-3"/>
+                <counter def="counter-4"/>
+                <counter def="counter-4.1"/>
+                <counter def="counter-4.2"/>
 
                 <counter def="counter-5"/>
                 <counter def="counter-6"/>
@@ -61,6 +64,9 @@
                 <counter def="counter-30.2.inq.act"/>
                 <counter def="counter-30.2.inq.sent"/>
 
+                <counter def="counter-32.1.inq"/>
+                <counter def="counter-32.2"/>
+                <counter def="counter-33"/>
             </source-inqry>
 
         </source-uch>
@@ -92,6 +98,32 @@
             <filter-date field="regDt" cmp="ge" day="1" month="0"/>
             <filter-date field="regDt" cmp="le"/>
             <filter field="fromPortal" cmp="eq" value="false"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 4 TODO - осталось добавить аудит -->
+        <counter-def id="counter-4" name="ind_4">
+            <filter-date field="regDt" cmp="ge" educDate="true"/>
+            <filter-date field="regDt" cmp="le"/>
+            <filter-date field="inUchDt" cmp="ge" educDate="true"/>
+            <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 4.1 TODO - осталось добавить аудит -->
+        <counter-def id="counter-4.1" name="ind_4_1">
+            <filter-date field="regDt" cmp="ge" educDate="true"/>
+            <filter-date field="regDt" cmp="le"/>
+            <filter-date field="inUchDt" cmp="ge" educDate="true"/>
+            <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
+            <filter field="healthNeedsCode" cmp="in" value="02.01 02.02 02.03 02.04 02.05 02.06 02.07 02.08 02.09 02.10 02.11 04.02 04.03 04.04 04.05 04.06 04.07 04.08 04.09 04.10 04.11 04.12 04.13"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 4.2 TODO - осталось добавить аудит -->
+        <counter-def id="counter-4.2" name="ind_4_2">
+            <filter-date field="regDt" cmp="ge" educDate="true"/>
+            <filter-date field="regDt" cmp="le"/>
+            <filter-date field="inUchDt" cmp="ge" educDate="true"/>
+            <filter-date field="inUchDt" cmp="lt" educDate="true" yearOffset="1"/>
+            <filter field="healthNeedsCode" cmp="in" value="03.01 03.02 03.03"/>
             <age-range def="range-16"/>
         </counter-def>
 
@@ -433,6 +465,28 @@
             <filter field="statusCode" cmp="in" value="04 12"/>
             <!-- <filter-date field="inUchDt" cmp="le" educDate="true"/> (Добавлено 20.05.2016 Задача #17150)-->
             <age-range def="range-16" calcDay="1" calcMonth="0" calcYearInc="1"/>
+        </counter-def>
+
+        <!-- 32.1 собирается из двух источников inqry и enrolled -->
+        <counter-def id="counter-32.1.inq" name="ind_32_1">
+            <filter field="statusCode" cmp="in" value="04 12 13"/>
+            <filter-date field="statusSetDate" cmp="ge" day="1" month="0"/>
+            <filter-date field="statusSetDate" cmp="le"/>
+            <age-range def="range-16"/>
+        </counter-def>
+
+        <!-- 32.2 -->
+        <counter-def id="counter-32.2" name="ind_32_2">
+            <filter field="statusCode" cmp="in" value="13"/>
+            <filter-date field="statusSetDate" cmp="ge" day="1" month="0"/>
+            <filter-date field="statusSetDate" cmp="le"/>
+            <age-range def="range-16"/>
+        </counter-def>
+        <!-- 33 -->
+        <counter-def id="counter-33" name="ind_33">
+            <filter field="haveRefusedStatus" cmp="eq" value="true"/>
+            <filter field="statusCode" cmp="in" value="08 09"/>
+            <age-range def="range-1"/>
         </counter-def>
 
     </counters-def>
