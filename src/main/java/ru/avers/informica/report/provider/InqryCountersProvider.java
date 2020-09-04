@@ -6,6 +6,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dto.CAge;
+import ru.avers.informica.dto.informica.InqryInd19_3Inf;
 import ru.avers.informica.dto.informica.InqryInd8Inf;
 import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.dto.informica.UchInf;
@@ -76,6 +77,67 @@ public class InqryCountersProvider {
         }
         if (counterMap.size() > 0) {
             log.info("Counters: {}", counterMap);
+        }
+        return counterMap;
+    }
+
+    public Map<Long, Map<String, Counter>> provideCountersManual(
+            Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas,
+            Map<Long, Map<String, Counter>> counterMap)
+            throws ReportExceprion, FilterException, FspeoException {
+        // Map по всем учреждениям - учреждения и его заявления
+        Map<Long, List<InqryInd19_3Inf>> inqryByUchMap = reportDataProvider.getInqriesInd19_3().stream()
+                .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
+
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+            //Учреждение
+            UchInf uchInf = uchInfSchema.getUchInf();
+            //Счетчики учреждения
+            List<CounterConfig> inqryCounters = uchInfSchema.getSchema().getSource().getInqryCounters();
+            // выбрать счетчики для показателей, рассчитываемых отдельно
+            List<CounterConfig> manualCounters = new ArrayList<>();
+            for (CounterConfig counter : inqryCounters) {
+                for (String counterManual : reportSetting.getCountersManual()) {
+                    if (counterManual.equals(counter.getCounterDef().getId())) {
+                        manualCounters.add(counter);
+                    }
+                }
+            }
+            inqryCounters = null;
+            //Заявления текущего учреждения
+            List<InqryInd19_3Inf> inqryManualInfs = inqryByUchMap.get(uchInf.getId());
+            //Пройтись по каждому заявлению и посчитать счетчики
+
+            //Инициализация счетчиков значениями по умолчанию
+            for (CounterConfig counterConfig : manualCounters) {
+                Counter counter = counterMap.get(uchInf.getId())
+                        .computeIfPresent(counterConfig.getCounterDef().getId(),
+                                (k, v) -> v != null ?
+                                        new Counter(counterConfig.getCounterDef()) :
+                                        new Counter(counterConfig.getCounterDef()));
+            }
+            if (inqryManualInfs != null && manualCounters != null) {
+                for (InqryInd19_3Inf inqryInf : inqryManualInfs) {
+                    //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
+                    for (CounterConfig counterConfig : manualCounters) {
+                        if (counterConfig.isPassed(reportSetting.getCurrDate(),
+                                reportSetting.getCurrEducDate(), inqryInf)) {
+                            Collection<TypeAgeRange> ageRanges =
+                                    counterConfig.getCounterDef().getAgeRange()
+                                            .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
+                            if (ageRanges != null && !ageRanges.isEmpty()) {
+                                // Посчитать элемент
+                                Counter counter = counterMap.get(uchInf.getId())
+                                        .get(counterConfig.getCounterDef().getId());
+                                counter.count(inqryInf, ageRanges);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (counterMap.size() > 0) {
+            log.info("Добавили countersManual. Counters: {}", counterMap);
         }
         return counterMap;
     }
@@ -161,13 +223,13 @@ public class InqryCountersProvider {
     }
 
     private void countPeriodLength(List<InqryInd8Inf> inqryInd8Infs) {
-        for (InqryInd8Inf ind8 : inqryInd8Infs ) {
+        for (InqryInd8Inf ind8 : inqryInd8Infs) {
             int idUch = ind8.getIdUch();
             Date stsDt = ind8.getStsDt(),
-                 wishDt = ind8.getWishDt();
+                    wishDt = ind8.getWishDt();
             if (stsDt != null && wishDt != null) {
                 DateTime start = new DateTime(wishDt),
-                         stop = new DateTime(stsDt);
+                        stop = new DateTime(stsDt);
                 Days days = Days.daysBetween(start, stop);
                 int val = Days.ZERO.isGreaterThan(days) ? 0 : days.getDays();
                 ind8.setPeriodLength(val);
@@ -192,13 +254,13 @@ public class InqryCountersProvider {
             return;
         }
         int[] i_8 = {0, 0, 0, 0, 0, 0, 0, 0},
-              i_8_1 = {0, 0, 0, 0, 0, 0, 0, 0},
-              i_8_2 = {0, 0, 0, 0, 0, 0, 0, 0},
-              i_8_3 = {0, 0, 0, 0, 0, 0, 0, 0};
+                i_8_1 = {0, 0, 0, 0, 0, 0, 0, 0},
+                i_8_2 = {0, 0, 0, 0, 0, 0, 0, 0},
+                i_8_3 = {0, 0, 0, 0, 0, 0, 0, 0};
         int[] i_8_cnt = {0, 0, 0, 0, 0, 0, 0, 0},
-              i_8_1_cnt = {0, 0, 0, 0, 0, 0, 0, 0},
-              i_8_2_cnt = {0, 0, 0, 0, 0, 0, 0, 0},
-              i_8_3_cnt = {0, 0, 0, 0, 0, 0, 0, 0};
+                i_8_1_cnt = {0, 0, 0, 0, 0, 0, 0, 0},
+                i_8_2_cnt = {0, 0, 0, 0, 0, 0, 0, 0},
+                i_8_3_cnt = {0, 0, 0, 0, 0, 0, 0, 0};
         Map<Date, Integer> calc = new HashMap<>();
         for (InqryInd8Inf ind8 : inqryInd8Infs) {
             Date birthDt = ind8.getBirthDt();
@@ -251,8 +313,8 @@ public class InqryCountersProvider {
     }
 
     private CounterSpecial initInProcessForInd_8(int[] totalPeriod,
-                                                        int[] count,
-                                                        CounterSpecial counterSpecial) {
+                                                 int[] count,
+                                                 CounterSpecial counterSpecial) {
         for (int i = 0; i < 7; i++) {
             counterSpecial.getAgeItemSpecials().get(i)
                     .setValue(getValueInProcessForInd_8(totalPeriod[i], count[i]));
@@ -272,6 +334,7 @@ public class InqryCountersProvider {
     }
 
     private final static DecimalFormat df;
+
     static {
         df = new DecimalFormat("#0.0");
         DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
@@ -285,7 +348,7 @@ public class InqryCountersProvider {
         Integer rv = calc.get(birthDt);
         if (rv == null) {
             AgeDto ageDto = AgeDto.calculateAge(currDate, birthDt);
-            CAge chldAge = new CAge((int)ageDto.getYears(), (int)ageDto.getMonths(), (int)ageDto.getDays());
+            CAge chldAge = new CAge((int) ageDto.getYears(), (int) ageDto.getMonths(), (int) ageDto.getDays());
             if (TypeAgeRange.t_m2_to_y1.getAgeInterval().containsLeft(chldAge)) {
                 rv = 0;
             } else if (TypeAgeRange.t_y1_to_y2.getAgeInterval().containsLeft(chldAge)) {

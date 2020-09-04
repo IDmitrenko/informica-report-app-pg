@@ -12,10 +12,7 @@ import ru.avers.informica.utils.DateUtil;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -32,7 +29,6 @@ public class ReportSetting {
     private Integer currEducYear;       // текущий учебный год
     private CProfile cProfile;          // config.xml отчета
     private boolean isFirstOccurrence;  // признак первого вхождения
-    private String statusCodeInd8;      // код статуса заявления для ind_8
     private int shiftYear;              // сдвиг для года от текущей даты для работы с ind_8
     private final String emptyValueAge8Special = "-";  // Значение по умолчанию для Age8Special
     private String webappPath;          // корень web-приложения
@@ -55,7 +51,6 @@ public class ReportSetting {
         beginCurrYear.set(Calendar.MONTH, Calendar.JANUARY);
         currEducYear = DateUtil.getYearPart(currEducDate);
         isFirstOccurrence = true;
-        statusCodeInd8 = InqryStatusCode.SENT_TO_DOO_12;
         shiftYear = -2;
     }
 
@@ -134,4 +129,6 @@ public class ReportSetting {
             {"counter-8.2", "ind_8_2"},
             {"counter-8.3", "ind_8_3"}
             }).collect(Collectors.toMap(name -> (String) name[0], name -> (String) name[1]));
+
+    List<String> countersManual = Arrays.asList("counter-19.3");
 }

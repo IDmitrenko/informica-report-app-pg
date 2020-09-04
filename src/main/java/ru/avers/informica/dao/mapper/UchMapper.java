@@ -23,7 +23,7 @@ public class UchMapper implements RowMapper<UchInf> {
     public UchInf mapRow(ResultSet rs, int rowNum) throws SQLException {
         UchInf uchInf = new UchInf();
         uchInf.setId(rs.getLong("id"));
-        uchInf.setCode(rs.getString("code"));
+        uchInf.setCode("0" + rs.getString("code"));
         uchInf.setName(rs.getString("name"));
         uchInf.setShortName(rs.getString("shortName"));
         uchInf.setIdTer(rs.getInt("idTer"));

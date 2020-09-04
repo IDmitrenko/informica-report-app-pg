@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.InqryDao;
 import ru.avers.informica.dto.informica.InqryEnrolmentInf;
+import ru.avers.informica.dto.informica.InqryInd19_3Inf;
 import ru.avers.informica.dto.informica.InqryInd8Inf;
 import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.report.ReportSetting;
@@ -20,6 +21,7 @@ public class ReportDataProvider {
     private List<InqryInf> inqries;
     private List<InqryEnrolmentInf> allInqryEnrolments;
     private List<InqryInd8Inf> inqriesInd8;
+    private List<InqryInd19_3Inf> inqriesInd19_3;
 
     public void loadData() {
 
@@ -36,6 +38,10 @@ public class ReportDataProvider {
         // считать InqryInd8Inf для подсчета ind_8
         inqriesInd8 = inqryDao.getInqryInd8();
         log.info("Найдено {} inqry-ind8", inqriesInd8.size());
+
+        // считать InqryInd19_3Inf для показателя 19_3
+        inqriesInd19_3 = inqryDao.getInqryInd19_3();
+        log.info("Найдено {} inqry-ind19_3", inqriesInd19_3.size());
     }
 
     public List<InqryInf> getAllInqry() {
@@ -50,4 +56,7 @@ public class ReportDataProvider {
         return inqriesInd8;
     }
 
+    public List<InqryInd19_3Inf> getInqriesInd19_3() {
+        return inqriesInd19_3;
+    }
 }

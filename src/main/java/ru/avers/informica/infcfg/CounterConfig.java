@@ -1,5 +1,6 @@
 package ru.avers.informica.infcfg;
 
+import ru.avers.informica.dto.informica.InqryInd19_3Inf;
 import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.dto.informica.InqryTransferInf;
 import ru.avers.informica.exception.FilterException;
@@ -60,6 +61,10 @@ public class CounterConfig {
                     ((InqryInf) dsItem).getMinPriority().shortValue()) {
                 return false;
             }
+        }
+
+        if (dsItem instanceof InqryInd19_3Inf) {
+            return true;
         }
 
         // Для проверки фильтра по условию ИЛИ (нужно прогнать по всем фильтрам)

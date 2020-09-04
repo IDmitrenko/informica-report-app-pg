@@ -6,14 +6,12 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.InqryDao;
-import ru.avers.informica.dao.mapper.IdMapper;
-import ru.avers.informica.dao.mapper.InqryEnrolmentMapper;
-import ru.avers.informica.dao.mapper.InqryInd8Mapper;
-import ru.avers.informica.dao.mapper.InqryMapper;
+import ru.avers.informica.dao.mapper.*;
 import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.dto.dictcode.InqrySysInteraction;
 import ru.avers.informica.dto.dictcode.TypeClassCode;
 import ru.avers.informica.dto.informica.InqryEnrolmentInf;
+import ru.avers.informica.dto.informica.InqryInd19_3Inf;
 import ru.avers.informica.dto.informica.InqryInd8Inf;
 import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.report.ReportSetting;
@@ -35,6 +33,7 @@ public class InqryDaoImpl implements InqryDao {
     private final IdMapper idMapper;
     private final ReportSetting reportSetting;
     private final InqryInd8Mapper inqryInd8Mapper;
+    private final InqryInd19_3Mapper inqryInd19_3Mapper;
 
     @Override
     public List<InqryInf> getAllInqry(Date currDate, Date currEducDate, Date beginCurrYear) {
@@ -189,7 +188,7 @@ public class InqryDaoImpl implements InqryDao {
         try {
             MapSqlParameterSource parameterSource = new MapSqlParameterSource();
             Date currDate = reportSetting.getCurrDate();
-            String code_sent_to = reportSetting.getStatusCodeInd8();
+            String code_sent_to = InqryStatusCode.SENT_TO_DOO_12;
             int shift_year = reportSetting.getShiftYear();
             Date dateFromInterval = (shift_year == 0 ? currDate :
                     DateUtil.adjustDate(currDate, shift_year));
@@ -233,6 +232,40 @@ public class InqryDaoImpl implements InqryDao {
 
         } catch (Exception ex) {
             log.error("Ошибка выполнения запроса IngryInd8.", ex);
+            throw ex;
+        }
+    }
+
+    @Override
+    public List<InqryInd19_3Inf> getInqryInd19_3() {
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+            Date currDate = reportSetting.getCurrDate();
+            List<String> codes19_3 = Arrays.asList(InqryStatusCode.HAS_ARRIVED_04,
+                    InqryStatusCode.SENT_TO_DOO_12);
+
+            parameterSource.addValue("currDate", currDate);
+            parameterSource.addValue("listCodes19_3", codes19_3);
+
+            List<InqryInd19_3Inf> allInqrysInd19_3 = jdbcTemplate
+                    .query("select count(a.id_app) as cntInqry, " +
+                                    "a.d_birth as birthDt, " +
+                                    "st.uch as idUch " +
+                                    "from app.applications a " +
+                                    "inner join app.status st on st.app_id = a.id_app " +
+                                    "inner join app.statuses sts on sts.id = st.statuses_id " +
+                                    "where st.d_status <= :currDate and " +
+                                    "      st.d_validity > :currDate and " +
+                                    "      sts.code in (:listCodes19_3) and " +
+                                    "      st.uch is not null " +
+                                    "group by st.uch, a.d_birth",
+                            parameterSource,
+                            inqryInd19_3Mapper);
+
+            return allInqrysInd19_3;
+
+        } catch (Exception ex) {
+            log.error("Ошибка выполнения запроса IngryInd19_3.", ex);
             throw ex;
         }
     }
