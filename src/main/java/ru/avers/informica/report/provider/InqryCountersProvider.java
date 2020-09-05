@@ -59,16 +59,20 @@ public class InqryCountersProvider {
                 for (InqryInf inqryInf : inqryInfs) {
                     //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
                     for (CounterConfig counterConfig : inqryCounters) {
-                        if (counterConfig.isPassed(reportSetting.getCurrDate(),
-                                reportSetting.getCurrEducDate(), inqryInf)) {
-                            Collection<TypeAgeRange> ageRanges =
-                                    counterConfig.getCounterDef().getAgeRange()
-                                            .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
-                            if (ageRanges != null && !ageRanges.isEmpty()) {
-                                // Посчитать элемент
-                                Counter counter = counterMap.get(uchInf.getId())
-                                        .get(counterConfig.getCounterDef().getId());
-                                counter.count(inqryInf, ageRanges);
+                        // исключаем из обработки счетчики с особым алгоритмом
+                        if (!reportSetting.getCountersManual()
+                                .contains(counterConfig.getCounterDef().getId())) {
+                            if (counterConfig.isPassed(reportSetting.getCurrDate(),
+                                    reportSetting.getCurrEducDate(), inqryInf)) {
+                                Collection<TypeAgeRange> ageRanges =
+                                        counterConfig.getCounterDef().getAgeRange()
+                                                .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
+                                if (ageRanges != null && !ageRanges.isEmpty()) {
+                                    // Посчитать элемент
+                                    Counter counter = counterMap.get(uchInf.getId())
+                                            .get(counterConfig.getCounterDef().getId());
+                                    counter.count(inqryInf, ageRanges);
+                                }
                             }
                         }
                     }
@@ -108,6 +112,7 @@ public class InqryCountersProvider {
             List<InqryInd19_3Inf> inqryManualInfs = inqryByUchMap.get(uchInf.getId());
             //Пройтись по каждому заявлению и посчитать счетчики
 
+/* Стало не нужно, так как в методе provideCounters эти счетчики инициализируются, но не заполняются
             //Инициализация счетчиков значениями по умолчанию
             for (CounterConfig counterConfig : manualCounters) {
                 Counter counter = counterMap.get(uchInf.getId())
@@ -116,6 +121,7 @@ public class InqryCountersProvider {
                                         new Counter(counterConfig.getCounterDef()) :
                                         new Counter(counterConfig.getCounterDef()));
             }
+*/
             if (inqryManualInfs != null && manualCounters != null) {
                 for (InqryInd19_3Inf inqryInf : inqryManualInfs) {
                     //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
