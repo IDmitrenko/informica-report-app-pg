@@ -25,4 +25,7 @@ public class InqryStatusCode {
             TEMP_ENROLLED_107 = "107", // Временно зачислен
             TEMP_SENT_TO_DOO_112 = "112", // Направлен в ДОО для временного зачисления
             CANT_GO_TO_DOO_MEDIC_14 = "14"; // Не может посещать ДОО по медицинским показаниям
+
+    public static final Short TYPE_APPLICATION_RECEIVING = 1,  // Прием заявлений, постановка на учет и зачисление
+                              TYPE_APPLICATION_TRANSFER =2;    // Перевод
 }

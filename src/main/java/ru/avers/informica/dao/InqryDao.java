@@ -1,9 +1,6 @@
 package ru.avers.informica.dao;
 
-import ru.avers.informica.dto.informica.InqryEnrolmentInf;
-import ru.avers.informica.dto.informica.InqryInd19_3Inf;
-import ru.avers.informica.dto.informica.InqryInd8Inf;
-import ru.avers.informica.dto.informica.InqryInf;
+import ru.avers.informica.dto.informica.*;
 
 import java.util.Date;
 import java.util.List;
@@ -17,4 +14,6 @@ public interface InqryDao {
     List<InqryInd8Inf> getInqryInd8();
 
     List<InqryInd19_3Inf> getInqryInd19_3();
+
+    List<InqryInd20_1Inf> getInqryInd20_1();
 }

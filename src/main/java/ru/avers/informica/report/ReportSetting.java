@@ -130,5 +130,9 @@ public class ReportSetting {
             {"counter-8.3", "ind_8_3"}
             }).collect(Collectors.toMap(name -> (String) name[0], name -> (String) name[1]));
 
-    List<String> countersManual = Arrays.asList("counter-19.3");
+    List<String> countersManual = Arrays.asList("counter-19.3", "counter-20.1");
+
+    List<String> countersManual1 = Arrays.asList("counter-19.3");
+
+    List<String> countersManual2 = Arrays.asList("counter-20.1");
 }

@@ -1,6 +1,7 @@
 package ru.avers.informica.infcfg;
 
 import ru.avers.informica.dto.informica.InqryInd19_3Inf;
+import ru.avers.informica.dto.informica.InqryInd20_1Inf;
 import ru.avers.informica.dto.informica.InqryInf;
 import ru.avers.informica.dto.informica.InqryTransferInf;
 import ru.avers.informica.exception.FilterException;
@@ -64,6 +65,10 @@ public class CounterConfig {
         }
 
         if (dsItem instanceof InqryInd19_3Inf) {
+            return true;
+        }
+
+        if (dsItem instanceof InqryInd20_1Inf) {
             return true;
         }
 

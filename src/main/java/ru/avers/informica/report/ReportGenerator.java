@@ -61,7 +61,7 @@ public class ReportGenerator {
         Map<Long, Map<String, CounterSpecial>> counterMapSpecial = counterProvider
                 .provideCounters8(uchInfSchemas);
         // считаем специфические показатели подходящие по структуре с основными,
-        // имеющими другой источник данных
+        // имеющие другие источники данных
         counterMap = counterProvider.provideCountersManual(uchInfSchemas, counterMap);
 
         //Заносим информацию в выходной XML по municipality

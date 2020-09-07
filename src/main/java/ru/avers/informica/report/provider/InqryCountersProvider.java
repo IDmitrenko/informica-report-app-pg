@@ -6,10 +6,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dto.CAge;
-import ru.avers.informica.dto.informica.InqryInd19_3Inf;
-import ru.avers.informica.dto.informica.InqryInd8Inf;
-import ru.avers.informica.dto.informica.InqryInf;
-import ru.avers.informica.dto.informica.UchInf;
+import ru.avers.informica.dto.informica.*;
 import ru.avers.informica.dto.inqry.AgeDto;
 import ru.avers.informica.exception.FilterException;
 import ru.avers.informica.exception.FspeoException;
@@ -89,6 +86,20 @@ public class InqryCountersProvider {
             Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas,
             Map<Long, Map<String, Counter>> counterMap)
             throws ReportExceprion, FilterException, FspeoException {
+
+        provideCountersManual19_3(uchInfSchemas, counterMap);
+
+        provideCountersManual20_1(uchInfSchemas, counterMap);
+
+        if (counterMap.size() > 0) {
+            log.info("Добавили countersManual. Counters: {}", counterMap);
+        }
+        return counterMap;
+    }
+
+    private void provideCountersManual19_3(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas,
+                                           Map<Long, Map<String, Counter>> counterMap)
+            throws ReportExceprion, FilterException, FspeoException {
         // Map по всем учреждениям - учреждения и его заявления
         Map<Long, List<InqryInd19_3Inf>> inqryByUchMap = reportDataProvider.getInqriesInd19_3().stream()
                 .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
@@ -101,7 +112,7 @@ public class InqryCountersProvider {
             // выбрать счетчики для показателей, рассчитываемых отдельно
             List<CounterConfig> manualCounters = new ArrayList<>();
             for (CounterConfig counter : inqryCounters) {
-                for (String counterManual : reportSetting.getCountersManual()) {
+                for (String counterManual : reportSetting.getCountersManual1()) {
                     if (counterManual.equals(counter.getCounterDef().getId())) {
                         manualCounters.add(counter);
                     }
@@ -142,10 +153,64 @@ public class InqryCountersProvider {
                 }
             }
         }
-        if (counterMap.size() > 0) {
-            log.info("Добавили countersManual. Counters: {}", counterMap);
+    }
+
+    private void provideCountersManual20_1(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas,
+                                           Map<Long, Map<String, Counter>> counterMap)
+            throws ReportExceprion, FilterException, FspeoException {
+        // Map по всем учреждениям - учреждения и его заявления
+        Map<Long, List<InqryInd20_1Inf>> inqryByUchMap = reportDataProvider.getInqriesInd20_1().stream()
+                .collect(Collectors.groupingBy(inqry -> inqry.getIdUch().longValue()));
+
+        for (DataSourceUch.UchInfSchema uchInfSchema : uchInfSchemas.getFirst()) {
+            //Учреждение
+            UchInf uchInf = uchInfSchema.getUchInf();
+            //Счетчики учреждения
+            List<CounterConfig> inqryCounters = uchInfSchema.getSchema().getSource().getInqryCounters();
+            // выбрать счетчики для показателей, рассчитываемых отдельно
+            List<CounterConfig> manualCounters = new ArrayList<>();
+            for (CounterConfig counter : inqryCounters) {
+                for (String counterManual : reportSetting.getCountersManual2()) {
+                    if (counterManual.equals(counter.getCounterDef().getId())) {
+                        manualCounters.add(counter);
+                    }
+                }
+            }
+            inqryCounters = null;
+            //Заявления текущего учреждения
+            List<InqryInd20_1Inf> inqryManualInfs = inqryByUchMap.get(uchInf.getId());
+            //Пройтись по каждому заявлению и посчитать счетчики
+
+/* Стало не нужно, так как в методе provideCounters эти счетчики инициализируются, но не заполняются
+            //Инициализация счетчиков значениями по умолчанию
+            for (CounterConfig counterConfig : manualCounters) {
+                Counter counter = counterMap.get(uchInf.getId())
+                        .computeIfPresent(counterConfig.getCounterDef().getId(),
+                                (k, v) -> v != null ?
+                                        new Counter(counterConfig.getCounterDef()) :
+                                        new Counter(counterConfig.getCounterDef()));
+            }
+*/
+            if (inqryManualInfs != null && manualCounters != null) {
+                for (InqryInd20_1Inf inqryInf : inqryManualInfs) {
+                    //Для каждого счетчика проверить нужно ли его инкрементировать для текущего заявления
+                    for (CounterConfig counterConfig : manualCounters) {
+                        if (counterConfig.isPassed(reportSetting.getCurrDate(),
+                                reportSetting.getCurrEducDate(), inqryInf)) {
+                            Collection<TypeAgeRange> ageRanges =
+                                    counterConfig.getCounterDef().getAgeRange()
+                                            .getAgeRanges(reportSetting.getCurrDate(), inqryInf);
+                            if (ageRanges != null && !ageRanges.isEmpty()) {
+                                // Посчитать элемент
+                                Counter counter = counterMap.get(uchInf.getId())
+                                        .get(counterConfig.getCounterDef().getId());
+                                counter.count(inqryInf, ageRanges);
+                            }
+                        }
+                    }
+                }
+            }
         }
-        return counterMap;
     }
 
     public Map<Long, Map<String, CounterSpecial>> provideCounters8(Pair<Collection<DataSourceUch.UchInfSchema>, String> uchInfSchemas)

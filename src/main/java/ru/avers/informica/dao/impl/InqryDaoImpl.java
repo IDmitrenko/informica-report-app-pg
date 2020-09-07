@@ -10,10 +10,7 @@ import ru.avers.informica.dao.mapper.*;
 import ru.avers.informica.dto.dictcode.InqryStatusCode;
 import ru.avers.informica.dto.dictcode.InqrySysInteraction;
 import ru.avers.informica.dto.dictcode.TypeClassCode;
-import ru.avers.informica.dto.informica.InqryEnrolmentInf;
-import ru.avers.informica.dto.informica.InqryInd19_3Inf;
-import ru.avers.informica.dto.informica.InqryInd8Inf;
-import ru.avers.informica.dto.informica.InqryInf;
+import ru.avers.informica.dto.informica.*;
 import ru.avers.informica.report.ReportSetting;
 import ru.avers.informica.utils.DateUtil;
 
@@ -34,6 +31,7 @@ public class InqryDaoImpl implements InqryDao {
     private final ReportSetting reportSetting;
     private final InqryInd8Mapper inqryInd8Mapper;
     private final InqryInd19_3Mapper inqryInd19_3Mapper;
+    private final InqryInd20_1Mapper inqryInd20_1Mapper;
 
     @Override
     public List<InqryInf> getAllInqry(Date currDate, Date currEducDate, Date beginCurrYear) {
@@ -266,6 +264,42 @@ public class InqryDaoImpl implements InqryDao {
 
         } catch (Exception ex) {
             log.error("Ошибка выполнения запроса IngryInd19_3.", ex);
+            throw ex;
+        }
+    }
+
+    @Override
+    public List<InqryInd20_1Inf> getInqryInd20_1() {
+        try {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+            Date currDate = reportSetting.getCurrDate();
+            List<String> codes20_1 = Arrays.asList(InqryStatusCode.HAS_ARRIVED_04,
+                    InqryStatusCode.SENT_TO_DOO_12);
+            Short typeCode = InqryStatusCode.TYPE_APPLICATION_TRANSFER;
+            parameterSource.addValue("currDate", currDate);
+            parameterSource.addValue("listCodes20_1", codes20_1);
+            parameterSource.addValue("typeCode", typeCode);
+
+            List<InqryInd20_1Inf> allInqrysInd20_1 = jdbcTemplate
+                    .query("select count(a.id_app) as cntInqry, " +
+                                    "a.d_birth as birthDt, " +
+                                    "st.uch as idUch " +
+                                    "from app.applications a " +
+                                    "inner join app.status st on st.app_id = a.id_app " +
+                                    "inner join app.statuses sts on sts.id = st.statuses_id " +
+                                    "where st.d_status <= :currDate and " +
+                                    "      st.d_validity > :currDate and " +
+                                    "      a.statement_type = :typeCode and " +
+                                    "      sts.code in (:listCodes20_1) and " +
+                                    "      st.uch is not null " +
+                                    "group by st.uch, a.d_birth",
+                            parameterSource,
+                            inqryInd20_1Mapper);
+
+            return allInqrysInd20_1;
+
+        } catch (Exception ex) {
+            log.error("Ошибка выполнения запроса IngryInd20_1.", ex);
             throw ex;
         }
     }

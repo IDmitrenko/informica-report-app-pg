@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import ru.avers.informica.dao.InqryDao;
-import ru.avers.informica.dto.informica.InqryEnrolmentInf;
-import ru.avers.informica.dto.informica.InqryInd19_3Inf;
-import ru.avers.informica.dto.informica.InqryInd8Inf;
-import ru.avers.informica.dto.informica.InqryInf;
+import ru.avers.informica.dto.informica.*;
 import ru.avers.informica.report.ReportSetting;
 
 import java.util.List;
@@ -22,6 +19,7 @@ public class ReportDataProvider {
     private List<InqryEnrolmentInf> allInqryEnrolments;
     private List<InqryInd8Inf> inqriesInd8;
     private List<InqryInd19_3Inf> inqriesInd19_3;
+    private List<InqryInd20_1Inf> inqriesInd20_1;
 
     public void loadData() {
 
@@ -42,6 +40,10 @@ public class ReportDataProvider {
         // считать InqryInd19_3Inf для показателя 19_3
         inqriesInd19_3 = inqryDao.getInqryInd19_3();
         log.info("Найдено {} inqry-ind19_3", inqriesInd19_3.size());
+
+        // считать InqryInd20_1Inf для показателя 20_1
+        inqriesInd20_1 = inqryDao.getInqryInd20_1();
+        log.info("Найдено {} inqry-ind20_1", inqriesInd20_1.size());
     }
 
     public List<InqryInf> getAllInqry() {
@@ -58,5 +60,9 @@ public class ReportDataProvider {
 
     public List<InqryInd19_3Inf> getInqriesInd19_3() {
         return inqriesInd19_3;
+    }
+
+    public List<InqryInd20_1Inf> getInqriesInd20_1() {
+        return inqriesInd20_1;
     }
 }
