@@ -135,4 +135,7 @@ public class ReportSetting {
     List<String> countersManual1 = Arrays.asList("counter-19.3");
 
     List<String> countersManual2 = Arrays.asList("counter-20.1");
+
+    List<String> listDTOManual = Arrays.asList("InqryInd19_3Inf", "InqryInd20_1Inf");
+
 }
